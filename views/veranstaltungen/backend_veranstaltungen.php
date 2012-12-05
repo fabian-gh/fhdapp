@@ -63,29 +63,37 @@
 			<tr>
 			  <td>Beschreibung:</td>
 			  <td>
-			  <textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10"></textarea>
+				<div data-role="fieldcontain" class="ui-hide-label">
+				<textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10"></textarea>
+				</div>
 			  </td>
 			</tr>
 			
 			<tr>
 			  <td>Fachbereich:</td>
-			  <td>
-				<input type="checkbox" name="veranstaltungen_fachbereich_1" value="checked" /> Fachbereich 1 - Architektur <br/>
-				<input type="checkbox" name="veranstaltungen_fachbereich_2" value="checked" /> Fachbereich 2 - Design <br/>
-				<input type="checkbox" name="veranstaltungen_fachbereich_3" value="checked" /> Fachbereich 3 - Elektrotechnik <br/>
-				<input type="checkbox" name="veranstaltungen_fachbereich_4" value="checked" /> Fachbereich 4 - Maschinenbau und Verfahrenstechnik <br/>
-				<input type="checkbox" name="veranstaltungen_fachbereich_5" value="checked" /> Fachbereich 5 - Medien <br/>
-				<input type="checkbox" name="veranstaltungen_fachbereich_6" value="checked" /> Fachbereich 6 - Sozial- und Kulturwissenschaften <br/>
-				<input type="checkbox" name="veranstaltungen_fachbereich_7" value="checked" /> Fachbereich 7 - Wirtschaft <br/>
+			  <td>				
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_1" /> Fachbereich 1 - Architektur  </label>
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_2" /> Fachbereich 2 - Design </label>
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_3" /> Fachbereich 3 - Elektrotechnik </label>
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_4" /> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_5" /> Fachbereich 5 - Medien </label>
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_6" /> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
+					<label><input type="checkbox" name="veranstaltungen_fachbereich_7" /> Fachbereich 7 - Wirtschaft </label>
 			  </td>
 			</tr>
 			
 			<tr>
 			  <td>Modus:</td>
 			  <td>
-				<input type="checkbox" name="veranstaltungen_usertypes_1" value="checked" /> Interessent <br/>
-				<input type="checkbox" name="veranstaltungen_usertypes_2" value="checked" /> Ersti <br/>
-				<input type="checkbox" name="veranstaltungen_usertypes_3" value="checked" /> Student <br/>
+				<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					
+					<label><input type="checkbox" name="veranstaltungen_usertypes_1" /> Interessent </label>
+					<label><input type="checkbox" name="veranstaltungen_usertypes_2" /> Ersti </label>
+					<label><input type="checkbox" name="veranstaltungen_usertypes_3" /> Student </label>
+
+				</fieldset>
+				</div>
 			  </td>
 			</tr>
 			

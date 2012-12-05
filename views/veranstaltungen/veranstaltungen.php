@@ -18,39 +18,31 @@
 	
 	
 	
-
+	//echo $details;
+	
+	
+	echo'
+		<div data-role="header">
+			<h1>Veranstaltungen</h1>
+		</div>
+		<div data-role="content">
+		<!-- akkordionmenü -->
+		<div data-role="collapsible-set">
+		';
 
 	foreach($ergebnis as $details)
 	{
-		//echo $details;
 		$zeile = explode(';',$details);
-		
-		echo'
-			<table id="table_veranstaltung_frontend" border="1">
-				<thead>
-				<tr>
-				  <th colspan="2">'.$zeile[0].'</th>
-				</tr>
-				</thead>
-				<tbody>
-					
-				<tr>
-					<td>Datum:</td>
-					<td>
-						'.$zeile[1].'
-					</td>
-				</tr>
-					
-				<tr>
-					<td>Beschreibung:</td>
-					<td>
-						'.$zeile[2].'
-					</td>
-				</tr>	
-				</tbody>
-			</table>';
+		echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$zeile[0].'</h3>
+				<p>'.$zeile[2].'</p>
+				<p>'.$zeile[1].'</p>
+				</div>';
 	}
 	
+	echo '	</div><!-- /collapsible set -->
+			</div><!-- /content -->
+		';
+
 	require_once 'layout/frontend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen.php */
