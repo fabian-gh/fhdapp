@@ -6,7 +6,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
- * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
+ * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
 	ob_start();
 	require_once 'layout/frontend/header.php';
@@ -43,17 +43,20 @@
 			<tr>
 			  <td>Name:</td>
 			  <td>
-				<input name="veranstaltung_name" id="veranstaltung_name" type="text" size="50" maxlength="30">
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<input type="text" name="veranstaltung_name" id="veranstaltung_name" value="" placeholder="Name" size="50" maxlength="30" />
+				</div>
 			  </td>
 			</tr>
 			
 			<tr>
 			 <td>Datum:</td>
 			  <td>
-			  <input name="veranstaltung_datum_tag" id="veranstaltung_datum_tag" type="text" size="5" maxlength="2">
-			  <input name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" type="text" size="5" maxlength="2">
-			  <input name="veranstaltung_datum_jahr" id="veranstaltung_datum_jahr" type="text" size="10" maxlength="4">
-			  (DD-MM-YYYY)
+			  <div data-role="fieldcontain" class="ui-hide-label">
+					<input type="text" name="veranstaltung_datum_tag" id="veranstaltung_datum_tag" value="" placeholder="DD" size="5" maxlength="2" />
+					<input type="text" name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" value="" placeholder="MM" size="5" maxlength="2" />
+					<input type="text" name="veranstaltung_datum_jahr" id="veranstaltung_datum_jahr" value="" placeholder="YYYY" size="10" maxlength="4" />
+			  </div>
 			  </td>
 			</tr>
 			
