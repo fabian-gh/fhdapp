@@ -18,7 +18,7 @@ if(!isset($_SESSION['session_id'])){
 }
 
 // include layout
-require_once '../../layout/frontend/header.php';
+require_once '../../layout/backend/header.php';
 
 ?>
 
@@ -305,7 +305,7 @@ require_once '../../layout/frontend/header.php';
 
 
 <?php
-	require_once '../../layout/frontend/footer.php';
+	require_once '../../layout/backend/footer.php';
 
 
 // Überprüfung ob Formular abgeschickt

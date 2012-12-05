@@ -24,7 +24,7 @@ class Login{
     private $password;
 
     /**
-     * Connection
+     * DB-Connection
      * @var Object
      */
     private $Connection;
@@ -49,13 +49,13 @@ class Login{
      */
     public function login(){
         try{
-            // Abfrage
+            // Abfrage ausführen
             $query = $this->Connection->query("SELECT id, username, password 
                                     FROM user 
                                     WHERE username = '".$this->username."'
                                     AND password = '".$this->password."'");
             
-            // Abfrage ausführen
+            // Abfrage fetchen
             while($row = $query->fetch_assoc()){
                 $resultSet[] = $row;
             }
