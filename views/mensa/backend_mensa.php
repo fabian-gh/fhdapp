@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 /**
  * FHD-App
  *
@@ -13,7 +15,6 @@
 
 // Falls über Deeplink zugegriffen wird und Session noch nicht gestartet, diese starten
 if(!isset($_SESSION['session_id'])){
-	session_start();
 	$_SESSION['session_id'] = session_id();
 }
 

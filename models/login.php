@@ -35,11 +35,11 @@ class Login{
      * Konstruktor der den Loginvorgang durchführt
      * @param Object $Data
      */
-    public function __construct($post){
+    public function __construct($con, $post){
         // Eingaben aus dem Formular
         $this->setUsername($post['username']);
         $this->setPassword(md5($post['password']));
-        $this->setConnection();
+        $this->setConnection($con);
         $this->login();
     }
 
@@ -51,9 +51,9 @@ class Login{
         try{
             // Abfrage ausführen
             $query = $this->Connection->query("SELECT id, username, password 
-                                    FROM user 
-                                    WHERE username = '".$this->username."'
-                                    AND password = '".$this->password."'");
+                                                FROM user 
+                                                WHERE username = '".$this->username."'
+                                                AND password = '".$this->password."'");
             
             // Abfrage fetchen
             while($row = $query->fetch_assoc()){
@@ -63,8 +63,8 @@ class Login{
             // Wenn Abfrage richtig (nicht leer), dann User-ID in Session speichern
             // und auf Backend-Hauptseite leiten
             if(!empty($resultSet)){
-                $_SESSION['user_id'] = $resultSet['id'];
-                header('Location: views/index.php');
+                $_SESSION['user_id'] = $resultSet[0]['id'];
+                header('Location: login.php');
             } else {
                 // ansonsten auf Login-Seite leiten
                 $_SESSION['loginfailure'] = 'Login falsch!';
@@ -102,8 +102,8 @@ class Login{
      * Connection setzen
      * @param String $password
      */
-    public function setConnection() {
-        $this->Connection = $_SESSION['connection'];
+    public function setConnection($con) {
+        $this->Connection = $con;
     }
 }
  

@@ -17,16 +17,24 @@
     
     <div id ="wrapper">
     
-    	<div id ="nav">
-            <h3>Seiteninhalt bearbeiten:</h3>
-        	<ul>
-            	<li><a href='#'>Studiengänge</a></li>
-                <li><a href='#'>Veranstaltungen</a></li>
-                <li><a class ="active" href='#'>Termine</a></li>
-                <li><a href='#'>Mensa</a></li>
-                <li><a href='#'>FAQ</a></li>
-                <li><a href='#'>Kontakt</a></li>
-			</ul>
-        </div>
+        <?php
+
+        if(isset($_SESSION['user_id'])){
+
+            echo '<div id ="nav">
+                    <h3>Seiteninhalt bearbeiten:</h3>
+                    <ul>
+                        <li><a href="">Studiengänge</a></li>
+                        <li><a href="">Veranstaltungen</a></li>
+                        <li><a class ="active" href="">Termine</a></li>
+                        <li><a href="">Mensa</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Kontakt</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </div>';
+        }
+
+        ?>
         
         <div id ="content">

@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 /**
  * FHD-App
  *
@@ -18,10 +16,14 @@ class LoginController{
      * @param Object $Data
      */
     public function __construct($post){
+
+        // Neue Verbindung aufbauen
+        $Connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
+
         // Login-Modell einbinden
-        require_once 'models/login.php';
+        require_once '../../models/login.php';
         // und Objekt erstellen
-        new Login($post);
+        new Login($Connection, $post);
     }
 }
 

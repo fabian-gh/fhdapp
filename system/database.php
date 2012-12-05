@@ -48,8 +48,11 @@ class Database{
         $this->setUsername($db['username']);
         $this->setPassword($db['password']);
 
-        // Verbindung in Session speichern
-        $_SESSION['connection'] = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        // Verbindungsdaten in Session speichern
+        $_SESSION['host'] = $this->getHostname();
+        $_SESSION['db'] = $this->getDatabase();
+        $_SESSION['user'] = $this->getUsername();
+        $_SESSION['pwd'] = $this->getPassword();
     }
     
     

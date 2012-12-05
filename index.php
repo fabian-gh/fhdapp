@@ -13,9 +13,17 @@
 try{
     // Session starten
     session_start();
+
+    // Text für Logout
+    if(isset($_SESSION['logout'])){
+	    echo '<div id="failure">'.$_SESSION['logout'].'</div>';
+	    session_destroy();
+	}
+
     require_once 'system/database.php';
     new Database();
-    echo "Session started";
+	echo "Session started";
+    
     
 } catch(Exception $error){
     // Errormessage ausgeben
