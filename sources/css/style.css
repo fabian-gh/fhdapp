@@ -4,11 +4,44 @@
 }
 
 body {
-	background: #ff0000 url(../img/bg-body.png) no-repeat;
+	background: #FFFFFF;
 	background-size: 100%;
 	font-family: Verdana, Geneva, sans-serif;
 	color: #5a2323;
 	font-size: 25px;
+}
+
+#header {
+	width: 100%;
+	background-color: #FF0000;
+	min-height: 65px;
+}
+
+#nav {
+	padding: 20px 10px 0px 50px;
+	width: 20%;
+	min-height: 600px;
+	background-color: #FFFFFF;
+	float:left;
+	font-family: Verdana, Geneva, sans-serif;
+	color: #5a2323;
+	font-size: 15px;
+}
+
+ul li{
+	padding-top: 10px;
+}
+
+h1{
+	text-align: center;
+	font-family: Verdana, Geneva, sans-serif;
+	color: #FFFFFF;
+	font-size: 30px;
+}
+
+#wrapper {
+	height: 100%;
+	width: 100%;
 }
 
 #logo {
@@ -48,10 +81,10 @@ body {
 }
 
 #content {
-	background: rgba(255, 255, 255, 0.8);
-	margin: 20px;
-	text-shadow: 1px 1px 0px #ffffff;
-	padding: 20px;
+	width: 80%;
+	min-height: 600px;
+	background: #FFFFFF;
+	float:left;
 }
 
 #content h1 {
@@ -59,4 +92,8 @@ body {
 	font-size: 40px;
 	margin-bottom: 10px;
 
+}
+
+.clear {
+	clear: both;
 }
