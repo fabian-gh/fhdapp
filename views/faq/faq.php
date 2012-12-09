@@ -1,5 +1,9 @@
-<?php
+<html>
+<head>
+<title>FAQ</title>
+<link rel="stylesheet" type="text/css" href="layout/frontend/header.css">
+</head>
+<body>
 
-echo "hallo welt";
-
-?>
+</body>
+</html>
