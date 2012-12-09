@@ -118,6 +118,24 @@ body {
 	background-color: #ff0000; 
 }
 
+#content input.price{
+	width: 50px;
+}
+
+#content input.mealinput{
+	height: 50px;
+}
+
+#content td.mealdescription{
+	vertical-align: top;
+	padding-top: 1%;
+	padding-left: 1%;
+}
+
+#content input#mensasubmit{
+	padding: 3px 10px;
+}
+
 .clear {
 	clear: both;
 }

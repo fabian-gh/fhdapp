@@ -11,17 +11,37 @@
 
 class MensaController{
 
-	public function __construct(){}
+	/**
+	 * Contains a Mensa object
+	 * @var Object
+	 */
+	private $MensaModel;
+
+
+
+	/**
+	 * Constructor
+	 */
+	public function __construct(){
+		require_once '../../models/mensa.php';
+		$this->MensaModel = new Mensa();
+	}
+
+
+	/**
+	 * Call the proceedPost()-Method
+	 * @param Array $post
+	 */
+	public function callProceedPost($post){
+		$this->MensaModel->proceedPost($post);
+	}
+
 
 	/**
 	 * Insert the canteen plan into the database
-	 * 
-	 * @param Array $post
 	 */
-	public function callInsertPlan($post){
-		require_once '../../models/mensa.php';
-		$MensaModel = new Mensa();
-		$MensaModel->insertPlan($post);
+	public function callInsertPlan(){
+		$this->MensaModel->insertPlan();
 	}
 }
 

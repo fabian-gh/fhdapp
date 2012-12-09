@@ -15,24 +15,58 @@
 class Mensa{
 
 	/**
+	 * DB-Connection
 	 * @var Object Database-Connection
 	 */
 	private $DbCon;
 
 	/**
+	 * Canteens
 	 * @var Array Canteens
 	 */
-	private $canteens;
+	//private $canteens;
 
 	/**
+	 * Calenderweek
 	 * @var int Calenderweek
 	 */
 	private $calenderweek;
 
 	/**
+	 * Canteen-ID
 	 * @var int ID of the Canteen
 	 */
-	private $canteen_id;
+	//private $canteen_id;
+
+	/**
+	 * Arrays with meals for each day
+	 * @var Array
+	 */
+	private $monday_meals;
+	private $tuesday_meals;
+	private $wednesday_meals;
+	private $thursday_meals;
+	private $friday_meals;
+
+	/**
+	 * Arrays with studendprices for each day
+	 * @var Array
+	 */
+	private $monday_stud_prices;
+	private $tuesday_stud_prices;
+	private $wednesday_stud_prices;
+	private $thursday_stud_prices;
+	private $friday_stud_prices;
+
+	/**
+	 * Arrays with attendentprices for each day
+	 * @var Array
+	 */
+	private $monday_att_prices;
+	private $tuesday_att_prices;
+	private $wednesday_att_prices;
+	private $thursday_att_prices;
+	private $friday_att_prices;
 
 
 
@@ -50,7 +84,7 @@ class Mensa{
 	/**
 	 * Query all existing canteens
 	 */
-	public function getCanteens(){
+	/*public function getCanteens(){
 		try{
 			$query = $this->DbCon->query("SELECT id, name FROM canteens");
 
@@ -61,17 +95,10 @@ class Mensa{
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
-	}
+	}*/
 
 
-
-	/**
-	 * Insert the Plan into the database
-	 *
-	 * @param Array $post Post-Data
-	 */
-	public function insertPlan($post){
-
+	public function proceedPost($post){
 		// Verarbeitung der POST-Daten
 		foreach($post as $key => $value){
 
@@ -83,77 +110,86 @@ class Mensa{
 				break;
 
 				//Canteen-ID
-				case strstr($key, 'canteens'):
+				/*case strstr($key, 'canteens'):
 					$this->canteen_id;
-				break;
+				break;*/
 
 				// Monday
 				case strstr($key, 'mon_'):
-					$monday_meals[$key] = $value;
+					$this->monday_meals[$key] = $value;
 				break;
 
 				case strstr($key, 'price_stud_mon_'):
-					$monday_stud_prices[$key] = $value;
+					$this->monday_stud_prices[$key] = $value;
 				break;
 
 				case strstr($key, 'price_att_mon_'):
-					$monday_att_prices[$key] = $value;
+					$this->monday_att_prices[$key] = $value;
 				break;
 
 				// Tuesday
 				case strstr($key, 'tue_'):
-					$tuesday_meals[$key] = $value;
+					$this->tuesday_meals[$key] = $value;
 				break;
 
 				case strstr($key, 'price_stud_tue_'):
-					$tuesday_stud_prices[$key] = $value;
+					$this->tuesday_stud_prices[$key] = $value;
 				break;
 
 				case strstr($key, 'price_att_tue_'):
-					$tuesday_att_prices[$key] = $value;
+					$this->tuesday_att_prices[$key] = $value;
 				break;
 
 				// Wednesday
 				case strstr($key, 'wed_'):
-					$wednesday_meals[$key] = $value;
+					$this->wednesday_meals[$key] = $value;
 				break;
 
 				case strstr($key, 'price_stud_wed_'):
-					$wednesday_stud_prices[$key] = $value;
+					$this->wednesday_stud_prices[$key] = $value;
 				break;
 
 				case strstr($key, 'price_att_wed_'):
-					$wednesday_att_prices[$key] = $value;
+					$this->wednesday_att_prices[$key] = $value;
 				break;
 
 				// Thursday
 				case strstr($key, 'thu_'):
-					$thursday_meals[$key] = $value;
+					$this->thursday_meals[$key] = $value;
 				break;
 
 				case strstr($key, 'price_stud_thu_'):
-					$thursday_stud_prices[$key] = $value;
+					$this->thursday_stud_prices[$key] = $value;
 				break;
 
 				case strstr($key, 'price_att_thu_'):
-					$thursday_att_prices[$key] = $value;
+					$this->thursday_att_prices[$key] = $value;
 				break;
 
 				// Friday
 				case strstr($key, 'fri_'):
-					$friday_meals[$key] = $value;
+					$this->friday_meals[$key] = $value;
 				break;
 
 				case strstr($key, 'price_stud_fri_'):
-					$friday_stud_prices[$key] = $value;
+					$this->friday_stud_prices[$key] = $value;
 				break;
 
 				case strstr($key, 'price_att_fri_'):
-					$friday_att_prices[$key] = $value;
+					$this->friday_att_prices[$key] = $value;
 				break;
 			}
 		}
+	}
 
+
+
+	/**
+	 * Insert the Plan into the database
+	 *
+	 * @param Array $post Post-Data
+	 */
+	public function insertPlan(){
 		try{
 			
 		} catch (Exception $e){
