@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 /**
  * FHD-App
  *
@@ -9,18 +11,27 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
+
+
+// Falls über Deeplink zugegriffen wird und Session noch nicht gestartet, diese starten
+if(!isset($_SESSION['session_id'])){
+	$_SESSION['session_id'] = session_id();
+}
+
 // include layout
-require_once '../../layout/frontend/header.php';
+require_once '../../layout/backend/header.php';
 
 ?>
+
+
 
 <form name="mensa" method="post" action="">
 	<table>
 		<tr>
 			<td>Kalenderwoche:</td><td><input type="textfield" id="calenderweek" name="calenderweek" value="" /></td>
 			<td>
-				<input type="radio" id="canteen_north" name="canteens" />Mensa Nord
-				<input type="radio" id="canteen_south" name="canteens" />Mensa Universit&auml;tsstrasse
+				<input type="radio" id="canteen_north" name="canteens" value="1"/>Mensa Nord
+				<input type="radio" id="canteen_south" name="canteens" value="2"/>Mensa Universit&auml;tsstrasse
 			</td>
 		</tr>
 	</table>
@@ -150,7 +161,7 @@ require_once '../../layout/frontend/header.php';
 				</table></td>
 		</tr>
 		<tr id="gratin" class="uni_campus">
-			<td>Wok</td>
+			<td>Gratin</td>
 			<td><input type="textarea" name="mon_gratin"/>
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" length="5" name="price_stud_mon_gratin"/> €</td></tr>
@@ -295,7 +306,16 @@ require_once '../../layout/frontend/header.php';
 
 
 <?php
-require_once '../../layout/frontend/footer.php';
+	require_once '../../layout/backend/footer.php';
+
+
+// Überprüfung ob Formular abgeschickt
+if(isset($_POST['speichern'])){
+	require_once '../../controllers/mensaController.php';
+	$Mensa = new MensaController();
+	$Mensa->callInsertPlan($_POST);
+}
+
 ?>
 
 
