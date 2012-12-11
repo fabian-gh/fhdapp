@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link href="../../sources/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
 	<script type="text/javascript" src="sources/js/jquery-1.8.2.min.js"></script>
 	<title>FHD App - Redaktion</title>
 </head>
@@ -12,24 +12,32 @@
 <body>
 
 	<div id="wrapper">
-		<div id="header">
+		<div id="header">	<!-- Header -->
 			<h1> FHD-App Redaktion </h1>
 		</div>
-		<div id="nav">
+		<div id="nav">	<!-- Navi -->
 			<ul>
-				<a href="../studiengaenge/backend_studiengaenge.php"><li>Studieng&auml;nge</li></a>
-				<a href="../mensa/backend_mensa.php"><li>Mensa</li></a>
-				<a href="../termine/backend_termine.php"><li>Termine</li></a>
-				<a href="../kontakte/backend_kontakte.php"><li>Kontakte</li></a>
-				<a href="../faq/backend_faq.php"><li>FAQ</li></a>
-				<a href="../veranstaltungen/backend_veranstaltungen.php"><li>Veranstaltungen</li></a>
+				<a href="views/studiengaenge/backend_studiengaenge.php"><li>Studieng&auml;nge</li></a>
+				<a href="views/mensa/backend_mensa.php"><li>Mensa</li></a>
+				<a href="views/termine/backend_termine.php"><li>Termine</li></a>
+				<a href="views/kontakte/backend_kontakte.php"><li>Kontakte</li></a>
+				<a href="views/faq/backend_faq.php"><li>FAQ</li></a>
+				<a href="views/veranstaltungen/backend_veranstaltungen.php"><li>Veranstaltungen</li></a>
 			</ul>
 		</div>
 		
-		<div id="content">
-		
+		<div id="content">	<!-- Inhalt -->
+			<h1>Studieng&auml;nge</h1>
 			
-		
+			<?php
+				require_once 'controllers/studiengaengeController.php';
+    			$studycoursesController = new StudycoursesController();
+				require_once 'backend/insertFormular.php';	//Formular zum einfügen der Studiengänge
+				if(isset($_POST["insert"])){
+					$studycoursesController->insertStudycourse($_POST["language_id"], $_POST["name"], $_POST["description"], $_POST["department_id"], $_POST["semestercount"], $_POST["graduate_id"], $_POST["link"]);
+				}
+			?>
+			
 		</div>
 		
 		<div class="clearBoth"></div>

@@ -1,14 +1,28 @@
 <?php
 
-/**
- * FHD-App
- *
- * @version 0.0.1
- * @copyright Fachhochschule Duesseldorf, 2012
- * @link http://www.fh-duesseldorf.de
- * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
- */
+	class StudycoursesController{
+	
+		//IV
+		private $studycoursesModel;
+		
+		//Konstruktor
+		public function __construct(){
+			//StudycoursesModell einbinden
+			require_once 'models/studiengaengeModel.php';
+			
+			//StudycourseModell initialisieren
+			$this->studycoursesModel = new StudycoursesModel();
+		}
+		
+		
+		//IM
+		public function insertStudycourse($language_id, $name, $description, $department_id, $semestercount, $graduate_id, $link){
+			if(isset($name, $description, $semestercount, $link)){	//Wenn alles ausgefüllt ist
+				$this->studycoursesModel->insertStudycourse($language_id, $name, $description, $department_id, $semestercount, $graduate_id, $link);
+			}
+		}
+		
+		
+	}
 
- 
-/* End of file studiengaengeController.php */
-/* Location: ./controllers/studiengaengeController.php */
+?>

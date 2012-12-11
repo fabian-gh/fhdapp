@@ -4,44 +4,11 @@
 }
 
 body {
-	background: #FFFFFF;
+	background: #ff0000 url(images/bg-body.png) no-repeat;
 	background-size: 100%;
 	font-family: Verdana, Geneva, sans-serif;
 	color: #5a2323;
 	font-size: 25px;
-}
-
-#header {
-	width: 100%;
-	background-color: #FF0000;
-	min-height: 65px;
-}
-
-#nav {
-	padding: 20px 10px 0px 50px;
-	width: 20%;
-	min-height: 600px;
-	background-color: #FFFFFF;
-	float:left;
-	font-family: Verdana, Geneva, sans-serif;
-	color: #5a2323;
-	font-size: 15px;
-}
-
-ul li{
-	padding-top: 10px;
-}
-
-h1{
-	text-align: center;
-	font-family: Verdana, Geneva, sans-serif;
-	color: #FFFFFF;
-	font-size: 30px;
-}
-
-#wrapper {
-	height: 100%;
-	width: 100%;
 }
 
 #logo {
@@ -51,7 +18,7 @@ h1{
 #logo a {
 	height: 100px;
 	width: 220px;
-	background: url(../img/logo.png) no-repeat 20px 20px;
+	background: url(images/logo.png) no-repeat 20px 20px;
 	display: block;
 	text-indent: -9999em;
 }
@@ -73,7 +40,7 @@ h1{
 }
 
 #breadcrumb a.nav-icon {
-	background: url(../img/nav-icon-i.png) no-repeat;
+	background: url(images/nav-icon-i.png) no-repeat;
 	display: inline-block;
 	text-indent: -9999em;
 	width: 26px;
@@ -81,10 +48,10 @@ h1{
 }
 
 #content {
-	width: 80%;
-	min-height: 600px;
-	background: #FFFFFF;
-	float:left;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 20px;
+	text-shadow: 1px 1px 0px #ffffff;
+	padding: 20px;
 }
 
 #content h1 {
@@ -92,8 +59,4 @@ h1{
 	font-size: 40px;
 	margin-bottom: 10px;
 
-}
-
-.clear {
-	clear: both;
 }
