@@ -9,7 +9,7 @@
 		}
 		
 		//IM
-		public function insertStudycourse{
+		public function insertStudycourse(){
 			try{
 //				$this->connection->query("INSERT INTO studycourses() VALUES()");
 			}
