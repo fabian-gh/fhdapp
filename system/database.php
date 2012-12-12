@@ -48,8 +48,11 @@ class Database{
         $this->setUsername($db['username']);
         $this->setPassword($db['password']);
         
-        //Connection in Session speichern
-        $_SESSION['connection'] = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        // Verbindungsdaten in Session speichern
+        $_SESSION['host'] = $this->getHostname();
+        $_SESSION['db'] = $this->getDatabase();
+        $_SESSION['user'] = $this->getUsername();
+        $_SESSION['pwd'] = $this->getPassword();
     }
     
     
@@ -98,7 +101,7 @@ class Database{
      * @return String
      */
     public function getHostname(){
-        return $_SESSION['host'];
+        return $this->hostname;
     }
     
     
@@ -107,7 +110,7 @@ class Database{
      * @return String
      */
     public function getDatabase(){
-        return $_SESSION['db'];
+        return $this->database;
     }
     
     
@@ -116,7 +119,7 @@ class Database{
      * @return String
      */
     public function getUsername(){
-        return $_SESSION['user'];
+        return $this->username;
     }
     
     
@@ -125,7 +128,7 @@ class Database{
      * @return String
      */
     public function getPassword(){
-        return $_SESSION['pwd'];
+        return $this->password;
     }
 }
 
