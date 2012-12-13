@@ -21,25 +21,19 @@ class Mensa{
 	private $DbCon;
 
 	/**
-	 * Canteens
-	 * @var Array Canteens
-	 */
-	//private $canteens;
-
-	/**
 	 * Calenderweek
 	 * @var int Calenderweek
 	 */
 	private $calenderweek;
 
 	/**
-	 * Canteen-ID
-	 * @var int ID of the Canteen
+	 * Date of the day where the monday_meals is served
+	 * @var Date
 	 */
-	//private $canteen_id;
+	private $mealdate;
 
 	/**
-	 * Arrays with meals for each day
+	 * Arrays with monday_mealss for each day
 	 * @var Array
 	 */
 	private $monday_meals;
@@ -99,84 +93,83 @@ class Mensa{
 
 
 	public function proceedPost($post){
+
 		// Verarbeitung der POST-Daten
 		foreach($post as $key => $value){
 
 			switch($key){
 
-				//Calenderweek
 				case strstr($key, 'calenderweek');
 					$this->calenderweek;
 				break;
 
-				//Canteen-ID
-				/*case strstr($key, 'canteens'):
-					$this->canteen_id;
-				break;*/
+				case strstr($key, 'mealdate'):
+					$this->mealdate;
+				break;
 
 				// Monday
 				case strstr($key, 'mon_'):
-					$this->monday_meals[$key] = $value;
+					$this->monday_meals[] = $value;
 				break;
 
 				case strstr($key, 'price_stud_mon_'):
-					$this->monday_stud_prices[$key] = $value;
+					$this->monday_stud_prices[] = $value;
 				break;
 
 				case strstr($key, 'price_att_mon_'):
-					$this->monday_att_prices[$key] = $value;
+					$this->monday_att_prices[] = $value;
 				break;
 
 				// Tuesday
 				case strstr($key, 'tue_'):
-					$this->tuesday_meals[$key] = $value;
+					$this->tuesday_meals[] = $value;
 				break;
 
 				case strstr($key, 'price_stud_tue_'):
-					$this->tuesday_stud_prices[$key] = $value;
+					$this->tuesday_stud_prices[] = $value;
 				break;
 
 				case strstr($key, 'price_att_tue_'):
-					$this->tuesday_att_prices[$key] = $value;
+					$this->tuesday_att_prices[] = $value;
 				break;
 
 				// Wednesday
 				case strstr($key, 'wed_'):
-					$this->wednesday_meals[$key] = $value;
+					$this->wednesday_meals[] = $value;
 				break;
 
 				case strstr($key, 'price_stud_wed_'):
-					$this->wednesday_stud_prices[$key] = $value;
+					$this->wednesday_stud_prices[] = $value;
 				break;
 
 				case strstr($key, 'price_att_wed_'):
-					$this->wednesday_att_prices[$key] = $value;
+					$this->wednesday_att_prices[] = $value;
 				break;
 
 				// Thursday
 				case strstr($key, 'thu_'):
-					$this->thursday_meals[$key] = $value;
+					$this->thursday_meals[] = $value;
 				break;
 
 				case strstr($key, 'price_stud_thu_'):
-					$this->thursday_stud_prices[$key] = $value;
+					$this->thursday_stud_prices[] = $value;
 				break;
 
 				case strstr($key, 'price_att_thu_'):
-					$this->thursday_att_prices[$key] = $value;
+					$this->thursday_att_prices[] = $value;
 				break;
 
 				// Friday
 				case strstr($key, 'fri_'):
-					$this->friday_meals[$key] = $value;
+					$this->friday_meals[] = $value;
 				break;
 
 				case strstr($key, 'price_stud_fri_'):
-					$this->friday_stud_prices[$key] = $value;
+					$this->friday_stud_prices[] = $value;
 				break;
 
 				case strstr($key, 'price_att_fri_'):
-					$this->friday_att_prices[$key] = $value;
+					$this->friday_att_prices[] = $value;
 				break;
 			}
 		}
@@ -191,11 +184,44 @@ class Mensa{
 	 */
 	public function insertPlan(){
 		try{
-			
+			// insert Monday
+			$this->DbCon->real_query("INSERT INTO 'meals' ('calenderweek', 'mealdate', 'day_id', 
+													'meal_one', 'meal_two', 'side', 'hotpot',
+													'bbq', 'price_stud_bbq', 'price_att_bbq',
+													'pan', 'price_stud_pan', 'price_att_pan',
+													'wok', 'price_stud_wok', 'price_att_wok',
+													'gratin', 'price_stud_gratin', 'price_att_gratin',
+													'weekoffer', 'price_stud_weekoffer', 'price_att_weekoffer',
+													'special', 'price_stud_special', 'price_att_special',
+													'action', 'price_stud_action', 'price_att_action',
+													'green_corner', 'price_stud_green_corner', 'price_att_green_corner') 
+			VALUES ('".$this->calenderweek.", ".$this->mealdate."', '1',
+					'".$this->monday_meals[0]."', '".$this->monday_meals[1]."', '".$this->monday_meals[2]."', '".$this->monday_meals[3]."', 
+					'".$this->monday_meals[4]."', '".$this->monday_stud_prices[0]."', '".$this->monday_att_prices[0]."',
+					'".$this->monday_meals[5]."', '".$this->monday_stud_prices[1]."', '".$this->monday_att_prices[1]."',
+					'".$this->monday_meals[6]."', '".$this->monday_stud_prices[2]."', '".$this->monday_att_prices[2]."',
+					'".$this->monday_meals[7]."', '".$this->monday_stud_prices[3]."', '".$this->monday_att_prices[3]."',
+					'".$this->monday_meals[8]."', '".$this->monday_stud_prices[4]."', '".$this->monday_att_prices[4]."',
+					'".$this->monday_meals[9]."', '".$this->monday_stud_prices[5]."', '".$this->monday_att_prices[5]."',
+					'".$this->monday_meals[10]."', '".$this->monday_stud_prices[6]."', '".$this->monday_att_prices[6]."',
+					'".$this->monday_meals[11]."', '".$this->monday_stud_prices[7]."', '".$this->monday_att_prices[7]."')");
+
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
 	}
+
+
+	/**
+	 * Set the first four counts of the array to null
+	 * @param Array $originalarray
+	 */
+	/*private function setFirstFourCounts($originalarray = array()){
+		for($i=0; $i<4; $i++){
+			$array[$i] = null;
+		}
+		return $array;
+	}*/
 
 }
 
@@ -205,16 +231,16 @@ class Mensa{
 
 calenderweek:45
 canteens:1
-mon_meal_one:
-tue_meal_one:
-wed_meal_one:
-thu_meal_one:
-fri_meal_one:
-mon_meal_two:
-tue_meal_two:
-wed_meal_two:
-thu_meal_two:
-fri_meal_two:
+mon_monday_meals_one:
+tue_monday_meals_one:
+wed_monday_meals_one:
+thu_monday_meals_one:
+fri_monday_meals_one:
+mon_monday_meals_two:
+tue_monday_meals_two:
+wed_monday_meals_two:
+thu_monday_meals_two:
+fri_monday_meals_two:
 mon_side:
 tue_side:
 wed_side:

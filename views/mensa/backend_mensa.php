@@ -309,7 +309,8 @@ require_once '../../layout/backend/header.php';
 if(isset($_POST['speichern'])){
 	require_once '../../controllers/mensaController.php';
 	$Mensa = new MensaController();
-	$Mensa->callInsertPlan($_POST);
+	$Mensa->callProceedPost($_POST);
+	$Mensa->callInsertPlan();
 }
 
 ?>
