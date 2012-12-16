@@ -14,8 +14,8 @@ session_start();
 
 
 // Falls über Deeplink zugegriffen wird und Session noch nicht gestartet, diese starten
-if(!isset($_SESSION['session_id'])){
-    $_SESSION['session_id'] = session_id();
+if(!isset($_SESSION['user_id'])){
+    header('Location: login.php');
 }
 
 // include layout

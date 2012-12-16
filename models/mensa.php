@@ -1,5 +1,4 @@
 <?php
-
 /**
  * FHD-App
  *
@@ -185,16 +184,16 @@ class Mensa{
 	public function insertPlan(){
 		try{
 			// insert Monday
-			$this->DbCon->real_query("INSERT INTO 'meals' ('calenderweek', 'mealdate', 'day_id', 
-													'meal_one', 'meal_two', 'side', 'hotpot',
-													'bbq', 'price_stud_bbq', 'price_att_bbq',
-													'pan', 'price_stud_pan', 'price_att_pan',
-													'wok', 'price_stud_wok', 'price_att_wok',
-													'gratin', 'price_stud_gratin', 'price_att_gratin',
-													'weekoffer', 'price_stud_weekoffer', 'price_att_weekoffer',
-													'special', 'price_stud_special', 'price_att_special',
-													'action', 'price_stud_action', 'price_att_action',
-													'green_corner', 'price_stud_green_corner', 'price_att_green_corner') 
+			$this->DbCon->real_query("INSERT INTO meals (calenderweek, mealdate, day_id, 
+														meal_one, meal_two, side, hotpot,
+														bbq, price_stud_bbq, price_att_bbq,
+														pan, price_stud_pan, price_att_pan,
+														wok, price_stud_wok, price_att_wok,
+														gratin, price_stud_gratin, price_att_gratin,
+														weekoffer, price_stud_weekoffer, price_att_weekoffer,
+														special, price_stud_special, price_att_special,
+														action, price_stud_action, price_att_action,
+														green_corner, price_stud_green_corner, price_att_green_corner) 
 			VALUES ('".$this->calenderweek.", ".$this->mealdate."', '1',
 					'".$this->monday_meals[0]."', '".$this->monday_meals[1]."', '".$this->monday_meals[2]."', '".$this->monday_meals[3]."', 
 					'".$this->monday_meals[4]."', '".$this->monday_stud_prices[0]."', '".$this->monday_att_prices[0]."',
@@ -206,6 +205,174 @@ class Mensa{
 					'".$this->monday_meals[10]."', '".$this->monday_stud_prices[6]."', '".$this->monday_att_prices[6]."',
 					'".$this->monday_meals[11]."', '".$this->monday_stud_prices[7]."', '".$this->monday_att_prices[7]."')");
 
+		} catch (Exception $e){
+			echo $e->getMessage();
+		}
+	}
+
+
+
+	/**
+	 * Delete a plan
+	 * @param int $id
+	 */
+	public function deletePlan($id){
+		try{
+			$this->DbCon->real_query("DELETE FROM meals WHERE id = '".$id."'");
+			echo 'Plan mit ID ='.$id.'gelöscht';
+		} catch (Exception $e){
+			echo $e->getMessage();
+		}
+	}
+
+
+	/**
+	 * Edit a plan
+	 * @param int $id
+	 */
+	public function editPlan($id){
+		try{
+			$_POST['calenderweek'] = ;
+			$_POST['mon_meal_one'] = ;
+			$_POST['tue_meal_one'] = ;
+			$_POST['wed_meal_one'] = ;
+			$_POST['thu_meal_one'] = ;
+			$_POST['fri_meal_one'] = ;
+			$_POST['mon_meal_two'] = ;
+			$_POST['tue_meal_two'] = ;
+			$_POST['wed_meal_two'] = ;
+			$_POST['thu_meal_two'] = ;
+			$_POST['fri_meal_two'] = ;
+			$_POST['mon_side'] = ;
+			$_POST['tue_side'] = ;
+			$_POST['wed_side'] = ;
+			$_POST['thu_side'] = ;
+			$_POST['fri_side'] = ;
+			$_POST['mon_hotpot'] = ;
+			$_POST['tue_hotpot'] = ;
+			$_POST['wed_hotpot'] = ;
+			$_POST['thu_hotpot'] = ;
+			$_POST['fri_hotpot'] = ;
+			$_POST['mon_bbq'] = ;
+			$_POST['price_stud_mon_bbq'] = ;
+			$_POST['price_att_mon_bbq'] = ;
+			$_POST['tue_bbq'] = ;
+			$_POST['price_stud_tue_bbq'] = ;
+			$_POST['price_att_tue_bbq'] = ;
+			$_POST['wed_bbq'] = ;
+			$_POST['price_stud_wed_bbq'] = ;
+			$_POST['price_att_wed_bq'] = ;
+			$_POST['thu_bbq'] = ;
+			$_POST['price_stud_thu_bbq'] = ;
+			$_POST['price_att_thu_bbq'] = ;
+			$_POST['fri_bbq'] = ;
+			$_POST['price_stud_fri_bbq'] = ;
+			$_POST['price_att_fri_bbq'] = ;
+			$_POST['mon_pan'] = ;
+			$_POST['price_stud_mon_pan'] = ;
+			$_POST['price_att_mon_pan'] = ;
+			$_POST['tue_pan'] = ;
+			$_POST['price_stud_tue_pan'] = ;
+			$_POST['price_att_tue_pan'] = ;
+			$_POST['wed_pan'] = ;
+			$_POST['price_stud_wed_pan'] = ;
+			$_POST['price_att_wed_pan'] = ;
+			$_POST['thu_pan'] = ;
+			$_POST['price_stud_thu_pan'] = ;
+			$_POST['price_att_thu_pan'] = ;
+			$_POST['fri_pan'] = ;
+			$_POST['price_stud_fri_pan'] = ;
+			$_POST['price_att_fri_pan'] = ;
+			$_POST['mon_wok'] = ;
+			$_POST['price_stud_mon_wok'] = ;
+			$_POST['price_att_mon_wok'] = ;
+			$_POST['tue_wok'] = ;
+			$_POST['price_stud_tue_wok'] = ;
+			$_POST['price_att_tue_wok'] = ;
+			$_POST['wed_wok'] = ;
+			$_POST['price_stud_wed_wok'] = ;
+			$_POST['price_att_wed_wok'] = ;
+			$_POST['thu_wok'] = ;
+			$_POST['price_stud_thu_wok'] = ;
+			$_POST['price_att_thu_wok'] = ;
+			$_POST['fri_wok'] = ;
+			$_POST['price_stud_fri_wok'] = ;
+			$_POST['price_att_fri_wok'] = ;
+			$_POST['mon_gratin'] = ;
+			$_POST['price_stud_mon_gratin'] = ;
+			$_POST['price_att_mon_gratin'] = ;
+			$_POST['tue_gratin'] = ;
+			$_POST['price_stud_tue_gratin'] = ;
+			$_POST['price_att_tue_gratin'] = ;
+			$_POST['wed_gratin'] = ;
+			$_POST['price_stud_wed_gratin'] = ;
+			$_POST['price_att_wed_gratin'] = ;
+			$_POST['thu_gratin'] = ;
+			$_POST['price_stud_thu_gratin'] = ;
+			$_POST['price_att_thu_gratin'] = ;
+			$_POST['fri_gratin'] = ;
+			$_POST['price_stud_fri_gratin'] = ;
+			$_POST['price_att_fri_gratin'] = ;
+			$_POST['mon_weekoffer'] = ;
+			$_POST['price_stud_mon_weekoffer'] = ;
+			$_POST['price_att_mon_weekoffer'] = ;
+			$_POST['tue_weekoffer'] = ;
+			$_POST['price_stud_tue_weekoffer'] = ;
+			$_POST['price_att_tue_weekoffer'] = ;
+			$_POST['wed_weekoffer'] = ;
+			$_POST['price_stud_wed_weekoffer'] = ;
+			$_POST['price_att_wed_weekoffer'] = ;
+			$_POST['thu_weekoffer'] = ;
+			$_POST['price_stud_thu_weekoffer'] = ;
+			$_POST['price_att_thu_weekoffer'] = ;
+			$_POST['fri_weekoffer'] = ;
+			$_POST['price_stud_fri_weekoffer'] = ;
+			$_POST['price_att_fri_weekoffer'] = ;
+			$_POST['mon_special'] = ;
+			$_POST['price_stud_mon_special'] = ;
+			$_POST['price_att_mon_special'] = ;
+			$_POST['tue_special'] = ;
+			$_POST['price_stud_tue_special'] = ;
+			$_POST['price_att_tue_special'] = ;
+			$_POST['wed_special'] = ;
+			$_POST['price_stud_wed_special'] = ;
+			$_POST['price_att_wed_special'] = ;
+			$_POST['thu_special'] = ;
+			$_POST['price_stud_thu_special'] = ;
+			$_POST['price_att_thu_special'] = ;
+			$_POST['fri_special'] = ;
+			$_POST['price_stud_fri_special'] = ;
+			$_POST['price_att_fri_special'] = ;
+			$_POST['mon_action'] = ;
+			$_POST['price_stud_mon_action'] = ;
+			$_POST['price_att_mon_action'] = ;
+			$_POST['tue_action'] = ;
+			$_POST['price_stud_tue_action'] = ;
+			$_POST['price_att_tue_action'] = ;
+			$_POST['wed_action'] = ;
+			$_POST['price_stud_wed_action'] = ;
+			$_POST['price_att_wed_action'] = ;
+			$_POST['thu_action'] = ;
+			$_POST['price_stud_thu_action'] = ;
+			$_POST['price_att_thu_action'] = ;
+			$_POST['fri_action'] = ;
+			$_POST['price_stud_fri_action'] = ;
+			$_POST['price_att_fri_action'] = ;
+			$_POST['mon_green_corner'] = ;
+			$_POST['price_stud_mon_green_corner'] = ;
+			$_POST['price_att_mon_green_corner'] = ;
+			$_POST['tue_green_corner'] = ;
+			$_POST['price_stud_tue_green_corner'] = ;
+			$_POST['price_att_tue_green_corner'] = ;
+			$_POST['wed_green_corner'] = ;
+			$_POST['price_stud_wed_green_corner'] = ;
+			$_POST['price_att_wed_green_corner'] = ;
+			$_POST['thu_green_corner'] = ;
+			$_POST['price_stud_thu_green_corner'] = ;
+			$_POST['price_att_thu_green_corner'] = ;
+			$_POST['fri_green_corner'] = ;
+			$_POST['price_stud_fri_green_corner'] = ;
+			$_POST['price_att_fri_green_corner'] = ;
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
@@ -231,16 +398,16 @@ class Mensa{
 
 calenderweek:45
 canteens:1
-mon_monday_meals_one:
-tue_monday_meals_one:
-wed_monday_meals_one:
-thu_monday_meals_one:
-fri_monday_meals_one:
-mon_monday_meals_two:
-tue_monday_meals_two:
-wed_monday_meals_two:
-thu_monday_meals_two:
-fri_monday_meals_two:
+mon_meal_one:
+tue_meal_one:
+wed_meal_one:
+thu_meal_one:
+fri_meal_one:
+mon_meal_two:
+tue_meal_two:
+wed_meal_two:
+thu_meal_two:
+fri_meal_two:
 mon_side:
 tue_side:
 wed_side:

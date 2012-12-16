@@ -23,8 +23,46 @@ class MensaController{
 	 * Constructor
 	 */
 	public function __construct(){
-		require_once '../../models/mensa.php';
-		$this->MensaModel = new Mensa();
+		if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
+
+			require_once '../../models/mensa.php';
+			$this->MensaModel = new Mensa();
+
+			if(isset[$_GET['mode']]){
+				switch($_GET['mode']){
+					case 'add':
+						require_once 'edit.php';
+					break;
+
+					case 'edit':
+						$this->callEditPlan($_GET['id']);
+						require_once 'edit.php';
+					break;
+
+					case 'delete':
+						$this->callDeletePlan($_GET['id']);
+					break;
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * Call the editPlan()-Method
+	 * @param Array $post
+	 */
+	public function callEditPlan($id){
+		$this->MensaModel->editPlan($id);
+	}
+
+
+	/**
+	 * Call the deletePlan()-Method
+	 * @param Array $post
+	 */
+	public function callDeletePlan($id){
+		$this->MensaModel->deletePlan($id);
 	}
 
 
