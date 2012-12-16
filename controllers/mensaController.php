@@ -28,19 +28,20 @@ class MensaController{
 			require_once '../../models/mensa.php';
 			$this->MensaModel = new Mensa();
 
-			if(isset[$_GET['mode']]){
+			if(isset($_GET['mode'])){
+
 				switch($_GET['mode']){
 					case 'add':
 						require_once 'edit.php';
 					break;
 
 					case 'edit':
-						$this->callEditPlan($_GET['id']);
+						$this->callEditPlan($_GET['cw']);
 						require_once 'edit.php';
 					break;
 
 					case 'delete':
-						$this->callDeletePlan($_GET['id']);
+						$this->callDeletePlan($_GET['cw']);
 					break;
 				}
 			}
@@ -52,8 +53,8 @@ class MensaController{
 	 * Call the editPlan()-Method
 	 * @param Array $post
 	 */
-	public function callEditPlan($id){
-		$this->MensaModel->editPlan($id);
+	public function callEditPlan($calenderweek){
+		$this->MensaModel->editPlan($calenderweek);
 	}
 
 
@@ -61,8 +62,8 @@ class MensaController{
 	 * Call the deletePlan()-Method
 	 * @param Array $post
 	 */
-	public function callDeletePlan($id){
-		$this->MensaModel->deletePlan($id);
+	public function callDeletePlan($calenderweek){
+		$this->MensaModel->deletePlan($calenderweek);
 	}
 
 

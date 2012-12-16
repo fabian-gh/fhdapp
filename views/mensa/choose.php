@@ -12,8 +12,7 @@ session_start();
  */
 
 
-
-// Falls über Deeplink zugegriffen wird und Session noch nicht gestartet, diese starten
+// Check if user is logged in
 if(!isset($_SESSION['user_id'])){
     header('Location: login.php');
 }
@@ -37,21 +36,21 @@ require_once '../../layout/backend/header.php';
                 <td>45</td>
                 <td>24.12.2012</td>
                 <td>04.01.2013</td>
-                <td><a class="button" href="?category=canteen&mode=edit&id=1">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&id=1">löschen</a></td>
+                <td><a class="button" href="?category=canteen&mode=edit&cw=1">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=1">löschen</a></td>
               </tr>
               <tr>
                 <td>2</td>
                 <td>46</td>
                 <td>28.01.2013</td>
                 <td>08.02.2013</td>
-                <td><a class="button" href="?category=canteen&mode=edit&id=2">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&id=2">löschen</a></td>
+                <td><a class="button" href="?category=canteen&mode=edit&cw=2">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=2">löschen</a></td>
               </tr>
               <tr>
                 <td>3</td>
                 <td>47</td>
                 <td>25.02.2013</td>
                 <td>08.03.2013</td>
-                <td><a class="button" href="?category=canteen&mode=edit&id=3">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&id=2">löschen</a></td>
+                <td><a class="button" href="?category=canteen&mode=edit&cw=3">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=2">löschen</a></td>
               </tr>
             </table>
             <p><a class="button" href="?category=canteen&mode=add">neue Woche hinzufügen</a></p>
@@ -59,6 +58,13 @@ require_once '../../layout/backend/header.php';
 
 <?php
     require_once '../../layout/backend/footer.php';
+
+
+
+if(isset($_GET['mode']) && $_GET['mode'] == 'edit'){
+  require_once '../../controllers/mensaController.php';
+  $Mensa = new MensaController();
+}
 
 
 /* End of file backend.php */
