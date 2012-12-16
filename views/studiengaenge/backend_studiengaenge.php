@@ -32,7 +32,7 @@
 			<?php
 				require_once 'controllers/studiengaengeController.php';
     			$studycoursesController = new StudycoursesController();
-				require_once 'backend/insertFormular.php';	//Formular zum einfügen der Studiengänge
+				require_once 'insertFormular.php';	//Formular zum einfügen der Studiengänge
 				if(isset($_POST["insert"])){
 					$studycoursesController->insertStudycourse($_POST["language_id"], $_POST["name"], $_POST["description"], $_POST["department_id"], $_POST["semestercount"], $_POST["graduate_id"], $_POST["link"]);
 				}
