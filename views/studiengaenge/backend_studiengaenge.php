@@ -15,9 +15,13 @@
 		<div id="header">	<!-- Header -->
 			<h1> FHD-App Redaktion </h1>
 		</div>
-		<div id="nav">	<!-- Navi -->
+		<div id="nav">	<!-- Navigation -->
 			<ul>
-				<a href=""><li>Studieng&auml;nge</li></a>
+				<a href="cms.php?page=Studiengaenge"><li>Studieng&auml;nge</li></a>
+				<ul>	<!-- Subnavigation -->
+					<a href="cms.php?page=Studiengaenge&action=einfuegen"><li>Einf&uuml;gen</li></a> <!-- Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
+					<a href="cms.php?page=Studiengaenge&action=bearbeitenLoeschen"><li>Bearbeiten/L&ouml;schen</li></a>	<!-- Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
+				</ul>
 				<a href=""><li>Mensa</li></a>
 				<a href=""><li>Termine</li></a>
 				<a href=""><li>Kontakte</li></a>
@@ -30,9 +34,20 @@
 			<h1>Studieng&auml;nge</h1>
 			
 			<?php
-				require_once 'controllers/studiengaengeController.php';
-    			$studycoursesController = new StudycoursesController();
-				require_once 'insertFormular.php';	//Formular zum einfügen der Studiengänge
+				require_once 'controllers/studiengaengeController.php';	//Einbinden des Controllers
+    			$studycoursesController = new StudycoursesController();	//neues ControllerObjekt wird erzeugt und in der Variabel gespeichert
+				switch(@$_GET["action"]){	//switch case für subnav
+					case "einfuegen":	
+						require_once 'insertFormular.php';	//Formular zum einfügen der Studiengänge
+						break;
+					case "bearbeitenLoeschen":
+						require_once 'insertFormular.php';	//Formular zum bearbeiten und löschen der Studiengänge
+					break;
+				
+				}
+				
+				
+				
 				if(isset($_POST["insert"])){
 					$studycoursesController->insertStudycourse($_POST["language_id"], $_POST["name"], $_POST["description"], $_POST["department_id"], $_POST["semestercount"], $_POST["graduate_id"], $_POST["link"]);
 				}

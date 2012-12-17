@@ -35,7 +35,8 @@ try
     {
         switch($_GET['page'])
         {
-            case 'Studiengaenge': require_once 'views/studiengaenge/backend_studiengaenge.php'; break;
+            case 'Studiengaenge': require_once 'views/studiengaenge/backend_studiengaenge.php'; 			
+				break;
             case 'neuesSemester': require_once 'views/termine/neuesSemester.php'; break;
             case 'neuerTermin': require_once 'views/termine/neuerTermin.php'; break;
         }
