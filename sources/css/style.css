@@ -5,7 +5,9 @@
 
 body {
 	background: #ff0000 url(images/bg-body.png) no-repeat;
-	background-size: 100%;
+	background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
 	font-family: Verdana, Geneva, sans-serif;
 	color: #5a2323;
 	font-size: 25px;

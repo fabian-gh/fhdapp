@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link href="sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="sources/css/stylebackend.css" rel="stylesheet" type="text/css" media="screen" />
 	<script type="text/javascript" src="sources/js/jquery-1.8.2.min.js"></script>
 	<title>FHD App - Redaktion</title>
 </head>
@@ -17,12 +17,12 @@
 		</div>
 		<div id="nav">	<!-- Navi -->
 			<ul>
-				<a href="views/studiengaenge/backend_studiengaenge.php"><li>Studieng&auml;nge</li></a>
-				<a href="views/mensa/backend_mensa.php"><li>Mensa</li></a>
-				<a href="views/termine/backend_termine.php"><li>Termine</li></a>
-				<a href="views/kontakte/backend_kontakte.php"><li>Kontakte</li></a>
-				<a href="views/faq/backend_faq.php"><li>FAQ</li></a>
-				<a href="views/veranstaltungen/backend_veranstaltungen.php"><li>Veranstaltungen</li></a>
+				<a href=""><li>Studieng&auml;nge</li></a>
+				<a href=""><li>Mensa</li></a>
+				<a href=""><li>Termine</li></a>
+				<a href=""><li>Kontakte</li></a>
+				<a href=""><li>FAQ</li></a>
+				<a href=""><li>Veranstaltungen</li></a>
 			</ul>
 		</div>
 		
