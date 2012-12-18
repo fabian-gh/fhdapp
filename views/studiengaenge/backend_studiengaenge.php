@@ -46,10 +46,10 @@
 					if(isset($_GET["action"])){	//Wenn eine Action (Einfügen/BearbeitenLöschen) gewählt wurde
 						switch($_GET["action"]){	//switch case für subnav
 							case "einfuegen":	
-								require_once 'insertFormular.php';	//Formular zum einfügen der Studiengänge
+								require_once 'backend_insertFormular.php';	//Formular zum einfügen der Studiengänge
 								break;
 							case "bearbeitenLoeschen":
-								require_once 'insertFormular.php';	//Formular zum bearbeiten und löschen der Studiengänge
+								require_once 'ass.php';	//Formular zum bearbeiten und löschen der Studiengänge
 							break;
 						}
 					}
