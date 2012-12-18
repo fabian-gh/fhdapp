@@ -36,20 +36,27 @@
 			<?php
 				require_once 'controllers/studiengaengeController.php';	//Einbinden des Controllers
     			$studycoursesController = new StudycoursesController();	//neues ControllerObjekt wird erzeugt und in der Variabel gespeichert
-				switch(@$_GET["action"]){	//switch case für subnav
-					case "einfuegen":	
-						require_once 'insertFormular.php';	//Formular zum einfügen der Studiengänge
-						break;
-					case "bearbeitenLoeschen":
-						require_once 'insertFormular.php';	//Formular zum bearbeiten und löschen der Studiengänge
-					break;
 				
+				//Wenn Formlular abgesendet wurde
+				if(isset($_POST["insertNewStudi"])){
+					$studycoursesController->insertStudycourse($_POST);
 				}
-				
-				
-				
-				if(isset($_POST["insert"])){
-					$studycoursesController->insertStudycourse($_POST["language_id"], $_POST["name"], $_POST["description"], $_POST["department_id"], $_POST["semestercount"], $_POST["graduate_id"], $_POST["link"]);
+				else{	//Wenn kein Formular abgesendet wurde
+					
+					if(isset($_GET["action"])){	//Wenn eine Action (Einfügen/BearbeitenLöschen) gewählt wurde
+						switch($_GET["action"]){	//switch case für subnav
+							case "einfuegen":	
+								require_once 'insertFormular.php';	//Formular zum einfügen der Studiengänge
+								break;
+							case "bearbeitenLoeschen":
+								require_once 'insertFormular.php';	//Formular zum bearbeiten und löschen der Studiengänge
+							break;
+						}
+					}
+					else{	//Wenn keine action gewählt wurde
+						
+					}
+					
 				}
 			?>
 			

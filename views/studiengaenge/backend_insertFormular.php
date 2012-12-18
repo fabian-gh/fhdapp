@@ -59,7 +59,7 @@
 	</br>
 	
 	<!-- Bestätigungs Button -->
-	<input name="insert" type="submit" value="Einf&uuml;gen" style="width: 70px;" tabindex=8>
+	<input name="insertNewStudi" type="submit" value="Einf&uuml;gen" style="width: 70px;" tabindex=8>
 	</br>
 	
 	

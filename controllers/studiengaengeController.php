@@ -17,11 +17,11 @@
 		
 		
 		//IM
-		public function insertStudycourse($language_id, $name, $description, $department_id, $semestercount, $graduate_id, $link){
+		public function insertStudycourse($post){
 			//Wenn alles ausgefüllt ist und semesteranzahl eine nummer ist
-			if(isset($name, $description, $semestercount, $link) AND is_numeric($semestercount)){	
+			if(isset($post["name"], $post["description"], $post["semestercount"], $post["link"]) AND is_numeric($post["semestercount"])){	
 				//Dann schreibe in die Datenbank
-				$this->studycoursesModel->insertStudycourse($language_id, $name, $description, $department_id, $semestercount, $graduate_id, $link);
+				$this->studycoursesModel->insertStudycourse($post);
 			}
 		}
 		
