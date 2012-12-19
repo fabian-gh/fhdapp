@@ -27,13 +27,13 @@
             echo '<div id ="nav">
                     <h3>Seiteninhalt bearbeiten:</h3>
                     <ul>
-                        <li><a href="">Studiengänge</a></li>
-                        <li><a href="">Veranstaltungen</a></li>
-                        <li><a class ="active" href="">Termine</a></li>
-                        <li><a href="">Mensa</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Kontakt</a></li>
-                        <li><a href="logout.php">Logout</a></li>
+                        <li><a href="../../views/studiengaenge/backend_studiengaenge.php">Studiengänge</a></li>
+                        <li><a href="../../views/veranstaltungen/backend_veranstaltungen.php">Veranstaltungen</a></li>
+                        <li><a href="../../views/termine/backend_termine.php">Termine</a></li>
+                        <li><a href="../../views/mensa/choose.php">Mensa</a></li>
+                        <li><a href="../../views/faq/backend_faq.php">FAQ</a></li>
+                        <li><a href="../../views/kontakte/backend_kontakte.php">Kontakt</a></li>
+                        <li><a href="../login/logout.php">Logout</a></li>
                     </ul>
                 </div>';
         } else {

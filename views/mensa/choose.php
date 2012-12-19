@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 /**
  * FHD-App
  *
@@ -10,12 +8,6 @@ session_start();
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
-
-
-// Check if user is logged in
-if(!isset($_SESSION['user_id'])){
-    header('Location: login.php');
-}
 
 // include layout
 require_once '../../layout/backend/header.php';
