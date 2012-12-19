@@ -99,11 +99,11 @@ class Mensa{
 			switch($key){
 
 				case strstr($key, 'calenderweek');
-					$this->calenderweek;
+					$this->calenderweek = $value;
 				break;
 
 				case strstr($key, 'mealdate'):
-					$this->mealdate;
+					$this->mealdate = $value;
 				break;
 
 				// Monday
@@ -194,7 +194,7 @@ class Mensa{
 														special, price_stud_special, price_att_special,
 														action, price_stud_action, price_att_action,
 														green_corner, price_stud_green_corner, price_att_green_corner) 
-			VALUES ('".$this->calenderweek.", ".$this->mealdate."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate."', '1',
 					'".$this->monday_meals[0]."', '".$this->monday_meals[1]."', '".$this->monday_meals[2]."', '".$this->monday_meals[3]."', 
 					'".$this->monday_meals[4]."', '".$this->monday_stud_prices[0]."', '".$this->monday_att_prices[0]."',
 					'".$this->monday_meals[5]."', '".$this->monday_stud_prices[1]."', '".$this->monday_att_prices[1]."',
