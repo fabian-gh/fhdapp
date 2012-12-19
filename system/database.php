@@ -41,7 +41,7 @@ class Database{
      */
     public function __construct(){
         // DB-Zugangsdaten einbinden
-        require_once 'config/db.php';
+        require_once __DIR__.'../../config/db.php';
         
         $this->setHostname($db['hostname']);
         $this->setDatabase($db['database']);

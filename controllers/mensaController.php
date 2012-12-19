@@ -23,10 +23,10 @@ class MensaController{
 	 * Constructor
 	 */
 	public function __construct(){
+		require_once '../../models/mensa.php';
+		$this->MensaModel = new Mensa();
+			
 		if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
-
-			require_once '../../models/mensa.php';
-			$this->MensaModel = new Mensa();
 
 			if(isset($_GET['mode'])){
 
