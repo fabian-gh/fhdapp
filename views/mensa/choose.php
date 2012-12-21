@@ -12,6 +12,11 @@
 // include layout
 require_once '../../layout/backend/header.php';
 
+require_once '../../controllers/mensaController.php';
+$MensaController = new MensaController();
+
+$plans = $MensaController->callGetAllPlans();
+
 ?>
 
        	  <h2>Mensapl&auml;ne</h2>
@@ -23,40 +28,25 @@ require_once '../../layout/backend/header.php';
                 <th>Enddatum</th>
                 <th>Optionen</th>
               </tr>
+
+              <?php foreach($plans as $plan): ?>
+
               <tr>
-                <td>1</td>
-                <td>45</td>
-                <td>24.12.2012</td>
-                <td>04.01.2013</td>
-                <td><a class="button" href="?category=canteen&mode=edit&cw=1">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=1">löschen</a></td>
+                <td><?php echo $plan['id']; ?></td>
+                <td><?php echo $plan['calenderweek']; ?></td>
+                <td><?php echo $plan['start_date']; ?></td>
+                <td><?php echo $plan['end_date']; ?></td>
+                <td><a class="button" href="edit.php?category=canteen&mode=edit&cw=<?php echo $plan['calenderweek']; ?>">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=<?php echo $plan['calenderweek']; ?>">löschen</a></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>46</td>
-                <td>28.01.2013</td>
-                <td>08.02.2013</td>
-                <td><a class="button" href="?category=canteen&mode=edit&cw=2">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=2">löschen</a></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>47</td>
-                <td>25.02.2013</td>
-                <td>08.03.2013</td>
-                <td><a class="button" href="?category=canteen&mode=edit&cw=3">bearbeiten</a> <a class="button" href="?category=canteen&mode=delete&cw=2">löschen</a></td>
-              </tr>
+
+            <?php endforeach; ?>
+
             </table>
-            <p><a class="button" href="?category=canteen&mode=add">neue Woche hinzufügen</a></p>
+            <p><a class="button" href="edit.php?category=canteen&mode=add">neue Woche hinzufügen</a></p>
 
 
 <?php
     require_once '../../layout/backend/footer.php';
-
-
-
-if(isset($_GET['mode']) && $_GET['mode'] == 'edit'){
-  require_once '../../controllers/mensaController.php';
-  $Mensa = new MensaController();
-}
 
 
 /* End of file backend.php */

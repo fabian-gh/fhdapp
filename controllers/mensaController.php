@@ -26,7 +26,7 @@ class MensaController{
 		require_once '../../models/mensa.php';
 		$this->MensaModel = new Mensa();
 			
-		if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
+		/*if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 
 			if(isset($_GET['mode'])){
 
@@ -45,7 +45,17 @@ class MensaController{
 					break;
 				}
 			}
-		}
+		}*/
+	}
+
+
+
+	/**
+	 * Call the getAllPlans()-Method
+	 * @param Array $post
+	 */
+	public function callGetAllPlans(){
+		return $this->MensaModel->getAllPlans();
 	}
 
 

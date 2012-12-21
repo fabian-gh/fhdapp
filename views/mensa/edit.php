@@ -11,6 +11,15 @@
 // include layout
 require_once '../../layout/backend/header.php';
 
+require_once '../../controllers/mensaController.php';
+$MensaController = new MensaController();
+
+if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
+	if(isset($_GET['mode']) && $_GET['mode'] == 'edit'){
+		$MensaController->callEditPlan($_GET['cw']);
+	}
+}
+
 ?>
 
 
@@ -91,27 +100,27 @@ require_once '../../layout/backend/header.php';
 		</tr>
 		<tr id="action" class="uni_campus">
 			<td class="mealdescription">Aktion</td>
-			<td><input type="textarea" class="mealinput" name="mon_action" value=""<?php isset($_POST['mon_action']) ? $_POST['mon_acion'] : ""; ?>"" />
+			<td><input type="textarea" class="mealinput" name="mon_action" value=""<?php isset($_POST['mon_action']) ? $_POST['mon_action'] : ""; ?>"" />
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" name="price_stud_mon_action"/> €</td></tr>
 					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" name="price_att_mon_action"/> €</td></tr>
 				</table></td>
-			<td><input type="textarea" class="mealinput" name="tue_action" value=""<?php isset($_POST['tue_action']) ? $_POST['tue_acion'] : ""; ?>"" />
+			<td><input type="textarea" class="mealinput" name="tue_action" value=""<?php isset($_POST['tue_action']) ? $_POST['tue_action'] : ""; ?>"" />
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" name="price_stud_tue_action"/> €</td></tr>
 					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" name="price_att_tue_action"/> €</td></tr>
 				</table></td>
-			<td><input type="textarea" class="mealinput" name="wed_action" value=""<?php isset($_POST['wed_action']) ? $_POST['wed_acion'] : ""; ?>"" />
+			<td><input type="textarea" class="mealinput" name="wed_action" value=""<?php isset($_POST['wed_action']) ? $_POST['wed_action'] : ""; ?>"" />
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" name="price_stud_wed_action"/> €</td></tr>
 					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" name="price_att_wed_action"/> €</td></tr>
 				</table></td>
-			<td><input type="textarea" class="mealinput" name="thu_action" value=""<?php isset($_POST['thu_action']) ? $_POST['thu_acion'] : ""; ?>"" />
+			<td><input type="textarea" class="mealinput" name="thu_action" value=""<?php isset($_POST['thu_action']) ? $_POST['thu_action'] : ""; ?>"" />
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" name="price_stud_thu_action"/> €</td></tr>
 					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" name="price_att_thu_action"/> €</td></tr>
 				</table></td>
-			<td><input type="textarea" class="mealinput" name="fri_action" value=""<?php isset($_POST['fri_action']) ? $_POST['fri_acion'] : ""; ?>"" />
+			<td><input type="textarea" class="mealinput" name="fri_action" value=""<?php isset($_POST['fri_action']) ? $_POST['fri_action'] : ""; ?>"" />
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" name="price_stud_fri_action"/> €</td></tr>
 					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" name="price_att_fri_action"/> €</td></tr>
@@ -296,18 +305,10 @@ require_once '../../layout/backend/header.php';
 
 // Überprüfung ob Formular abgeschickt
 if(isset($_POST['speichern'])){
-	require_once '../../controllers/mensaController.php';
-	$Mensa = new MensaController();
-	$Mensa->callProceedPost($_POST);
-	$Mensa->callInsertPlan();
+	$MensaController->callProceedPost($_POST);
+	$MensaController->callInsertPlan();
 }
 
-?>
 
-
-<script href="../../sources/customjs/mensa.js"></script>
-
-
-<?php
 /* End of file backend_mensa.php */
 /* Location: ./views/mensa/backend_mensa.php */
