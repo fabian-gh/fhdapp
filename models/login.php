@@ -64,7 +64,7 @@ class Login{
             // und auf Backend-Hauptseite leiten
             if(!empty($resultSet)){
                 $_SESSION['user_id'] = $resultSet[0]['id'];
-                header('Location: login.php');
+                header('Location: ../index/index.php');
             } else {
                 // ansonsten auf Login-Seite leiten
                 $_SESSION['loginfailure'] = 'Login falsch!';

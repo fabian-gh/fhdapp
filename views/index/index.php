@@ -9,6 +9,8 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
- 
-/* End of file mensa.php */
-/* Location: ./views/mensa/mensa.php */
+// include layout
+require_once '../../layout/backend/header.php';
+// include layout
+require_once '../../layout/backend/footer.php';
+?>

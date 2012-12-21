@@ -2,8 +2,11 @@
 
 session_start();
 
+require_once '../../system/database.php';
+new Database();
+
 // include layout
-require_once '../../layout/backend/header.php';
+//require_once '../../layout/backend/header.php';
 
 if(isset($_SESSION['loginfailure'])){
     echo '<div id="failure">'.$_SESSION['loginfailure'].'</div>';
@@ -11,12 +14,6 @@ if(isset($_SESSION['loginfailure'])){
 }
 
 ?>
-
-<html>
-    <header>
-        <title>Login</title>
-    </header>
-    
     <body>
         
         <form name="loginform" method="post" action="">
@@ -26,14 +23,10 @@ if(isset($_SESSION['loginfailure'])){
                 <tr><td><input type="submit" name="login" value="Login"/></td></tr
             </table>
         </form>
-        
-    </body>
-    
-</html>
 
 <?php
 
-require_once '../../layout/backend/footer.php';
+//require_once '../../layout/backend/footer.php';
 
 
 if(isset($_POST['login'])){

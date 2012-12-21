@@ -4,7 +4,7 @@
 }
 
 body {
-	background: #ff0000 url(images/bg-body.png) no-repeat;
+	background: #ff0000 url(../img/bg-body.png) no-repeat;
 	background-size: 100%;
 	font-family: Verdana, Geneva, sans-serif;
 	color: #5a2323;
@@ -18,7 +18,7 @@ body {
 #logo a {
 	height: 100px;
 	width: 220px;
-	background: url(images/logo.png) no-repeat 20px 20px;
+	background: url(../img/logo.png) no-repeat 20px 20px;
 	display: block;
 	text-indent: -9999em;
 }
@@ -40,7 +40,7 @@ body {
 }
 
 #breadcrumb a.nav-icon {
-	background: url(images/nav-icon-i.png) no-repeat;
+	background: url(../img/nav-icon-i.png) no-repeat;
 	display: inline-block;
 	text-indent: -9999em;
 	width: 26px;

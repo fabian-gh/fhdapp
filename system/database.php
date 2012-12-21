@@ -41,13 +41,13 @@ class Database{
      */
     public function __construct(){
         // DB-Zugangsdaten einbinden
-        require_once 'config/db.php';
+        require_once __DIR__.'../../config/db.php';
         
         $this->setHostname($db['hostname']);
         $this->setDatabase($db['database']);
         $this->setUsername($db['username']);
         $this->setPassword($db['password']);
-        
+
         // Verbindungsdaten in Session speichern
         $_SESSION['host'] = $this->getHostname();
         $_SESSION['db'] = $this->getDatabase();
