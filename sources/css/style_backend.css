@@ -136,6 +136,10 @@ body {
 	padding: 3px 10px;
 }
 
+#content .error{
+	border: 1px solid #ff0000;
+}
+
 .clear {
 	clear: both;
 }

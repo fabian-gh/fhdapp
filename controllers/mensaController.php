@@ -64,7 +64,7 @@ class MensaController{
 	 * @param Array $post
 	 */
 	public function callEditPlan($calenderweek){
-		$this->MensaModel->editPlan($calenderweek);
+		return $this->MensaModel->editPlan($calenderweek);
 	}
 
 

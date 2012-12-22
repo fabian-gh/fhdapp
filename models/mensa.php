@@ -30,6 +30,7 @@ class Mensa{
 	 * @var Date
 	 */
 	private $mealdate;
+	private $start;
 
 	/**
 	 * Arrays with monday_mealss for each day
@@ -80,14 +81,12 @@ class Mensa{
 	public function getAllPlans(){
 		try{
 
-			$query = $this->DbCon->query("SELECT id, calenderweek FROM meals");
+			$query = $this->DbCon->query("SELECT calenderweek, mealdate FROM meals GROUP BY calenderweek ORDER BY mealdate DESC");
 			while($row = $query->fetch_assoc()){
 
                 $plans[] = array(
-                	'id'			=> $row['id'],
                 	'calenderweek' 	=> $row['calenderweek'],
-                	'start_date'	=> '24.12.2012',
-                	'end_date'		=> '28.12.2012'
+                	'start_date'	=> $row['mealdate']
             	);
              }
 
@@ -101,22 +100,9 @@ class Mensa{
 
 
 	/**
-	 * Query all existing canteens
+	 * Proceeds the post-data
+	 * @param Array $_POST
 	 */
-	/*public function getCanteens(){
-		try{
-			$query = $this->DbCon->query("SELECT id, name FROM canteens");
-
-			while($row = $query->fetch_assoc()){
-                $canteens[$row['id']] = $row['name'];
-            }
-
-		} catch (Exception $e){
-			echo $e->getMessage();
-		}
-	}*/
-
-
 	public function proceedPost($post){
 
 		// Verarbeitung der POST-Daten
@@ -124,12 +110,16 @@ class Mensa{
 
 			switch($key){
 
-				case strstr($key, 'calenderweek');
+				case strstr($key, 'calenderweek'):
 					$this->calenderweek = $value;
 				break;
 
-				case strstr($key, 'mealdate'):
-					$this->mealdate = $value;
+				case strstr($key, 'start_date'):
+					$this->start = $value;
+				break;
+
+				case strstr($key, 'end_date'):
+					$this->end = $value;
 				break;
 
 				// Monday
@@ -198,13 +188,18 @@ class Mensa{
 				break;
 			}
 		}
+
+		// calculate the dates of the week
+		$start = strtotime($this->start);
+		for($i = 0; $i<=4; $i++){
+			$this->mealdate[$i] = date("Y-m-d", $start+($i*86400));
+		}
 	}
 
 
 
 	/**
 	 * Insert the Plan into the database
-	 *
 	 * @param Array $post Post-Data
 	 */
 	public function insertPlan(){
@@ -214,13 +209,12 @@ class Mensa{
 														meal_one, meal_two, side, hotpot,
 														bbq, price_stud_bbq, price_att_bbq,
 														pan, price_stud_pan, price_att_pan,
+														action, price_stud_action, price_att_action,
 														wok, price_stud_wok, price_att_wok,
 														gratin, price_stud_gratin, price_att_gratin,
-														weekoffer, price_stud_weekoffer, price_att_weekoffer,
-														special, price_stud_special, price_att_special,
-														action, price_stud_action, price_att_action,
+														mensavital, price_stud_mensavital, price_att_mensavital,
 														green_corner, price_stud_green_corner, price_att_green_corner) 
-			VALUES ('".$this->calenderweek."', '".$this->mealdate."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate[0]."', '1',
 					'".$this->monday_meals[0]."', '".$this->monday_meals[1]."', '".$this->monday_meals[2]."', '".$this->monday_meals[3]."', 
 					'".$this->monday_meals[4]."', '".$this->monday_stud_prices[0]."', '".$this->monday_att_prices[0]."',
 					'".$this->monday_meals[5]."', '".$this->monday_stud_prices[1]."', '".$this->monday_att_prices[1]."',
@@ -228,21 +222,19 @@ class Mensa{
 					'".$this->monday_meals[7]."', '".$this->monday_stud_prices[3]."', '".$this->monday_att_prices[3]."',
 					'".$this->monday_meals[8]."', '".$this->monday_stud_prices[4]."', '".$this->monday_att_prices[4]."',
 					'".$this->monday_meals[9]."', '".$this->monday_stud_prices[5]."', '".$this->monday_att_prices[5]."',
-					'".$this->monday_meals[10]."', '".$this->monday_stud_prices[6]."', '".$this->monday_att_prices[6]."',
-					'".$this->monday_meals[11]."', '".$this->monday_stud_prices[7]."', '".$this->monday_att_prices[7]."')");
+					'".$this->monday_meals[10]."', '".$this->monday_stud_prices[6]."', '".$this->monday_att_prices[6]."')");
 
 			// insert tuesday
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
 														bbq, price_stud_bbq, price_att_bbq,
 														pan, price_stud_pan, price_att_pan,
+														action, price_stud_action, price_att_action,
 														wok, price_stud_wok, price_att_wok,
 														gratin, price_stud_gratin, price_att_gratin,
-														weekoffer, price_stud_weekoffer, price_att_weekoffer,
-														special, price_stud_special, price_att_special,
-														action, price_stud_action, price_att_action,
+														mensavital, price_stud_mensavital, price_att_mensavital,
 														green_corner, price_stud_green_corner, price_att_green_corner) 
-			VALUES ('".$this->calenderweek."', '".$this->mealdate."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate[1]."', '2',
 					'".$this->tuesday_meals[0]."', '".$this->tuesday_meals[1]."', '".$this->tuesday_meals[2]."', '".$this->tuesday_meals[3]."', 
 					'".$this->tuesday_meals[4]."', '".$this->tuesday_stud_prices[0]."', '".$this->tuesday_att_prices[0]."',
 					'".$this->tuesday_meals[5]."', '".$this->tuesday_stud_prices[1]."', '".$this->tuesday_att_prices[1]."',
@@ -250,21 +242,19 @@ class Mensa{
 					'".$this->tuesday_meals[7]."', '".$this->tuesday_stud_prices[3]."', '".$this->tuesday_att_prices[3]."',
 					'".$this->tuesday_meals[8]."', '".$this->tuesday_stud_prices[4]."', '".$this->tuesday_att_prices[4]."',
 					'".$this->tuesday_meals[9]."', '".$this->tuesday_stud_prices[5]."', '".$this->tuesday_att_prices[5]."',
-					'".$this->tuesday_meals[10]."', '".$this->tuesday_stud_prices[6]."', '".$this->tuesday_att_prices[6]."',
-					'".$this->tuesday_meals[11]."', '".$this->tuesday_stud_prices[7]."', '".$this->tuesday_att_prices[7]."')");
+					'".$this->tuesday_meals[10]."', '".$this->tuesday_stud_prices[6]."', '".$this->tuesday_att_prices[6]."')");
 
 			// insert wednesday
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
 														bbq, price_stud_bbq, price_att_bbq,
 														pan, price_stud_pan, price_att_pan,
+														action, price_stud_action, price_att_action,
 														wok, price_stud_wok, price_att_wok,
 														gratin, price_stud_gratin, price_att_gratin,
-														weekoffer, price_stud_weekoffer, price_att_weekoffer,
-														special, price_stud_special, price_att_special,
-														action, price_stud_action, price_att_action,
+														mensavital, price_stud_mensavital, price_att_mensavital,
 														green_corner, price_stud_green_corner, price_att_green_corner) 
-			VALUES ('".$this->calenderweek."', '".$this->mealdate."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate[2]."', '3',
 					'".$this->wednesday_meals[0]."', '".$this->wednesday_meals[1]."', '".$this->wednesday_meals[2]."', '".$this->wednesday_meals[3]."', 
 					'".$this->wednesday_meals[4]."', '".$this->wednesday_stud_prices[0]."', '".$this->wednesday_att_prices[0]."',
 					'".$this->wednesday_meals[5]."', '".$this->wednesday_stud_prices[1]."', '".$this->wednesday_att_prices[1]."',
@@ -272,21 +262,19 @@ class Mensa{
 					'".$this->wednesday_meals[7]."', '".$this->wednesday_stud_prices[3]."', '".$this->wednesday_att_prices[3]."',
 					'".$this->wednesday_meals[8]."', '".$this->wednesday_stud_prices[4]."', '".$this->wednesday_att_prices[4]."',
 					'".$this->wednesday_meals[9]."', '".$this->wednesday_stud_prices[5]."', '".$this->wednesday_att_prices[5]."',
-					'".$this->wednesday_meals[10]."', '".$this->wednesday_stud_prices[6]."', '".$this->wednesday_att_prices[6]."',
-					'".$this->wednesday_meals[11]."', '".$this->wednesday_stud_prices[7]."', '".$this->wednesday_att_prices[7]."')");
+					'".$this->wednesday_meals[10]."', '".$this->wednesday_stud_prices[6]."', '".$this->wednesday_att_prices[6]."')");
 
 			// insert thursday
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
 														bbq, price_stud_bbq, price_att_bbq,
 														pan, price_stud_pan, price_att_pan,
+														action, price_stud_action, price_att_action,
 														wok, price_stud_wok, price_att_wok,
 														gratin, price_stud_gratin, price_att_gratin,
-														weekoffer, price_stud_weekoffer, price_att_weekoffer,
-														special, price_stud_special, price_att_special,
-														action, price_stud_action, price_att_action,
+														mensavital, price_stud_mensavital, price_att_mensavital,
 														green_corner, price_stud_green_corner, price_att_green_corner) 
-			VALUES ('".$this->calenderweek."', '".$this->mealdate."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate[3]."', '4',
 					'".$this->thursday_meals[0]."', '".$this->thursday_meals[1]."', '".$this->thursday_meals[2]."', '".$this->thursday_meals[3]."', 
 					'".$this->thursday_meals[4]."', '".$this->thursday_stud_prices[0]."', '".$this->thursday_att_prices[0]."',
 					'".$this->thursday_meals[5]."', '".$this->thursday_stud_prices[1]."', '".$this->thursday_att_prices[1]."',
@@ -294,21 +282,19 @@ class Mensa{
 					'".$this->thursday_meals[7]."', '".$this->thursday_stud_prices[3]."', '".$this->thursday_att_prices[3]."',
 					'".$this->thursday_meals[8]."', '".$this->thursday_stud_prices[4]."', '".$this->thursday_att_prices[4]."',
 					'".$this->thursday_meals[9]."', '".$this->thursday_stud_prices[5]."', '".$this->thursday_att_prices[5]."',
-					'".$this->thursday_meals[10]."', '".$this->thursday_stud_prices[6]."', '".$this->thursday_att_prices[6]."',
-					'".$this->thursday_meals[11]."', '".$this->thursday_stud_prices[7]."', '".$this->thursday_att_prices[7]."')");
+					'".$this->thursday_meals[10]."', '".$this->thursday_stud_prices[6]."', '".$this->thursday_att_prices[6]."')");
 
 			// insert friday
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
 														bbq, price_stud_bbq, price_att_bbq,
 														pan, price_stud_pan, price_att_pan,
+														action, price_stud_action, price_att_action,
 														wok, price_stud_wok, price_att_wok,
 														gratin, price_stud_gratin, price_att_gratin,
-														weekoffer, price_stud_weekoffer, price_att_weekoffer,
-														special, price_stud_special, price_att_special,
-														action, price_stud_action, price_att_action,
+														mensavital, price_stud_mensavital, price_att_mensavital,
 														green_corner, price_stud_green_corner, price_att_green_corner) 
-			VALUES ('".$this->calenderweek."', '".$this->mealdate."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate[4]."', '5',
 					'".$this->friday_meals[0]."', '".$this->friday_meals[1]."', '".$this->friday_meals[2]."', '".$this->friday_meals[3]."', 
 					'".$this->friday_meals[4]."', '".$this->friday_stud_prices[0]."', '".$this->friday_att_prices[0]."',
 					'".$this->friday_meals[5]."', '".$this->friday_stud_prices[1]."', '".$this->friday_att_prices[1]."',
@@ -316,8 +302,7 @@ class Mensa{
 					'".$this->friday_meals[7]."', '".$this->friday_stud_prices[3]."', '".$this->friday_att_prices[3]."',
 					'".$this->friday_meals[8]."', '".$this->friday_stud_prices[4]."', '".$this->friday_att_prices[4]."',
 					'".$this->friday_meals[9]."', '".$this->friday_stud_prices[5]."', '".$this->friday_att_prices[5]."',
-					'".$this->friday_meals[10]."', '".$this->friday_stud_prices[6]."', '".$this->friday_att_prices[6]."',
-					'".$this->friday_meals[11]."', '".$this->friday_stud_prices[7]."', '".$this->friday_att_prices[7]."')");
+					'".$this->friday_meals[10]."', '".$this->friday_stud_prices[6]."', '".$this->friday_att_prices[6]."')");
 
 		} catch (Exception $e){
 			echo $e->getMessage();
@@ -344,174 +329,169 @@ class Mensa{
 	/**
 	 * Edit a plan
 	 * @param int $calenderweek
+	 * @return Array Data
 	 */
 	public function editPlan($calenderweek){
 		try{
 
+			// dates
+			$query = $this->DbCon->query("SELECT calenderweek, mealdate FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 1");
+			while($row = $query->fetch_assoc()){
+				$post['calenderweek'] = $row['calenderweek'];
+				$post['start_date'] = $row['mealdate'];
+			}
+
 			// Monday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 1");
 			while($row = $query->fetch_assoc()){
-				$_POST['mon_meal_one'] = $row['meal_one'];
-				$_POST['mon_meal_two'] = $row['meal_two'];
-				$_POST['mon_side'] = $row['side'];
-				$_POST['mon_hotpot'] = $row['hotpot'];
-				$_POST['mon_bbq'] = $row['bbq'];
-				$_POST['price_stud_mon_bbq'] = $row['price_stud_bbq'];
-				$_POST['price_att_mon_bbq'] = $row['price_att_bbq'];
-				$_POST['mon_pan'] = $row['pan'];
-				$_POST['price_stud_mon_pan'] = $row['price_stud_pan'];
-				$_POST['price_att_mon_pan'] = $row['price_att_pan'];
-				$_POST['mon_wok'] = $row['wok'];
-				$_POST['price_stud_mon_wok'] = $row['price_stud_wok'];
-				$_POST['price_att_mon_wok'] = $row['price_att_wok'];
-				$_POST['mon_gratin'] = $row['gratin'];
-				$_POST['price_stud_mon_gratin'] = $row['price_stud_gratin'];
-				$_POST['price_att_mon_gratin'] = $row['price_att_gratin'];
-				$_POST['mon_weekoffer'] = $row['weekoffer'];
-				$_POST['price_stud_mon_weekoffer'] = $row['price_stud_weekoffer'];
-				$_POST['price_att_mon_weekoffer'] = $row['price_att_weekoffer'];
-				$_POST['mon_special'] = $row['special'];
-				$_POST['price_stud_mon_special'] = $row['price_stud_special'];
-				$_POST['price_att_mon_special'] = $row['price_att_special'];
-				$_POST['mon_action'] = $row['action'];
-				$_POST['price_stud_mon_action'] = $row['price_stud_action'];
-				$_POST['price_att_mon_action'] = $row['price_att_action'];
-				$_POST['mon_green_corner'] = $row['green_corner'];
-				$_POST['price_stud_mon_green_corner'] = $row['price_stud_green_corner'];
-				$_POST['price_att_mon_green_corner'] = $row['price_att_green_corner'];
+				$post['mon_meal_one'] = $row['meal_one'];
+				$post['mon_meal_two'] = $row['meal_two'];
+				$post['mon_side'] = $row['side'];
+				$post['mon_hotpot'] = $row['hotpot'];
+				$post['mon_bbq'] = $row['bbq'];
+				$post['price_stud_mon_bbq'] = $row['price_stud_bbq'];
+				$post['price_att_mon_bbq'] = $row['price_att_bbq'];
+				$post['mon_pan'] = $row['pan'];
+				$post['price_stud_mon_pan'] = $row['price_stud_pan'];
+				$post['price_att_mon_pan'] = $row['price_att_pan'];
+				$post['mon_action'] = $row['action'];
+				$post['price_stud_mon_action'] = $row['price_stud_action'];
+				$post['price_att_mon_action'] = $row['price_att_action'];
+				$post['mon_wok'] = $row['wok'];
+				$post['price_stud_mon_wok'] = $row['price_stud_wok'];
+				$post['price_att_mon_wok'] = $row['price_att_wok'];
+				$post['mon_gratin'] = $row['gratin'];
+				$post['price_stud_mon_gratin'] = $row['price_stud_gratin'];
+				$post['price_att_mon_gratin'] = $row['price_att_gratin'];
+				$post['mon_mensavital'] = $row['mensavital'];
+				$post['price_stud_mon_mensavital'] = $row['price_stud_mensavital'];
+				$post['price_att_mon_mensavital'] = $row['price_att_mensavital'];
+				$post['mon_green_corner'] = $row['green_corner'];
+				$post['price_stud_mon_green_corner'] = $row['price_stud_green_corner'];
+				$post['price_att_mon_green_corner'] = $row['price_att_green_corner'];
 			}
 
 			// Tuesday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 2");
 			while($row = $query->fetch_assoc()){
-				$_POST['tue_meal_one'] = $row['meal_one'];
-				$_POST['tue_meal_two'] = $row['meal_two'];
-				$_POST['tue_side'] = $row['side'];
-				$_POST['tue_hotpot'] = $row['hotpot'];
-				$_POST['tue_bbq'] = $row['bbq'];
-				$_POST['price_stud_tue_bbq'] = $row['price_stud_bbq'];
-				$_POST['price_att_tue_bbq'] = $row['price_att_bbq'];
-				$_POST['tue_pan'] = $row['pan'];
-				$_POST['price_stud_tue_pan'] = $row['price_stud_pan'];
-				$_POST['price_att_tue_pan'] = $row['price_att_pan'];
-				$_POST['tue_wok'] = $row['wok'];
-				$_POST['price_stud_tue_wok'] = $row['price_stud_wok'];
-				$_POST['price_att_tue_wok'] = $row['price_att_wok'];
-				$_POST['tue_gratin'] = $row['gratin'];
-				$_POST['price_stud_tue_gratin'] = $row['price_stud_gratin'];
-				$_POST['price_att_tue_gratin'] = $row['price_att_gratin'];
-				$_POST['tue_weekoffer'] = $row['weekoffer'];
-				$_POST['price_stud_tue_weekoffer'] = $row['price_stud_weekoffer'];
-				$_POST['price_att_tue_weekoffer'] = $row['price_att_weekoffer'];
-				$_POST['tue_special'] = $row['special'];
-				$_POST['price_stud_tue_special'] = $row['price_stud_special'];
-				$_POST['price_att_tue_special'] = $row['price_att_special'];
-				$_POST['tue_action'] = $row['action'];
-				$_POST['price_stud_tue_action'] = $row['price_stud_action'];
-				$_POST['price_att_tue_action'] = $row['price_att_action'];
-				$_POST['tue_green_corner'] = $row['green_corner'];
-				$_POST['price_stud_tue_green_corner'] = $row['price_stud_green_corner'];
-				$_POST['price_att_tue_green_corner'] = $row['price_att_green_corner'];
+				$post['tue_meal_one'] = $row['meal_one'];
+				$post['tue_meal_two'] = $row['meal_two'];
+				$post['tue_side'] = $row['side'];
+				$post['tue_hotpot'] = $row['hotpot'];
+				$post['tue_bbq'] = $row['bbq'];
+				$post['price_stud_tue_bbq'] = $row['price_stud_bbq'];
+				$post['price_att_tue_bbq'] = $row['price_att_bbq'];
+				$post['tue_pan'] = $row['pan'];
+				$post['price_stud_tue_pan'] = $row['price_stud_pan'];
+				$post['price_att_tue_pan'] = $row['price_att_pan'];
+				$post['tue_action'] = $row['action'];
+				$post['price_stud_tue_action'] = $row['price_stud_action'];
+				$post['price_att_tue_action'] = $row['price_att_action'];
+				$post['tue_wok'] = $row['wok'];
+				$post['price_stud_tue_wok'] = $row['price_stud_wok'];
+				$post['price_att_tue_wok'] = $row['price_att_wok'];
+				$post['tue_gratin'] = $row['gratin'];
+				$post['price_stud_tue_gratin'] = $row['price_stud_gratin'];
+				$post['price_att_tue_gratin'] = $row['price_att_gratin'];
+				$post['tue_mensavital'] = $row['mensavital'];
+				$post['price_stud_tue_mensavital'] = $row['price_stud_mensavital'];
+				$post['price_att_tue_mensavital'] = $row['price_att_mensavital'];
+				$post['tue_green_corner'] = $row['green_corner'];
+				$post['price_stud_tue_green_corner'] = $row['price_stud_green_corner'];
+				$post['price_att_tue_green_corner'] = $row['price_att_green_corner'];
 			}
 
 			// Wednesday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 3");
 			while($row = $query->fetch_assoc()){
-				$_POST['wed_meal_one'] = $row['meal_one'];
-				$_POST['wed_meal_two'] = $row['meal_two'];
-				$_POST['wed_side'] = $row['side'];
-				$_POST['wed_hotpot'] = $row['hotpot'];
-				$_POST['wed_bbq'] = $row['bbq'];
-				$_POST['price_stud_wed_bbq'] = $row['price_stud_bbq'];
-				$_POST['price_att_wed_bbq'] = $row['price_att_bbq'];
-				$_POST['wed_pan'] = $row['pan'];
-				$_POST['price_stud_wed_pan'] = $row['price_stud_pan'];
-				$_POST['price_att_wed_pan'] = $row['price_att_pan'];
-				$_POST['wed_wok'] = $row['wok'];
-				$_POST['price_stud_wed_wok'] = $row['price_stud_wok'];
-				$_POST['price_att_wed_wok'] = $row['price_att_wok'];
-				$_POST['wed_gratin'] = $row['gratin'];
-				$_POST['price_stud_wed_gratin'] = $row['price_stud_gratin'];
-				$_POST['price_att_wed_gratin'] = $row['price_att_gratin'];
-				$_POST['wed_weekoffer'] = $row['weekoffer'];
-				$_POST['price_stud_wed_weekoffer'] = $row['price_stud_weekoffer'];
-				$_POST['price_att_wed_weekoffer'] = $row['price_att_weekoffer'];
-				$_POST['wed_special'] = $row['special'];
-				$_POST['price_stud_wed_special'] = $row['price_stud_special'];
-				$_POST['price_att_wed_special'] = $row['price_att_special'];
-				$_POST['wed_action'] = $row['action'];
-				$_POST['price_stud_wed_action'] = $row['price_stud_action'];
-				$_POST['price_att_wed_action'] = $row['price_att_action'];
-				$_POST['wed_green_corner'] = $row['green_corner'];
-				$_POST['price_stud_wed_green_corner'] = $row['price_stud_green_corner'];
-				$_POST['price_att_wed_green_corner'] = $row['price_att_green_corner'];
+				$post['wed_meal_one'] = $row['meal_one'];
+				$post['wed_meal_two'] = $row['meal_two'];
+				$post['wed_side'] = $row['side'];
+				$post['wed_hotpot'] = $row['hotpot'];
+				$post['wed_bbq'] = $row['bbq'];
+				$post['price_stud_wed_bbq'] = $row['price_stud_bbq'];
+				$post['price_att_wed_bbq'] = $row['price_att_bbq'];
+				$post['wed_pan'] = $row['pan'];
+				$post['price_stud_wed_pan'] = $row['price_stud_pan'];
+				$post['price_att_wed_pan'] = $row['price_att_pan'];
+				$post['wed_action'] = $row['action'];
+				$post['price_stud_wed_action'] = $row['price_stud_action'];
+				$post['price_att_wed_action'] = $row['price_att_action'];
+				$post['wed_wok'] = $row['wok'];
+				$post['price_stud_wed_wok'] = $row['price_stud_wok'];
+				$post['price_att_wed_wok'] = $row['price_att_wok'];
+				$post['wed_gratin'] = $row['gratin'];
+				$post['price_stud_wed_gratin'] = $row['price_stud_gratin'];
+				$post['price_att_wed_gratin'] = $row['price_att_gratin'];
+				$post['wed_mensavital'] = $row['mensavital'];
+				$post['price_stud_wed_mensavital'] = $row['price_stud_mensavital'];
+				$post['price_att_wed_mensavital'] = $row['price_att_mensavital'];
+				$post['wed_green_corner'] = $row['green_corner'];
+				$post['price_stud_wed_green_corner'] = $row['price_stud_green_corner'];
+				$post['price_att_wed_green_corner'] = $row['price_att_green_corner'];
 			}
 
 			// Thursday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 4");
 			while($row = $query->fetch_assoc()){
-				$_POST['thu_meal_one'] = $row['meal_one'];
-				$_POST['thu_meal_two'] = $row['meal_two'];
-				$_POST['thu_side'] = $row['side'];
-				$_POST['thu_hotpot'] = $row['hotpot'];
-				$_POST['thu_bbq'] = $row['bbq'];
-				$_POST['price_stud_thu_bbq'] = $row['price_stud_bbq'];
-				$_POST['price_att_thu_bbq'] = $row['price_att_bbq'];
-				$_POST['thu_pan'] = $row['pan'];
-				$_POST['price_stud_thu_pan'] = $row['price_stud_pan'];
-				$_POST['price_att_thu_pan'] = $row['price_att_pan'];
-				$_POST['thu_wok'] = $row['wok'];
-				$_POST['price_stud_thu_wok'] = $row['price_stud_wok'];
-				$_POST['price_att_thu_wok'] = $row['price_att_wok'];
-				$_POST['thu_gratin'] = $row['gratin'];
-				$_POST['price_stud_thu_gratin'] = $row['price_stud_gratin'];
-				$_POST['price_att_thu_gratin'] = $row['price_att_gratin'];
-				$_POST['thu_weekoffer'] = $row['weekoffer'];
-				$_POST['price_stud_thu_weekoffer'] = $row['price_stud_weekoffer'];
-				$_POST['price_att_thu_weekoffer'] = $row['price_att_weekoffer'];
-				$_POST['thu_special'] = $row['special'];
-				$_POST['price_stud_thu_special'] = $row['price_stud_special'];
-				$_POST['price_att_thu_special'] = $row['price_att_special'];
-				$_POST['thu_action'] = $row['action'];
-				$_POST['price_stud_thu_action'] = $row['price_stud_action'];
-				$_POST['price_att_thu_action'] = $row['price_att_action'];
-				$_POST['thu_green_corner'] = $row['green_corner'];
-				$_POST['price_stud_thu_green_corner'] = $row['price_stud_green_corner'];
-				$_POST['price_att_thu_green_corner'] = $row['price_att_green_corner'];
+				$post['thu_meal_one'] = $row['meal_one'];
+				$post['thu_meal_two'] = $row['meal_two'];
+				$post['thu_side'] = $row['side'];
+				$post['thu_hotpot'] = $row['hotpot'];
+				$post['thu_bbq'] = $row['bbq'];
+				$post['price_stud_thu_bbq'] = $row['price_stud_bbq'];
+				$post['price_att_thu_bbq'] = $row['price_att_bbq'];
+				$post['thu_pan'] = $row['pan'];
+				$post['price_stud_thu_pan'] = $row['price_stud_pan'];
+				$post['price_att_thu_pan'] = $row['price_att_pan'];
+				$post['thu_action'] = $row['action'];
+				$post['price_stud_thu_action'] = $row['price_stud_action'];
+				$post['price_att_thu_action'] = $row['price_att_action'];
+				$post['thu_wok'] = $row['wok'];
+				$post['price_stud_thu_wok'] = $row['price_stud_wok'];
+				$post['price_att_thu_wok'] = $row['price_att_wok'];
+				$post['thu_gratin'] = $row['gratin'];
+				$post['price_stud_thu_gratin'] = $row['price_stud_gratin'];
+				$post['price_att_thu_gratin'] = $row['price_att_gratin'];
+				$post['thu_mensavital'] = $row['mensavital'];
+				$post['price_stud_thu_mensavital'] = $row['price_stud_mensavital'];
+				$post['price_att_thu_mensavital'] = $row['price_att_mensavital'];
+				$post['thu_green_corner'] = $row['green_corner'];
+				$post['price_stud_thu_green_corner'] = $row['price_stud_green_corner'];
+				$post['price_att_thu_green_corner'] = $row['price_att_green_corner'];
 			}
 
 			// Friday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 5");
 			while($row = $query->fetch_assoc()){
-				$_POST['fri_meal_one'] = $row['meal_one'];
-				$_POST['fri_meal_two'] = $row['meal_two'];
-				$_POST['fri_side'] = $row['side'];
-				$_POST['fri_hotpot'] = $row['hotpot'];
-				$_POST['fri_bbq'] = $row['bbq'];
-				$_POST['price_stud_fri_bbq'] = $row['price_stud_bbq'];
-				$_POST['price_att_fri_bbq'] = $row['price_att_bbq'];
-				$_POST['fri_pan'] = $row['pan'];
-				$_POST['price_stud_fri_pan'] = $row['price_stud_pan'];
-				$_POST['price_att_fri_pan'] = $row['price_att_pan'];
-				$_POST['fri_wok'] = $row['wok'];
-				$_POST['price_stud_fri_wok'] = $row['price_stud_wok'];
-				$_POST['price_att_fri_wok'] = $row['price_att_wok'];
-				$_POST['fri_gratin'] = $row['gratin'];
-				$_POST['price_stud_fri_gratin'] = $row['price_stud_gratin'];
-				$_POST['price_att_fri_gratin'] = $row['price_att_gratin'];
-				$_POST['fri_weekoffer'] = $row['weekoffer'];
-				$_POST['price_stud_fri_weekoffer'] = $row['price_stud_weekoffer'];
-				$_POST['price_att_fri_weekoffer'] = $row['price_att_weekoffer'];
-				$_POST['fri_special'] = $row['special'];
-				$_POST['price_stud_fri_special'] = $row['price_stud_special'];
-				$_POST['price_att_fri_special'] = $row['price_att_special'];
-				$_POST['fri_action'] = $row['action'];
-				$_POST['price_stud_fri_action'] = $row['price_stud_action'];
-				$_POST['price_att_fri_action'] = $row['price_att_action'];
-				$_POST['fri_green_corner'] = $row['green_corner'];
-				$_POST['price_stud_fri_green_corner'] = $row['price_stud_green_corner'];
-				$_POST['price_att_fri_green_corner'] = $row['price_att_green_corner'];
+				$post['fri_meal_one'] = $row['meal_one'];
+				$post['fri_meal_two'] = $row['meal_two'];
+				$post['fri_side'] = $row['side'];
+				$post['fri_hotpot'] = $row['hotpot'];
+				$post['fri_bbq'] = $row['bbq'];
+				$post['price_stud_fri_bbq'] = $row['price_stud_bbq'];
+				$post['price_att_fri_bbq'] = $row['price_att_bbq'];
+				$post['fri_pan'] = $row['pan'];
+				$post['price_stud_fri_pan'] = $row['price_stud_pan'];
+				$post['price_att_fri_pan'] = $row['price_att_pan'];
+				$post['fri_action'] = $row['action'];
+				$post['price_stud_fri_action'] = $row['price_stud_action'];
+				$post['price_att_fri_action'] = $row['price_att_action'];
+				$post['fri_wok'] = $row['wok'];
+				$post['price_stud_fri_wok'] = $row['price_stud_wok'];
+				$post['price_att_fri_wok'] = $row['price_att_wok'];
+				$post['fri_gratin'] = $row['gratin'];
+				$post['price_stud_fri_gratin'] = $row['price_stud_gratin'];
+				$post['price_att_fri_gratin'] = $row['price_att_gratin'];
+				$post['fri_mensavital'] = $row['mensavital'];
+				$post['price_stud_fri_mensavital'] = $row['price_stud_mensavital'];
+				$post['price_att_fri_mensavital'] = $row['price_att_mensavital'];
+				$post['fri_green_corner'] = $row['green_corner'];
+				$post['price_stud_fri_green_corner'] = $row['price_stud_green_corner'];
+				$post['price_att_fri_green_corner'] = $row['price_att_green_corner'];
 			}
+
+			return $post;
 
 		} catch (Exception $e){
 			echo $e->getMessage();
