@@ -1,74 +1,37 @@
-<?php session_start(); 
+<?php session_start();
+
+    //header einbinden
+    require_once '../../layout/backend/header.php';
+    
+	//create new Controller Object
+	require_once '../../controllers/kontakteController.php';
+	$controller = new kontakteController();
+	//check if the addContact-submit button has been pressed
+	if(isset($_POST['contactSubmit'])){
+		//call function to submit the typed values
+		$controller->c_insertContact();
+	}
 ?>
-<!DOCTYPE html>
+			<script type="text/javascript">
+				/**
+				*	Gets called when the "add new contact" button is pressed
+				*/
+				function showAddContact(){
 
-<html>
-<head>
-	<title>Backend Kontakte</title>
-	<link rel="stylesheet" type="text/css" href="../../sources/css/style_backend.css" />
-	<script type="text/javascript" src="../../sources/js/jquery-1.8.2.min.js"></script>
-	<meta charset="UTF-8">
-	<!-- jQuery function for "add contacts" button-->
-	<script type="text/javascript">
-		/**
-		*	Gets called when the "add new contact" button is pressed
-		*/
-		function showAddContact(){
-
-			//show the div if the button has not been pressed
-			if(($('#addContact').css('visibility') === "hidden")){
-				$('#addContact').css('visibility', 'visible');
-				$('#addContact').css('height', '100%');
-				$('#addContactButton').html('Verbergen');
-			}
-			// hide it otherwise 
-			else {
-				$('#addContact').css('visibility', 'hidden');
-				$('#addContact').css('height', '0px');
-				$('#addContactButton').html('Neuen Kontakt hinzufügen');			
-			}
-		}
-	</script>
-</head>
-<body>
-
-	<!-- PHP functions for getting and sending the data-->
-	<?php
-
-		//create new Controller Object
-		require_once '../../controllers/kontakteController.php';
-		$controller = new kontakteController();
-
-		//check if the addContact-submit button has been pressed
-		if(isset($_POST['contactSubmit'])){
-			//call function to submit the typed values
-			$controller->c_insertContact();
-		}
-
-
-		if(is_null($_SESSION['loggedIn'])){
-			echo 'Noch nicht eingeloggt. Bitte <a href="../../index.php"> auf dieser Seite </a> einloggen.';
-			exit();
-		}
-	?>
-	<div id ="header">
-   		<div id ="headline">
-       		<h1>CMS Web-App</h1>
-    	</div>
-    </div>
-    <div id="wrapper">
-    	<div id ="nav">
-        <h3>Seiteninhalt bearbeiten:</h3>
-       	<ul>
-         	<li><a href='#'>Studiengänge</a></li>
-            <li><a href='#'>Veranstaltungen</a></li>
-            <li><a href='#'>Termine</a></li>
-            <li><a href='#'>Mensa</a></li>
-            <li><a href='#'>FAQ</a></li>
-            <li><a href='#'>Kontakt</a></li>
-		</ul>
-		</div>
-		<div id="content">
+					//show the div if the button has not been pressed
+					if(($('#addContact').css('visibility') === "hidden")){
+						$('#addContact').css('visibility', 'visible');
+						$('#addContact').css('height', '100%');
+						$('#addContactButton').html('Verbergen');
+					}
+					// hide it otherwise 
+					else {
+						$('#addContact').css('visibility', 'hidden');
+						$('#addContact').css('height', '0px');
+						$('#addContactButton').html('Neuen Kontakt hinzufügen');			
+					}
+				}
+			</script>
 			<!-- List the existing data in a table and give the possibility to alter or delete it -->
 			<div id="alterContact">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -193,12 +156,6 @@
 				</form>
 			</div>
 			<!-- End add contact -->
-		</div>
-		<!-- End of content-->
-		<div class="clear"></div>
-		</div>
-	</div>
-	<!-- End of wrapper -->
-	<div id="footer"></div>
-</body>
-</html>
+<?php
+	require_once '../../layout/backend/footer.php';
+?>
