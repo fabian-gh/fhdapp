@@ -7,7 +7,7 @@
 
 	<select name="graduate_id" tabindex=1 > 
 	<?php
-		$graduates = $studycoursesController->selectData("graduates");	//alle graduates selektieren
+		$graduates = $studycoursesController->selectDropDownData("graduates");	//alle graduates selektieren
 		foreach($graduates AS $g){	//für jeden tupel 
 			echo "<option value=".$g["id"].">".$g["name"]."</option>";	//eine option einfügen
 		}
@@ -25,7 +25,7 @@
 	<p>Fachbereich: </p>
 	<select name="department_id" tabindex=3> 
 	<?php
-		$departments = $studycoursesController->selectData("departments");	//alle departments selektieren
+		$departments = $studycoursesController->selectDropDownData("departments");	//alle departments selektieren
 		foreach($departments AS $g){	//für jeden tupel 
 			echo "<option value=".$g["id"].">".$g["name"]."</option>";	//eine option einfügen
 		}
@@ -39,7 +39,7 @@
 	</br></br>
 	
 	<!-- Checkbox für Dualer Studiengang -->
-	<input type="checkbox" name="dual" value=5 id=5 tabindex=5> <label for=5 > Duales Studium</label><br>			<!-- value je nach Datenbank -->
+	<input type="checkbox" name="dual" value=5 id=5 tabindex=5> <label for=5 > Dualer Studiengang</label><br>			<!-- value je nach Datenbank -->
 	<br/>
 	
 	<!-- Radiobuttons -->
@@ -66,7 +66,7 @@
 	<p>Geschrieben in: </p>
 	<select name="language_id" tabindex=12 > 
 	<?php
-		$languages = $studycoursesController->selectData("languages");	//alle languages selektieren
+		$languages = $studycoursesController->selectDropDownData("languages");	//alle languages selektieren
 		foreach($languages AS $g){	//für jeden tupel 
 			echo "<option value=".$g["id"].">".$g["name"]."</option>";	//eine option einfügen
 		}

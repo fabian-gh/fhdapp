@@ -41,10 +41,29 @@
 			return $this->connection->insert_id;
 		}
 		
+		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
+		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung und ob es Teil-oder Vollzeit ist
+		public function selectStudicourses(){
+			$result = $this->connection->query("SELECT s.id AS id, s.name AS studyName, g.name AS graduateName, c.category AS categoryName
+												FROM `studycourses` s
+												JOIN `graduates` g 
+												ON s.graduate_id = g.id
+												JOIN `studycourses_mm_categories` sm
+												ON s.id = sm.studycourse_id
+												JOIN `categories` c
+												ON c.id = sm.category_id
+												WHERE c.id = 4 OR c.id = 3
+												ORDER BY s.name, g.name, c.category ASC;");
+			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
+				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen
+			}
+			return $retVal;
+		}
+		
 		
 		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
-		public function selectData($type){
+		public function selectDropDownData($type){
 			try{
 				switch($type){
 					case "graduates":	//Liefert Fachbereiche zurück (departments)

@@ -42,10 +42,12 @@
 					$error = $studycoursesController->checkInsertEditFormular($_POST);
 					if(!is_bool($error)){	//Wenn $error kein bool ist (also eine fehlerhafte eingabe vorliegt, weil dann ein array zurückgegeben wird)
 						require_once 'backend_insertFormular_error.php';	//Formular zum einfügen der Studiengänge
-						unset($error);
 					}
-					else	//sonst alles eintragen
-						$studycoursesController->insertStudycourse($_POST);
+					else{	
+						$studycoursesController->insertStudycourse($_POST);	//sonst alles eintragen
+						require_once 'backend_confirmation.php';	//und bestätigung anzeigen
+					}
+					unset($error);
 				}
 				else{	//Wenn kein Formular abgesendet wurde
 					
@@ -55,7 +57,7 @@
 								require_once 'backend_insertFormular.php';	//Formular zum einfügen der Studiengänge
 								break;
 							case "bearbeitenLoeschen":
-								require_once 'ass.php';	//Formular zum bearbeiten und löschen der Studiengänge
+								require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und löschen der Studiengänge
 							break;
 						}
 					}

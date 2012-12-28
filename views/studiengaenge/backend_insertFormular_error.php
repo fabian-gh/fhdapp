@@ -3,7 +3,6 @@
 		if-abfragen sind, wenn man alles richtig eingibt 
 -->
 
-<!-- F E H L E R wenn nur ein feld nicht ausgefüllt ist?!?!?! --> 
 <form method="post">
 	<h3>Neuen Studiengang einf&uuml;gen</h3>
 	
@@ -11,7 +10,7 @@
 	<p>Abschlussbeschreibung: </p>
 	<select name="graduate_id" tabindex=1 > 
 	<?php
-		$graduates = $studycoursesController->selectData("graduates");	//alle graduates selektieren
+		$graduates = $studycoursesController->selectDropDownData("graduates");	//alle graduates selektieren
 		foreach($graduates AS $g){	//für jeden tupel 
 			echo "<option ";	//eine option einfügen - anfang
 			if($g["id"] == $_POST["graduate_id"]){	//Für eine Vorauswahl
@@ -45,7 +44,7 @@
 	<p>Fachbereich: </p>
 	<select name="department_id" tabindex=3> 
 	<?php
-		$departments = $studycoursesController->selectData("departments");	//alle departments selektieren
+		$departments = $studycoursesController->selectDropDownData("departments");	//alle departments selektieren
 		foreach($departments AS $d){	//für jeden tupel 
 			echo "<option ";	//eine option einfügen - anfang
 			if($d["id"] == $_POST["department_id"]){	//Für eine Vorauswahl
@@ -74,7 +73,7 @@
 	</br></br>
 	
 	<!-- Checkbox für Dualer Studiengang -->
-	<input type="checkbox" <?php if(isset($_POST["dual"])) echo "checked=\"checked\""; ?> name="dual" value=5 id=5 tabindex=5> <label for=5 > Duales Studium</label><br>	<!-- value je nach Datenbank -->
+	<input type="checkbox" <?php if(isset($_POST["dual"])) echo "checked=\"checked\""; ?> name="dual" value=5 id=5 tabindex=5> <label for=5 > Dualer Studiengang</label><br>	<!-- value je nach Datenbank -->
 	<br/>
 	
 	<!-- Ausgabe der Radiobuttons "Vollzeit" und "Teilzeit" -->
@@ -135,7 +134,7 @@
 	<p>Geschrieben in: </p>
 	<select name="language_id" tabindex=12 > 
 	<?php
-		$languages = $studycoursesController->selectData("languages");	//alle languages selektieren
+		$languages = $studycoursesController->selectDropDownData("languages");	//alle languages selektieren
 		foreach($languages AS $l){	//für jeden tupel 
 			echo "<option ";	//eine option einfügen - anfang
 			if($l["id"] == $_POST["language_id"]){	//Für eine Vorauswahl

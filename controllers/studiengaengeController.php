@@ -105,14 +105,20 @@
 
 		}
 		
+		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
+		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung und ob es Teil-oder Vollzeit ist
+		public function selectStudicourses(){
+				return $this->studycoursesModel->selectStudicourses();
+		}
+		
 		
 		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
 		//übergabeparameter "$type" muss dabei ein String sein, wobei der String = "department" oder "languages" oder "graduates" sein muss
 		//sonst wird nichts zurückgegeben
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
-		public function selectData($type){
+		public function selectDropDownData($type){
 			if($type=="languages" OR $type=="departments" OR $type=="graduates")	//nur wenn übergabeparameter stimmt, dann
-				return $this->studycoursesModel->selectData($type);
+				return $this->studycoursesModel->selectDropDownData($type);
 		}
 		
 		
