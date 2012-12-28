@@ -39,7 +39,13 @@
 				
 				//Wenn Formlular abgesendet wurde
 				if(isset($_POST["insertNewStudi"])){
-					$studycoursesController->insertStudycourse($_POST);
+					$error = $studycoursesController->checkInsertEditFormular($_POST);
+					if(!is_bool($error)){	//Wenn $error kein bool ist (also eine fehlerhafte eingabe vorliegt, weil dann ein array zurückgegeben wird)
+						require_once 'backend_insertFormular_error.php';	//Formular zum einfügen der Studiengänge
+						unset($error);
+					}
+					else	//sonst alles eintragen
+						$studycoursesController->insertStudycourse($_POST);
 				}
 				else{	//Wenn kein Formular abgesendet wurde
 					

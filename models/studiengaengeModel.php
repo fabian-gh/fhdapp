@@ -22,6 +22,7 @@
 			}
 		}
 		
+		
 		//Funktion um Werte in die Relation 'studycourses_mm_categories' einzufügen. 
 		//Dabei muss die ID von der Categorie (id_cat) übergeben werden und die ID vom Studiengang($studID)
 		public function insertStudCat($studID, $id_cat){

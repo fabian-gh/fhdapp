@@ -17,7 +17,7 @@
 	</br>
 	
 	<!-- Eingabe vom Namen des Studiengangs -->
-	<p>Name des Studiengangs: </p>
+	<p>Name des Studiengangs: </p> 
 	<input name="name" type="text" size="40" maxlength="100" tabindex=2>
 	</br>
 	

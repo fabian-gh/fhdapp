@@ -18,17 +18,42 @@
 		
 		//IM
 		
+		//Prüft, ob das Formular (siehe backend_insertFormular.php) korrekt ausgefüllt wurde
+		//Rückgabe: boolean: ture, wenn alles richtig ausgefüllt wurde
+		//Rückgabe: assoziatives-Array: array, indem die falsch ausgefüllten felder existieren(ist z.B. das feld mit name="semestercount" falsch ausgefüllt, existiert im array das feld ["semestercount"]
+		//Übergabeparameter ist "$_POST"  
+		public function checkInsertEditFormular($post){
+			//Wenn alles ausgefüllt ist und semesteranzahl eine nummer ist - also alles richtig ausgefüllt ist
+			if(	isset($post["name"], $post["description"], $post["semestercount"], $post["link"], $post["vollTeil"]) AND is_numeric($post["semestercount"])){
+				//Dann gebe ture zurück
+				return true;
+			}
+			else{
+				//sonst finde heraus, was falsch ist und gebe das entsprechende Array zurück
+				//=> F E H L E R E R K E N N U N G !!!!
+				$retVal = array();
+				$retVal["empty"] = "must have";
+				if($post["name"]=="")
+					$retVal["name"] = true;
+				if($post["description"]=="")
+					$retVal["description"] = true;
+				if($post["semestercount"]=="" OR !is_numeric($post["semestercount"]))
+					$retVal["semestercount"] = true;
+				if($post["link"]=="")
+					$retVal["link"] = true;
+				if(!isset($post["vollTeil"]))
+					$retVal["vollTeil"] = true;
+				return $retVal;
+			}
+		}
 		
 		//Funktion um Werte in die Relation 'studycourses' einzufügen.
-		//Und dabei dem Studienkurs die Kategorien zuweisen. Also ausfüllen der Zwischentabelle
-		public function insertStudycourse($post){
-			//Wenn alles ausgefüllt ist und semesteranzahl eine nummer ist
-			if(	isset($post["name"], $post["description"], $post["semestercount"], $post["link"], $post["vollTeil"]) AND is_numeric($post["semestercount"])){	
-				//Dann schreibe in die Datenbank
-				
+		//Und dabei dem Studienkurs die Kategorien zuzuweisen. Also ausfüllen der Zwischentabelle "studycourses_mm_categories"
+		public function insertStudycourse($post){				
+				//schreibe Studienkurs in die Datenbank
 				$this->studycoursesModel->insertStudycourse($post);
+				//Fülle Zwischentablle aus
 				$this->insertStudCat($post);
-			}
 		}
 		
 		
