@@ -1,65 +1,18 @@
-<!-- Bestätigung Einfügen Studiengang -->
+<!-- Zeigt eine Tabelle mit allen Studiengängen an -->
 
-	<h3>Folgender Studiengang wurde einf&uuml;gt</h3>
+	<h3>Studieng&auml;nge l&ouml;schen oder bearbeiten</h3>
 
 
-	<?php
-		echo "<p>";
-		$studycourses = $studycoursesController->selectStudicourses();
-		foreach($studycourses AS $s){	//für jeden tupel 
-			echo $s["studyName"];
-			echo " ";
-			echo $s["graduateName"];
-			echo " ";
-			echo $s["categoryName"];
-			echo "</br></br>";
+	<table border=1>
+		<tr><th>Name</th><th>Abschlussart</th><th>Art</th><th>Bearbeiten</th><th>L&ouml;schen</th></tr>
+		<?php
+		$studycourses = $studycoursesController->selectStudicourses();	//Alle Studiengänge alphabetisch geordnet mit studyName, graduateName, categoryName, id 
+		if(empty($studycourses))
+			echo "<tr><td colspan=5>Kein Studiengang vorhanden</td></tr>";
+		else{
+			foreach($studycourses AS $s){	//für jeden tupel 
+				echo "<form method=\"post\"><input type=\"hidden\" name=\"id\" value=".$s["id"]."><tr><td>".$s["studyName"]."</td><td>".$s["graduateName"]."</td><td>".$s["categoryName"]."</td><td><input type=\"submit\" value=\"Bearbeiten\" name=\"edit_btn\"></td><td><input type=\"submit\" value=\"L&ouml;schen\" name=\"delete_btn\"></td></tr></form>";
+			}
 		}
-	?>
-	<!--  -->
-	<p>Abschlussbeschreibung: </p>
-	</br>
-	
-	
-	<!--  -->
-	<p>Name des Studiengangs: </p>
-	</br>
-	
-	
-	<!--  -->
-	<p>Fachbereich: </p>
-	</br>
-	
-	
-	<!--  -->
-	<p>Semesteranzahl: </p>
-	</br>
-	
-	<!--  -->
-	<p>Dualer Studiengang</p>
-	<br/>
-	
-	<!--  -->
-	<p>Vollzeit: </p>
-	<p>Teilzeit: </p>
-	<br/>
-	
-	<!--  -->
-	<p>Kategorien: </p>
-	<br/>
-		
-	
-	<!--  -->
-	<p>Beschreibung des Studiengangs: </p> 
-	</br>
-	
-	<!--  -->
-	<p>Geschrieben in: </p>
-	</br>
-	
-	<!--  -->
-	<p>Link f&uuml;r weitere Informationen: </p>
-	</br>
-	
-	<!--  -->
-	<a href="cms.php?page=Studiengaenge&action=einfuegen"><input type="submit" value="Weiteren Studiengang einf&uuml;gen" style="width: 70px;"></a>
-	</br>
+		?>
+	</table>

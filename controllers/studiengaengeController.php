@@ -18,6 +18,27 @@
 		
 		//IM
 		
+		//Gibt den zugehörigen Namen (Datentyp: STRING) der graduate id zurück.
+		//Übergabeparameter: $id - graduate id, dessen namen man wissen will
+		public function graduateIdToName($id){
+			$retVal = $this->studycoursesModel->graduateIdToName($id);
+			return $retVal["name"];
+		}
+		
+		//Gibt den zugehörigen Namen (Datentyp: STRING) der language id zurück.
+		//Übergabeparameter: $id - language id, dessen namen man wissen will
+		public function languageIdToName($id){
+			$retVal = $this->studycoursesModel->languageIdToName($id);
+			return $retVal["name"];
+		}
+		
+		//Gibt den zugehörigen Namen (Datentyp: STRING) der department id zurück.
+		//Übergabeparameter: $id - department id, dessen namen man wissen will
+		public function departmentIdToName($id){
+			$retVal = $this->studycoursesModel->departmentIdToName($id);
+			return $retVal["name"];
+		}
+		
 		//Prüft, ob das Formular (backend_insertFormular.php) korrekt ausgefüllt wurde
 		//Rückgabe: boolean: ture, wenn alles richtig ausgefüllt wurde
 		//Rückgabe: assoziatives-Array: array, indem die falsch ausgefüllten felder existieren(ist z.B. das feld "semestercount" falsch ausgefüllt, existiert im array das feld ["semestercount"])
@@ -111,6 +132,11 @@
 				return $this->studycoursesModel->selectStudicourses();
 		}
 		
+		//Liefert ein Studiengan mit allen Informationen zurück
+		//Übergabeparameter: $id - id des Studiengangs
+		public function selectStudicourse($id){
+			return $this->studycoursesModel->selectStudicourse($id);
+		}
 		
 		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
 		//übergabeparameter "$type" muss dabei ein String sein, wobei der String = "department" oder "languages" oder "graduates" sein muss
@@ -121,6 +147,11 @@
 				return $this->studycoursesModel->selectDropDownData($type);
 		}
 		
+		//Löscht einen Studiengang
+		//Übergabeparameter: $id - des zu löschenden Studiengangs
+		public function deleteStudicourse($id){
+			$this->studycoursesModel->deleteStudicourse($id);
+		}
 		
 	}
 

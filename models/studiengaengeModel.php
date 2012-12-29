@@ -11,6 +11,24 @@
 			$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);	
 		}
 		
+		//Gibt den zugehörigen Namen (Datentyp: Array) der graduate id zurück.
+		//Übergabeparameter: $id - graduate id, dessen namen man wissen will
+		public function graduateIdToName($id){
+			return $this->connection->query("SELECT name FROM graduates WHERE id=".$id.";")->fetch_assoc();
+		}
+		
+		//Gibt den zugehörigen Namen (Datentyp: Array) der language id zurück.
+		//Übergabeparameter: $id - language id, dessen namen man wissen will
+		public function languageIdToName($id){
+			return $this->connection->query("SELECT name FROM languages WHERE id=".$id.";")->fetch_assoc();;
+		}
+		
+		//Gibt den zugehörigen Namen (Datentyp: Array) der department id zurück.
+		//Übergabeparameter: $id - department id, dessen namen man wissen will
+		public function departmentIdToName($id){
+			return $this->connection->query("SELECT name FROM departments WHERE id=".$id.";")->fetch_assoc();;
+		}
+		
 		//Funktion um Werte in die Relation 'studycourses' einzufügen. 
 		public function insertStudycourse($post){
 			try{
@@ -53,11 +71,19 @@
 												JOIN `categories` c
 												ON c.id = sm.category_id
 												WHERE c.id = 4 OR c.id = 3
-												ORDER BY s.name, g.name, c.category ASC;");
+												ORDER BY s.name ASC, g.name ASC, c.category DESC;");
+			$retVal = array();
 			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
 				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen
 			}
 			return $retVal;
+		}
+		
+		//Liefert ein Studiengan mit allen Informationen zurück
+		//Übergabeparameter: $id - id des Studiengangs
+		public function selectStudicourse($id){
+			$result = $this->connection->query("SELECT s.name AS studycourseName, g.name AS graduateName FROM studycourses s JOIN graduates g ON s.graduate_id=g.id WHERE s.id=".$id.";");
+			return $result->fetch_assoc();
 		}
 		
 		
@@ -95,6 +121,22 @@
 				//Selectieren des Wertes und einspeichern in $retVal
 				$retVal = $this->connection->query("SELECT abbreviation FROM graduates WHERE id=".$id." ORDER BY 'id' ASC;");
 				return $retVal->fetch_assoc();
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
+			}
+		}
+		
+		//Löscht einen Studiengang
+		//Übergabeparameter: $id - des zu löschenden Studiengangs
+		public function deleteStudicourse($id){
+			try{
+				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_categories"
+				$this->connection->query("DELETE FROM studycourses_mm_categories WHERE studycourse_id=".$id."");
+				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
+				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE studycourse_id=".$id."");
+				//Lösche den Studiengang aus der Tabelle "studycourses"
+				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE id=".$id."");
 			}
 			catch(Exception $e){
 				echo $e->getMessage();

@@ -1,3 +1,18 @@
+.error{
+	color: red;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+tr:hover   {
+	background-color: lightgreen; 
+}
+
+
+
+
+
+
 * {
 	margin: 0;
 	padding: 0;	
@@ -10,11 +25,7 @@ body {
 	font-size: 12px;
 }
 
-.error{
-	color: red;
-	font-weight: bold;
-	font-size: 15px;
-}
+
 
 #header,
 #footer {
