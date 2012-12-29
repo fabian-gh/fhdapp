@@ -39,30 +39,31 @@
 				
 				//Wenn ein Formular abgesendet wurde
 				if(isset($_POST["insertNewStudi_btn"]) OR isset($_POST["delete_btn"]) OR isset($_POST["edit_btn"])){
-					if(isset($_POST["insertNewStudi_btn"])){	//Wenn etwas eingefügt werden soll
+					if(isset($_POST["insertNewStudi_btn"])){	//Wenn etwas eingef?gt werden soll
 						$error = $studycoursesController->checkInsertEditFormular($_POST);
-						if(!is_bool($error)){	//Wenn $error kein bool ist (also eine fehlerhafte eingabe vorliegt, weil dann ein array zurückgegeben wird)
-							require_once 'backend_insertFormular.php';	//Formular zum einfügen der Studiengänge
+						if(!is_bool($error)){	//Wenn $error kein bool ist (also eine fehlerhafte eingabe vorliegt, weil dann ein array zur?ckgegeben wird)
+							require_once 'backend_insertFormular.php';	//Formular zum einf?gen der Studieng?nge
 						}
 						else{	
 							$studycoursesController->insertStudycourse($_POST);	//sonst alles eintragen
-							require_once 'backend_insertConfirmation.php';	//und bestätigung anzeigen
+							require_once 'backend_insertConfirmation.php';	//und best?tigung anzeigen
 						}
 						unset($error);
 					}
-					if(isset($_POST["delete_btn"])){	//Wenn etwas gelöscht werden soll
-						if(!isset($_POST["deleteConfirm_btn"]))	//Wurde schon bestätigt, ob der Studiengang wirklich gelöscht werden soll? Wenn nein, dann
-							require_once 'backend_deleteConfirmation.php';	//Frage nach ob der Studiengang wirklich gelöscht werden soll
-						else{	//sonst löche ihn und gebe eine bestätigung aus
-							$studycoursesController->deleteStudicourse($_POST["id"]);	//Dann löschen		
+					if(isset($_POST["delete_btn"])){	//Wenn etwas gel?scht werden soll
+						if(!isset($_POST["deleteConfirm_btn"]))	//Wurde schon best?tigt, ob der Studiengang wirklich gel?scht werden soll? Wenn nein, dann
+							require_once 'backend_deleteConfirmation.php';	//Frage nach ob der Studiengang wirklich gel?scht werden soll
+						else{	//sonst l?che ihn und gebe eine best?tigung aus
+							$studycoursesController->deleteStudicourse($_POST["id"]);	//Dann l?schen		
 							echo "<p>Studiengang gel&ouml;scht</p>";
-							require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und löschen der Studiengänge wieder anzeigen
+							require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und l?schen der Studieng?nge wieder anzeigen
 						}							
 							
 					}
-					if(isset($_POST["edit_btn"])){	//Wenn etwas gelöscht werden soll
+					if(isset($_POST["edit_btn"])){	//Wenn etwas gel?scht werden soll
 						echo "edit";
 					}
+					unset($error);
 				}
 				else{	//Wenn kein Formular abgesendet wurde
 					

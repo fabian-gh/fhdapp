@@ -1,4 +1,4 @@
-<!-- Frage ob ein Studiengang endgültig gelöcht werden soll -->
+<!-- Frage ob ein Studiengang endg?ltig gel?cht werden soll -->
 
 	<h3>L&ouml;sch Best&auml;tigung</h3>
 

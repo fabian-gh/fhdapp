@@ -1,6 +1,6 @@
 •beim "bearbeiten", Post mit hidden field ausfüllen und das inertFormular aufrufen (datensatz wird dann auto eingefügt)
-=> Achtung, INSTERT INTO muss dann in UPDATE SET geändert werden. Dabei die GETvariable benutzen, wenn "action=bearbeitenLoeschen", dann UPDATE(button), wenn "action=einfuegen" dann INSERT(Button)
-also gucken, was im GET steht und je nach dem den richtigen Button ausgeben (mit name="insertNewStudi_btn" oder name="editConfirm_btn")
+ => Achtung, INSTERT INTO muss dann in UPDATE SET geändert werden. Dabei die GETvariable benutzen, wenn "action=bearbeitenLoeschen", dann UPDATE(button), wenn "action=einfuegen" dann INSERT(Button)
+ also gucken, was im GET steht und je nach dem den richtigen Button ausgeben (mit name="insertNewStudi_btn" oder name="editConfirm_btn")
 
 
-•backend_showStudycourses => hiddenfields rein und formatieren (Das echo) + abfrage dementsprechend ändern (damit alles zurück gegeben wird und nicht nur name, graduatename und teilzeit/vollzeit)
+•backend_showStudycourses => hiddenfields rein und formatieren (Das echo) + abfrage dementsprechend andern (damit alles zurück gegeben wird und nicht nur name, graduatename und teilzeit/vollzeit)

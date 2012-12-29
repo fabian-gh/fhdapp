@@ -18,22 +18,22 @@
 		
 		//IM
 		
-		//Gibt den zugehörigen Namen (Datentyp: STRING) der graduate id zurück.
-		//Übergabeparameter: $id - graduate id, dessen namen man wissen will
+		//Gibt den zugeh?rigen Namen (Datentyp: STRING) der graduate id zur?ck.
+		//?bergabeparameter: $id - graduate id, dessen namen man wissen will
 		public function graduateIdToName($id){
 			$retVal = $this->studycoursesModel->graduateIdToName($id);
 			return $retVal["name"];
 		}
 		
-		//Gibt den zugehörigen Namen (Datentyp: STRING) der language id zurück.
-		//Übergabeparameter: $id - language id, dessen namen man wissen will
+		//Gibt den zugeh?rigen Namen (Datentyp: STRING) der language id zur?ck.
+		//?bergabeparameter: $id - language id, dessen namen man wissen will
 		public function languageIdToName($id){
 			$retVal = $this->studycoursesModel->languageIdToName($id);
 			return $retVal["name"];
 		}
 		
-		//Gibt den zugehörigen Namen (Datentyp: STRING) der department id zurück.
-		//Übergabeparameter: $id - department id, dessen namen man wissen will
+		//Gibt den zugeh?rigen Namen (Datentyp: STRING) der department id zur?ck.
+		//?bergabeparameter: $id - department id, dessen namen man wissen will
 		public function departmentIdToName($id){
 			$retVal = $this->studycoursesModel->departmentIdToName($id);
 			return $retVal["name"];
@@ -132,8 +132,8 @@
 				return $this->studycoursesModel->selectStudicourses();
 		}
 		
-		//Liefert ein Studiengan mit allen Informationen zurück
-		//Übergabeparameter: $id - id des Studiengangs
+		//Liefert ein Studiengan mit allen Informationen zur?ck
+		//?bergabeparameter: $id - id des Studiengangs
 		public function selectStudicourse($id){
 			return $this->studycoursesModel->selectStudicourse($id);
 		}
@@ -147,12 +147,12 @@
 				return $this->studycoursesModel->selectDropDownData($type);
 		}
 		
-		//Löscht einen Studiengang
-		//Übergabeparameter: $id - des zu löschenden Studiengangs
+		//L?scht einen Studiengang
+		//?bergabeparameter: $id - des zu l?schenden Studiengangs
 		public function deleteStudicourse($id){
 			$this->studycoursesModel->deleteStudicourse($id);
 		}
-		
+	
 	}
 
 ?>

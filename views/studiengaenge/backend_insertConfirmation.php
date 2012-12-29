@@ -1,4 +1,4 @@
-<!-- Bestätigung Einfügen Studiengang -->
+<!-- Best?tigung Einf?gen Studiengang -->
 
 	<h3>Folgender Studiengang wurde einf&uuml;gt</h3>
 	

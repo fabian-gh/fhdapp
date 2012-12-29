@@ -11,20 +11,20 @@
 			$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);	
 		}
 		
-		//Gibt den zugehörigen Namen (Datentyp: Array) der graduate id zurück.
-		//Übergabeparameter: $id - graduate id, dessen namen man wissen will
+		//Gibt den zugeh?rigen Namen (Datentyp: Array) der graduate id zur?ck.
+		//?bergabeparameter: $id - graduate id, dessen namen man wissen will
 		public function graduateIdToName($id){
 			return $this->connection->query("SELECT name FROM graduates WHERE id=".$id.";")->fetch_assoc();
 		}
 		
-		//Gibt den zugehörigen Namen (Datentyp: Array) der language id zurück.
-		//Übergabeparameter: $id - language id, dessen namen man wissen will
+		//Gibt den zugeh?rigen Namen (Datentyp: Array) der language id zur?ck.
+		//?bergabeparameter: $id - language id, dessen namen man wissen will
 		public function languageIdToName($id){
 			return $this->connection->query("SELECT name FROM languages WHERE id=".$id.";")->fetch_assoc();;
 		}
 		
-		//Gibt den zugehörigen Namen (Datentyp: Array) der department id zurück.
-		//Übergabeparameter: $id - department id, dessen namen man wissen will
+		//Gibt den zugeh?rigen Namen (Datentyp: Array) der department id zur?ck.
+		//?bergabeparameter: $id - department id, dessen namen man wissen will
 		public function departmentIdToName($id){
 			return $this->connection->query("SELECT name FROM departments WHERE id=".$id.";")->fetch_assoc();;
 		}
@@ -79,14 +79,14 @@
 			return $retVal;
 		}
 		
-		//Liefert ein Studiengan mit allen Informationen zurück
-		//Übergabeparameter: $id - id des Studiengangs
+		//Liefert ein Studiengan mit allen Informationen zur?ck
+		//?bergabeparameter: $id - id des Studiengangs
 		public function selectStudicourse($id){
 			$result = $this->connection->query("SELECT s.name AS studycourseName, g.name AS graduateName FROM studycourses s JOIN graduates g ON s.graduate_id=g.id WHERE s.id=".$id.";");
 			return $result->fetch_assoc();
 		}
 		
-		
+
 		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
 		public function selectDropDownData($type){
@@ -127,15 +127,15 @@
 			}
 		}
 		
-		//Löscht einen Studiengang
-		//Übergabeparameter: $id - des zu löschenden Studiengangs
+		//L?scht einen Studiengang
+		//?bergabeparameter: $id - des zu l?schenden Studiengangs
 		public function deleteStudicourse($id){
 			try{
-				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_categories"
+				//L?sche den Studiengang aus der Zwischentabelle "studycourses_mm_categories"
 				$this->connection->query("DELETE FROM studycourses_mm_categories WHERE studycourse_id=".$id."");
-				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
+				//L?sche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
 				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE studycourse_id=".$id."");
-				//Lösche den Studiengang aus der Tabelle "studycourses"
+				//L?sche den Studiengang aus der Tabelle "studycourses"
 				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE id=".$id."");
 			}
 			catch(Exception $e){
@@ -144,5 +144,5 @@
 		}
 		
 	}
-
+	
 ?>
