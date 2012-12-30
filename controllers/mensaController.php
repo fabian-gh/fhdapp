@@ -25,27 +25,6 @@ class MensaController{
 	public function __construct(){
 		require_once '../../models/mensa.php';
 		$this->MensaModel = new Mensa();
-			
-		/*if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
-
-			if(isset($_GET['mode'])){
-
-				switch($_GET['mode']){
-					case 'add':
-						require_once 'edit.php';
-					break;
-
-					case 'edit':
-						$this->callEditPlan($_GET['cw']);
-						require_once 'edit.php';
-					break;
-
-					case 'delete':
-						$this->callDeletePlan($_GET['cw']);
-					break;
-				}
-			}
-		}*/
 	}
 
 

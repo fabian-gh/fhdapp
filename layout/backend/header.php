@@ -7,6 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../sources/jqueryui/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" />
+<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+<script src="../../sources/jqueryui/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 <title>FHD App - CMS</title>
 </head>
 

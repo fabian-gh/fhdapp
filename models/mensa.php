@@ -111,80 +111,80 @@ class Mensa{
 			switch($key){
 
 				case strstr($key, 'calenderweek'):
-					$this->calenderweek = $value;
+					$this->calenderweek = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'start_date'):
-					$this->start = $value;
+					$this->start = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'end_date'):
-					$this->end = $value;
+					$this->end = mysql_real_escape_string($value);
 				break;
 
 				// Monday
 				case strstr($key, 'mon_'):
-					$this->monday_meals[] = $value;
+					$this->monday_meals[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_stud_mon_'):
-					$this->monday_stud_prices[] = $value;
+					$this->monday_stud_prices[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_att_mon_'):
-					$this->monday_att_prices[] = $value;
+					$this->monday_att_prices[] = mysql_real_escape_string($value);
 				break;
 
 				// Tuesday
 				case strstr($key, 'tue_'):
-					$this->tuesday_meals[] = $value;
+					$this->tuesday_meals[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_stud_tue_'):
-					$this->tuesday_stud_prices[] = $value;
+					$this->tuesday_stud_prices[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_att_tue_'):
-					$this->tuesday_att_prices[] = $value;
+					$this->tuesday_att_prices[] = mysql_real_escape_string($value);
 				break;
 
 				// Wednesday
 				case strstr($key, 'wed_'):
-					$this->wednesday_meals[] = $value;
+					$this->wednesday_meals[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_stud_wed_'):
-					$this->wednesday_stud_prices[] = $value;
+					$this->wednesday_stud_prices[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_att_wed_'):
-					$this->wednesday_att_prices[] = $value;
+					$this->wednesday_att_prices[] = mysql_real_escape_string($value);
 				break;
 
 				// Thursday
 				case strstr($key, 'thu_'):
-					$this->thursday_meals[] = $value;
+					$this->thursday_meals[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_stud_thu_'):
-					$this->thursday_stud_prices[] = $value;
+					$this->thursday_stud_prices[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_att_thu_'):
-					$this->thursday_att_prices[] = $value;
+					$this->thursday_att_prices[] = mysql_real_escape_string($value);
 				break;
 
 				// Friday
 				case strstr($key, 'fri_'):
-					$this->friday_meals[] = $value;
+					$this->friday_meals[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_stud_fri_'):
-					$this->friday_stud_prices[] = $value;
+					$this->friday_stud_prices[] = mysql_real_escape_string($value);
 				break;
 
 				case strstr($key, 'price_att_fri_'):
-					$this->friday_att_prices[] = $value;
+					$this->friday_att_prices[] = mysql_real_escape_string($value);
 				break;
 			}
 		}
@@ -203,7 +203,8 @@ class Mensa{
 	 * @param Array $post Post-Data
 	 */
 	public function insertPlan(){
-		try{
+		if($this->calenderweek !== '' && $this->start !== ''){
+			try{
 			// insert Monday
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
@@ -304,8 +305,9 @@ class Mensa{
 					'".$this->friday_meals[9]."', '".$this->friday_stud_prices[5]."', '".$this->friday_att_prices[5]."',
 					'".$this->friday_meals[10]."', '".$this->friday_stud_prices[6]."', '".$this->friday_att_prices[6]."')");
 
-		} catch (Exception $e){
-			echo $e->getMessage();
+			} catch (Exception $e){
+				echo $e->getMessage();
+			}
 		}
 	}
 

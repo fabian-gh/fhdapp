@@ -26,8 +26,8 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 
 <form name="mensa" id="mensaform" method="post" action="">
 	<table>
-		<tr><td>Kalenderwoche:</td><td><input type="textfield" id="calenderweek" class="required" name="calenderweek" value="<?php echo (!empty($post['calenderweek'])) ? $post['calenderweek'] : ""; ?>" /></td></tr>
-		<tr><td>Startdatum:</td><td><input type="textfield" id="start_date" class="required" name="start_date" value="<?php echo (!empty($post['start_date'])) ? date("d.m.Y", strtotime($post['start_date'])) : ""; ?>" /></td></tr>
+		<tr><td>Kalenderwoche:</td><td><input type="textfield" id="calenderweek" name="calenderweek" value="<?php echo (!empty($post['calenderweek'])) ? $post['calenderweek'] : ""; ?>" /><span id="cw_error"></span></td></tr>
+		<tr><td>Startdatum:</td><td><input type="textfield" id="start_date" name="start_date" value="<?php echo (!empty($post['start_date'])) ? date("d.m.Y", strtotime($post['start_date'])) : ""; ?>" /><span id="date_error"></span></td></tr>
 	</table>
 	<table>
 		<tr>
@@ -269,7 +269,6 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 		<tr><td><input type="submit" id="mensasubmit" name="speichern" value="Speichern"/></td></tr>
 	</table>
 </form>
-
 
 <?php
 	require_once '../../layout/backend/footer.php';
