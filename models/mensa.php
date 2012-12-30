@@ -202,9 +202,16 @@ class Mensa{
 	 * Insert the Plan into the database
 	 * @param Array $post Post-Data
 	 */
-	public function insertPlan(){
-		if($this->calenderweek !== '' && $this->start !== ''){
+	public function insertPlan($get){
+
+		if(($this->calenderweek>0 && $this->calenderweek<=52) && $this->start !== ''){
+
 			try{
+			// delete old entries
+			if(isset($get) && $get['mode'] == 'edit'){
+				$this->DbCon->query("DELETE FROM meals WHERE calenderweek = ".$get['cw']);
+			}
+
 			// insert Monday
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
@@ -319,7 +326,8 @@ class Mensa{
 	 */
 	public function deletePlan($calenderweek){
 		try{
-			$this->DbCon->query("DELETE FROM meals WHERE calenderweek = '".$calenderweek."'");
+			$cw = $_GET['cw'];
+			$this->DbCon->query("DELETE FROM meals WHERE calenderweek = ".$calenderweek);
 			echo 'Plan der Kalenderwoche'.$calenderweek.'gelöscht';
 		} catch (Exception $e){
 			echo $e->getMessage();

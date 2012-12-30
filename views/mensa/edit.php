@@ -277,7 +277,12 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 // Überprüfung ob Formular abgeschickt
 if(isset($_POST['speichern'])){
 	$MensaController->callProceedPost($_POST);
-	$MensaController->callInsertPlan();
+	$MensaController->callInsertPlan($_GET);
+
+	unset($post);
+	unset($_POST);
+	unset($_GET);
+	header("Location: choose.php");
 }
 
 /* End of file backend_mensa.php */

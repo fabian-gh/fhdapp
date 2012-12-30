@@ -68,8 +68,8 @@ class MensaController{
 	/**
 	 * Insert the canteen plan into the database
 	 */
-	public function callInsertPlan(){
-		$this->MensaModel->insertPlan();
+	public function callInsertPlan($get){
+		$this->MensaModel->insertPlan($get);
 	}
 }
 
