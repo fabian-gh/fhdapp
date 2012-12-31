@@ -30,6 +30,11 @@ class Mensa{
 	 * @var Date
 	 */
 	private $mealdate;
+
+	/**
+	 * Startdate ftom the form
+	 * @var String Date
+	 */
 	private $start;
 
 	/**
@@ -118,10 +123,6 @@ class Mensa{
 					$this->start = mysql_real_escape_string($value);
 				break;
 
-				case strstr($key, 'end_date'):
-					$this->end = mysql_real_escape_string($value);
-				break;
-
 				// Monday
 				case strstr($key, 'mon_'):
 					$this->monday_meals[] = mysql_real_escape_string($value);
@@ -204,7 +205,7 @@ class Mensa{
 	 */
 	public function insertPlan($get){
 
-		if(($this->calenderweek>0 && $this->calenderweek<=52) && $this->start !== ''){
+		if(($this->calenderweek>0 && $this->calenderweek<=52) && !empty($this->mealdate)){
 
 			try{
 			// delete old entries

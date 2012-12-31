@@ -20,7 +20,7 @@ body {
 #headline,
 #wrapper {
 	width: 900px;
-	margin: 0 auto 0 auto;
+	margin: 0 auto 0 100px;
 }
 
 #wrapper {
@@ -116,6 +116,11 @@ body {
 #content a.button:hover {
 	color: #f7f5f0;
 	background-color: #ff0000; 
+}
+
+#content #mensaform textarea{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
 }
 
 #content input.price{

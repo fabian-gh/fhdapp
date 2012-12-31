@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
-<link rel="stylesheet" href="../../sources/jqueryui/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" />
+<link rel="stylesheet" href="../../sources/jqueryui/css/blitzer/jquery-ui-1.9.2.custom.min.css" />
 <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
 <script src="../../sources/jqueryui/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 <title>FHD App - CMS</title>
@@ -30,7 +30,7 @@
             echo '<div id ="nav">
                     <h3>Seiteninhalt bearbeiten:</h3>
                     <ul>
-                        <li><a href="../../views/studiengaenge/backend_studiengaenge.php">Studiengänge</a></li>
+                        <li><a href="../../views/studiengaenge/backend_studiengaenge.php">Studieng&auml;nge</a></li>
                         <li><a href="../../views/veranstaltungen/backend_veranstaltungen.php">Veranstaltungen</a></li>
                         <li><a href="../../views/termine/backend_termine.php">Termine</a></li>
                         <li><a href="../../views/mensa/choose.php">Mensa</a></li>
