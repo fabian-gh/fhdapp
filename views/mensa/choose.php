@@ -4,7 +4,7 @@
  * FHD-App
  *
  * @version 0.0.1
- * @copyright Fachhochschule Duesseldorf, 2012
+ * @copyright Fachhochschule Duesseldorf, 2012/2013
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
@@ -54,5 +54,5 @@ $plans = $MensaController->callGetAllPlans();
     }
 
 
-/* End of file backend.php */
-/* Location: ./views/mensa/backend.php */
+/* End of file choose.php */
+/* Location: ./views/mensa/choose.php */

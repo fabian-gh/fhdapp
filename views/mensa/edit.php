@@ -3,10 +3,13 @@
  * FHD-App
  *
  * @version 0.0.1
- * @copyright Fachhochschule Duesseldorf, 2012
+ * @copyright Fachhochschule Duesseldorf, 2012/2013
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
+
+// activate output Buffer, needed for header-redirection 
+ob_start();
 
 // include layout
 require_once '../../layout/backend/header.php';
@@ -276,14 +279,17 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 
 // Überprüfung ob Formular abgeschickt
 if(isset($_POST['speichern'])){
+	unset($post);
 	$MensaController->callProceedPost($_POST);
 	$MensaController->callInsertPlan($_GET);
 
-	unset($post);
 	unset($_POST);
 	unset($_GET);
 	header("Location: choose.php");
+
+	// Close the output buffer
+	ob_end_flush();
 }
 
-/* End of file backend_mensa.php */
-/* Location: ./views/mensa/backend_mensa.php */
+/* End of file edit.php */
+/* Location: ./views/mensa/edit.php */
