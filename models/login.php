@@ -22,39 +22,53 @@ class Login{
      * @var String 
      */
     private $password;
+
+    /**
+     * DB-Connection
+     * @var Object
+     */
+    private $Connection;
+
+
     
     /**
      * Konstruktor der den Loginvorgang durchführt
      * @param Object $Data
      */
-    public function __construct($Data){
-        
+    public function __construct($con, $post){
         // Eingaben aus dem Formular
-        $this->setUsername($_POST['username']);
-        $this->setPassword(md5($_POST['password']));
-        
+        $this->setUsername($post['username']);
+        $this->setPassword(md5($post['password']));
+        $this->setConnection($con);
+        $this->login();
+    }
+
+
+    /**
+     * Function for doing the login
+     */
+    public function login(){
         try{
-            // neue Datenbankverbindung herstellen
-            $db = new mysqli();
-            $db->connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
-            
-            // Abfrage
-            $query = $db->query("SELECT username, password 
-                                    FROM personen 
-                                    WHERE username = '".$this->username."'
-                                    AND password = '".$this->password."'");
-            
             // Abfrage ausführen
+            $query = $this->Connection->query("SELECT id, username, password 
+                                                FROM user 
+                                                WHERE username = '".$this->username."'
+                                                AND password = '".$this->password."'");
+            
+            // Abfrage fetchen
             while($row = $query->fetch_assoc()){
                 $resultSet[] = $row;
             }
             
-            // Wenn Abfrage richtig (nicht leer), dann Text "Eingeloggt" ausgeben
+            // Wenn Abfrage richtig (nicht leer), dann User-ID in Session speichern
+            // und auf Backend-Hauptseite leiten
             if(!empty($resultSet)){
-                echo 'Eingeloggt';
+                $_SESSION['user_id'] = $resultSet[0]['id'];
+                header('Location: ../index/index.php');
             } else {
-                // ansonsten "Login falsch" ausgeben
-                echo 'Login falsch';
+                // ansonsten auf Login-Seite leiten
+                $_SESSION['loginfailure'] = 'Login falsch!';
+                header('Location: login.php');
             }
             
         } catch(Exception $e){
@@ -63,6 +77,11 @@ class Login{
     }
     
     
+    // =========================================================================
+    // ======================= Getter & Setter =================================
+    // =========================================================================
+
+
     /**
      * Username setzen
      * @param String $username
@@ -79,9 +98,14 @@ class Login{
         $this->password = $password;
     }
 
-
+    /**
+     * Connection setzen
+     * @param String $password
+     */
+    public function setConnection($con) {
+        $this->Connection = $con;
+    }
 }
-
  
 /* End of file login.php */
 /* Location: ./models/login.php */

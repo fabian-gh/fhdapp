@@ -1,55 +1,58 @@
 <?php
 
 /**
-* FHD-App
-*
-* @version 0.0.1
-* @copyright Fachhochschule Duesseldorf, 2012
-* @link http://www.fh-duesseldorf.de
-* @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
-*/
+ * FHD-App
+ *
+ * @version 0.0.1
+ * @copyright Fachhochschule Duesseldorf, 2012
+ * @link http://www.fh-duesseldorf.de
+ * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
+ */
 
 class Database{
     
     /**
-* Hostname
-* @var String
-*/
+     * Hostname
+     * @var String
+     */
     private $hostname;
     
     /**
-* Datenbank
-* @var String
-*/
+     * Datenbank
+     * @var String 
+     */
     private $database;
     
     /**
-* Benutzername
-* @var String
-*/
+     * Benutzername
+     * @var String 
+     */
     private $username;
     
     /**
-* Passwort
-* @var String
-*/
+     * Passwort
+     * @var String 
+     */
     private $password;
     
     
     /**
-* Datenbank-Connection aufbauen und dauerhaft in Session speichern
-*/
+     * Datenbank-Connection aufbauen und dauerhaft in Session speichern
+     */
     public function __construct(){
         // DB-Zugangsdaten einbinden
-        require_once 'config/db.php';
+        require_once __DIR__.'../../config/db.php';
         
         $this->setHostname($db['hostname']);
         $this->setDatabase($db['database']);
         $this->setUsername($db['username']);
         $this->setPassword($db['password']);
-        
-        //Connection in Session speichern
-        $_SESSION['connection'] = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+
+        // Verbindungsdaten in Session speichern
+        $_SESSION['host'] = $this->getHostname();
+        $_SESSION['db'] = $this->getDatabase();
+        $_SESSION['user'] = $this->getUsername();
+        $_SESSION['pwd'] = $this->getPassword();
     }
     
     
@@ -58,74 +61,74 @@ class Database{
     // =========================================================================
     
     /**
-* Hostnamen setzen
-* @param String $host
-*/
+     * Hostnamen setzen
+     * @param String $host
+     */
     public function setHostname($host){
         $this->hostname = $host;
     }
     
     
     /**
-* Datenbank setzen
-* @param String $db
-*/
+     * Datenbank setzen
+     * @param String $db
+     */
     public function setDatabase($db){
         $this->database = $db;
     }
     
     
     /**
-* Benutzernamen setzen
-* @param String $user
-*/
+     * Benutzernamen setzen
+     * @param String $user
+     */
     public function setUsername($user){
         $this->username = $user;
     }
     
     
     /**
-* Passwort setzen
-* @param String $pw
-*/
+     * Passwort setzen
+     * @param String $pw
+     */
     public function setPassword($pw){
         $this->password = $pw;
     }
     
 
     /**
-* Hostnamen zurückliefern
-* @return String
-*/
+     * Hostnamen zurückliefern
+     * @return String
+     */
     public function getHostname(){
-        return $_SESSION['host'];
+        return $this->hostname;
     }
     
     
     /**
-* Datenbank zurückliefern
-* @return String
-*/
+     * Datenbank zurückliefern
+     * @return String
+     */
     public function getDatabase(){
-        return $_SESSION['db'];
+        return $this->database;
     }
     
     
     /**
-* Usernamen zurückliefern
-* @return String
-*/
+     * Usernamen zurückliefern
+     * @return String
+     */
     public function getUsername(){
-        return $_SESSION['user'];
+        return $this->username;
     }
     
     
     /**
-* Passwort zurückliefern
-* @return String
-*/
+     * Passwort zurückliefern
+     * @return String
+     */
     public function getPassword(){
-        return $_SESSION['pwd'];
+        return $this->password;
     }
 }
 

@@ -39,8 +39,24 @@ body {
 	text-decoration: none;
 }
 
-#breadcrumb a.nav-icon {
+#breadcrumb a.nav-icon-i {
 	background: url(../img/nav-icon-i.png) no-repeat;
+	display: inline-block;
+	text-indent: -9999em;
+	width: 26px;
+	height: 32px;
+}
+
+#breadcrumb a.nav-icon-e {
+	background: url(../img/nav-icon-e.png) no-repeat;
+	display: inline-block;
+	text-indent: -9999em;
+	width: 26px;
+	height: 32px;
+}
+
+#breadcrumb a.nav-icon-s {
+	background: url(../img/nav-icon-s.png) no-repeat;
 	display: inline-block;
 	text-indent: -9999em;
 	width: 26px;

@@ -154,7 +154,7 @@ a.ui-link-inherit {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
        only screen and (min--moz-device-pixel-ratio: 1.5),
        only screen and (min-resolution: 240dpi) {
-
+	
 	.ui-icon-plus, .ui-icon-minus, .ui-icon-delete, .ui-icon-arrow-r,
 	.ui-icon-arrow-l, .ui-icon-arrow-u, .ui-icon-arrow-d, .ui-icon-check,
 	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
@@ -874,7 +874,7 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 	-webkit-backface-visibility:hidden;
 	-webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 	-webkit-transform-origin: 0;
-
+	
 	-moz-backface-visibility:hidden;
 	-moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 	-moz-transform-origin: 0;
@@ -892,7 +892,7 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 	-moz-animation-name: flipintoright;
 	-webkit-animation-duration: 250ms;
 	-moz-animation-duration: 250ms;
-
+	
 }
 .turn.out.reverse {
 	-webkit-transform: rotateY(90deg) scale(.9);

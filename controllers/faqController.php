@@ -11,35 +11,96 @@
 
 class FaqController{
     
+	function __construct() {
+		// Model einbinden
+       require_once '../../models/faq.php';
+   }
     /**
-     * Übergibt Daten an Model
+     * Übergibt neue Daten an Model
      *
      */
-    public function forwarding($_POST){
-        // Model einbinden
-        require_once '../../models/faq.php';
-        
-        // Objekt erstellen
-        $faqModel = new Faq();
-        
+    public function setFaq($data){
+       
+         // Objekt erstellen
+	   $faqModel = new Faq();
 		// POST übergeben
-        $faqModel->controllInput($_POST);
+        $faqModel->controllInput($data);
     }
 	
 	/**
-     * Führt die Abfragemethode aus
+     * Übergibt ID zum löschen an Modell
+     *
+     */
+	 public function deleteFaq($id){
+       
+         // Objekt erstellen
+	   $faqModel = new Faq();
+		// POST übergeben
+        $faqModel->DeleteFaq($id);
+    }
+	
+	/**
+     * Führt die Abfragemethode aus um alle Faqs zu erhalten
      * @return Array
      */
-    public function getFAQs(){
-        // Model einbinden
-        require_once '/models/faq.php';
+    public function getFAQsFrontend($user, $dept){
         
-        // FAQ-Objekt erstellen
-		$faqModel = new Faq();
 		
+	   // Objekt erstellen
+	   $faqModel = new Faq();
         // Methode ausführen und zurückgeben
-        return $faq->getFaq();
+        return $faqModel->createReadStatementAllFrontend($user, $dept);
     }
+	
+	/**
+     * Führt die Abfragemethode aus um alle Faqs zu erhalten
+     * @return Array
+     */
+    public function getFAQsBackend($department){
+        
+		
+	   // Objekt erstellen
+	   $faqModel = new Faq();
+        // Methode ausführen und zurückgeben
+        return $faqModel->createReadStatementBackend($department);
+    }
+	
+	/**
+     * Führt die Abfragemethode aus um alle Fachbereiche zu erhalten
+     * @return Array
+     */
+    public function getDepartments(){
+        
+		 // Objekt erstellen
+	   $faqModel = new Faq();
+        // Methode ausführen und zurückgeben
+        return $faqModel->createReadStatementDepartments();
+    }
+	
+	/**
+     * Führt die Abfragemethode aus um alle Usergruppen zu erhalten
+     * @return Array
+     */
+    public function getUsertypes(){
+        
+		 // Objekt erstellen
+	   $faqModel = new Faq();
+        // Methode ausführen und zurückgeben
+        return $faqModel->createReadStatementUsertypes();
+    }
+
+
+
+//TEST METHODEN
+
+	public function getTestData($test){
+        
+		 // Objekt erstellen
+	   $faqModel = new Faq();
+        // Methode die getestet werden soll ausführen und zurückgeben
+        return $faqModel->createReadStatementFaqID($test);
+    }
+	
 }
  
 /* End of file faqController.php */
