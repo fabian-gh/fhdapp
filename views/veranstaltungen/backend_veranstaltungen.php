@@ -9,7 +9,7 @@
  * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
 	ob_start();
-	require_once 'layout/frontend/header.php';
+	require_once '../../layout/backend/header.php';
 	
 	if(isset($_POST['veranstaltung_speichern']))
 	{
@@ -105,7 +105,7 @@
 	}
 	
 	
-	require_once 'layout/frontend/footer.php';
+	require_once '../../layout/backend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen_edit.php */

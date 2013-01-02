@@ -14,6 +14,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript" src="../../sources/js/jquery-1.8.2.min.js"></script>
+
+<link rel="stylesheet" href="../../sources/css/jquery.mobile-1.2.0.css"/>
+<link rel="stylesheet" href="../../sources/css/jquery.mobile-fhd.css"/>
+		
+<script type="text/javascript" src="../../sources/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../../sources/js/jquery.mobile-1.2.0.min.js"></script>
 <title>FHD App - CMS</title>
 </head>
 

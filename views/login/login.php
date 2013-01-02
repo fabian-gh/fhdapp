@@ -11,6 +11,11 @@ if(isset($_SESSION['loginfailure'])){
     unset($_SESSION['loginfailure']);
 }
 
+if(isset($_POST['login'])){
+    require_once '../../controllers/loginController.php';
+    new LoginController($_POST);
+}
+
 ?>
     <body>
         
