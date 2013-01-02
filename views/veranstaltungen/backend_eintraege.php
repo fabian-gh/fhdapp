@@ -9,12 +9,14 @@
 		$jquery_complete = ' ';
 		$jquery_dummy = '
 						$("#veranstaltung_anzeigen_###ID###").click(function(){
+								$(".new_formular").hide();
 								$("#edit_veranstaltung_###ID###").hide();
 								$("#show_veranstaltung_###ID###").slideToggle("fast")();
 							});
 									
 							
 						$("#veranstaltung_bearbeiten_###ID###").click(function(){
+								$(".new_formular").hide();	
 								$("#show_veranstaltung_###ID###").hide();
 								$("#edit_veranstaltung_###ID###").slideToggle("fast")();
 							});

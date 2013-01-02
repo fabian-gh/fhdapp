@@ -27,6 +27,8 @@
 	{
 		require_once 'backend_formular.php';
 		echo '<br><br><br><br>';
+		require_once 'backend_auswahl.php';
+		echo '<br><br><br><br>';
 		require_once 'backend_eintraege.php';
 	}
 	
