@@ -11,20 +11,20 @@
 			$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);	
 		}
 		
-		//Gibt den zugeh?rigen Namen (Datentyp: Array) der graduate id zur?ck.
-		//?bergabeparameter: $id - graduate id, dessen namen man wissen will
+		//Gibt den zugehörigen Namen (Datentyp: Array) der graduate id zurück.
+		//Übergabeparameter: $id - graduate id, dessen namen man wissen will
 		public function graduateIdToName($id){
 			return $this->connection->query("SELECT name FROM graduates WHERE id=".$id.";")->fetch_assoc();
 		}
 		
-		//Gibt den zugeh?rigen Namen (Datentyp: Array) der language id zur?ck.
-		//?bergabeparameter: $id - language id, dessen namen man wissen will
+		//Gibt den zugehörigen Namen (Datentyp: Array) der language id zurück.
+		//Übergabeparameter: $id - language id, dessen namen man wissen will
 		public function languageIdToName($id){
 			return $this->connection->query("SELECT name FROM languages WHERE id=".$id.";")->fetch_assoc();;
 		}
 		
-		//Gibt den zugeh?rigen Namen (Datentyp: Array) der department id zur?ck.
-		//?bergabeparameter: $id - department id, dessen namen man wissen will
+		//Gibt den zugehörigen Namen (Datentyp: Array) der department id zurück.
+		//Übergabeparameter: $id - department id, dessen namen man wissen will
 		public function departmentIdToName($id){
 			return $this->connection->query("SELECT name FROM departments WHERE id=".$id.";")->fetch_assoc();;
 		}
@@ -62,7 +62,7 @@
 		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
 		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung und ob es Teil-oder Vollzeit ist
 		public function selectStudicourses(){
-			$result = $this->connection->query("SELECT s.id AS id, s.name AS studyName, g.name AS graduateName, c.category AS categoryName
+			$result = $this->connection->query("SELECT s.id AS id, s.name AS study_name, g.name AS graduate_name, c.category AS category_name
 												FROM `studycourses` s
 												JOIN `graduates` g 
 												ON s.graduate_id = g.id
@@ -72,18 +72,26 @@
 												ON c.id = sm.category_id
 												WHERE c.id = 4 OR c.id = 3
 												ORDER BY s.name ASC, g.name ASC, c.category DESC;");
-			$retVal = array();
+			
 			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
 				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen
 			}
 			return $retVal;
 		}
 		
-		//Liefert ein Studiengan mit allen Informationen zur?ck
-		//?bergabeparameter: $id - id des Studiengangs
+		//Liefert mehrere Zeilen zurück. Die Zeilen untescheiden sich nur in der "categoryID", der rest ist immer der selbe Studiengang
+		//Übergabeparameter: $id - id des Studiengangs
 		public function selectStudicourse($id){
-			$result = $this->connection->query("SELECT s.name AS studycourseName, g.name AS graduateName FROM studycourses s JOIN graduates g ON s.graduate_id=g.id WHERE s.id=".$id.";");
-			return $result->fetch_assoc();
+			$result = $this->connection->query("SELECT g.name AS graduate_name, s.graduate_id AS graduate_id, s.name AS name, s.department_id AS department_id, s.semestercount AS semestercount, s.description AS description, s.language_id AS language_id ,s.link AS link, c.id AS category_id
+												FROM studycourses s 
+												JOIN graduates g ON g.id = s.graduate_id
+												JOIN studycourses_mm_categories smmc ON s.id = smmc.studycourse_id
+												JOIN categories c ON smmc.category_id = c.id
+												WHERE s.id=".$id.";");		
+			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
+				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen
+			}
+			return $retVal;
 		}
 		
 
@@ -119,7 +127,7 @@
 		public function selectGradAbb($id){
 			try{		
 				//Selectieren des Wertes und einspeichern in $retVal
-				$retVal = $this->connection->query("SELECT abbreviation FROM graduates WHERE id=".$id." ORDER BY 'id' ASC;");
+				$retVal = $this->connection->query("SELECT abbreviation FROM graduates WHERE id=".$id.";");
 				return $retVal->fetch_assoc();
 			}
 			catch(Exception $e){
@@ -127,15 +135,15 @@
 			}
 		}
 		
-		//L?scht einen Studiengang
-		//?bergabeparameter: $id - des zu l?schenden Studiengangs
+		//Löscht einen Studiengang
+		//Übergabeparameter: $id - des zu löschenden Studiengangs
 		public function deleteStudicourse($id){
 			try{
-				//L?sche den Studiengang aus der Zwischentabelle "studycourses_mm_categories"
+				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_categories"
 				$this->connection->query("DELETE FROM studycourses_mm_categories WHERE studycourse_id=".$id."");
-				//L?sche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
+				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
 				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE studycourse_id=".$id."");
-				//L?sche den Studiengang aus der Tabelle "studycourses"
+				//Lösche den Studiengang aus der Tabelle "studycourses"
 				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE id=".$id."");
 			}
 			catch(Exception $e){

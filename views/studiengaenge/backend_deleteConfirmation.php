@@ -1,9 +1,9 @@
-<!-- Frage ob ein Studiengang endg?ltig gel?cht werden soll -->
+<!-- Frage ob ein Studiengang endgültig gelöcht werden soll -->
 
 	<h3>L&ouml;sch Best&auml;tigung</h3>
 
 	<?php $studycourse = $studycoursesController->selectStudicourse($_POST["id"]); ?>
-	<p>Wollen sie den Studiengang <i><b><?php echo "".$studycourse["graduateName"]." ".$studycourse["studycourseName"].""; ?></i></b> endg&uuml;ltig l&ouml;schen?</p>
+	<p>Wollen sie den Studiengang <i><b><?php echo "".$studycourse["graduate_name"]." ".$studycourse["name"].""; ?></i></b> endg&uuml;ltig l&ouml;schen?</p>
 	<form method="post">
 		<input type="hidden" name="delete_btn">
 		<input type="hidden" name="id" value=<?php echo $_POST["id"] ?>>

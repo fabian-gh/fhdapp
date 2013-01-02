@@ -18,22 +18,22 @@
 		
 		//IM
 		
-		//Gibt den zugeh?rigen Namen (Datentyp: STRING) der graduate id zur?ck.
-		//?bergabeparameter: $id - graduate id, dessen namen man wissen will
+		//Gibt den zugehörigen Namen (Datentyp: STRING) der graduate id zurück.
+		//Übergabeparameter: $id - graduate id, dessen namen man wissen will
 		public function graduateIdToName($id){
 			$retVal = $this->studycoursesModel->graduateIdToName($id);
 			return $retVal["name"];
 		}
 		
-		//Gibt den zugeh?rigen Namen (Datentyp: STRING) der language id zur?ck.
-		//?bergabeparameter: $id - language id, dessen namen man wissen will
+		//Gibt den zugehörigen Namen (Datentyp: STRING) der language id zurück.
+		//Übergabeparameter: $id - language id, dessen namen man wissen will
 		public function languageIdToName($id){
 			$retVal = $this->studycoursesModel->languageIdToName($id);
 			return $retVal["name"];
 		}
 		
-		//Gibt den zugeh?rigen Namen (Datentyp: STRING) der department id zur?ck.
-		//?bergabeparameter: $id - department id, dessen namen man wissen will
+		//Gibt den zugehörigen Namen (Datentyp: STRING) der department id zurück.
+		//Übergabeparameter: $id - department id, dessen namen man wissen will
 		public function departmentIdToName($id){
 			$retVal = $this->studycoursesModel->departmentIdToName($id);
 			return $retVal["name"];
@@ -132,10 +132,45 @@
 				return $this->studycoursesModel->selectStudicourses();
 		}
 		
-		//Liefert ein Studiengan mit allen Informationen zur?ck
-		//?bergabeparameter: $id - id des Studiengangs
+		//Liefert ein Array mit einem Studiengang und dessen categorien zurück
+		//Übergabeparameter: $id - id des Studiengangs
 		public function selectStudicourse($id){
-			return $this->studycoursesModel->selectStudicourse($id);
+			$rows = $this->studycoursesModel->selectStudicourse($id);	//Array holen
+			$retVal["graduate_id"] = $rows[0]["graduate_id"];
+			$retVal["graduate_name"] = $rows[0]["graduate_name"];
+			$retVal["name"] = $rows[0]["name"];
+			$retVal["department_id"] = $rows[0]["department_id"];
+			$retVal["semestercount"] = $rows[0]["semestercount"];
+			$retVal["description"] = $rows[0]["description"];
+			$retVal["language_id"] = $rows[0]["language_id"];
+			$retVal["link"] = $rows[0]["link"];			
+			//switch case im foreach ist abhängig von der Datenbank (Relation "categories" und deren ids und namen)
+			foreach($rows as $r){	//"uneffiziente" schleife
+				switch($r["category_id"]){
+					case 3:	//Teilzeit
+						$retVal["vollTeil"] = $r["category_id"];	//Array-feld "vollTeil" erstellen
+						break;
+					case 4:	//Vollzeit
+						$retVal["vollTeil"] = $r["category_id"];	//Array-feld "vollTeil" erstellen
+						break;
+					case 5:	//Dual
+						$retVal["dual"] = $r["category_id"];	//Array-feld "dual" erstellen
+						break;
+					case 6:	//ingenieurwissenschaftlich
+						$retVal["ingenieurwissenschaftlich"] = $r["category_id"];	//Array-feld "ingenieurwissenschaftlich" erstellen
+						break;
+					case 7:	//gestalterisch
+						$retVal["gestalterisch"] = $r["category_id"];	//Array-feld "gestalterisch" erstellen
+						break;
+					case 8:	//gesellschaftlich
+						$retVal["gesellschaftlich"] = $r["category_id"];	//Array-feld "gesellschaftlich" erstellen
+						break;
+					case 9:	//wirtschaftlich
+						$retVal["wirtschaftlich"] = $r["category_id"];	//Array-feld "wirtschaftlich" erstellen
+						break;
+				}
+			}
+			return $retVal;
 		}
 		
 		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
@@ -147,8 +182,8 @@
 				return $this->studycoursesModel->selectDropDownData($type);
 		}
 		
-		//L?scht einen Studiengang
-		//?bergabeparameter: $id - des zu l?schenden Studiengangs
+		//Löscht einen Studiengang
+		//Übergabeparameter: $id - des zu löschenden Studiengangs
 		public function deleteStudicourse($id){
 			$this->studycoursesModel->deleteStudicourse($id);
 		}

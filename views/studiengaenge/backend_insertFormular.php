@@ -1,4 +1,4 @@
-<!-- backend_insertFormular.php zum einf?gen eines Studiengangs mit Fehlerbehandlung -->
+<!-- backend_insertFormular.php zum einfügen eines Studiengangs mit Fehlerbehandlung -->
 
 <form method="post">
 	<h3>Neuen Studiengang einf&uuml;gen</h3>
@@ -9,11 +9,11 @@
 	<?php
 		$graduates = $studycoursesController->selectDropDownData("graduates");	//alle graduates selektieren
 		foreach($graduates AS $g){	//für jeden tupel 
-			echo "<option ";	//eine option einf?gen - anfang
-			if($g["id"] == @$_POST["graduate_id"]){	//F?r eine Vorauswahl
+			echo "<option ";	//eine option einfügen - anfang
+			if($g["id"] == @$_POST["graduate_id"]){	//Für eine Vorauswahl
 				echo "selected=\"selected\" ";
 			}
-			echo "value=".$g["id"].">".$g["name"]."</option>";	//eine option einf?gen - ende
+			echo "value=".$g["id"].">".$g["name"]."</option>";	//eine option einfügen - ende
 		}
 		unset($graduates);	//löscht $graduates
 	?>
@@ -23,9 +23,9 @@
 	
 	<!-- Eingabe vom Namen des Studiengangs -->
 	<?php 
-		//Dieser PHP-Block gibt die Beschreibung ("Name: ") f?r das darauf folgende <input> aus, 
+		//Dieser PHP-Block gibt die Beschreibung ("Name: ") für das darauf folgende <input> aus, 
 		//wobei die Beschreibung die styleclass "error" bekommt,
-		//wenn vorher eine fehlerhaft Eingabge get?tig wurde. 
+		//wenn vorher eine fehlerhaft Eingabge getütig wurde. 
 		//style class=error => Die Ausgabe ("Name: ") wird fett und rot
 		echo "<p "; 
 		if(isset($error["name"])){
@@ -42,14 +42,14 @@
 	<select name="department_id" tabindex=3> 
 	<?php
 		$departments = $studycoursesController->selectDropDownData("departments");	//alle departments selektieren
-		foreach($departments AS $d){	//f?r jeden tupel 
-			echo "<option ";	//eine option einf?gen - anfang
-			if($d["id"] == @$_POST["department_id"]){	//F?r eine Vorauswahl
+		foreach($departments AS $d){	//für jeden tupel 
+			echo "<option ";	//eine option einfügen - anfang
+			if($d["id"] == @$_POST["department_id"]){	//Für eine Vorauswahl
 				echo "selected=\"selected\" ";
 			}
-			echo "value=".$d["id"].">".$d["name"]."</option>";	//eine option einf?gen - ende
+			echo "value=".$d["id"].">".$d["name"]."</option>";	//eine option einfügen - ende
 		}
-		unset($departments);	//l?scht $departments
+		unset($departments);	//löscht $departments
 	?>
 	</select>
 	</br>
@@ -57,9 +57,9 @@
 	
 	<!-- Eingabe Semesteranzahl -->
 	<?php 
-		//Dieser PHP-Block gibt die Beschreibung ("Semesteranzahl: ") f?r das darauf folgende <input> aus, 
+		//Dieser PHP-Block gibt die Beschreibung ("Semesteranzahl: ") für das darauf folgende <input> aus, 
 		//wobei die Beschreibung die styleclass "error" bekommt,
-		//wenn vorher eine fehlerhaft Eingabge get?tig wurde. 
+		//wenn vorher eine fehlerhaft Eingabge getätig wurde. 
 		//style class=error => Die Ausgabe ("Semesteranzahl: ") wird fett und rot
 		echo "<p "; 
 		if(isset($error["semestercount"])){
@@ -76,9 +76,9 @@
 	
 	<!-- Ausgabe der Radiobuttons "Vollzeit" und "Teilzeit" -->
 	<?php 
-		//Dieser PHP-Block gibt die Beschreibung ("Vollzeit / Teilzeit: ") f?r das darauf folgende <input> aus, 
+		//Dieser PHP-Block gibt die Beschreibung ("Vollzeit / Teilzeit: ") für das darauf folgende <input> aus, 
 		//wobei die Beschreibung die styleclass "error" bekommt,
-		//wenn vorher eine fehlerhaft Eingabge get?tig wurde. 
+		//wenn vorher eine fehlerhaft Eingabge getätig wurde. 
 		//style class=error => Die Ausgabe ("Vollzeit / Teilzeit: ") wird fett und rot
 		echo "<p "; 
 		if(isset($error["vollTeil"])){
@@ -86,18 +86,18 @@
 		}
 		echo ">Vollzeit / Teilzeit: </p>"; 
 		
-		//Wenn kein Radiobutton gew?hlt ist, dann die Radiobuttons ohne Vorselektion auusgeben
+		//Wenn kein Radiobutton gewählt ist, dann die Radiobuttons ohne Vorselektion auusgeben
 		if(!isset($_POST["vollTeil"])){
 			echo "<input type=\"radio\" name=\"vollTeil\" value=4 id=4 tabindex=6> <label for=4 >Vollzeit</label><br>";	//value je nach Datenbank
 			echo "<input type=\"radio\" name=\"vollTeil\" value=3 id=3 tabindex=6> <label for=3 >Teilzeit</label><br>";	//value je nach Datenbank
 		}
 		else{	//sonst Radiobuttons ausgeben und eins vorselektieren
 			echo "<input type=\"radio\" ";
-				if(@$_POST["vollTeil"]==4) //Wenn "Vollzeit" gew?hlt ist
+				if(@$_POST["vollTeil"]==4) //Wenn "Vollzeit" gewählt ist
 					echo "checked=\"checked\" ";	//Dann checked="checked"
 				echo "name=\"vollTeil\" value=4 id=4 tabindex=6> <label for=4 >Vollzeit</label><br>";	//value je nach Datenbank
 			echo "<input type=\"radio\" ";
-				if(@$_POST["vollTeil"]==3) //Wenn "Teilzeit" gew?hlt ist
+				if(@$_POST["vollTeil"]==3) //Wenn "Teilzeit" gewählt ist
 					echo "checked=\"checked\" "; 	//Dann checked="checked"
 				echo "name=\"vollTeil\" value=3 id=3 tabindex=6> <label for=3 >Teilzeit</label><br>";	//value je nach Datenbank
 		}
@@ -115,9 +115,9 @@
 	
 	<!-- Eingabe Studiengangbeshreibung -->
 	<?php 
-		//Dieser PHP-Block gibt die Beschreibung ("Beschreibung des Studiengangs: ") f?r das darauf folgende <input> aus, 
+		//Dieser PHP-Block gibt die Beschreibung ("Beschreibung des Studiengangs: ") für das darauf folgende <input> aus, 
 		//wobei die Beschreibung die styleclass "error" bekommt,
-		//wenn vorher eine fehlerhaft Eingabge get?tig wurde. 
+		//wenn vorher eine fehlerhaft Eingabge getätig wurde. 
 		//style class=error => Die Ausgabe ("Beschreibung des Studiengangs: ") wird fett und rot
 		echo "<p "; 
 		if(isset($error["description"])){
@@ -133,24 +133,24 @@
 	<select name="language_id" tabindex=12 > 
 	<?php
 		$languages = $studycoursesController->selectDropDownData("languages");	//alle languages selektieren
-		foreach($languages AS $l){	//f?r jeden tupel 
-			echo "<option ";	//eine option einf?gen - anfang
-			if($l["id"] == @$_POST["language_id"]){	//F?r eine Vorauswahl
+		foreach($languages AS $l){	//für jeden tupel 
+			echo "<option ";	//eine option einfügen - anfang
+			if($l["id"] == @$_POST["language_id"]){	//Für eine Vorauswahl
 				echo "selected=\"selected\" ";
 			}
-			echo "value=".$l["id"].">".$l["name"]."</option>";	//eine option einf?gen - ende
+			echo "value=".$l["id"].">".$l["name"]."</option>";	//eine option einfügen - ende
 		}
-		unset($languages);	//l?scht $languages
+		unset($languages);	//löscht $languages
 	?>
 	</select>
 	</br>
 	
 	<!-- Eingabefeld Link für weitere Informationen -->
 	<?php 
-		//Dieser PHP-Block gibt die Beschreibung ("Link f?r weitere Informationen: ") f?r das darauf folgende <input> aus, 
+		//Dieser PHP-Block gibt die Beschreibung ("Link für weitere Informationen: ") für das darauf folgende <input> aus, 
 		//wobei die Beschreibung die styleclass "error" bekommt,
-		//wenn vorher eine fehlerhaft Eingabge get?tig wurde. 
-		//style class=error => Die Ausgabe ("Link f?r weitere Informationen: ") wird fett und rot
+		//wenn vorher eine fehlerhaft Eingabge getätig wurde. 
+		//style class=error => Die Ausgabe ("Link für weitere Informationen: ") wird fett und rot
 		echo "<p "; 
 		if(isset($error["link"])){
 			echo "class=\"error\"";
