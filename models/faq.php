@@ -284,10 +284,10 @@ class Faq {
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			//Connection Minh
-			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
-            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
             
 			
             // Abfrage ausführen
@@ -319,18 +319,25 @@ class Faq {
      * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
      * @return Array mit Datenbank werten
      */
-	public function createReadStatementAllFrontend($user, $dept){
+	public function createReadStatementAllFrontend($dept, $eis){
 		// Select Statement erstellen
-		if($dept != 0 || $user != 1)
+		switch($eis)
+		{
+					case 'i': $eis = 1; break;
+					case 'e': $eis = 2; break;
+					case 's': $eis = 3; break;
+		}
+		
+		if($dept != 0 || $eis != 1)
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id 
 					  FROM faq, faq_mm_usertype, faq_mm_departments 
-					  WHERE faq.id = faq_mm_usertype.faq_id AND faq_mm_usertype.usertype_id =".$user." 
+					  WHERE faq.id = faq_mm_usertype.faq_id AND faq_mm_usertype.usertype_id =".$eis." 
 					  AND faq.id = faq_mm_departments.faq_id AND faq_mm_departments.department_id =".$dept."";
 		else
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id 
 					 FROM faq, faq_mm_usertype 
 					 WHERE faq.id = faq_mm_usertype.faq_id 
-					 AND faq_mm_usertype.usertype_id=".$user."";
+					 AND faq_mm_usertype.usertype_id=".$eis."";
 		
 		// An Methode
 		return $this->getData($read);
@@ -394,10 +401,10 @@ class Faq {
             //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
 			//Connection Minh
-			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
-            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
 			
             // Abfrage ausführen
             $result = $db->query($read);
