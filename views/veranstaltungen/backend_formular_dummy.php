@@ -2,13 +2,11 @@
 $dummy1  ='
 		<div class="veranstaltung_###ID###" style="border-width:1px; border-style:solid;">
 		<h3>###NAME###</h3>
-		<input type="button" id="veranstaltung_anzeigen_###ID###" value="Veranstaltung anzeigen">
-		<input type="button" id="veranstaltung_bearbeiten_###ID###" value="Veranstaltung bearbeiten">
+		<a class="button" id="veranstaltung_anzeigen_###ID###">Veranstaltung anzeigen</a>
+		<a class="button" id="veranstaltung_bearbeiten_###ID###">Veranstaltung bearbeiten</a>
+				
+		<a href="?FB='.$_GET["FB"].'loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>
 		
-		<form action="" method="post">
-			<input type="submit" id="veranstaltung_loeschen_###ID###" 	value="Veranstaltung l&ouml;schen">
-			<input type="hidden" id="veranstaltung_loeschen" name="veranstaltung_loeschen" value="###ID###">
-		</form>
 		
 		<div class="show_veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">
 			<table id="table_veranstaltung_backend" border="0">
@@ -120,22 +118,22 @@ $dummy1  ='
 				  <td>Fachbereich:</td>
 				  <td>	
 				  
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_1" ###FB1###/> Fachbereich 1 - Architektur  </label>
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_2" ###FB2###/> Fachbereich 2 - Design </label>
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_3" ###FB3###/> Fachbereich 3 - Elektrotechnik </label>
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_4" ###FB4###/> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_5" ###FB5###/> Fachbereich 5 - Medien </label>
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_6" ###FB6###/> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_7" ###FB7###/> Fachbereich 7 - Wirtschaft </label>
+						<label><input type="checkbox" name="veranstaltungen_fachbereich_1" 	   ###FB1###/> Fachbereich 1 - Architektur  </label>
+						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_2" ###FB2###/> Fachbereich 2 - Design </label>
+						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_3" ###FB3###/> Fachbereich 3 - Elektrotechnik </label>
+						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_4" ###FB4###/> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
+						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_5" ###FB5###/> Fachbereich 5 - Medien </label>
+						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_6" ###FB6###/> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
+						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_7" ###FB7###/> Fachbereich 7 - Wirtschaft </label>
 				  </td>
 				</tr>
 				
 				<tr>
 				  <td>Modus:</td>
 				  <td>
-						<label><input type="checkbox" name="veranstaltungen_usertypes_1" ###INTERESSENT###/> Interessent </label>
-						<label><input type="checkbox" name="veranstaltungen_usertypes_2" ###ERSTI###/> Ersti </label>
-						<label><input type="checkbox" name="veranstaltungen_usertypes_3" ###STUDENT###/> Student </label>
+						<label><input type="checkbox" name="veranstaltungen_usertypes_1" 	 ###INTERESSENT###/> Interessent </label>
+						<br><label><input type="checkbox" name="veranstaltungen_usertypes_2" ###ERSTI###/> Ersti </label>
+						<br><label><input type="checkbox" name="veranstaltungen_usertypes_3" ###STUDENT###/> Student </label>
 				  </td> 
 				</tr>   
 						

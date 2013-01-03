@@ -2,7 +2,7 @@
 		echo'
 		<div class="veranstaltung_new" style="border-width:1px; border-style:solid;">
 		
-		<input class="new_formular_button" type="button"  value="Neuen Eintrag erstellen"> 
+		<a class="button" id="new_formular_button">Neuen Eintrag erstellen</a>
 		
 		<div id="new_formular" style="display:none;">
 		<form action="?id=backend_veranstaltungen" method="post">
@@ -58,12 +58,12 @@
 			  <td>	
 			  
 					<label><input type="checkbox" name="veranstaltungen_fachbereich_1" /> Fachbereich 1 - Architektur  </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_2" /> Fachbereich 2 - Design </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_3" /> Fachbereich 3 - Elektrotechnik </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_4" /> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_5" /> Fachbereich 5 - Medien </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_6" /> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_7" /> Fachbereich 7 - Wirtschaft </label>
+					<br><label><input type="checkbox" name="veranstaltungen_fachbereich_2" /> Fachbereich 2 - Design </label>
+					<br><label><input type="checkbox" name="veranstaltungen_fachbereich_3" /> Fachbereich 3 - Elektrotechnik </label>
+					<br><label><input type="checkbox" name="veranstaltungen_fachbereich_4" /> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
+					<br><label><input type="checkbox" name="veranstaltungen_fachbereich_5" /> Fachbereich 5 - Medien </label>
+					<br><label><input type="checkbox" name="veranstaltungen_fachbereich_6" /> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
+					<br><label><input type="checkbox" name="veranstaltungen_fachbereich_7" /> Fachbereich 7 - Wirtschaft </label>
 			  </td>
 			</tr>
 			
@@ -71,8 +71,8 @@
 			  <td>Modus:</td>
 			  <td>
 					<label><input type="checkbox" name="veranstaltungen_usertypes_1" /> Interessent </label>
-					<label><input type="checkbox" name="veranstaltungen_usertypes_2" /> Ersti </label>
-					<label><input type="checkbox" name="veranstaltungen_usertypes_3" /> Student </label>
+					<br><label><input type="checkbox" name="veranstaltungen_usertypes_2" /> Ersti </label>
+					<br><label><input type="checkbox" name="veranstaltungen_usertypes_3" /> Student </label>
 			  </td>
 			</tr>
 			

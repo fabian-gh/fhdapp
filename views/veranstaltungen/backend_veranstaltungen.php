@@ -38,13 +38,17 @@
 	echo '
 		<script type="text/javascript">
 			$(function(){ 
-				$(".new_formular_button").click(function(){
+				$("#new_formular_button").click(function(){
 					hide_all();
 					$("#new_formular").slideToggle("fast");
 				});
 				
 				$("#fachbereich_select").change(function(){
-					$("#fachbereich_auswahl").submit()();
+					$("#fachbereich_auswahl").submit();
+				});
+				
+				$("#loesch_button").click(function(){
+					$("#loesch_form").submit();
 				});
 				
 				function hide_all()
