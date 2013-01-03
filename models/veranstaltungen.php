@@ -18,9 +18,6 @@ class Veranstaltungen{
 		$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 	}
 	
-
-
-	
 	public function addDatensatz()
 	{
 		//$lang = $_POST['veranstaltung_language'];
