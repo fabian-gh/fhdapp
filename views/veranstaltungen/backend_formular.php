@@ -5,7 +5,7 @@
 		<a class="button" id="new_formular_button">Neuen Eintrag erstellen</a>
 		
 		<div id="new_formular" style="display:none;">
-		<form action="?id=backend_veranstaltungen" method="post">
+		<form action="" method="post">
 		
 		<table id="table_veranstaltung_backend" border="0">
 			<thead>
