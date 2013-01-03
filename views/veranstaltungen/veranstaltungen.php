@@ -2,7 +2,7 @@
 
 /**
  * FHD-App
- *
+ * Penis
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
