@@ -13,12 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
-
-<link rel="stylesheet" href="../../sources/css/jquery.mobile-1.2.0.css"/>
-<link rel="stylesheet" href="../../sources/css/jquery.mobile-fhd.css"/>
-		
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
+<script type="text/javascript" src="../../sources/js/jquery-1.8.2.min.js"></script>
 <title>FHD App - CMS</title>
 </head>
 
