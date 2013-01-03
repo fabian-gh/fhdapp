@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
     //falls keine connection vorhanden, connection erstellen
     if(!isset($_SESSION['connection']))
@@ -67,6 +67,7 @@
                             switch($_GET['page'])
                             {
                                 case 'Termine': require_once 'views/termine/termine.php'; break;
+				case 'Veranstaltngen': require_once 'views/views\veranstaltungen\veranstaltungen'; break;
                             }
                         }
                         else //ebene3: "startseite", auswahl der unterkategorie
