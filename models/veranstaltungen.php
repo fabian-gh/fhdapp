@@ -11,9 +11,15 @@
  
 class Veranstaltungen{
 
+	private $connection;
+	
 	public function __construct(){
-			//Konstruktor
+		//Konstruktor
+		$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 	}
+	
+
+
 	
 	public function addDatensatz()
 	{
@@ -25,7 +31,7 @@ class Veranstaltungen{
 		
 		try
 		{
-			$_SESSION['connection']->query("INSERT INTO events (language_id,name,date,description) VALUES ('".$lang."', '".$name."', '".$datum." 00:00:00', '".$beschreibung."');");
+			$this->connection->query("INSERT INTO events (language_id,name,date,description) VALUES ('".$lang."', '".$name."', '".$datum." 00:00:00', '".$beschreibung."');");
 		}
 		catch(Exception $e)
 		{
