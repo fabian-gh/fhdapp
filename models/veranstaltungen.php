@@ -21,7 +21,7 @@ class Veranstaltungen{
 	public function addDatensatz()
 	{
 		//$lang = $_POST['veranstaltung_language'];
-		$lang = 1;
+		$lang = 1; // 1 für Deutsch
 		$name = $_POST['veranstaltung_name'];
 		$datum = $_POST['veranstaltung_datum_jahr'].'-'.$_POST['veranstaltung_datum_monat'].'-'.$_POST['veranstaltung_datum_tag'];
 		$beschreibung = $_POST['veranstaltung_beschreibung'];
@@ -34,6 +34,33 @@ class Veranstaltungen{
 		{
 			echo $e->getMessage();
 		}
+		
+		echo $this->connection->mysql_insert_id;
+		
+		if($_POST['veranstaltungen_fachbereich_1'])
+		{
+		//$this->connection->query("INSERT INTO events_mm_departments (event_id,department_id) VALUES ();
+		}
+		if($_POST['veranstaltungen_fachbereich_2'])
+		{
+		}
+		if($_POST['veranstaltungen_fachbereich_3'])
+		{
+		}
+		if($_POST['veranstaltungen_fachbereich_4'])
+		{
+		}
+		if($_POST['veranstaltungen_fachbereich_5'])
+		{
+		}
+		if($_POST['veranstaltungen_fachbereich_6'])
+		{
+		}
+		if($_POST['veranstaltungen_fachbereich_7'])
+		{
+		}
+		
+		
 	}
 	
 	public function getInformation($usertype, $fachbereich)
