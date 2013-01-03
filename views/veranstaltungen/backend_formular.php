@@ -3,7 +3,8 @@
 		<div class="veranstaltung_new" style="border-width:1px; border-style:solid;">
 		
 		<input class="new_formular_button" type="button"  value="Neuen Eintrag erstellen"> 
-		<div class="new_formular" style="display:none;">
+		
+		<div id="new_formular" style="display:none;">
 		<form action="?id=backend_veranstaltungen" method="post">
 		
 		<table id="table_veranstaltung_backend" border="0">

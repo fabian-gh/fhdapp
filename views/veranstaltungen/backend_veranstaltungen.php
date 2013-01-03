@@ -27,17 +27,24 @@
 	{
 		require_once 'backend_formular.php';
 		echo '<br><br><br><br>';
+				
 		require_once 'backend_auswahl.php';
 		echo '<br><br><br><br>';
+		
 		require_once 'backend_eintraege.php';
+		echo '<br><br><br><br>';
 	}
 	
 	echo '
-		<script>
-			$(function() {	
+		<script type="text/javascript">
+			$(function(){ 
 				$(".new_formular_button").click(function(){
 					hide_all();
-					$(".new_formular").slideToggle("fast")();
+					$("#new_formular").slideToggle("fast");
+				});
+				
+				$("#fachbereich_select").change(function(){
+					$("#fachbereich_auswahl").submit()();
 				});
 				
 				function hide_all()
@@ -45,14 +52,9 @@
 					$(".edit_veranstaltung").hide();
 					$(".show_veranstaltung").hide();
 				}
-				
-				$("#fachbereich_select").change(function() {
-					$("#fachbereich_auswahl").submit()();
-				});
-				
+					
 				'.$jquery_complete.'
 			});
-			
 		</script>
 		';
 

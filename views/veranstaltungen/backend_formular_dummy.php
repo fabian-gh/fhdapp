@@ -5,9 +5,9 @@ $dummy1  ='
 		<input type="button" id="veranstaltung_anzeigen_###ID###" value="Veranstaltung anzeigen">
 		<input type="button" id="veranstaltung_bearbeiten_###ID###" value="Veranstaltung bearbeiten">
 		
-		<form action="" method="get">
-		<input type="submit" class="veranstaltung_loeschen" value="Veranstaltung l&ouml;schen">
-		<input type="hidden" name="veranstaltung_loschen" id="veranstaltung_loeschen" value="###ID###">
+		<form action="" method="post">
+			<input type="submit" id="veranstaltung_loeschen_###ID###" 	value="Veranstaltung l&ouml;schen">
+			<input type="hidden" id="veranstaltung_loeschen" name="veranstaltung_loeschen" value="###ID###">
 		</form>
 		
 		<div class="show_veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">
@@ -69,7 +69,7 @@ $dummy1  ='
 		
 		<div class="edit_veranstaltung" id="edit_veranstaltung_###ID###" style="display:none;">
 		
-			<form action="?id=backend_veranstaltungen" method="post">
+			<form action="" method="post">
 			<table id="table_veranstaltung_backend" border="0">
 				<thead>
 				<tr>
