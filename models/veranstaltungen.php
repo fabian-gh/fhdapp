@@ -43,7 +43,7 @@ class Veranstaltungen{
 	{
 		try
 		{
-			$result = $_SESSION['connection']->query("SELECT * FROM events");
+			$result = $this->connection->query("SELECT * FROM events");
 			
 			while($row = $result->fetch_assoc())
 			{
