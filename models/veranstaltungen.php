@@ -66,6 +66,7 @@ class Veranstaltungen{
 			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (7,'".$event_id."')");
 		}
 		
+		
 		if($_POST['veranstaltungen_usertypes_1'])
 		{
 			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (1,'".$event_id."')");
