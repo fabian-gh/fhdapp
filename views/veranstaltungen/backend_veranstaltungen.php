@@ -46,6 +46,10 @@
 					$(".show_veranstaltung").hide();
 				}
 				
+				$("#fachbereich_select").change(function() {
+					$("#fachbereich_auswahl").submit()();
+				});
+				
 				'.$jquery_complete.'
 			});
 			
