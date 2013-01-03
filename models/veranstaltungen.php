@@ -35,7 +35,6 @@ class Veranstaltungen{
 			echo $e->getMessage();
 		}
 		
-		echo $this->connection->mysql_insert_id;
 		
 		if($_POST['veranstaltungen_fachbereich_1'])
 		{
