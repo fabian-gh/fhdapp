@@ -35,31 +35,49 @@ class Veranstaltungen{
 			echo $e->getMessage();
 		}
 		
+		$event_id = $this->connection->insert_id;
 		
 		if($_POST['veranstaltungen_fachbereich_1'])
 		{
-		//$this->connection->query("INSERT INTO events_mm_departments (event_id,department_id) VALUES ();
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (1,'".$event_id."')");
 		}
 		if($_POST['veranstaltungen_fachbereich_2'])
 		{
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (2,'".$event_id."')");
 		}
 		if($_POST['veranstaltungen_fachbereich_3'])
 		{
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (3,'".$event_id."')");
 		}
 		if($_POST['veranstaltungen_fachbereich_4'])
 		{
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (4,'".$event_id."')");
 		}
 		if($_POST['veranstaltungen_fachbereich_5'])
 		{
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (5,'".$event_id."')");
 		}
 		if($_POST['veranstaltungen_fachbereich_6'])
 		{
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (6,'".$event_id."')");
 		}
 		if($_POST['veranstaltungen_fachbereich_7'])
 		{
+			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (7,'".$event_id."')");
 		}
 		
-		
+		if($_POST['veranstaltungen_usertypes_1'])
+		{
+			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (1,'".$event_id."')");
+		}
+		if($_POST['veranstaltungen_usertypes_2'])
+		{
+			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (2,'".$event_id."')");
+		}
+		if($_POST['veranstaltungen_usertypes_3'])
+		{
+			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (3,'".$event_id."')");
+		}
 	}
 	
 	public function getInformation($usertype, $fachbereich)
