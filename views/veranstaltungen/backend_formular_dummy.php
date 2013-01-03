@@ -5,7 +5,7 @@ $dummy1  ='
 		<a class="button" id="veranstaltung_anzeigen_###ID###">Veranstaltung anzeigen</a>
 		<a class="button" id="veranstaltung_bearbeiten_###ID###">Veranstaltung bearbeiten</a>
 				
-		<a href="?FB='.$_GET["FB"].'loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>
+		<a href="?FB='.$_GET["FB"].'&loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>
 		
 		
 		<div class="show_veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">

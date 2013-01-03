@@ -9,6 +9,7 @@
  * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
 	ob_start();
+	
 	//Header einbinden
 	require_once '../../layout/backend/header.php';
 		
