@@ -70,19 +70,21 @@
 		
 		//Funktion um Werte in die Relation 'studycourses' einzufügen.
 		//Und dabei dem Studienkurs die Kategorien zuzuweisen. Also ausfüllen der Zwischentabelle "studycourses_mm_categories"
+		//Übergabeparameter: $_POST
+		//Rückgabewert: Die ID des eingefügten Studiengangs
 		public function insertStudycourse($post){				
 				//schreibe Studienkurs in die Datenbank
 				$this->studycoursesModel->insertStudycourse($post);
 				//Fülle Zwischentablle aus
-				$this->insertStudCat($post);
+				$lastStudiID = $this->studycoursesModel->insert_id();	//erst die zuletzt eingefügte ID	holen
+				$this->insertStudCat($post, $lastStudiID);	//Dann Zwsichentabelle ausfüllen
+				//Rückgabe
+				return $lastStudiID;
 		}
-		
-		
+				
 		//Funktion um Werte in die Relation 'studycourses_mm_categories' einzufügen. 
-		private function insertStudCat($post){
-			$lastStudiID = $this->studycoursesModel->insert_id();	//Die zuletzt eingefügte ID		
+		private function insertStudCat($post, $lastStudiID){
 			$this->studycoursesModel->insertStudCat($lastStudiID, $post["vollTeil"]);	//StudiId und vollzeitTeilzeit ID verbinden
-			
 			//StudiId und Master oder Bachelor ID verbinden
 			$a = $this->studycoursesModel->selectGradAbb($post["graduate_id"]);	//Selectiert die abbreviation für den bestimmten graduate
 			$a = $a["abbreviation"][0];	//speichert nur den ersten Character in $a
@@ -136,6 +138,7 @@
 		//Übergabeparameter: $id - id des Studiengangs
 		public function selectStudicourse($id){
 			$rows = $this->studycoursesModel->selectStudicourse($id);	//Array holen
+			$retVal["id"] = $rows[0]["id"];
 			$retVal["graduate_id"] = $rows[0]["graduate_id"];
 			$retVal["graduate_name"] = $rows[0]["graduate_name"];
 			$retVal["name"] = $rows[0]["name"];
@@ -186,6 +189,12 @@
 		//Übergabeparameter: $id - des zu löschenden Studiengangs
 		public function deleteStudicourse($id){
 			$this->studycoursesModel->deleteStudicourse($id);
+		}
+	
+		//Updatet einen Studiengang
+		//Übergabeparameter: $post - das $post array muss folgende felder enthalten: "id", "language_id", "name", "description", department_id", "semestercount", "graduate_id", "link"
+		public function updateStudycourse($post){
+			$this->studycoursesModel->updateStudycourse($post);
 		}
 	
 	}

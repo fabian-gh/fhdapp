@@ -12,11 +12,11 @@
 			else{
 				foreach($studycourses AS $s){	//für jeden tupel 
 					//eine Zeile ausgeben mit den Spalten "Name"	"Abschlussart"	"Art"	"Bearbeiten"	"Löschen"
-					echo "<form method=\"post\"><input type=\"hidden\" name=\"id\" value=".$s["id"]."><tr><td>".$s["study_name"]."</td><td>".$s["graduate_name"]."</td><td>".$s["category_name"]."</td><td><input type=\"submit\" value=\"Bearbeiten\" name=\"edit_btn\"></td><td><input type=\"submit\" value=\"L&ouml;schen\" name=\"delete_btn\"></td></tr>";
+					echo "<form method=\"post\"><tr><td>".$s["study_name"]."</td><td>".$s["graduate_name"]."</td><td>".$s["category_name"]."</td><td><input type=\"submit\" value=\"Bearbeiten\" name=\"editStudycourse_btn\"></td><td><input type=\"submit\" value=\"L&ouml;schen\" name=\"deleteStudycourse_btn\"></td></tr>";
 					//Für den Studiengang die Informationen holen,
 					$studycourse = $studycoursesController->selectStudicourse($s["id"]);
-					//die hidden-field (für das post, um das backend_insertFormular aufzurufen, damit alles schon vor ausgefüllt ist) mit "ausgeben"
-					echo "<input type=\"hidden\" name=\"graduate_id\" value=\"".$studycourse["graduate_id"]."\"><input type=\"hidden\" name=\"graduate_name\" value=\"".$studycourse["graduate_name"]."\"><input type=\"hidden\" name=\"name\" value=\"".$studycourse["name"]."\"><input type=\"hidden\" name=\"department_id\" value=\"".$studycourse["department_id"]."\"><input type=\"hidden\" name=\"semestercount\" value=\"".$studycourse["semestercount"]."\"><input type=\"hidden\" name=\"description\" value=\"".$studycourse["description"]."\"><input type=\"hidden\" name=\"link\" value=\"".$studycourse["link"]."\"><input type=\"hidden\" name=\"language_id\" value=\"".$studycourse["language_id"]."\">";
+					//die hidden-fields (für das post, zum bearbeiten) mit "ausgeben"
+					echo "<input type=\"hidden\" name=\"id\" value=".$studycourse["id"]."><input type=\"hidden\" name=\"graduate_id\" value=\"".$studycourse["graduate_id"]."\"><input type=\"hidden\" name=\"graduate_name\" value=\"".$studycourse["graduate_name"]."\"><input type=\"hidden\" name=\"name\" value=\"".$studycourse["name"]."\"><input type=\"hidden\" name=\"department_id\" value=\"".$studycourse["department_id"]."\"><input type=\"hidden\" name=\"semestercount\" value=\"".$studycourse["semestercount"]."\"><input type=\"hidden\" name=\"description\" value=\"".$studycourse["description"]."\"><input type=\"hidden\" name=\"link\" value=\"".$studycourse["link"]."\"><input type=\"hidden\" name=\"language_id\" value=\"".$studycourse["language_id"]."\">";
 					if(isset($studycourse["vollTeil"]))
 						echo "<input type=\"hidden\" name=\"vollTeil\" value=\"".$studycourse["vollTeil"]."\">";
 					if(isset($studycourse["dual"]))

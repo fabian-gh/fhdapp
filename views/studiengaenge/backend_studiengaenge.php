@@ -39,20 +39,21 @@
     			$studycoursesController = new StudycoursesController();	//neues ControllerObjekt wird erzeugt und in der Variabel gespeichert
 				
 				//Wenn ein Formular abgesendet wurde
-				if(isset($_POST["insertNewStudi_btn"]) OR isset($_POST["delete_btn"]) OR isset($_POST["edit_btn"])){
-					if(isset($_POST["insertNewStudi_btn"])){	//Wenn etwas eingefügt werden soll
+				if(isset($_POST["insertStudycourse_btn"]) OR isset($_POST["deleteStudycourse_btn"]) OR isset($_POST["editStudycourse_btn"])){
+					if(isset($_POST["insertStudycourse_btn"])){	//Wenn etwas eingefügt werden soll
 						$error = $studycoursesController->checkInsertEditFormular($_POST);
-						if(!is_bool($error)){	//Wenn $error kein bool ist (also eine fehlerhafte eingabe vorliegt, weil dann ein array zurückgegeben wird)
+						if(!is_bool($error)){	//Wenn $error kein bool ist (also eine FEHLERHAFTE EINGABE vorliegt, weil dann ein array zurückgegeben wird)
 							require_once 'backend_insertFormular.php';	//Formular zum einfügen der Studiengänge
 						}
-						else{	
-							$studycoursesController->insertStudycourse($_POST);	//sonst alles eintragen
+						else{	//Wenn $error ein bool ist, also KEIN Fehler bei der eingabe vorliegt
+							$lastStudiID = $studycoursesController->insertStudycourse($_POST);	//sonst alles eintragen und die ID des Studiengangs in $lastStudiID abspeichern, denn diese wird benötigt, falls der neu eingefügte Studiengang sofort bearbeitet werden soll (wenn also "diesen studiengang bearbeiten" bei "backend_insertConfirmation.php" ausgewählt wird)
 							require_once 'backend_insertConfirmation.php';	//und bestätigung anzeigen
+							unset($lastStudiID);
 						}
 						unset($error);
 					}
-					if(isset($_POST["delete_btn"])){	//Wenn etwas gelöcht werden soll
-						if(!isset($_POST["deleteConfirm_btn"]))	//Wurde schon bestätigt, ob der Studiengang wirklich gelöscht werden soll? Wenn nein, dann
+					elseif(isset($_POST["deleteStudycourse_btn"])){	//Wenn etwas gelöcht werden soll
+						if(!isset($_POST["deleteStudycourseConfirm_btn"]))	//Wurde schon bestätigt, ob der Studiengang wirklich gelöscht werden soll? Wenn nein, dann
 							require_once 'backend_deleteConfirmation.php';	//Frage nach ob der Studiengang wirklich gelöscht werden soll
 						else{	//sonst löche ihn und gebe eine bestätigung aus
 							$studycoursesController->deleteStudicourse($_POST["id"]);	//Dann löschen		
@@ -61,10 +62,14 @@
 						}							
 							
 					}
-					if(isset($_POST["edit_btn"])){	//Wenn etwas gelöscht werden soll
-						require_once 'backend_insertFormular.php';
+					elseif(isset($_POST["editStudycourse_btn"])){	//Wenn etwas bearbeitet werden soll
+						if(isset($_POST["editStudycourseConfirm_btn"])){	//Wenn die Bearbeitung des Studiengangs abgespeichert werden soll
+							$studycoursesController->updateStudycourse($_POST);	//Updaten
+							require_once 'backend_insertConfirmation.php';	//und bestätigung anzeigen
+						}
+						else	//Wenn noch keine Werte verändert wurden, sondern nur ein Studiengang zum bearbeiten ausgewählt wurde
+							require_once 'backend_insertFormular.php';	//insertFormular aufrufen. Das insertFormular wird ausgefüllt sein, da in "showStudycourse.php" hidden fields übergeben werden, und somit das $_POST ausgefüllt ist
 					}
-					unset($error);
 				}
 				else{	//Wenn kein Formular abgesendet wurde
 					

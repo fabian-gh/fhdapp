@@ -1,10 +1,9 @@
 
 
-	erledigt
-•	beim "bearbeiten", Post mit hidden field ausfüllen und das inertFormular aufrufen (datensatz wird dann auto eingefügt)
-	
-	NOCH ZU TUN :
-	=> Achtung, INSTERT INTO muss dann in UPDATE SET geändert werden. Dabei die GETvariable benutzen, 
-	wenn "action=bearbeitenLoeschen", dann UPDATE(button), wenn "action=einfuegen" dann INSERT(Button)
-	also gucken, was im GET steht und je nach dem den richtigen Button ausgeben (mit name="insertNewStudi_btn" oder name="editConfirm_btn")
+•	UPDATE anschauen. irgendwo sind fehler, studiengang wird nicht aktualiesiert (kategorien noch garnicht)
 
+•	bereits vorhandene studiengänge können nicht eingefügt werden
+
+•	insertConfirmation.php
+
+•	steuerung überarbeiten (es gibt kein error formular mehr)

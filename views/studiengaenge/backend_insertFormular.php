@@ -1,7 +1,12 @@
 <!-- backend_insertFormular.php zum einfügen eines Studiengangs mit Fehlerbehandlung -->
 
 <form method="post">
-	<h3>Neuen Studiengang einf&uuml;gen</h3>
+	<?php
+		if(isset($_POST["editStudycourse_btn"]))	//Wenn ein Studiengang bearbeitet werden soll
+			echo "<h3>Studiengang bearbeiten</h3>";
+		else	//sonst (Wenn ein neuer Studiengange eingefügt werden soll)
+			echo "<h3>Neuen Studiengang einf&uuml;gen</h3>";	
+	?>
 	
 	<!-- Dropdownmenü um die Abschlussbeschreibung auszuwählen -->
 	<p>Abschlussbeschreibung: </p>
@@ -160,8 +165,17 @@
 	<input name="link" type="text" size="60" tabindex=13 value=<?php echo @$_POST["link"]; ?>>
 	</br>
 	
-	<!-- Bestätigungs Button -->
-	<input name="insertNewStudi_btn" type="submit" value="Einf&uuml;gen" style="width: 70px;" tabindex=14>
-	</br>
+	<?php
+		if(isset($_POST["editStudycourse_btn"])){	//Wenn ein Studiengang bearbeitet werden soll
+			//Bearbeiten-Button
+			echo "<input name=\"editStudycourseConfirm_btn\" type=\"submit\" value=\"&Auml;nderung best&auml;tigen\" tabindex=14>";
+			//hidden fields
+			echo "<input type=\"hidden\" name=\"id\" value=".$_POST["id"].">";
+			echo "<input type=\"hidden\" name=\"editStudycourse_btn\">";
+		}
+		else	//sonst (Wenn ein neuer Studiengange eingefügt werden soll)
+			//Einfüge-Button
+			echo "<input name=\"insertStudycourse_btn\" type=\"submit\" value=\"Einf&uuml;gen\" tabindex=14>";	
+	?>
 	
 </form>

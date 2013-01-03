@@ -72,7 +72,7 @@
 												ON c.id = sm.category_id
 												WHERE c.id = 4 OR c.id = 3
 												ORDER BY s.name ASC, g.name ASC, c.category DESC;");
-			
+			$retVal = array();
 			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
 				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen
 			}
@@ -82,7 +82,7 @@
 		//Liefert mehrere Zeilen zurück. Die Zeilen untescheiden sich nur in der "categoryID", der rest ist immer der selbe Studiengang
 		//Übergabeparameter: $id - id des Studiengangs
 		public function selectStudicourse($id){
-			$result = $this->connection->query("SELECT g.name AS graduate_name, s.graduate_id AS graduate_id, s.name AS name, s.department_id AS department_id, s.semestercount AS semestercount, s.description AS description, s.language_id AS language_id ,s.link AS link, c.id AS category_id
+			$result = $this->connection->query("SELECT g.name AS graduate_name, s.id AS id ,s.graduate_id AS graduate_id, s.name AS name, s.department_id AS department_id, s.semestercount AS semestercount, s.description AS description, s.language_id AS language_id ,s.link AS link, c.id AS category_id
 												FROM studycourses s 
 												JOIN graduates g ON g.id = s.graduate_id
 												JOIN studycourses_mm_categories smmc ON s.id = smmc.studycourse_id
@@ -145,6 +145,25 @@
 				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE studycourse_id=".$id."");
 				//Lösche den Studiengang aus der Tabelle "studycourses"
 				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE id=".$id."");
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
+			}
+		}
+		
+		//Updatet einen Studiengang
+		//Übergabeparameter: $post - das $post array muss folgende felder enthalten: "id", "language_id", "name", "description", department_id", "semestercount", "graduate_id", "link"
+		public function updateStudycourse($post){
+			try{
+				$this->connection->query("UPDATE studycourses 
+										SET language_id = ".$post["language_id"].", 
+											name = ".$post["name"].", 
+											description = ".$post["description"].", 
+											department_id = ".$post["department_id"].", 
+											semestercount = ".$post["semestercount"].", 
+											graduate_id = ".$post["graduate_id"].", 
+											link = ".$post["link"]." 
+										WHERE id = ".$post["id"].";");
 			}
 			catch(Exception $e){
 				echo $e->getMessage();
