@@ -134,8 +134,11 @@ class Veranstaltungen{
 		}
 		else
 		{
-				echo "Es ist kein Datensatz vorhanden";
+				//echo "Es ist kein Datensatz vorhanden";
+				return null;
 		}
+		
+		
 		
 			/*try
 			{
