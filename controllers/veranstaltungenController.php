@@ -23,8 +23,7 @@
      */
     public function __construct(){
         // Veranstaltung-Modell einbinden
-        @require_once '../../models/veranstaltungen.php';
-		@require_once 'models/veranstaltungen.php';
+        require_once 'http://localhost/fhdapp/models/veranstaltungen.php';
         // und Objekt erstellen
         $Model = new Veranstaltungen();
     }
