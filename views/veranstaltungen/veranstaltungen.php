@@ -15,10 +15,6 @@
 	$ergebnis =  $Controller->getInformation(1,5);
 	
 	
-	
-	//echo $details;
-	
-	
 	echo'
 		<div data-role="header">
 			<h1>Veranstaltungen</h1>
@@ -51,9 +47,6 @@
 						</div>';
 			}
 	
-			echo '	</div><!-- /collapsible set -->
-					</div><!-- /content -->
-				';
 				*/
 			/*foreach($ergebnis as $temp)
 			{
