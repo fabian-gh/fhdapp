@@ -29,7 +29,8 @@
 		';
 
 		
-			for($i=0; $i<count($ergebnis); $i++) {
+			for($i=0; $i<count($ergebnis); $i++) 
+			{
 			$Name = $ergebnis[$i]['name'];
 			$Beschreibung = $ergebnis[$i]['description'];
 			$Datum =$ergebnis[$i]['date'];
@@ -40,30 +41,30 @@
 		
 		
 		
-		/*foreach($ergebnis as $details)
-	{
-		$zeile = explode(';',$details);
-		echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$zeile[0].'</h3>
-				<p>'.$zeile[2].'</p>
-				<p>'.$zeile[1].'</p>
-				</div>';
-	}
+			/*foreach($ergebnis as $details)
+			{
+				$zeile = explode(';',$details);
+				echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$zeile[0].'</h3>
+						<p>'.$zeile[2].'</p>
+						<p>'.$zeile[1].'</p>
+						</div>';
+			}
 	
-	echo '	</div><!-- /collapsible set -->
-			</div><!-- /content -->
-		';
-		*/
-	/*foreach($ergebnis as $temp)
-	{
-		$details = $temp
-		echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$details[0]{'name'].'</h3>
+			echo '	</div><!-- /collapsible set -->
+					</div><!-- /content -->
+				';
+				*/
+			/*foreach($ergebnis as $temp)
+			{
+			$details = $temp
+			echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$details[0]{'name'].'</h3>
 				<p>'.$details[1]['date'].'</p>
 				<p>'.$details[2]['description'].'</p>
 				</div>';*/
-	}
+			}
 	
-	echo '	</div><!-- /collapsible set -->
-			</div><!-- /content -->
+			echo '	</div><!-- /collapsible set -->
+				</div><!-- /content -->
 		';
 
 	ob_end_flush();
