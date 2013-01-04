@@ -26,6 +26,11 @@
 	//Falls kein Formular übergeben wurde, dann leeres Formular anzeigen
 	else
 	{
+		if(isset($_GET['FB']))
+			$FB_GET = $_GET['FB'];
+		else
+			$FB_GET = 1;
+			
 		require_once 'backend_formular.php';
 		echo '<br><br><br><br>';
 				

@@ -41,6 +41,13 @@
 		$Model = new Veranstaltungen();
 		return $Model->createStatement($usertype,$department);
 	}
+	
+	//Fürs Backend Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype
+	public function getInformationVeranstaltungen($department)
+	{		
+		$Model = new Veranstaltungen();
+		return $Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
+	}
 }
 
  

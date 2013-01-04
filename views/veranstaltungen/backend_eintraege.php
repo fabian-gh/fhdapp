@@ -1,9 +1,7 @@
 <?PHP
+		require_once '../../controllers/veranstaltungenController.php';
+		$Controller = new VeranstaltungenController();
 		
-		//require_once '../../controllers/veranstaltungenController.php';
-		//$Controller = new VeranstaltungenController();
-		//$ergebnis =  $Controller->getInformation(1,1);	
-		 
 		require_once 'backend_formular_dummy.php';
 				 
 		$jquery_complete = ' ';
@@ -21,21 +19,45 @@
 								$("#edit_veranstaltung_###ID###").slideToggle("fast");
 							});
 						';
+		//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+		$ERGEBNIS =  $Controller->getInformationVeranstaltungen($FB_GET);
 		
-		//foreach($ergebnis as $details)
-		//{
-		for($i = 0 ;$i < 5;$i++)
+		//Veranstaltungen durchlaufen und darstellen
+		for($i=0; $i<count($ERGEBNIS); $i++) 
+			{
+			$NAME = $ERGEBNIS[$i]['name'];
+			$ID = $ERGEBNIS[$i]['id'];
+			$DATUM = new DateTime($ERGEBNIS[$i]['date']);
+			
+			/*
+			echo date_format($test, 'Y-m-d H:i:s');
+			
+			//DATUM SPLITTEN
+			
+			$TAG = $ERGEBNIS[$i]['name'];
+			$MONAT = $ERGEBNIS[$i]['name'];
+			$JAHR = $ERGEBNIS[$i]['name'];
+			$STUNDEN = $ERGEBNIS[$i]['name'];
+			$MINUTEN = $ERGEBNIS[$i]['name'];
+			*/
+			$BESCHREIBUNG = $ERGEBNIS[$i]['description'];
+			
+			
+		/*for($i = 0 ;$i < 5;$i++)
 		{
 			$dummy = $dummy1;
 			
 			$NAME  			= 'TEST';
 			$ID    			=  $i;
+			*/
 			$TAG   			= '17';
 			$MONAT 			= '06';
 			$JAHR 			= '2012';
 			$STUNDEN		= '17';
 			$MINUTEN		= '30';
 			$BESCHREIBUNG	= 'MEIN GEBURTSTAG';
+			
+			
 			$FB1			= '  ';  	
 			$FB2			= '  ';  	
 			$FB3			= '  ';  	
@@ -47,7 +69,7 @@
 			$STUDENT		= '  ';	
 			$ERSTI			= '  ';	
 			
-			
+			$dummy = $dummy1;		//Normales Formular kopieren
 			$dummy =  str_replace ('###NAME###'			,$NAME  			,$dummy );
 			$dummy =  str_replace ('###ID###'			,$ID    			,$dummy );
 			$dummy =  str_replace ('###TAG###'			,$TAG   			,$dummy );
@@ -73,5 +95,4 @@
 			$jquery_complete = $jquery_complete . str_replace ('###ID###'	,$ID	,$jquery_dummy );
 			
 		}
-		//}
 ?>

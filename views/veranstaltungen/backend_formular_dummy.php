@@ -3,15 +3,8 @@ $dummy1  ='
 		<div class="veranstaltung_###ID###" style="border-width:1px; border-style:solid;">
 		<h3>###NAME###</h3>
 		<a class="button" id="veranstaltung_anzeigen_###ID###">Veranstaltung anzeigen</a>
-		<a class="button" id="veranstaltung_bearbeiten_###ID###">Veranstaltung bearbeiten</a>';
-				
-		if(isset($_GET['FB']))
-			$dummy1 = $dummy1.'<a href="?FB='.$_GET["FB"].'&loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>';
-		else
-			$dummy1 = $dummy1.'<a href="?loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>';
-
-		
-$dummy1 = $dummy1.'
+		<a class="button" id="veranstaltung_bearbeiten_###ID###">Veranstaltung bearbeiten</a>
+		<a href="?FB='.$FB_GET.'&loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>
 		<div class="show_veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">
 			<table id="table_veranstaltung_backend" border="0">
 				<thead>

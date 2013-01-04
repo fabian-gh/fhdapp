@@ -81,6 +81,24 @@ class Veranstaltungen{
 		}
 	}
 	
+	//Methode die Veranstaltung aus der Datenbank laed,
+	//ohne dabei auf den Usertype zu achten
+	//jedoch auf den Fachbereich achtet
+	public function createStatementEventsWithDepartmentsWihoutUsertype($department){
+		$request = "
+				SELECT 
+				events.id,events.language_id,events.name,events.date,events.description
+				
+				FROM EVENTS ,events_mm_departments,departments,languages
+				
+				WHERE events.id = events_mm_departments.event_id 
+				AND events.language_id = languages.id 
+				AND events_mm_departments.department_id = departments.id
+				AND events_mm_departments.department_id = ".$department."";
+				;
+
+		return $this->getInformation($request);
+	}
 	
 	public function createStatement($usertype,$department){
 
@@ -100,7 +118,6 @@ class Veranstaltungen{
 
 	public function getInformation($request)
 	{
-	
 		$result = $this->connection->query($request);
 		if( $result->num_rows > 0)
 		{
@@ -114,9 +131,6 @@ class Veranstaltungen{
 		{
 				echo "Es ist kein Datensatz vorhanden";
 		}
-
-			
-		
 		
 			/*try
 			{
