@@ -35,7 +35,8 @@
 			$Beschreibung = $ergebnis[$i]['description'];
 			$Datum =$ergebnis[$i]['date'];
 
-			echo "<div data-role='collapsible' data-theme='a'><h3>$Name</h3>
+			echo "<div data-role='collapsible' data-theme='a'>
+			<h3>$Name</h3>
 			<p>$Beschreibung</p>
 			<p>$Datum</p></div>";
 		
