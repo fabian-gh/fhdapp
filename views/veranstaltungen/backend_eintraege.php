@@ -30,8 +30,6 @@
 			$DATUM = new DateTime($ERGEBNIS[$i]['date']);
 			$BESCHREIBUNG = $ERGEBNIS[$i]['description'];			
 			
-			echo date_format($DATUM, 'Y-m-d H:i:s');
-			
 			//DATUM SPLITTEN
 			
 			$TAG = 		date_format($DATUM, 'd');
