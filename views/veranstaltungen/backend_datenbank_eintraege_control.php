@@ -1,8 +1,8 @@
 <?PHP
-		require_once '../../controllers/veranstaltungenController.php';
-		$Controller = new VeranstaltungenController();
 		
-		require_once 'backend_formular_dummy.php';
+		
+		
+		require_once 'backend_datenbank_eintraege_dummy.php';
 				 
 		$jquery_complete = ' ';
 		$jquery_dummy = '
@@ -19,8 +19,10 @@
 								$("#edit_veranstaltung_###ID###").slideToggle("fast");
 							});
 						';
+						
 		//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
-		$ERGEBNIS =  $Controller->getInformationVeranstaltungen($FB_GET);
+		
+		$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_GET);$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_GET);
 		
 		//Veranstaltungen durchlaufen und darstellen
 		for($i=0; $i<count($ERGEBNIS); $i++) 
@@ -38,20 +40,8 @@
 			$STUNDEN = 	date_format($DATUM, 'H');
 			$MINUTEN =	date_format($DATUM, 'i');
 			
-		/*for($i = 0 ;$i < 5;$i++)
-		{
-			$dummy = $dummy1;
-			
-			$NAME  			= 'TEST';
-			$ID    			=  $i;
-			$TAG   			= '17';
-			$MONAT 			= '06';
-			$JAHR 			= '2012';
-			$STUNDEN		= '17';
-			$MINUTEN		= '30';
-			$BESCHREIBUNG	= 'MEIN GEBURTSTAG
-			*/
-			
+			//Datenbank-Abfrage für Veranstaltungen um alle zugehörigen Fachbereiche zu laden
+			//$ERGEBNIS =  $Controller->getInformationVeranstaltungen($FB_GET);
 			
 			$FB1			= '  ';  	
 			$FB2			= '  ';  	

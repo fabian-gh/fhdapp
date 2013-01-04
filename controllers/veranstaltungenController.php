@@ -27,7 +27,7 @@
 		 if (!@include ('models/veranstaltungen.php'))
 			include ('../../models/veranstaltungen.php');
         // und Objekt erstellen
-        $Model = new Veranstaltungen();
+        //$Model = new Veranstaltungen();
     }
 	
 	public function addDatensatz()
@@ -35,7 +35,12 @@
 		$Model = new Veranstaltungen();
 		$Model->addDatensatz();
 	}
-	
+
+	public function deleteDatensatz($id)
+	{		
+		$Model = new Veranstaltungen();
+		$Model->deleteDatensatz($id);
+	}	
 	public function getInformation($usertype,$department)
 	{		
 		$Model = new Veranstaltungen();
@@ -43,8 +48,8 @@
 	}
 	
 	//Fürs Backend Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype
-	public function getInformationVeranstaltungen($department)
-	{		
+	public function getInformationEventsWithDepartmentsWihoutUsertype($department)
+	{
 		$Model = new Veranstaltungen();
 		return $Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
 	}

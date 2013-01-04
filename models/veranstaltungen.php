@@ -100,8 +100,13 @@ class Veranstaltungen{
 		return $this->getInformation($request);
 	}
 	
+	public function deleteDatensatz($id)
+	{
+		//Methode die komplette Veranstaltungen löscht
+	}
+	
+	
 	public function createStatement($usertype,$department){
-
 				
 	$request = "SELECT events.id,events.language_id,events.name,events.date,events.description
 				FROM events,events_mm_departments,events_mm_usertypes,departments,languages,usertypes

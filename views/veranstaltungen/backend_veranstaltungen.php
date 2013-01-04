@@ -12,15 +12,15 @@
 	
 	//Header einbinden
 	require_once '../../layout/backend/header.php';
+	
+	//Conroller einbinden
+	require_once '../../controllers/veranstaltungenController.php';
+	$Controller = new VeranstaltungenController;
 		
 	//Überprüfung ob Formular abgesendet wurde
 	if(isset($_POST['veranstaltung_speichern']))
 	{
 		echo 'Vielen Dank';
-		require_once '../../controllers/veranstaltungenController.php';
-		
-        // Controller-Instanz erstellen und das Data-Objekt übergeben
-        $Controller = new VeranstaltungenController();
 		$Controller->addDatensatz();
 	}
 	//Falls kein Formular übergeben wurde, dann leeres Formular anzeigen
@@ -31,13 +31,13 @@
 		else
 			$FB_GET = 1;
 			
-		require_once 'backend_formular.php';
+		require_once 'backend_formular_neuer_Eintrag.php';
 		echo '<br><br><br><br>';
 				
-		require_once 'backend_auswahl.php';
+		require_once 'backend_fachbereich_auswahl.php';
 		echo '<br><br><br><br>';
 		
-		require_once 'backend_eintraege.php';
+		require_once 'backend_datenbank_eintraege_control.php';
 		echo '<br><br><br><br>';
 		
 		echo '
