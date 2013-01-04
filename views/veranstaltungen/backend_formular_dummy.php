@@ -11,7 +11,7 @@ $dummy1  ='
 		else
 			 echo '<a href="&loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>';
 		
-		
+		echo '
 		<div class="show_veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">
 			<table id="table_veranstaltung_backend" border="0">
 				<thead>
