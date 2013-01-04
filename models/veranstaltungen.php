@@ -80,22 +80,57 @@ class Veranstaltungen{
 		}
 	}
 	
-	public function getInformation($usertype, $fachbereich)
+	
+	public function createStatement($usertype,$department){
+
+				
+	$request = "SELECT events.id,events.language_id,events.name,events.date,events.description
+				FROM events,events_mm_departments,events_mm_usertypes,departments,languages,usertypes
+				WHERE events.id = events_mm_departments.event_id AND events.language_id = languages.id AND
+				events_mm_departments.department_id = departments.id AND events_mm_usertypes.usertype_id = usertypes.id
+				AND events_mm_usertypes.event_id = events.id AND events_mm_usertypes.usertype_id = ".$usertype."
+				AND events_mm_departments.department_id = ".$department."";
+				;
+
+	return $this->getInformation($request);
+	}
+
+
+
+	public function getInformation($request)
 	{
-		try
+	
+		$result = $this->connection->query($request);
+		if( $result->num_rows > 0)
 		{
-			$result = $this->connection->query("SELECT * FROM events");
+				while($temp = $result->fetch_assoc())
+				{
+					$resultSet[] = $temp;
+				}
+				return $resultSet;
+		}
+		else
+		{
+				echo "Es ist kein Datensatz vorhanden";
+		}
+
 			
-			while($row = $result->fetch_assoc())
+		
+		
+			/*try
 			{
-				$resultSet[] = ($row['name'].';'.$row['date'].';'.$row['description']);
+				$result = $this->connection->query("SELECT * FROM events");
+				
+				while($row = $result->fetch_assoc())
+				{
+					$resultSet[] = ($row['name'].';'.$row['date'].';'.$row['description']);
+				}
+				return $resultSet;
 			}
-			return $resultSet;
-		}
-		catch(Exception $e)
-		{
-			echo $e->getMessage();
-		}
+			catch(Exception $e)
+			{
+				echo $e->getMessage();
+			}*/
 	}
 }
  

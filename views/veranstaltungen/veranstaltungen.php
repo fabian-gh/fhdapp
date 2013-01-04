@@ -8,12 +8,11 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 	ob_start();
-	require_once 'layout/frontend/header.php';
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
 	
-	$ergebnis =  $Controller->getInformation(1,1);
+	$ergebnis =  $Controller->getInformation(1,5);
 	
 	
 	
@@ -29,7 +28,19 @@
 		<div data-role="collapsible-set">
 		';
 
-	foreach($ergebnis as $details)
+		
+			for($i=0; $i<count($ergebnis); $i++) {
+			$Name = $ergebnis[$i]['name'];
+			$Beschreibung = $ergebnis[$i]['description'];
+			$Datum =$ergebnis[$i]['date'];
+
+			echo "<div data-role='collapsible' data-theme='a'><h3>$Name</h3>
+			<p>$Beschreibung</p>
+			<p>$Datum</p></div>";
+		
+		
+		
+		/*foreach($ergebnis as $details)
 	{
 		$zeile = explode(';',$details);
 		echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$zeile[0].'</h3>
@@ -41,8 +52,20 @@
 	echo '	</div><!-- /collapsible set -->
 			</div><!-- /content -->
 		';
+		*/
+	/*foreach($ergebnis as $temp)
+	{
+		$details = $temp
+		echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$details[0]{'name'].'</h3>
+				<p>'.$details[1]['date'].'</p>
+				<p>'.$details[2]['description'].'</p>
+				</div>';*/
+	}
+	
+	echo '	</div><!-- /collapsible set -->
+			</div><!-- /content -->
+		';
 
-	require_once 'layout/frontend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen.php */

@@ -23,7 +23,7 @@
      */
     public function __construct(){
         // Veranstaltung-Modell einbinden
-        require_once '../../models/veranstaltungen.php';
+        require_once 'models/veranstaltungen.php';
         // und Objekt erstellen
         $Model = new Veranstaltungen();
     }
@@ -34,10 +34,10 @@
 		$Model->addDatensatz();
 	}
 	
-	public function getInformation($usertype, $fachbereich)
+	public function getInformation($usertype,$department)
 	{		
 		$Model = new Veranstaltungen();
-		return $Model->getInformation($usertype, $fachbereich);
+		return $Model->createStatement($usertype,$department);
 	}
 }
 

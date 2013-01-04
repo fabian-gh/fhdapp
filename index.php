@@ -34,7 +34,7 @@
             <a href="index.php">Start</a> 
 
             <?php
-
+				
                 if(isset($_GET['eis']))
                     echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
 
@@ -66,8 +66,8 @@
                         {
                             switch($_GET['page'])
                             {
-                                case 'Termine': require_once 'views/termine/termine.php'; break;
-				case 'Veranstaltngen': require_once 'views/views\veranstaltungen\veranstaltungen'; break;
+								case 'veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+								
                             }
                         }
                         else //ebene3: "startseite", auswahl der unterkategorie
