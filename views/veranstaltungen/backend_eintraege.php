@@ -28,20 +28,17 @@
 			$NAME = $ERGEBNIS[$i]['name'];
 			$ID = $ERGEBNIS[$i]['id'];
 			$DATUM = new DateTime($ERGEBNIS[$i]['date']);
+			$BESCHREIBUNG = $ERGEBNIS[$i]['description'];			
 			
-			/*
-			echo date_format($test, 'Y-m-d H:i:s');
+			echo date_format($DATUM, 'Y-m-d H:i:s');
 			
 			//DATUM SPLITTEN
 			
-			$TAG = $ERGEBNIS[$i]['name'];
-			$MONAT = $ERGEBNIS[$i]['name'];
-			$JAHR = $ERGEBNIS[$i]['name'];
-			$STUNDEN = $ERGEBNIS[$i]['name'];
-			$MINUTEN = $ERGEBNIS[$i]['name'];
-			*/
-			$BESCHREIBUNG = $ERGEBNIS[$i]['description'];
-			
+			$TAG = 		date_format($DATUM, 'd');
+			$MONAT = 	date_format($DATUM, 'm');
+			$JAHR = 	date_format($DATUM, 'Y');
+			$STUNDEN = 	date_format($DATUM, 'H');
+			$MINUTEN =	date_format($DATUM, 'i');
 			
 		/*for($i = 0 ;$i < 5;$i++)
 		{
@@ -49,13 +46,13 @@
 			
 			$NAME  			= 'TEST';
 			$ID    			=  $i;
-			*/
 			$TAG   			= '17';
 			$MONAT 			= '06';
 			$JAHR 			= '2012';
 			$STUNDEN		= '17';
 			$MINUTEN		= '30';
-			$BESCHREIBUNG	= 'MEIN GEBURTSTAG';
+			$BESCHREIBUNG	= 'MEIN GEBURTSTAG
+			*/
 			
 			
 			$FB1			= '  ';  	
