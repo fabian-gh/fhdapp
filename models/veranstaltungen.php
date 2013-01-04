@@ -100,9 +100,26 @@ class Veranstaltungen{
 		return $this->getInformation($request);
 	}
 	
+	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
 	public function deleteDatensatz($id)
 	{
-		//Methode die komplette Veranstaltungen löscht
+		//Beziehungen zwischen Veranstaltung und Benutzer löschen
+		$delete_statement = '	DELETE 
+								FROM events_mm_usertypes 
+								WHERE event_id = '.$id.;
+		$this->connection->query($request);
+		
+		//Beziehungen zwischen Veranstaltung und Fachbereich löschen
+		$delete_statement = '	DELETE 
+								FROM events_mm_departments 
+								WHERE event_id = '.$id.;
+		$this->connection->query($request);
+		
+		//Die Veranstaltung löschen
+		$delete_statement = '	DELETE 
+								FROM events 
+								WHERE id = '.$id.;
+		$this->connection->query($request);
 	}
 	
 	
