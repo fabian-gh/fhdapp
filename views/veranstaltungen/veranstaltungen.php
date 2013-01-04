@@ -37,8 +37,8 @@
 
 			echo "<div data-role='collapsible' data-theme='a'>
 			<h3>$Name</h3>
-			<p>$Beschreibung</p>
-			<p>$Datum</p></div>";
+			<p><h4>$Datum</h4></p><br>
+			<p>$Beschreibung</p></div>";
 		
 		
 		
