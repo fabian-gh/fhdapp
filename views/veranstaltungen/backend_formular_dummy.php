@@ -8,7 +8,7 @@ $dummy1  ='
 		if(isset($_GET['FB']))
 			$dummy1 = $dummy1.'<a href="?FB='.$_GET["FB"].'&loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>';
 		else
-			$dummy1 = $dummy1.'<a href="&loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>';
+			$dummy1 = $dummy1.'<a href="?loeschen=###ID###" class="button" id="loesch_button">L&ouml;schen</a>';
 
 		
 $dummy1 = $dummy1.'
