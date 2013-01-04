@@ -1,7 +1,7 @@
 <?PHP
 
 $selected = array('', '', '' ,'', '', '', '', '');
-if(isset($_GET['FB'])
+if(isset($_GET['FB']))
 	$selected[$_GET['FB']] = 'Selected';
 echo'
 <h3>W&auml;hlen Sie den Fachbereich aus f&uuml;r den Sie die Veranstaltungen bearbeiten m&ouml;chten</h3>
