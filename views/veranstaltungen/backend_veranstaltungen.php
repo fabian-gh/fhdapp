@@ -34,9 +34,8 @@
 		
 		require_once 'backend_eintraege.php';
 		echo '<br><br><br><br>';
-	}
-	
-	echo '
+		
+		echo '
 		<script type="text/javascript">
 			$(function(){ 
 				$("#new_formular_button").click(function(){
@@ -62,7 +61,8 @@
 			});
 		</script>
 		';
-
+	}
+	
 	require_once '../../layout/backend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
