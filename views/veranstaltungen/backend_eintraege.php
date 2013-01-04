@@ -33,6 +33,8 @@
 			$TAG   			= '17';
 			$MONAT 			= '06';
 			$JAHR 			= '2012';
+			$STUNDEN		= '17';
+			$MINUTEN		= '30';
 			$BESCHREIBUNG	= 'MEIN GEBURTSTAG';
 			$FB1			= '  ';  	
 			$FB2			= '  ';  	
@@ -51,6 +53,8 @@
 			$dummy =  str_replace ('###TAG###'			,$TAG   			,$dummy );
 			$dummy =  str_replace ('###MONAT###'		,$MONAT 			,$dummy );
 			$dummy =  str_replace ('###JAHR###'			,$JAHR 				,$dummy );
+			$dummy =  str_replace ('###STUNDEN###'		,$STUNDEN			,$dummy );
+			$dummy =  str_replace ('###MINUTEN###'		,$MINUTEN			,$dummy );
 			$dummy =  str_replace ('###BESCHREIBUNG###'	,$BESCHREIBUNG		,$dummy );
 			$dummy =  str_replace ('###FB1###'			,$FB1		  		,$dummy );
 			$dummy =  str_replace ('###FB2###'			,$FB2		  		,$dummy );

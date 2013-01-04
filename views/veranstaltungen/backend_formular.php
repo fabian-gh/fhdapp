@@ -45,6 +45,16 @@
 			</tr>
 			
 			<tr>
+			 <td>Uhrzeit:</td>
+			  <td>
+			    <div data-role="fieldcontain" class="ui-hide-label">
+					<input type="text" name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden" value="" placeholder="HH" size="5" maxlength="2" />
+					<input type="text" name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten" value="" placeholder="MM" size="5" maxlength="2" />
+				</div>
+			  </td>
+			</tr>
+			
+			<tr>
 			  <td>Beschreibung:</td>
 			  <td>
 				<div data-role="fieldcontain" class="ui-hide-label">

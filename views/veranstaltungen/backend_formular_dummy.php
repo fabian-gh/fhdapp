@@ -33,6 +33,13 @@ $dummy1 = $dummy1.'
 				</tr>
 				
 				<tr>
+				 <td>Uhrzeit:</td>
+				  <td>
+					<div class="datum">###STUNDEN###:###MINUTEN###</div>
+				  </td>
+				</tr>
+				
+				<tr>
 				  <td>Beschreibung:</td>
 				  <td>
 					<div class="datum">###BESCHREIBUNG###</div>
@@ -107,6 +114,16 @@ $dummy1 = $dummy1.'
 						<input type="text" name="veranstaltung_datum_jahr" id="veranstaltung_datum_jahr" value="###JAHR###" placeholder="YYYY" size="10" maxlength="4" />
 				  </div>
 				  </td>
+				</tr>
+				
+				<tr>
+				<td>Uhrzeit:</td>
+				<td>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<input type="text" name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden" value="###STUNDEN###" placeholder="HH" size="5" maxlength="2" />
+						<input type="text" name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten" value="###MINUTEN###" placeholder="MM" size="5" maxlength="2" />
+					</div>
+				</td>
 				</tr>
 				
 				<tr>
