@@ -14,7 +14,6 @@
 	
 	$ergebnis =  $Controller->getInformation(1,5);
 	
-	
 	echo'
 		<div data-role="header">
 			<h1>Veranstaltungen</h1>
@@ -24,8 +23,6 @@
 		<div data-role="collapsible-set">
 		';
 				
-
-			
 				if( $ergebnis != null )
 				{
 					for($i=0; $i<count($ergebnis); $i++) 
@@ -41,16 +38,14 @@
 						$Stunden = 	date_format($Datum, 'H');
 						$Minuten =	date_format($Datum, 'i');
 
-						echo "<div data-role='collapsible' data-theme='a'>
+						echo "<div style='word-break:break-all;word-wrap:break-word' data-role='collapsible' data-theme='a'>
 						<h3>$Name</h3>
-						<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten</h4></p><br>
+						<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten Uhr</h4></p><br>
 						<p>$Beschreibung</p></div>";
 					}
 				}
 				else
 					echo '<div data-role="header">  Es sind keine Veranstaltungen vorhanden</div>';
-				
-		
 			
 			/*foreach($ergebnis as $temp)
 			{
