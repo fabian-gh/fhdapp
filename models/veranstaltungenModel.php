@@ -219,6 +219,8 @@ class Veranstaltungen{
 	//Methode die SQL-Statements ausführt
 	public function getInformation($request)
 	{
+	try
+	{
 		$result = $this->connection->query($request);
 		if( $result->num_rows > 0)
 		{
@@ -233,6 +235,11 @@ class Veranstaltungen{
 				//echo "Es ist kein Datensatz vorhanden";
 				return null;
 		}
+	}
+	catch(Exception $e)
+	{
+		echo $e->getMessage();
+	}
 		
 		/*try
 		{
