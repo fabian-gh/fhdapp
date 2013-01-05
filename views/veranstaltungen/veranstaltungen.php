@@ -27,6 +27,12 @@
 		
 			for($i=0; $i<count($ergebnis); $i++) 
 			{
+			if( $ergebnis == null )
+			{
+				echo 'Es liegen keine Veranstaltungen vor'
+			}
+			else
+			{
 			$Name = $ergebnis[$i]['name'];
 			$Beschreibung = $ergebnis[$i]['description'];
 			$Datum =$ergebnis[$i]['date'];
@@ -35,7 +41,7 @@
 			<h3>$Name</h3>
 			<p><h4>$Datum</h4></p><br>
 			<p>$Beschreibung</p></div>";
-		
+			}
 		
 		
 			/*foreach($ergebnis as $details)
