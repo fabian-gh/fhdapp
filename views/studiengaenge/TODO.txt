@@ -1,9 +1,0 @@
-
-
-•	UPDATE anschauen. irgendwo sind fehler, studiengang wird nicht aktualiesiert (kategorien noch garnicht)
-
-•	bereits vorhandene studiengänge können nicht eingefügt werden
-
-•	insertConfirmation.php
-
-•	steuerung überarbeiten (es gibt kein error formular mehr)

@@ -11,28 +11,16 @@
 </head>
 
 <body>
-
-	<div id="wrapper">
-		<div id="header">	<!-- Header -->
+	
+	<div id="wrapper">	
+		<!-- Header -->
+		<div id="header">	
 			<h1> FHD-App Redaktion </h1>
 		</div>
-		<div id="nav">	<!-- Navigation -->
-			<ul>
-				<a href="cms.php?page=Studiengaenge"><li>Studieng&auml;nge</li></a>
-				<ul>	<!-- Subnavigation -->
-					<a href="cms.php?page=Studiengaenge&action=einfuegen"><li>Einf&uuml;gen</li></a> <!-- Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
-					<a href="cms.php?page=Studiengaenge&action=bearbeitenLoeschen"><li>Bearbeiten/L&ouml;schen</li></a>	<!-- Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
-				</ul>
-				<a href=""><li>Mensa</li></a>
-				<a href=""><li>Termine</li></a>
-				<a href=""><li>Kontakte</li></a>
-				<a href=""><li>FAQ</li></a>
-				<a href=""><li>Veranstaltungen</li></a>
-			</ul>
-		</div>
 		
-		<div id="content">	<!-- Inhalt -->
-			<h1>Studieng&auml;nge</h1>
+		<!-- Content -->
+		<div id="content">
+			<h2>Studieng&auml;nge</h2>
 			
 			<?php
 				require_once 'controllers/studiengaengeController.php';	//Einbinden des Controllers
@@ -43,11 +31,11 @@
 					if(isset($_POST["insertStudycourse_btn"])){	//Wenn etwas eingefügt werden soll
 						$error = $studycoursesController->checkInsertEditFormular($_POST);
 						if(!is_bool($error)){	//Wenn $error kein bool ist (also eine FEHLERHAFTE EINGABE vorliegt, weil dann ein array zurückgegeben wird)
-							require_once 'backend_insertFormular.php';	//Formular zum einfügen der Studiengänge
+							require_once 'backend_insertUpdateFormular.php';	//Formular zum einfügen der Studiengänge
 						}
 						else{	//Wenn $error ein bool ist, also KEIN Fehler bei der eingabe vorliegt
-							$lastStudiID = $studycoursesController->insertStudycourse($_POST);	//sonst alles eintragen und die ID des Studiengangs in $lastStudiID abspeichern, denn diese wird benötigt, falls der neu eingefügte Studiengang sofort bearbeitet werden soll (wenn also "diesen studiengang bearbeiten" bei "backend_insertConfirmation.php" ausgewählt wird)
-							require_once 'backend_insertConfirmation.php';	//und bestätigung anzeigen
+							$lastStudiID = $studycoursesController->insertStudycourse($_POST);	//sonst alles eintragen und die ID des Studiengangs in $lastStudiID abspeichern, denn diese wird benötigt, falls der neu eingefügte Studiengang sofort bearbeitet werden soll (wenn also "diesen studiengang bearbeiten" bei "backend_insertUpdateConfirmation.php" ausgewählt wird)
+							require_once 'backend_insertUpdateConfirmation.php';	//und bestätigung anzeigen
 							unset($lastStudiID);
 						}
 						unset($error);
@@ -64,34 +52,33 @@
 					}
 					elseif(isset($_POST["editStudycourse_btn"])){	//Wenn etwas bearbeitet werden soll
 						if(isset($_POST["editStudycourseConfirm_btn"])){	//Wenn die Bearbeitung des Studiengangs abgespeichert werden soll
-							$studycoursesController->updateStudycourse($_POST);	//Updaten
-							require_once 'backend_insertConfirmation.php';	//und bestätigung anzeigen
+							$studycoursesController->updateStudycourse($_POST);	//Updaten "studycourses" Tabelle
+							$studycoursesController->deleteFromStudicourseCategories($_POST["id"]);
+							$studycoursesController->insertStudCat($_POST["id"], $_POST);
+							require_once 'backend_insertUpdateConfirmation.php';	//und bestätigung anzeigen
 						}
 						else	//Wenn noch keine Werte verändert wurden, sondern nur ein Studiengang zum bearbeiten ausgewählt wurde
-							require_once 'backend_insertFormular.php';	//insertFormular aufrufen. Das insertFormular wird ausgefüllt sein, da in "showStudycourse.php" hidden fields übergeben werden, und somit das $_POST ausgefüllt ist
+							require_once 'backend_insertUpdateFormular.php';	//insertFormular aufrufen. Das insertFormular wird ausgefüllt sein, da in "showStudycourse.php" hidden fields übergeben werden, und somit das $_POST ausgefüllt ist
 					}
 				}
 				else{	//Wenn kein Formular abgesendet wurde
-					
 					if(isset($_GET["action"])){	//Wenn eine Action (Einfügen/BearbeitenLöschen) gewählt wurde
 						switch($_GET["action"]){	//switch case für subnav
 							case "einfuegen":	
-								require_once 'backend_insertFormular.php';	//Formular zum einfügen der Studiengänge
+								require_once 'backend_insertUpdateFormular.php';	//Formular zum einfügen der Studiengänge
 								break;
 							case "bearbeitenLoeschen":
 								require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und löschen der Studiengänge
 							break;
 						}
 					}
-					else{	//Wenn keine action gewählt wurde
-						
+					else{
+						echo "<a href=\"cms.php?page=Studiengaenge&action=einfuegen\"><input type=\"submit\" value=\"Einf&uuml;gen\"></a>";	//Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
+						echo "<a href=\"cms.php?page=Studiengaenge&action=bearbeitenLoeschen\"><input type=\"submit\" value=\"Bearbeiten/L&ouml;schen\"></a>";	// Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
 					}
-					
 				}
 			?>
-			
 		</div>
-		
 		<div class="clearBoth"></div>
 	</div>	
 

@@ -1,4 +1,4 @@
-<!-- Bestätigung Einfügen Studiengang -->
+<!-- Zeigt eine Bestätigung an, wenn ein neuer Studiengang eingefügt wurde oder ein bestehender Studiengang bearbeitet wurde -->
 	
 	
 	<?php
@@ -10,49 +10,69 @@
 	
 	
 	
-	<!--  -->
+	<!-- Abschlussbeschreiben des Studiengangs -->
 	<p>Abschlussbeschreibung: <?php echo $studycoursesController->graduateIdToName($_POST["graduate_id"]); ?></p>
 	</br>
 	
 	
-	<!--  -->
+	<!-- Name des Studiengangs -->
 	<p>Name des Studiengangs: <?php echo $_POST["name"]; ?></p>
 	</br>
 	
 	
-	<!--  -->
+	<!-- Fachbereich des Studiengangs -->
 	<p>Fachbereich: <?php echo $studycoursesController->departmentIdToName($_POST["department_id"]); ?></p>
 	</br>
 	
 	
-	<!--  -->
+	<!-- Semesteranzahl des Studiengangs -->
 	<p>Semesteranzahl: <?php echo $_POST["semestercount"]; ?></p>
 	</br>
 	
-	<!--  -->
-	<p>Dualer Studiengang</p>
-	<br/>
+	<!-- Zeigt ob der Studiengang dual ist oder nicht -->
+	<?php 
+		if(isset($_POST["dual"]))
+			echo "<p>Dualer Studiengang</p>";
+		else
+			echo "<p>Kein dualer Studiengang</p>";
+		echo "<br/>";
+	?>
 	
-	<!--  -->
-	<p>Vollzeit: </p>
-	<p>Teilzeit: </p>
-	<br/>
 	
-	<!--  -->
+	<!-- Zeigt ob der Studiengang Teilzeit ist oder Vollzeit -->
+	<?php
+		if($_POST["vollTeil"]==4) //value je nach Datenbank 4=Vollzeit
+			echo "<p>Vollzeit Studiengang </p>";
+		else
+			echo "<p>Teilzeit Studiengang </p>";
+		echo "<br/>";
+	?>
+	
+	<!-- Gibt die Kategorien aus, zudem der Studiengang zugeordnet wurde -->
 	<p>Kategorien: </p>
+	<?php
+		if(isset($_POST["ingenieurwissenschaftlich"]))
+			echo "<p>ingenieurwissenschaftlich</p>";
+		if(isset($_POST["gestalterisch"]))
+			echo "<p>gestalterisch</p>";
+		if(isset($_POST["gesellschaftlich"]))
+			echo "<p>gesellschaftlich</p>";
+		if(isset($_POST["wirtschaftlich"]))
+			echo "<p>wirtschaftlich</p>";
+	?>
 	<br/>
 		
 	
-	<!--  -->
-	<p>Beschreibung des Studiengangs: <?php echo $_POST["description"]; ?></p> 
+	<!-- Gibt die Beschreibung des Studiengangs aus -->
+	<p>Beschreibung des Studiengangs: </p><?php echo $_POST["description"]; ?> 
 	</br>
 	
-	<!--  -->
+	<!-- Zeigt in welcher Sprache der Studiengang geschrieben wurde -->
 	<p>Geschrieben in: <?php echo $studycoursesController->languageIdToName($_POST["language_id"]); ?></p>
 	</br>
 	
-	<!--  -->
-	<p>Link f&uuml;r weitere Informationen: <?php echo $_POST["link"]; ?></p>
+	<!-- Zeigt den Link für weitere Informationen über den Studiengang an -->
+	<p>Link f&uuml;r weitere Informationen: <a href="<?php echo $_POST["link"]; ?>"><?php echo $_POST["link"]; ?></a></p>
 	</br>
 	
 	<!-- Buttons -->
@@ -60,7 +80,10 @@
 	<?php
 	// 1.Button
 		//Für den Studiengang die Informationen holen,
-		$studycourse = $studycoursesController->selectStudicourse($lastStudiID);
+		if(isset($_POST["insertStudycourse_btn"]))	//Wenn ein Studiengang eingefügt wurde
+			$studycourse = $studycoursesController->selectStudicourse($lastStudiID);	//$lastStudiID vewenden
+		else	//sonst
+			$studycourse = $studycoursesController->selectStudicourse($_POST["id"]);	//$_POST["id"] vewenden
 		//Der "Diesen Studiengang bearbeiten" - Button
 		echo "<form method=\"post\"><input type=\"submit\" value=\"Diesen Studiengang bearbeiten\" name=\"editStudycourse_btn\">";
 		//die hidden-fields (für das post, zum bearbeiten) mit "ausgeben"

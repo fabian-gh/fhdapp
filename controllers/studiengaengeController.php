@@ -39,7 +39,7 @@
 			return $retVal["name"];
 		}
 		
-		//Prüft, ob das Formular (backend_insertFormular.php) korrekt ausgefüllt wurde
+		//Prüft, ob das Formular (backend_insertUpdateFormular.php) korrekt ausgefüllt wurde
 		//Rückgabe: boolean: ture, wenn alles richtig ausgefüllt wurde
 		//Rückgabe: assoziatives-Array: array, indem die falsch ausgefüllten felder existieren(ist z.B. das feld "semestercount" falsch ausgefüllt, existiert im array das feld ["semestercount"])
 		//Übergabeparameter ist das "$_POST"  
@@ -76,14 +76,14 @@
 				//schreibe Studienkurs in die Datenbank
 				$this->studycoursesModel->insertStudycourse($post);
 				//Fülle Zwischentablle aus
-				$lastStudiID = $this->studycoursesModel->insert_id();	//erst die zuletzt eingefügte ID	holen
-				$this->insertStudCat($post, $lastStudiID);	//Dann Zwsichentabelle ausfüllen
+				$lastStudiID = $this->studycoursesModel->insert_id();	//erst die zuletzt eingefügte ID holen
+				$this->insertStudCat($lastStudiID, $post);	//Dann Zwsichentabelle ausfüllen
 				//Rückgabe
 				return $lastStudiID;
 		}
 				
 		//Funktion um Werte in die Relation 'studycourses_mm_categories' einzufügen. 
-		private function insertStudCat($post, $lastStudiID){
+		public function insertStudCat($lastStudiID, $post){
 			$this->studycoursesModel->insertStudCat($lastStudiID, $post["vollTeil"]);	//StudiId und vollzeitTeilzeit ID verbinden
 			//StudiId und Master oder Bachelor ID verbinden
 			$a = $this->studycoursesModel->selectGradAbb($post["graduate_id"]);	//Selectiert die abbreviation für den bestimmten graduate
@@ -185,10 +185,18 @@
 				return $this->studycoursesModel->selectDropDownData($type);
 		}
 		
-		//Löscht einen Studiengang
+		//Löscht einen Studiengang komplett aus der Datenbank
+		//Übergabeparameter: $id - des zu löschenden Studiengangs "studycourses_mm_categories"
+		public function deleteFromStudicourseCategories($id){
+			$this->studycoursesModel->deleteFromStudicourseCategories($id);	//Löscht aus der Zwischentabelle "studycourses_mm_categories"
+		}
+		
+		//Löscht einen Studiengang nur aus der Zwischentabelle 
 		//Übergabeparameter: $id - des zu löschenden Studiengangs
 		public function deleteStudicourse($id){
-			$this->studycoursesModel->deleteStudicourse($id);
+			$this->studycoursesModel->deleteFromStudicourseCategories($id);	//Löscht aus der Zwischentabelle "studycourses_mm_categories"
+			$this->studycoursesModel->deleteFromStudicourseTags($id);	//Löscht aus der Zwischentabelle "studycourses_mm_tags"
+			$this->studycoursesModel->deleteFromStudicourse($id);	//Löscht aus der Tabelle "studycourses"
 		}
 	
 		//Updatet einen Studiengang

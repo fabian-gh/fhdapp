@@ -134,35 +134,57 @@
 				echo $e->getMessage();
 			}
 		}
-		
-		//Löscht einen Studiengang
+				
+		//Lösche einen Studiengang aus der Zwischentabelle "studycourses_mm_categories"
 		//Übergabeparameter: $id - des zu löschenden Studiengangs
-		public function deleteStudicourse($id){
+		public function deleteFromStudicourseCategories($id){
 			try{
 				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_categories"
-				$this->connection->query("DELETE FROM studycourses_mm_categories WHERE studycourse_id=".$id."");
-				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
-				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE studycourse_id=".$id."");
-				//Lösche den Studiengang aus der Tabelle "studycourses"
-				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE id=".$id."");
+				$this->connection->query("DELETE FROM studycourses_mm_categories WHERE studycourse_id=".$id.";");
 			}
 			catch(Exception $e){
 				echo $e->getMessage();
 			}
 		}
 		
+		//Lösche einen Studiengang aus der Zwischentabelle "studycourses_mm_tags"
+		//Übergabeparameter: $id - des zu löschenden Studiengangs
+		public function deleteFromStudicourseTags($id){
+			try{
+				//Lösche den Studiengang aus der Zwischentabelle "studycourses_mm_tags"
+				$this->connection->query("DELETE FROM studycourses_mm_tags WHERE studycourse_id=".$id.";");
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
+			}
+		}
+		
+		//Lösche einen Studiengang aus der Tabelle "studycourses"
+		//Übergabeparameter: $id - des zu löschenden Studiengangs
+		public function deleteFromStudicourse($id){
+			try{
+				//Lösche den Studiengang aus der Tabelle "studycourses"
+				$this->connection->query("DELETE FROM studycourses WHERE id=".$id.";");
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
+			}
+		}
+		
+		
+		
 		//Updatet einen Studiengang
 		//Übergabeparameter: $post - das $post array muss folgende felder enthalten: "id", "language_id", "name", "description", department_id", "semestercount", "graduate_id", "link"
 		public function updateStudycourse($post){
 			try{
-				$this->connection->query("UPDATE studycourses 
+				$this->connection->query("UPDATE studycourses
 										SET language_id = ".$post["language_id"].", 
-											name = ".$post["name"].", 
-											description = ".$post["description"].", 
+											name = '".$post["name"]."', 
+											description = '".$post["description"]."', 
 											department_id = ".$post["department_id"].", 
 											semestercount = ".$post["semestercount"].", 
 											graduate_id = ".$post["graduate_id"].", 
-											link = ".$post["link"]." 
+											link = '".$post["link"]."' 
 										WHERE id = ".$post["id"].";");
 			}
 			catch(Exception $e){

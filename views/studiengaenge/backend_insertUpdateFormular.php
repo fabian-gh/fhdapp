@@ -1,4 +1,4 @@
-<!-- backend_insertFormular.php zum einfügen eines Studiengangs mit Fehlerbehandlung -->
+<!-- backend_insertUpdateFormular.php zum einfügen und bearbeiten eines Studiengangs mit Fehlerbehandlung -->
 
 <form method="post">
 	<?php
@@ -36,9 +36,9 @@
 		if(isset($error["name"])){
 			echo "class=\"error\""; 
 		}
-		echo ">Name des Studiengangs: </p>" 
+		echo ">Name des Studiengangs: </p>";
 	?>
-	<input name="name" type="text" size="40" maxlength="100" tabindex=2 value=<?php echo @$_POST["name"]; ?>>
+	<input name="name" type="text" size="40" maxlength="100" tabindex=2 value="<?php echo @$_POST["name"]; ?>">
 	</br>
 	
 	
@@ -70,9 +70,9 @@
 		if(isset($error["semestercount"])){
 			echo "class=\"error\""; 
 		}
-		echo ">Semesteranzahl: </p>" 
+		echo ">Semesteranzahl: </p>";
 	?>
-	<input type="text" name="semestercount" size="1" maxlength="2" tabindex=4 value=<?php echo @$_POST["semestercount"]; ?>>
+	<input type="text" name="semestercount" size="1" maxlength="2" tabindex=4 value="<?php echo @$_POST["semestercount"]; ?>">
 	</br></br>
 	
 	<!-- Checkbox für Dualer Studiengang -->
@@ -162,7 +162,7 @@
 		}
 		echo ">Link f&uuml;r weitere Informationen: </p>"; 
 	?>
-	<input name="link" type="text" size="60" tabindex=13 value=<?php echo @$_POST["link"]; ?>>
+	<input name="link" type="text" size="60" tabindex=13 value="<?php echo @$_POST["link"]; ?>">
 	</br>
 	
 	<?php
