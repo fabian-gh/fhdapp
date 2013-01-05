@@ -46,52 +46,96 @@ class Veranstaltungen{
 			echo $e->getMessage();
 		}
 		
-		//Automatisch zugewissene ID von der eingetragnen Veranstaltung
-		$event_id = $this->connection->insert_id;
+		//Automatisch zugewissene ID von der eingetragnen Veranstaltung zwischenspeichern
+		$EVENT_ID = $this->connection->insert_id;
+		//Verbindung zwischen Fachbereich und Veranstaltung erstellen
+		$this->addRelationshipEventDepartment($EVENT_ID);
+		//Verbindung zwischen Fachbereich und Usertype erstellen
+		$this->addRelationshipEventUsertype($EVENT_ID);		
+	}
+	
+	//Backend
+	//Methode die die Beziehungen zwischen Fachbereichen und Veranstaltungen 
+	//in die Datenbank eintraegt
+	public function addRelationshipEventDepartment($EVENT_ID)
+	{
+		//Fachbereiche bestimmen die zur Veranstaltung gehören
+		$VALUES = '';
+		$ERSTER_EINTRAG = true;
 		
-		//Beziehung zu Fachbereichen herstellen und in die Datenbank eintragen
-		if(isset($_POST['veranstaltungen_fachbereich_1']))
+		for($i=1; $i <= 7;$i++)
 		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (1,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_fachbereich_2']))
-		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (2,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_fachbereich_3']))
-		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (3,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_fachbereich_4']))
-		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (4,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_fachbereich_5']))
-		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (5,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_fachbereich_6']))
-		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (6,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_fachbereich_7']))
-		{
-			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (7,'".$event_id."')");
+			if(isset($_POST['veranstaltungen_fachbereich_'.$i]))
+			{
+				if($ERSTER_EINTRAG == true)
+				{
+					$ERSTER_EINTRAG = false;
+					$VALUES .= 	'
+							(
+								'. $i.',
+								'.$EVENT_ID.'
+							)';
+				}
+				else
+				{
+					$VALUES .= 	',
+							(
+								'. $i.',
+								'.$EVENT_ID.'
+							)';
+				}
+			}
 		}
 		
-		//Beziehung zu Benutzern herstellen und in die Datenbank eintragen
-		if(isset($_POST['veranstaltungen_usertypes_1']))
+		//Beziehung zu Fachbereichen in die Datenbank eintragen
+		$this->connection->query('
+									INSERT INTO events_mm_departments 
+									(department_id,event_id) 
+									VALUES
+									'.$VALUES.'
+								');
+	}
+	
+	//Backend
+	//Methode die die Beziehungen zwischen UserTypes und Veranstaltungen 
+	//in die Datenbank eintraegt
+	public function addRelationshipEventUsertype($EVENT_ID)
+	{
+		//Usertypes bestimmen die zur Veranstaltung gehören
+		$VALUES = '';
+		$ERSTER_EINTRAG = true;
+		
+		for($i=1; $i <= 3;$i++)
 		{
-			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (1,'".$event_id."')");
+			if(isset($_POST['veranstaltungen_usertypes_'.$i]))
+			{
+				if($ERSTER_EINTRAG == true)
+				{
+					$ERSTER_EINTRAG = false;
+					$VALUES .= 	'
+							(
+								'.$i.',
+								'.$EVENT_ID.'
+							)';
+				}
+				else
+				{
+					$VALUES .= 	'
+							,(
+								'.$i.',
+								'.$EVENT_ID.'
+							)';
+				}
+			}
 		}
-		if(isset($_POST['veranstaltungen_usertypes_2']))
-		{
-			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (2,'".$event_id."')");
-		}
-		if(isset($_POST['veranstaltungen_usertypes_3']))
-		{
-			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (3,'".$event_id."')");
-		}
+		
+		//Beziehung zu Usertypes in die Datenbank eintragen
+		$this->connection->query('
+									INSERT INTO events_mm_usertypes 
+									(usertype_id, event_id)
+									VALUES
+									'.$VALUES.'
+								');
 	}
 	
 	//Backend
