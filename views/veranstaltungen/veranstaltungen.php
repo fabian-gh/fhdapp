@@ -45,7 +45,7 @@
 					}
 				}
 				else
-					echo '<div data-role="header">  Es sind keine Veranstaltungen vorhanden</div>';
+					echo '<div data-role="header">$ensp; Es sind keine Veranstaltungen vorhanden</div>';
 			
 			/*foreach($ergebnis as $temp)
 			{
