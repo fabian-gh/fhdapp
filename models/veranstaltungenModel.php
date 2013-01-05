@@ -22,16 +22,24 @@ class Veranstaltungen{
 	public function addDatensatz()
 	{
 		//$lang = $_POST['veranstaltung_language'];
-		$lang = 		1; // 1 für Deutsch
-		$name = 		$_POST['veranstaltung_name'];
-		$datum = 		$_POST['veranstaltung_datum_jahr'].'-'.$_POST['veranstaltung_datum_monat'].'-'.$_POST['veranstaltung_datum_tag'];
-		$uhrzeit = 		$_POST['veranstaltung_uhrzeit_stunden'].'-'.$_POST['veranstaltung_uhrzeit_minuten'];
-		$beschreibung = $_POST['veranstaltung_beschreibung'];
+		$LANG 			= 1; // 1 für Deutsch
+		$NAME 			=	$_POST['veranstaltung_name'];
+		$DATUM 			= $_POST['veranstaltung_datum_jahr'].'-'.$_POST['veranstaltung_datum_monat'].'-'.$_POST['veranstaltung_datum_tag'];
+		$UHRZEIT 		= $_POST['veranstaltung_uhrzeit_stunden'].'-'.$_POST['veranstaltung_uhrzeit_minuten'];
+		$BESCHREIBUNG 	= $_POST['veranstaltung_beschreibung'];
 	
 		//Die Veranstaltung wird erstellt
 		try
 		{
-			$this->connection->query("INSERT INTO events (language_id,name,date,description) VALUES ('".$lang."', '".$name."', '".$datum." ".$uhrzeit.":00', '".$beschreibung."');");
+			$this->connection->query("
+									INSERT INTO events 
+									(language_id,name,date,description) 
+									VALUES 
+									(	'".$LANG."'		, 
+										'".$NAME."', 
+										'".$DATUM." ".$UHRZEIT.":00',
+										'".$BESCHREIBUNG."');
+									");
 		}
 		catch(Exception $e)
 		{
