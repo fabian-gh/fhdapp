@@ -16,7 +16,9 @@ class Veranstaltungen{
 		//Konstruktor
 		$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 	}
-	
+		
+	//Backend
+	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
 	public function addDatensatz()
 	{
 		//$lang = $_POST['veranstaltung_language'];
@@ -26,6 +28,7 @@ class Veranstaltungen{
 		$uhrzeit = $_POST['veranstaltung_uhrzeit_stunden'].'-'.$_POST['veranstaltung_uhrzeit_minuten'];
 		$beschreibung = $_POST['veranstaltung_beschreibung'];
 	
+		//Die Veranstaltung wird erstellt
 		try
 		{
 			$this->connection->query("INSERT INTO events (language_id,name,date,description) VALUES ('".$lang."', '".$name."', '".$datum." ".$uhrzeit.":00', '".$beschreibung."');");
@@ -35,8 +38,10 @@ class Veranstaltungen{
 			echo $e->getMessage();
 		}
 		
+		//Automatisch zugewissene ID von der eingetragnen Veranstaltung
 		$event_id = $this->connection->insert_id;
 		
+		//Beziehung zu Fachbereichen herstellen und in die Datenbank eintragen
 		if(isset($_POST['veranstaltungen_fachbereich_1']))
 		{
 			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (1,'".$event_id."')");
@@ -66,7 +71,7 @@ class Veranstaltungen{
 			$this->connection->query("INSERT INTO events_mm_departments (department_id,event_id) VALUES (7,'".$event_id."')");
 		}
 		
-		
+		//Beziehung zu Benutzern herstellen und in die Datenbank eintragen
 		if(isset($_POST['veranstaltungen_usertypes_1']))
 		{
 			$this->connection->query("INSERT INTO events_mm_usertypes (usertype_id, event_id) VALUES (1,'".$event_id."')");
@@ -81,11 +86,34 @@ class Veranstaltungen{
 		}
 	}
 	
+	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
+	public function deleteDatensatz($event_id)
+	{
+		//Beziehungen zwischen Veranstaltung und Benutzer löschen
+		$delete_statement = '	DELETE 
+								FROM events_mm_usertypes 
+								WHERE event_id = '.$event_id;
+		$this->connection->query($request);
+		
+		//Beziehungen zwischen Veranstaltung und Fachbereich löschen
+		$delete_statement = '	DELETE 
+								FROM events_mm_departments 
+								WHERE event_id = '.$event_id;
+		$this->connection->query($request);
+		
+		//Die Veranstaltung löschen
+		$delete_statement = '	DELETE 
+								FROM events 
+								WHERE id = '.$event_id;
+		$this->connection->query($request);
+	}
+	
+	//Backend
 	//Methode die Veranstaltung aus der Datenbank laed,
-	//ohne dabei auf den Usertype zu achten
-	//jedoch auf den Fachbereich achtet
+	//Unter Auswahl des Fachbereiches
+	//Ohne auf Benutzertyp zu achten
 	public function createStatementEventsWithDepartmentsWihoutUsertype($department){
-		$request = "
+		$statement = "
 				SELECT 
 				events.id,events.language_id,events.name,events.date,events.description
 				
@@ -97,29 +125,28 @@ class Veranstaltungen{
 				AND events_mm_departments.department_id = ".$department."";
 				;
 
-		return $this->getInformation($request);
+		return $this->getInformation($statement);
 	}
 	
-	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
-	public function deleteDatensatz($id)
+	//Backend
+	//Methode die alle Fachbereiche zu einem Event auszulesen
+	public function createStatementDepartmentsFromEvents($event_id)
 	{
-		//Beziehungen zwischen Veranstaltung und Benutzer löschen
-		$delete_statement = '	DELETE 
-								FROM events_mm_usertypes 
-								WHERE event_id = '.$id.;
-		$this->connection->query($request);
-		
-		//Beziehungen zwischen Veranstaltung und Fachbereich löschen
-		$delete_statement = '	DELETE 
-								FROM events_mm_departments 
-								WHERE event_id = '.$id.;
-		$this->connection->query($request);
-		
-		//Die Veranstaltung löschen
-		$delete_statement = '	DELETE 
-								FROM events 
-								WHERE id = '.$id.;
-		$this->connection->query($request);
+		$statement = '	SELECT *
+						FROM events_mm_usertypes
+						WHERE event_id = '.$event_id;
+		return $this->getInformation($statement); 
+	}
+	
+	//Backend
+	//Methode die alle Benutzer zu einem Event auszulesen
+	public function createStatementUsertypesFromEvents($event_id)
+	{
+		$statement = '	SELECT *
+						FROM events_mm_departments
+						WHERE event_id = '.$event_id;
+						
+		return $this->getInformation($statement);
 	}
 	
 	
@@ -136,8 +163,7 @@ class Veranstaltungen{
 	return $this->getInformation($request);
 	}
 
-
-
+	//Methode die SQL-Statements ausführt
 	public function getInformation($request)
 	{
 		$result = $this->connection->query($request);
@@ -155,22 +181,20 @@ class Veranstaltungen{
 				return null;
 		}
 		
-		
-		
-			/*try
+		/*try
+		{
+			$result = $this->connection->query("SELECT * FROM events");
+			
+			while($row = $result->fetch_assoc())
 			{
-				$result = $this->connection->query("SELECT * FROM events");
-				
-				while($row = $result->fetch_assoc())
-				{
-					$resultSet[] = ($row['name'].';'.$row['date'].';'.$row['description']);
-				}
-				return $resultSet;
+				$resultSet[] = ($row['name'].';'.$row['date'].';'.$row['description']);
 			}
-			catch(Exception $e)
-			{
-				echo $e->getMessage();
-			}*/
+			return $resultSet;
+		}
+		catch(Exception $e)
+		{
+			echo $e->getMessage();
+		}*/
 	}
 }
  

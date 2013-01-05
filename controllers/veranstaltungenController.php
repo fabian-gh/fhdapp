@@ -30,29 +30,52 @@
         //$Model = new Veranstaltungen();
     }
 	
-	public function addDatensatz()
-	{		
-		$Model = new Veranstaltungen();
-		$Model->addDatensatz();
-	}
 
-	public function deleteDatensatz($id)
-	{		
-		$Model = new Veranstaltungen();
-		$Model->deleteDatensatz($id);
-	}	
 	public function getInformation($usertype,$department)
 	{		
 		$Model = new Veranstaltungen();
 		return $Model->createStatement($usertype,$department);
 	}
 	
-	//Fürs Backend Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype
+	//Backend
+	//Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype auszulesen
 	public function getInformationEventsWithDepartmentsWihoutUsertype($department)
 	{
 		$Model = new Veranstaltungen();
 		return $Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
 	}
+	
+	//Backend
+	//Methode die alle Fachbereiche zu einem Event auszulesen
+	public function getInformationDepartmentsFromEvents($event_id)
+	{
+		$Model = new Veranstaltungen();
+		return $Model->createStatementDepartmentsFromEvents($event_id);
+	}
+	
+	//Backend
+	//Methode die alle Benutzer zu einem Event auszulesen
+	public function getInformationUsertypesFromEvents($event_id)
+	{
+		$Model = new Veranstaltungen();
+		return $Model->createStatementUsertypesFromEvents($event_id);
+	}
+	
+	//Backend
+	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
+	public function addDatensatz()
+	{		
+		$Model = new Veranstaltungen();
+		$Model->addDatensatz();
+	}
+
+	//Backend
+	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
+	public function deleteDatensatz($event_id)
+	{		
+		$Model = new Veranstaltungen();
+		$Model->deleteDatensatz($event_id);
+	}	
 }
 
  
