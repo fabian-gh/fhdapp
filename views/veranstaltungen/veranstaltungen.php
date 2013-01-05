@@ -23,10 +23,9 @@
 		<!-- akkordionmenü -->
 		<div data-role="collapsible-set">
 		';
-
 		
-			//for($i=0; $i<count($ergebnis); $i++) 
-			//{
+		
+			
 				if( $ergebnis != null )
 				{
 					for($i=0; $i<count($ergebnis); $i++) 
@@ -45,7 +44,6 @@
 					echo '<div data-role="header">  Es sind keine Veranstaltungen vorhanden</div>';
 				
 		
-			//}
 			
 			/*foreach($ergebnis as $temp)
 			{
