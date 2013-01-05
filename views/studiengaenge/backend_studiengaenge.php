@@ -13,9 +13,26 @@
 <body>
 	
 	<div id="wrapper">	
+	
 		<!-- Header -->
 		<div id="header">	
 			<h1> FHD-App Redaktion </h1>
+		</div>
+		
+		<!-- Navigation -->
+		<div id="nav">	
+			<ul>
+				<a href="cms.php?page=Studiengaenge"><li>Studieng&auml;nge</li></a>
+				<ul>	<!-- Subnavigation -->
+					<a href="cms.php?page=Studiengaenge&action=einfuegen"><li>Einf&uuml;gen</li></a> <!-- Einf?gen von Studieng?ngen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
+					<a href="cms.php?page=Studiengaenge&action=bearbeitenLoeschen"><li>Bearbeiten/L&ouml;schen</li></a>	<!-- Einf?gen von Studieng?ngen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
+				</ul>
+				<a href=""><li>Mensa</li></a>
+				<a href=""><li>Termine</li></a>
+				<a href=""><li>Kontakte</li></a>
+				<a href=""><li>FAQ</li></a>
+				<a href=""><li>Veranstaltungen</li></a>
+			</ul>
 		</div>
 		
 		<!-- Content -->
@@ -73,8 +90,8 @@
 						}
 					}
 					else{
-						echo "<a href=\"cms.php?page=Studiengaenge&action=einfuegen\"><input type=\"submit\" value=\"Einf&uuml;gen\"></a>";	//Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
-						echo "<a href=\"cms.php?page=Studiengaenge&action=bearbeitenLoeschen\"><input type=\"submit\" value=\"Bearbeiten/L&ouml;schen\"></a>";	// Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
+						echo "<a href=\"cms.php?page=Studiengaenge&action=einfuegen\"><input type=\"submit\" value=\"Einen neuen Studiengang einf&uuml;gen\"></a>";	//Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
+						echo "<a href=\"cms.php?page=Studiengaenge&action=bearbeitenLoeschen\"><input type=\"submit\" value=\"Bereits vorhandene Studieng&auml;nge bearbeiten oder L&ouml;schen\"></a>";	// Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
 					}
 				}
 			?>
