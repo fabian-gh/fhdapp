@@ -24,8 +24,8 @@
     public function __construct(){
         // Veranstaltung-Modell einbinden
         
-		 if (!@include ('models/veranstaltungen.php'))
-			include ('../../models/veranstaltungen.php');
+		 if (!@include ('models/veranstaltungenModel.php'))
+			include ('../../models/veranstaltungenModel.php');
         // und Objekt erstellen
         //$Model = new Veranstaltungen();
     }
