@@ -23,7 +23,7 @@ class Veranstaltungen{
 	{
 		//$lang = $_POST['veranstaltung_language'];
 		$LANG 			= 1; // 1 für Deutsch
-		$NAME 			=	$_POST['veranstaltung_name'];
+		$NAME 			= $_POST['veranstaltung_name'];
 		$DATUM 			= $_POST['veranstaltung_datum_jahr'].'-'.$_POST['veranstaltung_datum_monat'].'-'.$_POST['veranstaltung_datum_tag'];
 		$UHRZEIT 		= $_POST['veranstaltung_uhrzeit_stunden'].'-'.$_POST['veranstaltung_uhrzeit_minuten'];
 		$BESCHREIBUNG 	= $_POST['veranstaltung_beschreibung'];
