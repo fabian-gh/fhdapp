@@ -23,8 +23,8 @@
 		<!-- akkordionmenü -->
 		<div data-role="collapsible-set">
 		';
-		
-		
+				
+
 			
 				if( $ergebnis != null )
 				{
@@ -32,11 +32,18 @@
 					{
 						$Name = $ergebnis[$i]['name'];
 						$Beschreibung = $ergebnis[$i]['description'];
-						$Datum =$ergebnis[$i]['date'];
+						//$Datum =$ergebnis[$i]['date'];
+						$Datum = new DateTime($ergebnis[$i]['date']);
+						$Monat = 	date_format($Datum, 'm');
+						$Tag   = 	date_format($Datum, 'd');
+						$Monat = 	date_format($Datum, 'm');
+						$Jahr  = 	date_format($Datum, 'Y');			
+						$Stunden = 	date_format($Datum, 'H');
+						$Minuten =	date_format($Datum, 'i');
 
 						echo "<div data-role='collapsible' data-theme='a'>
 						<h3>$Name</h3>
-						<p><h4>$Datum</h4></p><br>
+						<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten</h4></p><br>
 						<p>$Beschreibung</p></div>";
 					}
 				}
