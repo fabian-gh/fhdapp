@@ -86,6 +86,7 @@ class Veranstaltungen{
 		}
 	}
 	
+	//Backend
 	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
 	public function deleteDatensatz($event_id)
 	{
