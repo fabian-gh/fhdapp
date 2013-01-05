@@ -27,23 +27,23 @@
 		
 			for($i=0; $i<count($ergebnis); $i++) 
 			{
-			if( $ergebnis == null )
-			{
-				echo 'Es liegen keine Veranstaltungen vor'
-			}
-			else
-			{
-			$Name = $ergebnis[$i]['name'];
-			$Beschreibung = $ergebnis[$i]['description'];
-			$Datum =$ergebnis[$i]['date'];
+				if( $ergebnis != null )
+				{
+					$Name = $ergebnis[$i]['name'];
+					$Beschreibung = $ergebnis[$i]['description'];
+					$Datum =$ergebnis[$i]['date'];
 
-			echo "<div data-role='collapsible' data-theme='a'>
-			<h3>$Name</h3>
-			<p><h4>$Datum</h4></p><br>
-			<p>$Beschreibung</p></div>";
+					echo "<div data-role='collapsible' data-theme='a'>
+					<h3>$Name</h3>
+					<p><h4>$Datum</h4></p><br>
+					<p>$Beschreibung</p></div>";
+				}
+				else
+				{
+				
+				}
+		
 			}
-		
-		
 			/*foreach($ergebnis as $details)
 			{
 				$zeile = explode(';',$details);
@@ -61,7 +61,6 @@
 				<p>'.$details[1]['date'].'</p>
 				<p>'.$details[2]['description'].'</p>
 				</div>';*/
-			}
 	
 			echo '	</div><!-- /collapsible set -->
 				</div><!-- /content -->
