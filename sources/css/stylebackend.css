@@ -1,3 +1,14 @@
+.error{
+	color: red;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+tr:hover   {
+	background-color: lightgreen; 
+}
+
+
 * {
 	margin: 0;
 	padding: 0;	
@@ -9,8 +20,6 @@ body {
 	color: #322929;
 	font-size: 12px;
 }
-
-
 
 #header,
 #footer {
@@ -31,7 +40,7 @@ body {
 
 #headline {
 	height: 80px;
-	background: url(../images/logo-cms.png) no-repeat 0px 20px;
+	background: url(../img/logo-cms.png) no-repeat 0px 20px;
 }
 
 #headline h1 {
@@ -118,6 +127,24 @@ body {
 #content a.button:hover {
 	color: #f7f5f0;
 	background-color: #ff0000; 
+}
+
+#content input.price{
+	width: 50px;
+}
+
+#content input.mealinput{
+	height: 50px;
+}
+
+#content td.mealdescription{
+	vertical-align: top;
+	padding-top: 1%;
+	padding-left: 1%;
+}
+
+#content input#mensasubmit{
+	padding: 3px 10px;
 }
 
 .clear {
