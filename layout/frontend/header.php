@@ -1,25 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php session_start(); ?>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="../../sources/css/style.css" rel="stylesheet" type="text/css" media="screen" />
-    <script href="../../sources/js/jquery-1.8.2.min.js"></script>
-    <script href="../../sources/js/jquery.mobile-1.2.0.min.js"></script>
-    <title>FHD App - Umsetzung Rahmen</title>
-</head>
+<!DOCTYPE html><!-- HTML 5 -->
+<html>
 
-<body>
-
-	<div id ="header">
-    	<div id ="logo">
-        	<a href="#">FHD</a>
-        </div>
-        <div id ="breadcrumb">
-        	<a href="#">Start</a> »  
-            <a href="#" class="nav-icon">Interessent</a> »  
-            <a href="#">Studiengänge</a>
-        </div>
-    </div>
+    <head>
+        <title>FHD WebApp</title>
+        <!-- max. Breite u. Skalierung -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Zeichensatz -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="../../sources/css/style.css" />
+        <!-- jQuery -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    </head>
     
-    <div id ="content">
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="index.php">FHD</a>
+            </div>
+            <div id ="breadcrumb">
+                <a href="index.php">Start</a> » 
+                <a href='index.php?eis=i' class='nav-icon-i'>Student</a> » 
+                <a href='index.php?eis=i&selector=mensa'>Mensa</a> » 
+                <a href='index.php?eis=i&selector=mensa&location=north'>Nord</a> » 
+            </div>
+        </div> <!-- Ende header -->
+        
+        <div id ="content">
