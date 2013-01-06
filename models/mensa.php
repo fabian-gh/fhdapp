@@ -91,7 +91,7 @@ class Mensa{
 										ORDER BY m.mealdate ASC");
 
 			while($row = $query->fetch_assoc()){
-                $plans[][$row['day_id']] = array(
+                $plans[$row['calenderweek']][$row['day_id']] = array(
                 	'Calenderweek'		=> $row['calenderweek'],
                 	'mealdate'			=> $row['mealdate'],
                 	'dayname'			=> $row['day'],
@@ -122,7 +122,9 @@ class Mensa{
                 	'price_att_green_corner' => $row['price_att_green_corner'],
             	);
              }
-
+             
+             // Return the reversed array with the original keys
+             //return array_reverse($plans, true);
              return $plans;
 
 		} catch (Exception $e){

@@ -1,3 +1,4 @@
+/* Backend-Styles */
 #content input.price{
 	width: 50px;
 }
@@ -19,4 +20,19 @@
 #content .error{
 	border: 1px solid #ff0000;
 	color: #ff0000;
+}
+
+
+/* Frontend-Styles */
+#content table.meals,
+#content table.meals th,
+#content table.meals td{
+	border-collapse: collapse;
+	border: 1px solid #cccccc;
+}
+
+#content table.meals th,
+#content table.meals td{
+	text-align: left;
+	padding: 1%;
 }

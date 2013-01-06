@@ -1,4 +1,14 @@
-<?php session_start(); ?>
+<?php 
+
+session_start(); 
+
+if(!isset($_SESSION['host'])){
+    require_once '../../system/database.php';
+    new Database();
+}
+
+
+?>
 
 <!DOCTYPE html><!-- HTML 5 -->
 <html>
