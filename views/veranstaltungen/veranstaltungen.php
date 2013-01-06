@@ -37,7 +37,7 @@
 						$Stunden = 	date_format($Datum, 'H');
 						$Minuten =	date_format($Datum, 'i');
 
-						echo "<div style='word-break:break-all;word-wrap:break-word' data-role='collapsible' data-theme='a'>
+						echo "<div style='word-break:break-all;word-wrap:break-word' data-role='collapsible' data-theme='a' data-collapsed='false'>
 						<h3>$Name</h3>
 						<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten Uhr</h4></p><br>
 						<p>$Beschreibung</p></div>";

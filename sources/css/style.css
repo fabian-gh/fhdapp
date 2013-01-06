@@ -3,12 +3,15 @@
 	padding: 0;	
 }
 
-body {
+body.ui-overlay-c {
 	background: #ff0000 url(../img/bg-body.png) no-repeat;
 	background-size: 100%;
 	font-family: Verdana, Geneva, sans-serif;
 	color: #5a2323;
-	font-size: 25px;
+}
+
+div.ui-body-c {
+	background: none;
 }
 
 #logo {
@@ -28,7 +31,6 @@ body {
 	background: #a50707;
 	color: #ececec;
 	text-transform: uppercase;
-	font-size: 22px;
 	font-weight: bold;
 	padding: 12px 20px 0 20px;
 	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
@@ -72,7 +74,42 @@ body {
 
 #content h1 {
 	font-weight: normal;
-	font-size: 40px;
 	margin-bottom: 10px;
 
+}
+
+/* CSS JQuery mobile */
+
+/*
+Style für collapsible
+Attribute in HTML vergeben:
+<div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" 
+data-expanded-icon="arrow-d" data-theme="a"> 
+*/
+
+.ui-btn-up-a,
+.ui-btn-hover-a { 
+	border: 1px solid #ffdfdf; 
+	background:#a60909; 
+	color:#ffffff; 
+	font-weight: bold; 
+	text-shadow: 0 -1px 1px #000000; 
+	background-image: -moz-linear-gradient(top, #d54343, #a60909); 
+	background-image: -o-linear-gradient(top, #d54343, #a60909);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#d54343),color-stop(1,#a60909));
+	background-image: -ms-linear-gradient(top, #d54343, #a60909);
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	}
+	
+.ui-focus,
+.ui-btn:focus {
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+	-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.ui-collapsible-content {
+	background: #fff;
 }
