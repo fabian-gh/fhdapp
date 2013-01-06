@@ -97,6 +97,7 @@ class Formular{
 					$("#form_veranstaltung_'.$this->ID.'").slideToggle("fast");
 				});
 				';
+		$JQUERY .= $this->getJqueryValid();
 		return $JQUERY;
 	}
 	
@@ -107,38 +108,62 @@ class Formular{
 				$("#veranstaltung_anzeigen_'.$this->ID.'").click(function(){
 					$("#form_veranstaltung_'.$this->ID.'").slideToggle("fast");
 				});
-				
-				$("form").submit(function(){
-					if(checkHour($("#veranstaltung_uhrzeit_stunden_'.$this->ID.'").val())== true)
+				';
+		$JQUERY .= $this->getJqueryValid();
+		return $JQUERY;
+	}
+	
+	private function getJqueryValid()
+	{
+		$JQUERY =
+				'
+				$("#veranstaltung_form_'.$this->ID.'").submit(function(){
+					TAG 			= $("#veranstaltung_datum_tag_'.$this->ID.'").val();
+					MONAT 			= $("#veranstaltung_datum_monat_'.$this->ID.'").val();
+					JAHR			= $("#veranstaltung_datum_jahr_'.$this->ID.'").val();
+					STUNDEN			= $("#veranstaltung_uhrzeit_stunden_'.$this->ID.'").val();
+					MINUTEN 		= $("#veranstaltung_uhrzeit_minuten_'.$this->ID.'").val();
+					BESCHREIBUNG 	= $("#veranstaltung_beschreibung_'.$this->ID.'").val();
+					NAME 			= $("#veranstaltung_name_'.$this->ID.'").val();
+										
+					FALSCHE_EINGABEN = "";
+					CORRECT = true;
+					alert("TEST");
+					
+					if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
 					{
-						alert("Stunden Richtig");
+						FALSCHE_EINGABEN += "Uhrzeit Falsch\n";
+						CORRECT = false;
 					}
-					else
+										
+					if(!(checkDatum(TAG,MONAT,JAHR) == true))
 					{
-						alert("Stunden Falsch");
+						FALSCHE_EINGABEN += "Datum Falsch\n";
+						CORRECT = false;
 					}
 					
-					if(checkHour($("#veranstaltung_uhrzeit_minuten_'.$this->ID.'").val())== true)
+					if(!(checkText(BESCHREIBUNG) == true))
 					{
-						alert("Minuten Richtig");
+						FALSCHE_EINGABEN += "Beschreibung Falsch\n";
+						CORRECT = false;
 					}
-					else
+					
+					if(!(checkText(NAME) == true))
 					{
-						alert("Minuten Falsch");
+						FALSCHE_EINGABEN += "Name Falsch\n";
+						CORRECT = false;
 					}
-				
-					if(checkDate($("#veranstaltung_datum_tag_'.$this->ID.'").val(),$("#veranstaltung_datum_monat_'.$this->ID.'").val(),$("#veranstaltung_datum_jahr_'.$this->ID.'").val())== true)
+					
+					if(CORRECT == false)
 					{
-						alert("Datum Richtig");
-					}
-					else
-					{
-						alert("Datum Falsch");
+						alert(FALSCHE_EINGABEN);
+						return false;
 					}
 
-					return false;
+					return true;
 				});
-				';
+		';
+		
 		return $JQUERY;
 	}
 	

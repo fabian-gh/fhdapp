@@ -176,7 +176,7 @@
 				'.$JQUERY.'	
 			});
 			
-			function checkHour(Zahl){
+			function checkStunden(Zahl){
 				Zahl = parseInt(Zahl);
 				if (!isNaN(Zahl))
 				{
@@ -189,7 +189,7 @@
 				}
 			}
 			
-			function checkHour(Zahl){
+			function checkMinuten(Zahl){
 				Zahl = parseInt(Zahl);
 				if (!isNaN(Zahl))
 				{
@@ -201,50 +201,31 @@
 					return false;
 				}
 			}
+
 			
-			function checkMonth(Zahl){
-				Zahl = parseInt(Zahl);
-				if (!isNaN(Zahl))
-				{
-					if(Zahl >= 0 && Zahl <= 12)
-						return true;
-					else
-						return false;
-				} else {
-					return false;
-				}
-			}
-			
-			function checkMonth(Zahl){
-				Zahl = parseInt(Zahl);
-				if (!isNaN(Zahl))
-				{
-					if(Zahl >= 0 && Zahl <= 12)
-						return true;
-					else
-						return false;
-				} else {
-					return false;
-				}
-			}
-			
-			function checkDate(TAG,MONAT,JAHR)
+			function checkDatum(TAG,MONAT,JAHR)
 			{
-				
+				MONAT = MONAT - 1;
 				// Erzeugung eines neuen Dateobjektes
-				var kontrolldatum = new Date(JAHR,MONAT,TAG);
+				var REALDATE = new Date(JAHR,MONAT,TAG);
 				
-				alert(kontrolldatum.toLocaleString());
-				
-				// Vergleich, ob das eingegebene Datum gleich dem Neuerstellten-Datum ist
-				if (kontrolldatum.getDate()== TAG && kontrolldatum.getMonth()== MONAT && kontrolldatum.getFullYear()== JAHR)
+				// Überprüfung ob das Datum stimmt
+				if (REALDATE.getDate()== TAG && REALDATE.getMonth()== MONAT && REALDATE.getFullYear()== JAHR)
 					return true; 
 				else 
 					return false;
-
 			}
 
-			
+			function checkText(Text){
+				if (Text == "")
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
 		</script>
 	';
 	
