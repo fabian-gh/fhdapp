@@ -22,7 +22,6 @@
 		<div data-role="collapsible-set">';*/
 		
 		echo "<div data-role='collapsible-set' data-iconpos='right' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-theme='a'> <h1>Veranstaltungen</h1>" ;
-		
 				//Falls keine Datensätze vorhanden sind
 				if( $ergebnis != null )
 				{	//array durchlaufen und informationen ausgeben

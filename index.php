@@ -11,6 +11,7 @@
 
 	    //falls kein deeplink verwendet wird
         if(count($_GET) <= 0)
+		
             if(isset($_COOKIE['get']))
             {
                $link = "index.php?";
@@ -60,7 +61,6 @@
             <a href="index.php">Start</a> 
 		
             <?php
-				
                 if(isset($_GET['eis']))
 					echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
                 if(isset($_GET['selector']))
