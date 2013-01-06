@@ -240,6 +240,13 @@ class Veranstaltungen{
 	
 	
 	public function createStatement($usertype,$department){
+	
+	switch($usertype)
+	{
+		case 'i': $usertype = 1; break;
+		case 'e': $usertype = 2; break;
+		case 's': $usertype = 3; break;
+	}
 				
 	$request = "SELECT events.id,events.language_id,events.name,events.date,events.description
 				FROM events,events_mm_departments,events_mm_usertypes,departments,languages,usertypes

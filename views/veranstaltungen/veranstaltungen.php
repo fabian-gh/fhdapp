@@ -11,8 +11,7 @@
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
-	
-	$ergebnis =  $Controller->getInformation(1,5);
+	$ergebnis =  $Controller->getInformation($_GET['eis'],5);
 	
 	echo'
 		<div data-role="header">
@@ -45,7 +44,7 @@
 					}
 				}
 				else
-					echo '<div data-role="header">$ensp; Es sind keine Veranstaltungen vorhanden</div>';
+					echo '<div data-role="header"> &ensp; Es sind keine Veranstaltungen vorhanden</div>';
 			
 			/*foreach($ergebnis as $temp)
 			{

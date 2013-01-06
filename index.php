@@ -9,6 +9,28 @@
     }
     //cookies lesen, damit beim ersten aufruf der seite der letzte kram geladen wird
 
+	    //falls kein deeplink verwendet wird
+        if(count($_GET) <= 0)
+            if(isset($_COOKIE['get']))
+            {
+               $link = "index.php?";
+            foreach($_COOKIE['get'] as $key => $value)
+                    $link .= "$key=$value" . "&";//$link .= "{$_GET["$key"]}=$value";
+                header("Location: $link");
+            }
+    
+    //sonst cookies bei jedem seitenaufbau schreiben
+    else
+    {
+        //alte cookies löschen
+        if(isset($_COOKIE['get']))
+            foreach($_COOKIE['get'] as $key => $value)
+                setcookie("get[$key]", "", time() - 1);
+        
+        //neue cookies speichern
+        foreach($_GET as $key => $value)
+            setcookie("get[$key]", $value, 2000000000);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -33,11 +55,15 @@
         <div id ="breadcrumb">
             <a href="index.php">Start</a> 
 
+			
+			
+			
+			
+		
             <?php
 				
                 if(isset($_GET['eis']))
-                    echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
-
+					echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
                 if(isset($_GET['selector']))
                     echo "» <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}'>{$_GET['selector']}</a>";
 
@@ -66,8 +92,8 @@
                         {
                             switch($_GET['page'])
                             {
-								case 'veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
-								
+								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+								case 'Termine': require_once 'views/termine/termine.php'; break;
                             }
                         }
                         else //ebene3: "startseite", auswahl der unterkategorie
