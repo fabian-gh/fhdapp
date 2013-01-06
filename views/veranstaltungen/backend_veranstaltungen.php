@@ -38,6 +38,8 @@
 			//Neue Veranstaltung hinzufügen
 			if($Controller->addEvent() == false)
 				$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht eingetragen.';
+			else
+				$MESSAGE = 'Veranstaltung wurde eingetragen.';
 		}
 		else
 		{
@@ -51,10 +53,10 @@
 				//Veranstaltung wurde ohne Fehler gelöscht, Veranstaltung neu einfügen
 				if($Controller->addEventID($_POST['veranstaltung_id']) == false)
 					$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht eingetragen.';
+				else
+					$MESSAGE = 'Veranstaltung wurde ge&auml;ndert.';
 			}
-		}
-		$MESSAGE = 'Veranstaltung wurde eingetragen.';
-		
+		}		
 	}
 	else if(isset($_GET['loeschen']))
 	{
@@ -173,6 +175,76 @@
 				
 				'.$JQUERY.'	
 			});
+			
+			function checkHour(Zahl){
+				Zahl = parseInt(Zahl);
+				if (!isNaN(Zahl))
+				{
+					if(Zahl >= 0 && Zahl <= 23)
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+			}
+			
+			function checkHour(Zahl){
+				Zahl = parseInt(Zahl);
+				if (!isNaN(Zahl))
+				{
+					if(Zahl >= 0 && Zahl <= 59)
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+			}
+			
+			function checkMonth(Zahl){
+				Zahl = parseInt(Zahl);
+				if (!isNaN(Zahl))
+				{
+					if(Zahl >= 0 && Zahl <= 12)
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+			}
+			
+			function checkMonth(Zahl){
+				Zahl = parseInt(Zahl);
+				if (!isNaN(Zahl))
+				{
+					if(Zahl >= 0 && Zahl <= 12)
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+			}
+			
+			function checkDate(TAG,MONAT,JAHR)
+			{
+				
+				// Erzeugung eines neuen Dateobjektes
+				var kontrolldatum = new Date(JAHR,MONAT,TAG);
+				
+				alert(kontrolldatum.toLocaleString());
+				
+				// Vergleich, ob das eingegebene Datum gleich dem Neuerstellten-Datum ist
+				if (kontrolldatum.getDate()== TAG && kontrolldatum.getMonth()== MONAT && kontrolldatum.getFullYear()== JAHR)
+					return true; 
+				else 
+					return false;
+
+			}
+
+			
 		</script>
 	';
 	

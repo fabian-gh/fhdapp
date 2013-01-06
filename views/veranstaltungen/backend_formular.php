@@ -61,7 +61,7 @@ class Formular{
 		
 			<a class="button" id="veranstaltung_anzeigen_'.$this->ID.'"		>Veranstaltung anzeigen	</a>
 			<a class="button" id="veranstaltung_bearbeiten_'.$this->ID.'"	>Veranstaltung bearbeiten</a>
-			<a href="?FB='.$FB_GET.'&amp;loeschen='.$this->ID.'" class="button" id="loesch_button">L&ouml;schen</a>
+			<a href="?FB='.$FB_GET.'&amp;loeschen='.$this->ID.'" class="button" id="loesch_button_'.$this->ID.'">L&ouml;schen</a>
 		';
 		
 		$RESULT .= $this->getEventResult();
@@ -105,7 +105,38 @@ class Formular{
 		$JQUERY = 
 				'
 				$("#veranstaltung_anzeigen_'.$this->ID.'").click(function(){
-						$("#form_veranstaltung_'.$this->ID.'").slideToggle("fast");
+					$("#form_veranstaltung_'.$this->ID.'").slideToggle("fast");
+				});
+				
+				$("form").submit(function(){
+					if(checkHour($("#veranstaltung_uhrzeit_stunden_'.$this->ID.'").val())== true)
+					{
+						alert("Stunden Richtig");
+					}
+					else
+					{
+						alert("Stunden Falsch");
+					}
+					
+					if(checkHour($("#veranstaltung_uhrzeit_minuten_'.$this->ID.'").val())== true)
+					{
+						alert("Minuten Richtig");
+					}
+					else
+					{
+						alert("Minuten Falsch");
+					}
+				
+					if(checkDate($("#veranstaltung_datum_tag_'.$this->ID.'").val(),$("#veranstaltung_datum_monat_'.$this->ID.'").val(),$("#veranstaltung_datum_jahr_'.$this->ID.'").val())== true)
+					{
+						alert("Datum Richtig");
+					}
+					else
+					{
+						alert("Datum Falsch");
+					}
+
+					return false;
 				});
 				';
 		return $JQUERY;
@@ -324,7 +355,7 @@ class Formular{
 	
 	private $EVENTFORM =
 	'<div class="veranstaltung" id="form_veranstaltung_###ID###" style="display:none;">
-		<form action="" method="post">
+		<form action="" class="veranstaltung_form" id="veranstaltung_form_###ID###" method="post">
 			<table id="table_veranstaltung_backend" border="0" width="100%">
 				
 			<thead>
@@ -346,8 +377,8 @@ class Formular{
 				<tr>
 					<td>Name:</td>
 					<td>
-						<div class="div_veranstaltung_name" id="div_veranstaltung_name_###ID###">
-							<input type="text" name="veranstaltung_name" id="veranstaltung_name" value="###NAME###" placeholder="Name" size="50" maxlength="30" />
+						<div class="div_veranstaltung_form_name" id="div_veranstaltung_name_###ID###">
+							<input type="text" class="veranstaltung_name"	name="veranstaltung_name" id="veranstaltung_name_###ID###" value="###NAME###" placeholder="Name" size="50" maxlength="30" />
 						</div>
 					</td>
 				</tr>
@@ -355,10 +386,10 @@ class Formular{
 				<tr>
 					<td>Datum:</td>
 					<td>
-						<div class="div_veranstaltung_datum" id="div_veranstaltung_datum_###ID###">
-							<input type="text" name="veranstaltung_datum_tag" 	id="veranstaltung_datum_tag" 	value="###TAG###" 	placeholder="DD" 	size="5" 	maxlength="2" />
-							<input type="text" name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" 	value="###MONAT###" placeholder="MM" 	size="5" 	maxlength="2" />
-							<input type="text" name="veranstaltung_datum_jahr" 	id="veranstaltung_datum_jahr" 	value="###JAHR###" 	placeholder="YYYY" 	size="10"	maxlength="4" />
+						<div class="div_veranstaltung_form_datum" id="div_veranstaltung_datum_###ID###">
+							<input type="text" class="veranstaltung_datum_tag"		name="veranstaltung_datum_tag" 		id="veranstaltung_datum_tag_###ID###" 		value="###TAG###" 	placeholder="DD" 	size="5" 	maxlength="2" />
+							<input type="text" class="veranstaltung_datum_monat"	name="veranstaltung_datum_monat" 	id="veranstaltung_datum_monat_###ID###" 	value="###MONAT###" placeholder="MM" 	size="5" 	maxlength="2" />
+							<input type="text" class="veranstaltung_datum_jahr"		name="veranstaltung_datum_jahr" 	id="veranstaltung_datum_jahr_###ID###" 		value="###JAHR###" 	placeholder="YYYY" 	size="10"	maxlength="4" />
 						</div>
 					</td>
 				</tr>
@@ -366,9 +397,9 @@ class Formular{
 				<tr>
 					<td>Uhrzeit:</td>
 					<td>
-						<div class="div_veranstaltung_uhrzeit" id="div_veranstaltung_uhrzeit_###ID###">
-							<input type="text" name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden" value="###STUNDEN###" placeholder="HH" size="5" maxlength="2" />
-							<input type="text" name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten" value="###MINUTEN###" placeholder="MM" size="5" maxlength="2" />
+						<div class="div_veranstaltung_form_uhrzeit" id="div_veranstaltung_uhrzeit_###ID###">
+							<input type="text" class="veranstaltung_uhrzeit_stunden"	name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden_###ID###" value="###STUNDEN###" placeholder="HH" size="5" maxlength="2" />
+							<input type="text" class="veranstaltung_uhrzeit_stunden"	name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten_###ID###" value="###MINUTEN###" placeholder="MM" size="5" maxlength="2" />
 						</div>
 					</td>
 				</tr>
@@ -376,44 +407,44 @@ class Formular{
 				<tr>
 					<td>Beschreibung:</td>
 					<td>
-						<div class="div_veranstaltung_beschreibung" id="div_veranstaltung_beschreibung_###ID###">
-							<textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10">###BESCHREIBUNG###</textarea>
+						<div class="div_veranstaltung_form_beschreibung" id="div_veranstaltung_beschreibung_###ID###">
+							<textarea class="veranstaltung_beschreibung"	name="veranstaltung_beschreibung" id="veranstaltung_beschreibung_###ID###" cols="50" rows="10">###BESCHREIBUNG###</textarea>
 						</div>
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2">
-						<div class="div_veranstaltung_fachbereiche" id="div_veranstaltung_fachbereiche_###ID###">
+						<div class="div_veranstaltung_form_fachbereiche" id="div_veranstaltung_fachbereiche_###ID###">
 							<fieldset>
 								<legend>Fachbereich:</legend>
 								
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_1"	name="veranstaltungen_fachbereich_1" ###FB1### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_1"	name="veranstaltungen_fachbereich_1" ###FB1### />
 								<label for="veranstaltungen_fachbereich_1">Fachbereich 1 - Architektur							</label>  
 									
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_2"	name="veranstaltungen_fachbereich_2" ###FB2### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_2"	name="veranstaltungen_fachbereich_2" ###FB2### />
 								<label for="veranstaltungen_fachbereich_2">Fachbereich 2 - Design								</label>
 									
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_3"	name="veranstaltungen_fachbereich_3" ###FB3### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_3"	name="veranstaltungen_fachbereich_3" ###FB3### />
 								<label for="veranstaltungen_fachbereich_3">Fachbereich 3 - Elektrotechnik						</label>
 									
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_4"	name="veranstaltungen_fachbereich_4" ###FB4### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_4"	name="veranstaltungen_fachbereich_4" ###FB4### />
 								<label for="veranstaltungen_fachbereich_4">Fachbereich 4 - Maschinenbau und Verfahrenstechnik	</label>
 									
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_5"	name="veranstaltungen_fachbereich_5" ###FB5### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_5"	name="veranstaltungen_fachbereich_5" ###FB5### />
 								<label for="veranstaltungen_fachbereich_5">Fachbereich 5 - Medien								</label>
 									
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_6"	name="veranstaltungen_fachbereich_6" ###FB6### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_6"	name="veranstaltungen_fachbereich_6" ###FB6### />
 								<label for="veranstaltungen_fachbereich_6">Fachbereich 6 - Sozial- und Kulturwissenschaften		</label>
 									
 								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_7"	name="veranstaltungen_fachbereich_7" ###FB7### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_7"	name="veranstaltungen_fachbereich_7" ###FB7### />
 								<label for="veranstaltungen_fachbereich_7">Fachbereich 7 - Wirtschaft 							</label>
 								
 								<br/>
@@ -424,20 +455,20 @@ class Formular{
 				
 				<tr>
 					<td colspan="2">
-						<div class="div_veranstaltung_usertype" id="div_veranstaltung_usertype_###ID###">
+						<div class="div_veranstaltung_form_usertype" id="div_veranstaltung_usertype_###ID###">
 							<fieldset>
 								<legend>Modus:</legend>
 								
 								<br/>
-								<input type="checkbox" id="veranstaltungen_usertypes_1"	name="veranstaltungen_usertypes_1" ###INTERESSENT### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_1"	name="veranstaltungen_usertypes_1" ###INTERESSENT### />
 								<label for="veranstaltungen_usertypes_1">Interessent	</label>
 								
 								<br/>
-								<input type="checkbox" id="veranstaltungen_usertypes_2"	name="veranstaltungen_usertypes_2" ###ERSTI###		 />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_2"	name="veranstaltungen_usertypes_2" ###ERSTI###		 />
 								<label for="veranstaltungen_usertypes_2">Ersti			</label>
 								
 								<br/>
-								<input type="checkbox" id="veranstaltungen_usertypes_3"	name="veranstaltungen_usertypes_3" ###STUDENT###	 />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_3"	name="veranstaltungen_usertypes_3" ###STUDENT###	 />
 								<label for="veranstaltungen_usertypes_3">Student		</label>
 								
 								<br/>
