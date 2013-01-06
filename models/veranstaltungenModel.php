@@ -101,20 +101,24 @@ class Veranstaltungen{
 		}
 		
 		//Beziehung zu Fachbereichen in die Datenbank eintragen
-		try
+		if($ERSTER_EINTRAG != true)
 		{
-			$this->connection->query('
-										INSERT INTO events_mm_departments 
-										(department_id,event_id) 
-										VALUES
-										'.$VALUES.'
-									');
+			try
+			{
+				$this->connection->query('
+											INSERT INTO events_mm_departments 
+											(department_id,event_id) 
+											VALUES
+											'.$VALUES.'
+										');
+			}
+			catch(Exception $e)
+			{
+				return false;
+			}
+			return true;
 		}
-		catch(Exception $e)
-		{
-			return false;
-		}
-		return true;
+		return false;
 	}
 	
 	//Backend
@@ -151,20 +155,24 @@ class Veranstaltungen{
 		}
 		
 		//Beziehung zu Usertypes in die Datenbank eintragen
-		try
+		if($ERSTER_EINTRAG != true)
 		{
-			$this->connection->query('
-										INSERT INTO events_mm_usertypes 
-										(usertype_id, event_id)
-										VALUES
-										'.$VALUES.'
-									');
+			try
+			{
+				$this->connection->query('
+											INSERT INTO events_mm_usertypes 
+											(usertype_id, event_id)
+											VALUES
+											'.$VALUES.'
+										');
+			}
+			catch(Exception $e)
+			{
+				return false;
+			}
+			return true;
 		}
-		catch(Exception $e)
-		{
-			return false;
-		}
-		return true;
+		return false;
 	}
 	
 	//Backend
