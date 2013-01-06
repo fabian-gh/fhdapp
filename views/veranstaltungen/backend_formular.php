@@ -128,7 +128,6 @@ class Formular{
 										
 					FALSCHE_EINGABEN = "";
 					CORRECT = true;
-					alert("TEST");
 					
 					if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
 					{
