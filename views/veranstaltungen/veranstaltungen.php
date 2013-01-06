@@ -11,16 +11,16 @@
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
-	$ergebnis =  $Controller->getInformation($_GET['eis'],5);
+	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
+	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
 	
 	echo'
 		<div data-role="header">
-			<h1>Veranstaltungen</h1>
+		<h1>Veranstaltungen</h1>
 		</div>
 		<div data-role="content">
 		<!-- akkordionmenü -->
-		<div data-role="collapsible-set">
-		';
+		<div data-role="collapsible-set">';
 				
 				if( $ergebnis != null )
 				{
