@@ -11,6 +11,8 @@
 		//call function to submit the typed values
 		$controller->c_insertContact();
 	}
+	if(isset($_POST['deleteContact']))
+		$controller->c_deleteContact($_POST);
 ?>
 			<script type="text/javascript">
 				/**
@@ -52,13 +54,12 @@
 								<td>' . $value['catName'] . '</td>
 								<td>' . $value['deptName'] . '</td>
 								<td> <input type="submit" name="alterContact'. $value['contactID'] .'" value="Daten bearbeiten" /> </td>
-								<td> <input type="submit" name="deleteContact'. $value['contactID'] .'" value="Daten löschen" /></td>
+								<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
 							</tr>';
 					}
 					echo '</form>';
 					foreach ($contacts as $value) {
-						if(isset($_POST['deleteContact' . $value['contactID']]))
-							$controller->c_deleteContact($value['contactID']);
+
 					}
 				?>
 				</table>
@@ -73,7 +74,7 @@
 					$departments = $controller->c_getDepartments();			
 					echo '
 						<div>
-							<form name="alterContactForm" action="" method="post">
+							<form name="alterContactForm" action="#" method="post">
 								<label for="alterContactTitle">Titel des Kontakts</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .$alterContact[0]['title']. '" />
 								<fieldset>';
 					//creating a radiobutton for every category. Value is set to match the ID
@@ -109,9 +110,6 @@
 					echo'	</form>
 						</div>';
 
-					}
-					if(isset($_POST['alterContactSubmit'])){
-						$controller->c_alterContact($value['contactID']);
 					}
 			?>
 			<!-- Section for adding new contacts -->

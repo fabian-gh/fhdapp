@@ -112,6 +112,8 @@ class kontakteModel{
 	}
 
 	public function m_deleteContact($id){
+		
+		var_dump($id);
 		/*
 		try{
 			//create DB connection
@@ -124,26 +126,6 @@ class kontakteModel{
 			echo $e->getMessage();
 		}
 		*/
-		try{
-			//create DB connection
-			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
-
-			$result = $db->query("SELECT * FROM contacts WHERE id = " . $id );
-			
-			while($row = $result->fetch_assoc()){
-				$resultSet[] = $row;
-			}
-
-			$contact = $resultSet[0];
-		} catch (Exception $e){
-			echo $e->getMessage();
-		}
-
-		echo '
-				<div>
-					<p>Sind Sie sicher, dass Sie den Kontakt <span>' . $contact['title'] . '</span> löschen möchten?</p>
-				</div>
-			';
 	}
 
 	public function m_getContact($id){
