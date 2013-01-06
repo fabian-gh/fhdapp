@@ -11,6 +11,7 @@
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
+	
 	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
 	
@@ -21,14 +22,15 @@
 		<div data-role="content">
 		<!-- akkordionmenü -->
 		<div data-role="collapsible-set">';
-				
+				//Falls keine Datensätze vorhanden sind
 				if( $ergebnis != null )
-				{
+				{	//array durchlaufen und informationen ausgeben
 					for($i=0; $i<count($ergebnis); $i++) 
 					{
 						$Name = $ergebnis[$i]['name'];
 						$Beschreibung = $ergebnis[$i]['description'];
 						//$Datum =$ergebnis[$i]['date'];
+						//Daten ordetnlich formatiert
 						$Datum = new DateTime($ergebnis[$i]['date']);
 						$Monat = 	date_format($Datum, 'm');
 						$Tag   = 	date_format($Datum, 'd');
@@ -36,7 +38,7 @@
 						$Jahr  = 	date_format($Datum, 'Y');			
 						$Stunden = 	date_format($Datum, 'H');
 						$Minuten =	date_format($Datum, 'i');
-
+						//Ausgabe
 						echo "<div style='word-break:break-all;word-wrap:break-word' data-role='collapsible' data-theme='a' >
 						<h3>$Name</h3>
 						<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten Uhr</h4></p><br>

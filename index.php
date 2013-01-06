@@ -58,11 +58,6 @@
         </div>
         <div id ="breadcrumb">
             <a href="index.php">Start</a> 
-
-			
-			
-			
-			
 		
             <?php
 				
@@ -76,7 +71,6 @@
 
                 if(isset($_GET['page']))
                     echo " » <a href=''>{$_GET['page']}</a>";
-
             ?>
 
         </div>
@@ -85,7 +79,7 @@
     <div id ="content">
 
         <?php 
-
+		
             if(isset($_GET['eis']))
             {
                 if(isset($_GET['selector']))
