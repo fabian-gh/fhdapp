@@ -57,11 +57,11 @@ class Formular{
 		$RESULT =
 		'
 		<div class="veranstaltung_'.$this->ID.'" style="border-width:1px; border-style:solid;">
-		<h3>'.$this->NAME.'</h3>
+			<h3>'.$this->NAME.'</h3>
 		
-		<a class="button" id="veranstaltung_anzeigen_'.$this->ID.'">Veranstaltung anzeigen</a>
-		<a class="button" id="veranstaltung_bearbeiten_'.$this->ID.'">Veranstaltung bearbeiten</a>
-		<a href="?FB='.$FB_GET.'&amp;loeschen='.$this->ID.'" class="button" id="loesch_button">L&ouml;schen</a>
+			<a class="button" id="veranstaltung_anzeigen_'.$this->ID.'"		>Veranstaltung anzeigen	</a>
+			<a class="button" id="veranstaltung_bearbeiten_'.$this->ID.'"	>Veranstaltung bearbeiten</a>
+			<a href="?FB='.$FB_GET.'&amp;loeschen='.$this->ID.'" class="button" id="loesch_button">L&ouml;schen</a>
 		';
 		
 		$RESULT .= $this->getEventResult();
@@ -324,150 +324,232 @@ class Formular{
 	
 	private $EVENTFORM =
 	'<div class="veranstaltung" id="form_veranstaltung_###ID###" style="display:none;">
-		
-			<form action="" method="post">
-			<table id="table_veranstaltung_backend" border="0">
-				<thead>
+		<form action="" method="post">
+			<table id="table_veranstaltung_backend" border="0" width="100%">
+				
+			<thead>
 				<tr>
 				  <th colspan="2">Veranstaltung Bearbeiten</th>
 				</tr>
-				</thead>
-				<tfoot>
-				<tr>
-				  <td colspan="2">
-					<input type="submit" name="veranstaltung_speichern" id="veranstaltung_speichern" value="Speichern">
-					<input type="hidden" name="veranstaltung_id" id="veranstaltung_id" value="###ID###">
-				  </td>
-				</tr>
-			  </tfoot>
+			</thead>
+				
+			<tfoot>
+					<tr>
+					<td colspan="2">
+						<input type="submit" name="veranstaltung_speichern" id="veranstaltung_speichern" value="Speichern">
+						<input type="hidden" name="veranstaltung_id" id="veranstaltung_id" value="###ID###">
+					</td>
+					</tr>
+			</tfoot>
 			  
-			  <tbody>
-			  
+			<tbody>
 				<tr>
-				  <td>Name:</td>
-				  <td>
-					<div data-role="fieldcontain" class="ui-hide-label">
-						<input type="text" name="veranstaltung_name" id="veranstaltung_name" value="###NAME###" placeholder="Name" size="50" maxlength="30" />
-					</div>
-				  </td>
+					<td>Name:</td>
+					<td>
+						<div class="div_veranstaltung_name" id="div_veranstaltung_name_###ID###">
+							<input type="text" name="veranstaltung_name" id="veranstaltung_name" value="###NAME###" placeholder="Name" size="50" maxlength="30" />
+						</div>
+					</td>
 				</tr>
 				
 				<tr>
-				 <td>Datum:</td>
-				  <td>
-				  <div data-role="fieldcontain" class="ui-hide-label">
-						<input type="text" name="veranstaltung_datum_tag" id="veranstaltung_datum_tag" value="###TAG###" placeholder="DD" size="5" maxlength="2" />
-						<input type="text" name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" value="###MONAT###" placeholder="MM" size="5" maxlength="2" />
-						<input type="text" name="veranstaltung_datum_jahr" id="veranstaltung_datum_jahr" value="###JAHR###" placeholder="YYYY" size="10" maxlength="4" />
-				  </div>
-				  </td>
+					<td>Datum:</td>
+					<td>
+						<div class="div_veranstaltung_datum" id="div_veranstaltung_datum_###ID###">
+							<input type="text" name="veranstaltung_datum_tag" 	id="veranstaltung_datum_tag" 	value="###TAG###" 	placeholder="DD" 	size="5" 	maxlength="2" />
+							<input type="text" name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" 	value="###MONAT###" placeholder="MM" 	size="5" 	maxlength="2" />
+							<input type="text" name="veranstaltung_datum_jahr" 	id="veranstaltung_datum_jahr" 	value="###JAHR###" 	placeholder="YYYY" 	size="10"	maxlength="4" />
+						</div>
+					</td>
 				</tr>
 				
 				<tr>
-				<td>Uhrzeit:</td>
-				<td>
-					<div data-role="fieldcontain" class="ui-hide-label">
-						<input type="text" name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden" value="###STUNDEN###" placeholder="HH" size="5" maxlength="2" />
-						<input type="text" name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten" value="###MINUTEN###" placeholder="MM" size="5" maxlength="2" />
-					</div>
-				</td>
+					<td>Uhrzeit:</td>
+					<td>
+						<div class="div_veranstaltung_uhrzeit" id="div_veranstaltung_uhrzeit_###ID###">
+							<input type="text" name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden" value="###STUNDEN###" placeholder="HH" size="5" maxlength="2" />
+							<input type="text" name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten" value="###MINUTEN###" placeholder="MM" size="5" maxlength="2" />
+						</div>
+					</td>
 				</tr>
 				
 				<tr>
-				  <td>Beschreibung:</td>
-				  <td>
-					<div data-role="fieldcontain" class="ui-hide-label">
-					<textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10">###BESCHREIBUNG###</textarea>
-					</div>
-				  </td>
+					<td>Beschreibung:</td>
+					<td>
+						<div class="div_veranstaltung_beschreibung" id="div_veranstaltung_beschreibung_###ID###">
+							<textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10">###BESCHREIBUNG###</textarea>
+						</div>
+					</td>
 				</tr>
 				
 				<tr>
-				  <td>Fachbereich:</td>
-				  <td>	
-				  
-						<label><input type="checkbox" name="veranstaltungen_fachbereich_1" 	   ###FB1###/> Fachbereich 1 - Architektur  </label>
-						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_2" ###FB2###/> Fachbereich 2 - Design </label>
-						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_3" ###FB3###/> Fachbereich 3 - Elektrotechnik </label>
-						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_4" ###FB4###/> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
-						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_5" ###FB5###/> Fachbereich 5 - Medien </label>
-						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_6" ###FB6###/> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
-						<br><label><input type="checkbox" name="veranstaltungen_fachbereich_7" ###FB7###/> Fachbereich 7 - Wirtschaft </label>
-				  </td>
+					<td colspan="2">
+						<div class="div_veranstaltung_fachbereiche" id="div_veranstaltung_fachbereiche_###ID###">
+							<fieldset>
+								<legend>Fachbereich:</legend>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_1"	name="veranstaltungen_fachbereich_1" ###FB1### />
+								<label for="veranstaltungen_fachbereich_1">Fachbereich 1 - Architektur							</label>  
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_2"	name="veranstaltungen_fachbereich_2" ###FB2### />
+								<label for="veranstaltungen_fachbereich_2">Fachbereich 2 - Design								</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_3"	name="veranstaltungen_fachbereich_3" ###FB3### />
+								<label for="veranstaltungen_fachbereich_3">Fachbereich 3 - Elektrotechnik						</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_4"	name="veranstaltungen_fachbereich_4" ###FB4### />
+								<label for="veranstaltungen_fachbereich_4">Fachbereich 4 - Maschinenbau und Verfahrenstechnik	</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_5"	name="veranstaltungen_fachbereich_5" ###FB5### />
+								<label for="veranstaltungen_fachbereich_5">Fachbereich 5 - Medien								</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_6"	name="veranstaltungen_fachbereich_6" ###FB6### />
+								<label for="veranstaltungen_fachbereich_6">Fachbereich 6 - Sozial- und Kulturwissenschaften		</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_7"	name="veranstaltungen_fachbereich_7" ###FB7### />
+								<label for="veranstaltungen_fachbereich_7">Fachbereich 7 - Wirtschaft 							</label>
+								
+								<br/>
+							</fieldset>
+						</div>
+					</td>
 				</tr>
 				
 				<tr>
-				  <td>Modus:</td>
-				  <td>
-						<label><input type="checkbox" name="veranstaltungen_usertypes_1" 	 ###INTERESSENT###/> Interessent </label>
-						<br><label><input type="checkbox" name="veranstaltungen_usertypes_2" ###ERSTI###/> Ersti </label>
-						<br><label><input type="checkbox" name="veranstaltungen_usertypes_3" ###STUDENT###/> Student </label>
-				  </td> 
+					<td colspan="2">
+						<div class="div_veranstaltung_usertype" id="div_veranstaltung_usertype_###ID###">
+							<fieldset>
+								<legend>Modus:</legend>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_usertypes_1"	name="veranstaltungen_usertypes_1" ###INTERESSENT### />
+								<label for="veranstaltungen_usertypes_1">Interessent	</label>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_usertypes_2"	name="veranstaltungen_usertypes_2" ###ERSTI###		 />
+								<label for="veranstaltungen_usertypes_2">Ersti			</label>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_usertypes_3"	name="veranstaltungen_usertypes_3" ###STUDENT###	 />
+								<label for="veranstaltungen_usertypes_3">Student		</label>
+								
+								<br/>
+							</fieldset>
+						</div>
+					</td> 
 				</tr>   
 						
-			  </tbody>  
-			</table>
-			</form>
-		</div>
+			 </tbody>  
+		</table>
+		</form>
+	</div>
 	';
 	
 	private $EVENTRESULT =
 	'<div class="veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">
-			<table id="table_veranstaltung_backend" border="0">
-				<thead>
-				</thead>
-				<tfoot>
-				</tfoot>
+		<table id="table_veranstaltung_backend" border="0" width="100%">
+			<thead>
+			</thead>
+			
+			<tfoot>
+			</tfoot>
 			  
-			  <tbody>				
+			 <tbody>				
 				<tr>
-				 <td>Datum:</td>
-				  <td>
-					<div class="datum">###TAG###.###MONAT###.###JAHR###</div>
-				  </td>
+					<td>Datum:</td>
+					<td>
+						<div class="div_veranstaltung_show_datum">###TAG###.###MONAT###.###JAHR###</div>
+					</td>
 				</tr>
 				
 				<tr>
-				 <td>Uhrzeit:</td>
-				  <td>
-					<div class="datum">###STUNDEN###:###MINUTEN###</div>
-				  </td>
+					<td>Uhrzeit:</td>
+					<td>
+						<div class="div_veranstaltung_show_uhrzeit">###STUNDEN###:###MINUTEN###</div>
+					</td>
 				</tr>
 				
 				<tr>
-				  <td>Beschreibung:</td>
-				  <td>
-					<div class="datum">###BESCHREIBUNG###</div>
-				  </td>
+					<td>Beschreibung:</td>
+					<td>
+						<div class="div_veranstaltung_show_beschreibung">###BESCHREIBUNG###</div>
+					</td>
 				</tr>
 				
 				<tr>
-				  <td>Fachbereich:</td>
-				  <td>	
-				  
-						[###FB1###]	Fachbereich 1 - Architektur  						<br>
-						[###FB2###]	Fachbereich 2 - Design 								<br>
-						[###FB3###]	Fachbereich 3 - Elektrotechnik 						<br>
-						[###FB4###]	Fachbereich 4 - Maschinenbau und Verfahrenstechnik 	<br>
-						[###FB5###]	Fachbereich 5 - Medien 								<br>
-						[###FB6###]	Fachbereich 6 - Sozial- und Kulturwissenschaften 	<br>
-						[###FB7###]	Fachbereich 7 - Wirtschaft 							<br>
-				  </td>
+					<td colspan="2">
+						<div class="div_veranstaltung_show_fachbereiche" id="div_veranstaltung_fachbereiche_###ID###">
+							<fieldset>
+								<legend>Fachbereich:</legend>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_1"	name="veranstaltungen_fachbereich_1" ###FB1### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_1">Fachbereich 1 - Architektur							</label>  
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_2"	name="veranstaltungen_fachbereich_2" ###FB2### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_2">Fachbereich 2 - Design								</label>  
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_3"	name="veranstaltungen_fachbereich_3" ###FB3### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_3">Fachbereich 3 - Elektrotechnik						</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_4"	name="veranstaltungen_fachbereich_4" ###FB4### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_4">Fachbereich 4 - Maschinenbau und Verfahrenstechnik	</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_5"	name="veranstaltungen_fachbereich_5" ###FB5### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_5">Fachbereich 5 - Medien								</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_6"	name="veranstaltungen_fachbereich_6" ###FB6### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_6">Fachbereich 6 - Sozial- und Kulturwissenschaften		</label>
+									
+								<br/>
+								<input type="checkbox" id="veranstaltungen_fachbereich_7"	name="veranstaltungen_fachbereich_7" ###FB7### disabled="disabled" />
+								<label for="veranstaltungen_fachbereich_7">Fachbereich 7 - Wirtschaft 							</label>
+								
+								<br/>
+							</fieldset>
+						</div>
+					</td>
 				</tr>
 				
-				
 				<tr>
-				  <td>Modus:</td>
-				  <td>
-						[###INTERESSENT###]	INTERESSENT	<br>
-						[###ERSTI###]		ERSTI		<br>
-						[###STUDENT###]		STUDENT		<br>
-				  </td>
+					<td colspan="2">
+						<div class="div_veranstaltung_show_usertype" id="div_veranstaltung_usertype_###ID###">
+							<fieldset>
+								<legend>Modus:</legend>
+								
+								<br/> 
+								<input type="checkbox" id="veranstaltungen_usertypes_1"	name="veranstaltungen_usertypes_1" ###INTERESSENT### disabled="disabled" />
+								<label for="veranstaltungen_usertypes_1">Interessent	</label>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_usertypes_2"	name="veranstaltungen_usertypes_2" ###ERSTI###		 disabled="disabled" />
+								<label for="veranstaltungen_usertypes_2">Ersti			</label>
+								
+								<br/>
+								<input type="checkbox" id="veranstaltungen_usertypes_3"	name="veranstaltungen_usertypes_3" ###STUDENT###	 disabled="disabled" />
+								<label for="veranstaltungen_usertypes_3">Student		</label>
+								
+								<br/>
+							</fieldset>
+						</div>
+					</td>
 				</tr>  
 						
-			  </tbody> 
-			</table>
-		</div>
+			 </tbody> 
+		</table>
+	</div>
 	';
 }
  
