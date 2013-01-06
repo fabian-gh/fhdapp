@@ -64,7 +64,7 @@ class Veranstaltungen{
 			$this->deleteEvent($EVENT_ID);
 			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	//Backend

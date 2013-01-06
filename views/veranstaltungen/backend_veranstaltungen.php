@@ -46,13 +46,13 @@
 			//Veranstaltung ändern = Veranstaltung löschen + Veranstaltung neu hinzufügen
 			if($Controller->deleteEvent($_POST['veranstaltung_id']) == false)
 			{
-				$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht eingetragen.';
+				$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht ge&auml;ndert.';
 			}
 			else
 			{
 				//Veranstaltung wurde ohne Fehler gelöscht, Veranstaltung neu einfügen
 				if($Controller->addEventID($_POST['veranstaltung_id']) == false)
-					$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht eingetragen.';
+					$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht ge&auml;ndert.';
 				else
 					$MESSAGE = 'Veranstaltung wurde ge&auml;ndert.';
 			}
@@ -226,8 +226,8 @@
 					return true;
 				}
 			}
-		</script>
-	';
+		</script>';
+	
 	
 	require_once '../../layout/backend/footer.php';
 	ob_end_flush();

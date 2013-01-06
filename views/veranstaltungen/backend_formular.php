@@ -153,6 +153,37 @@ class Formular{
 						CORRECT = false;
 					}
 					
+					CHECKED = false;
+					for (var i = 1; i <= 7; i++)
+					{
+		
+						if ($("#veranstaltungen_fachbereich_"+i+"_'.$this->ID.'").is(":checked")){
+							CHECKED = true;
+						}
+					}
+					
+					if(!(CHECKED == true))
+					{
+						FALSCHE_EINGABEN += "Fachbereich Falsch\n";
+						CORRECT = false;
+					}
+					
+					CHECKED = false;
+					for (var i = 1; i <= 7; i++)
+					{
+		
+						if ($("#veranstaltungen_usertypes_"+i+"_'.$this->ID.'").is(":checked")){
+							CHECKED = true;
+						}
+					}
+					
+					if(!(CHECKED == true))
+					{
+						FALSCHE_EINGABEN += "Modus Falsch\n";
+						CORRECT = false;
+					}
+					
+					
 					if(CORRECT == false)
 					{
 						alert(FALSCHE_EINGABEN);
@@ -444,31 +475,31 @@ class Formular{
 								<legend>Fachbereich:</legend>
 								
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_1"	name="veranstaltungen_fachbereich_1" ###FB1### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_1_###ID###"	name="veranstaltungen_fachbereich_1" ###FB1### />
 								<label for="veranstaltungen_fachbereich_1">Fachbereich 1 - Architektur							</label>  
 									
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_2"	name="veranstaltungen_fachbereich_2" ###FB2### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_2_###ID###"	name="veranstaltungen_fachbereich_2" ###FB2### />
 								<label for="veranstaltungen_fachbereich_2">Fachbereich 2 - Design								</label>
 									
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_3"	name="veranstaltungen_fachbereich_3" ###FB3### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_3_###ID###"	name="veranstaltungen_fachbereich_3" ###FB3### />
 								<label for="veranstaltungen_fachbereich_3">Fachbereich 3 - Elektrotechnik						</label>
 									
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_4"	name="veranstaltungen_fachbereich_4" ###FB4### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_4_###ID###"	name="veranstaltungen_fachbereich_4" ###FB4### />
 								<label for="veranstaltungen_fachbereich_4">Fachbereich 4 - Maschinenbau und Verfahrenstechnik	</label>
 									
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_5"	name="veranstaltungen_fachbereich_5" ###FB5### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_5_###ID###"	name="veranstaltungen_fachbereich_5" ###FB5### />
 								<label for="veranstaltungen_fachbereich_5">Fachbereich 5 - Medien								</label>
 									
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_6"	name="veranstaltungen_fachbereich_6" ###FB6### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_6_###ID###"	name="veranstaltungen_fachbereich_6" ###FB6### />
 								<label for="veranstaltungen_fachbereich_6">Fachbereich 6 - Sozial- und Kulturwissenschaften		</label>
 									
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_7"	name="veranstaltungen_fachbereich_7" ###FB7### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_7_###ID###"	name="veranstaltungen_fachbereich_7" ###FB7### />
 								<label for="veranstaltungen_fachbereich_7">Fachbereich 7 - Wirtschaft 							</label>
 								
 								<br/>
@@ -484,15 +515,15 @@ class Formular{
 								<legend>Modus:</legend>
 								
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_1"	name="veranstaltungen_usertypes_1" ###INTERESSENT### />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_1_###ID###"	name="veranstaltungen_usertypes_1" ###INTERESSENT### />
 								<label for="veranstaltungen_usertypes_1">Interessent	</label>
 								
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_2"	name="veranstaltungen_usertypes_2" ###ERSTI###		 />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_2_###ID###"	name="veranstaltungen_usertypes_2" ###ERSTI###		 />
 								<label for="veranstaltungen_usertypes_2">Ersti			</label>
 								
 								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_3"	name="veranstaltungen_usertypes_3" ###STUDENT###	 />
+								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_3_###ID###"	name="veranstaltungen_usertypes_3" ###STUDENT###	 />
 								<label for="veranstaltungen_usertypes_3">Student		</label>
 								
 								<br/>
