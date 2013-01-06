@@ -14,14 +14,15 @@
 	
 	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
-	
-	echo'
+	//Alternative
+	/*echo'
 		<div data-role="header">
-		<h1>Veranstaltungen</h1>
-		</div>
+		<h1>Veranstaltungen</h1></div>
 		<div data-role="content">
-		<!-- akkordionmenü -->
-		<div data-role="collapsible-set">';
+		<div data-role="collapsible-set">';*/
+		
+		echo "<div data-role='collapsible-set' data-iconpos='right' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-theme='a'> <h1>Veranstaltungen</h1>" ;
+		
 				//Falls keine Datensätze vorhanden sind
 				if( $ergebnis != null )
 				{	//array durchlaufen und informationen ausgeben
