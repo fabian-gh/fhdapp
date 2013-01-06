@@ -63,18 +63,18 @@
 	
 	//Backend
 	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
-	public function addDatensatz()
+	public function addEvent()
 	{		
 		$Model = new Veranstaltungen();
-		$Model->addDatensatz();
+		return $Model->addEvent();
 	}
 
 	//Backend
 	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
-	public function deleteDatensatz($event_id)
+	public function deleteEvent($event_id)
 	{		
 		$Model = new Veranstaltungen();
-		$Model->deleteDatensatz($event_id);
+		return $Model->deleteEvent($event_id);
 	}	
 }
 

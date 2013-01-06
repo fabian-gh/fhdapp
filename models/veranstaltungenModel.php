@@ -19,7 +19,7 @@ class Veranstaltungen{
 		
 	//Backend
 	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
-	public function addDatensatz()
+	public function addEvent()
 	{
 		//$lang = $_POST['veranstaltung_language'];
 		$LANG 			= 1; // 1 für Deutsch
@@ -43,15 +43,26 @@ class Veranstaltungen{
 		}
 		catch(Exception $e)
 		{
-			echo $e->getMessage();
+			return false;
 		}
-		
+				
 		//Automatisch zugewissene ID von der eingetragnen Veranstaltung zwischenspeichern
 		$EVENT_ID = $this->connection->insert_id;
+		
 		//Verbindung zwischen Fachbereich und Veranstaltung erstellen
-		$this->addRelationshipEventDepartment($EVENT_ID);
+		if($this->addRelationshipEventDepartment($EVENT_ID) == false)
+		{
+			$this->deleteEvent($EVENT_ID);
+			return false;
+		}
+		
 		//Verbindung zwischen Fachbereich und Usertype erstellen
-		$this->addRelationshipEventUsertype($EVENT_ID);		
+		if($this->addRelationshipEventUsertype($EVENT_ID) == false)
+		{
+			$this->deleteEvent($EVENT_ID);
+			return false;
+		}
+		return false;
 	}
 	
 	//Backend
@@ -88,12 +99,20 @@ class Veranstaltungen{
 		}
 		
 		//Beziehung zu Fachbereichen in die Datenbank eintragen
-		$this->connection->query('
-									INSERT INTO events_mm_departments 
-									(department_id,event_id) 
-									VALUES
-									'.$VALUES.'
-								');
+		try
+		{
+			$this->connection->query('
+										INSERT INTO events_mm_departments 
+										(department_id,event_id) 
+										VALUES
+										'.$VALUES.'
+									');
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	//Backend
@@ -130,35 +149,51 @@ class Veranstaltungen{
 		}
 		
 		//Beziehung zu Usertypes in die Datenbank eintragen
-		$this->connection->query('
-									INSERT INTO events_mm_usertypes 
-									(usertype_id, event_id)
-									VALUES
-									'.$VALUES.'
-								');
+		try
+		{
+			$this->connection->query('
+										INSERT INTO events_mm_usertypes 
+										(usertype_id, event_id)
+										VALUES
+										'.$VALUES.'
+									');
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	//Backend
 	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
-	public function deleteDatensatz($event_id)
+	public function deleteEvent($event_id)
 	{
-		//Beziehungen zwischen Veranstaltung und Benutzer löschen
-		$delete_statement = '	DELETE 
-								FROM events_mm_usertypes 
-								WHERE event_id = '.$event_id;
-		$this->connection->query($request);
-		
-		//Beziehungen zwischen Veranstaltung und Fachbereich löschen
-		$delete_statement = '	DELETE 
-								FROM events_mm_departments 
-								WHERE event_id = '.$event_id;
-		$this->connection->query($request);
-		
-		//Die Veranstaltung löschen
-		$delete_statement = '	DELETE 
-								FROM events 
-								WHERE id = '.$event_id;
-		$this->connection->query($request);
+		try
+		{
+			//Beziehungen zwischen Veranstaltung und Benutzer löschen
+			$DELETE_STATEMENT = '	DELETE 
+									FROM events_mm_usertypes 
+									WHERE event_id = '.$event_id;
+			$this->connection->query($DELETE_STATEMENT);
+			
+			//Beziehungen zwischen Veranstaltung und Fachbereich löschen
+			$DELETE_STATEMENT = '	DELETE 
+									FROM events_mm_departments 
+									WHERE event_id = '.$event_id;
+			$this->connection->query($DELETE_STATEMENT);
+			
+			//Die Veranstaltung löschen
+			$DELETE_STATEMENT = '	DELETE 
+									FROM events 
+									WHERE id = '.$event_id;
+			$this->connection->query($DELETE_STATEMENT);
+		}
+		catch(Exception $e)
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	//Backend
@@ -166,7 +201,7 @@ class Veranstaltungen{
 	//Unter Auswahl des Fachbereiches
 	//Ohne auf Benutzertyp zu achten
 	public function createStatementEventsWithDepartmentsWihoutUsertype($department){
-		$statement = "
+		$STATEMENT = "
 				SELECT 
 				events.id,events.language_id,events.name,events.date,events.description
 				
@@ -178,28 +213,28 @@ class Veranstaltungen{
 				AND events_mm_departments.department_id = ".$department."";
 				;
 
-		return $this->getInformation($statement);
+		return $this->getInformation($STATEMENT);
 	}
 	
 	//Backend
 	//Methode die alle Fachbereiche zu einem Event auszulesen
 	public function createStatementDepartmentsFromEvents($event_id)
 	{
-		$statement = '	SELECT *
+		$STATEMENT = '	SELECT *
 						FROM events_mm_usertypes
 						WHERE event_id = '.$event_id;
-		return $this->getInformation($statement); 
+		return $this->getInformation($STATEMENT); 
 	}
 	
 	//Backend
 	//Methode die alle Benutzer zu einem Event auszulesen
 	public function createStatementUsertypesFromEvents($event_id)
 	{
-		$statement = '	SELECT *
+		$STATEMENT = '	SELECT *
 						FROM events_mm_departments
 						WHERE event_id = '.$event_id;
 						
-		return $this->getInformation($statement);
+		return $this->getInformation($STATEMENT);
 	}
 	
 	
@@ -219,42 +254,26 @@ class Veranstaltungen{
 	//Methode die SQL-Statements ausführt
 	public function getInformation($request)
 	{
-	try
-	{
-		$result = $this->connection->query($request);
-		if( $result->num_rows > 0)
+		try
 		{
-				while($temp = $result->fetch_assoc())
-				{
-					$resultSet[] = $temp;
-				}
-				return $resultSet;
-		}
-		else
-		{
-				//echo "Es ist kein Datensatz vorhanden";
-				return null;
-		}
-	}
-	catch(Exception $e)
-	{
-		echo $e->getMessage();
-	}
-		
-		/*try
-		{
-			$result = $this->connection->query("SELECT * FROM events");
-			
-			while($row = $result->fetch_assoc())
+			$result = $this->connection->query($request);
+			if( $result->num_rows > 0)
 			{
-				$resultSet[] = ($row['name'].';'.$row['date'].';'.$row['description']);
+					while($temp = $result->fetch_assoc())
+					{
+						$resultSet[] = $temp;
+					}
+					return $resultSet;
 			}
-			return $resultSet;
+			else
+			{
+					return null;
+			}
 		}
 		catch(Exception $e)
 		{
 			echo $e->getMessage();
-		}*/
+		}
 	}
 }
  

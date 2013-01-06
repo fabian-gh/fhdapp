@@ -329,7 +329,7 @@ class Formular{
 				<tr>
 				  <th colspan="2">Veranstaltung Bearbeiten</th>
 				</tr>
-			   </thead>
+				</thead>
 				<tfoot>
 				<tr>
 				  <td colspan="2">
@@ -415,12 +415,7 @@ class Formular{
 				<thead>
 				</thead>
 				<tfoot>
-				<tr>
-				  <td colspan="2">
-					<input type="hidden" name="veranstaltung_speichern" id="veranstaltung_speichern" value="###ID###">
-				  </td>
-				</tr>
-			  </tfoot>
+				</tfoot>
 			  
 			  <tbody>				
 				<tr>
