@@ -336,7 +336,7 @@ class Formular{
 			<tfoot>
 					<tr>
 					<td colspan="2">
-						<input type="submit" name="veranstaltung_speichern" id="veranstaltung_speichern" value="Speichern">
+						<input type="submit" name="veranstaltung_speichern" id="veranstaltung_speichern" value="Speichern" />
 						<input type="hidden" name="veranstaltung_id" id="veranstaltung_id" value="###ID###">
 					</td>
 					</tr>
