@@ -113,24 +113,24 @@ class Formular{
 	
 	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB1, $FB2, $FB3, $FB4, $FB5, $FB6, $FB7, $INTERESSENT, $STUDENT, $ERSTI)
 	{
-		$this->NAME = $NAME;
-		$this->ID = $ID;
-		$this->TAG = $TAG;
-		$this->MONAT = $MONAT;
-		$this->JAHR = $JAHR;
-		$this->STUNDEN = $STUNDEN;
-		$this->MINUTEN = $MINUTEN;
-		$this->BESCHREIBUNG = $BESCHREIBUNG;
-		$this->FB1 = $FB1;
-		$this->FB2 = $FB2;
-		$this->FB3 = $FB3;
-		$this->FB4 = $FB4;
-		$this->FB5 = $FB5;
-		$this->FB6 = $FB6;
-		$this->FB7 = $FB7;
-		$this->INTERESSENT = $INTERESSENT;
-		$this->STUDENT = $STUDENT;
-		$this->ERSTI = $ERSTI;
+		$this->NAME = 			$NAME;
+		$this->ID = 			$ID;
+		$this->TAG = 			$TAG;
+		$this->MONAT = 			$MONAT;
+		$this->JAHR = 			$JAHR;
+		$this->STUNDEN = 		$STUNDEN;
+		$this->MINUTEN = 		$MINUTEN;
+		$this->BESCHREIBUNG = 	$BESCHREIBUNG;
+		$this->FB1 = 			$FB1;
+		$this->FB2 = 			$FB2;
+		$this->FB3 = 			$FB3;
+		$this->FB4 = 			$FB4;
+		$this->FB5 = 			$FB5;
+		$this->FB6 = 			$FB6;
+		$this->FB7 = 			$FB7;
+		$this->INTERESSENT = 	$INTERESSENT;
+		$this->STUDENT = 		$STUDENT;
+		$this->ERSTI = 			$ERSTI;
 		
 		$this->replaceALL();
 	}	
