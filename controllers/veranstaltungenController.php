@@ -11,8 +11,7 @@
  
  class VeranstaltungenController{
     /**
-     * Benutzername
-     * @var String 
+     * Model
      */
     private $Model;
 	
@@ -26,8 +25,9 @@
         
 		 if (!@include ('models/veranstaltungenModel.php'))
 			include ('../../models/veranstaltungenModel.php');
-        // und Objekt erstellen
-        //$Model = new Veranstaltungen();
+        
+		// und Objekt erstellen
+        $this->Model = new Veranstaltungen();
     }
 	
 
@@ -41,44 +41,44 @@
 	//Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype auszulesen
 	public function getInformationEventsWithDepartmentsWihoutUsertype($department)
 	{
-		$Model = new Veranstaltungen();
-		return $Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
+		return  $this->Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
 	}
 	
 	//Backend
 	//Methode die alle Fachbereiche zu einem Event auszulesen
 	public function getInformationDepartmentsFromEvents($event_id)
 	{
-		$Model = new Veranstaltungen();
-		return $Model->createStatementDepartmentsFromEvents($event_id);
+		return $this->Model->createStatementDepartmentsFromEvents($event_id);
 	}
 	
 	//Backend
 	//Methode die alle Benutzer zu einem Event auszulesen
 	public function getInformationUsertypesFromEvents($event_id)
 	{
-		$Model = new Veranstaltungen();
-		return $Model->createStatementUsertypesFromEvents($event_id);
+		return $this->Model->createStatementUsertypesFromEvents($event_id);
 	}
 	
 	//Backend
 	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
 	public function addEvent()
-	{		
-		$Model = new Veranstaltungen();
-		return $Model->addEvent();
+	{
+		return $this->Model->addEvent('');
+	}
+	
+	//Backend
+	//Methode die eine neue Veranstaltung mit ID mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
+	public function addEventID($event_id)
+	{
+		return $this->Model->addEvent($event_id);
 	}
 
 	//Backend
 	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
 	public function deleteEvent($event_id)
 	{		
-		$Model = new Veranstaltungen();
-		return $Model->deleteEvent($event_id);
+		return $this->Model->deleteEvent($event_id);
 	}	
 }
-
- 
  
 /* End of file veranstaltungenController.php */
 /* Location: ./controllers/veranstaltungenController.php */

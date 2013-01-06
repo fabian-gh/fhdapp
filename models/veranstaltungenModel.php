@@ -19,7 +19,7 @@ class Veranstaltungen{
 		
 	//Backend
 	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
-	public function addEvent()
+	public function addEvent($EVENT_ID)
 	{
 		//$lang = $_POST['veranstaltung_language'];
 		$LANG 			= 1; // 1 für Deutsch
@@ -33,9 +33,11 @@ class Veranstaltungen{
 		{
 			$this->connection->query("
 									INSERT INTO events 
-									(language_id,name,date,description) 
+									(id,language_id,name,date,description) 
 									VALUES 
-									(	'".$LANG."'		, 
+									(	
+										'".$EVENT_ID."',
+										'".$LANG."', 
 										'".$NAME."', 
 										'".$DATUM." ".$UHRZEIT.":00',
 										'".$BESCHREIBUNG."');
@@ -211,7 +213,6 @@ class Veranstaltungen{
 				AND events.language_id = languages.id 
 				AND events_mm_departments.department_id = departments.id
 				AND events_mm_departments.department_id = ".$department."";
-				;
 
 		return $this->getInformation($STATEMENT);
 	}
@@ -221,7 +222,7 @@ class Veranstaltungen{
 	public function createStatementDepartmentsFromEvents($event_id)
 	{
 		$STATEMENT = '	SELECT *
-						FROM events_mm_usertypes
+						FROM events_mm_departments
 						WHERE event_id = '.$event_id;
 		return $this->getInformation($STATEMENT); 
 	}
@@ -231,7 +232,7 @@ class Veranstaltungen{
 	public function createStatementUsertypesFromEvents($event_id)
 	{
 		$STATEMENT = '	SELECT *
-						FROM events_mm_departments
+						FROM events_mm_usertypes
 						WHERE event_id = '.$event_id;
 						
 		return $this->getInformation($STATEMENT);

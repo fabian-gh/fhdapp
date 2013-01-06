@@ -49,7 +49,7 @@
 			else
 			{
 				//Veranstaltung wurde ohne Fehler gelöscht, Veranstaltung neu einfügen
-				if($Controller->addEvent() == false)
+				if($Controller->addEventID($_POST['veranstaltung_id']) == false)
 					$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht eingetragen.';
 			}
 		}
@@ -83,20 +83,20 @@
 	
 	//Auswahl des Fachbereiches 
 	//Leeres Array mit 8 Feldern
-	$SELECTED = array('', '', '' ,'', '', '', '');
-	$SELECTED[$FB_GET-1] = 'Selected';
+	$SELECTED_MENUE = array('', '', '' ,'', '', '', '');
+	$SELECTED_MENUE[$FB_GET-1] = 'Selected';
 	echo'
 		<div id="div_fachbereich_auswahl">
 			<h3>W&auml;hlen Sie den Fachbereich aus f&uuml;r den Sie die Veranstaltungen bearbeiten m&ouml;chten</h3>
 			<form id="fachbereich_auswahl" action="">
 				<select id="fachbereich_select" name="FB" size="1">
-					<option value="1" '.$SELECTED[1-1].'> Fachbereich 1 - Architektur  </option>
-					<option value="2" '.$SELECTED[2-1].'> Fachbereich 2 - Design </option>
-					<option value="3" '.$SELECTED[3-1].'> Fachbereich 3 - Elektrotechnik </option>
-					<option value="4" '.$SELECTED[4-1].'> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </option>
-					<option value="5" '.$SELECTED[5-1].'> Fachbereich 5 - Medien </option>
-					<option value="6" '.$SELECTED[6-1].'> Fachbereich 6 - Sozial- und Kulturwissenschaften </option>
-					<option value="7" '.$SELECTED[7-1].'> Fachbereich 7 - Wirtschaft </option>
+					<option value="1" '.$SELECTED_MENUE[1-1].'> Fachbereich 1 - Architektur  </option>
+					<option value="2" '.$SELECTED_MENUE[2-1].'> Fachbereich 2 - Design </option>
+					<option value="3" '.$SELECTED_MENUE[3-1].'> Fachbereich 3 - Elektrotechnik </option>
+					<option value="4" '.$SELECTED_MENUE[4-1].'> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </option>
+					<option value="5" '.$SELECTED_MENUE[5-1].'> Fachbereich 5 - Medien </option>
+					<option value="6" '.$SELECTED_MENUE[6-1].'> Fachbereich 6 - Sozial- und Kulturwissenschaften </option>
+					<option value="7" '.$SELECTED_MENUE[7-1].'> Fachbereich 7 - Wirtschaft </option>
 				</select>
 			</form>
 		</div>
@@ -112,54 +112,45 @@
 		//Veranstaltungen durchlaufen und darstellen
 		for($i=0; $i<count($ERGEBNIS); $i++) 
 		{
-			$NAME = $ERGEBNIS[$i]['name'];
-			$ID = $ERGEBNIS[$i]['id'];
-			$BESCHREIBUNG = $ERGEBNIS[$i]['description'];	
-			$DATUM = new DateTime($ERGEBNIS[$i]['date']);		
+			$NAME				= $ERGEBNIS[$i]['name'];
+			$EVENTID			= $ERGEBNIS[$i]['id'];
+			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
+			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
 			
 			//DATUM SPLITTEN
-			$TAG = 		date_format($DATUM, 'd');
-			$MONAT = 	date_format($DATUM, 'm');
-			$JAHR = 	date_format($DATUM, 'Y');
-			$STUNDEN = 	date_format($DATUM, 'H');
-			$MINUTEN =	date_format($DATUM, 'i');
+			$TAG		= date_format($DATUM, 'd');
+			$MONAT		= date_format($DATUM, 'm');
+			$JAHR		= date_format($DATUM, 'Y');
+			$STUNDEN	= date_format($DATUM, 'H');
+			$MINUTEN	= date_format($DATUM, 'i');
 			
-			$FB1			= '  ';  	
-			$FB2			= '  ';  	
-			$FB3			= '  ';  	
-			$FB4			= '  ';  	
-			$FB5			= '  ';  	
-			$FB6			= '  ';  	
-			$FB7			= 'X ';  	
-			$INTERESSENT	= '  ';	
-			$STUDENT		= '  ';	
-			$ERSTI			= '  ';	
+			//Alle Fachbereiche laden, die zur Veranstaltung gehören
+			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
+			$SELECTED_FB = array('', '', '' ,'', '', '', '');
 			
+			//Ergebnis-Relation durchlaufen und Fachbereiche vormarkieren
+			for($j=0; $j<count($ERGEBNIS_FB); $j++) 
+			{
+				$SELECTED_FB[$ERGEBNIS_FB[$j]['department_id']-1] = 'checked';
+			}
+			
+			//Alle Usertypes laden, die zur Veranstaltung gehören
+			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
+			$SELECTED_USER = array('', '', '');
+			
+			//Ergebnis-Relation durchlaufen und Usertypes vormarkieren
+			for($k=0; $k<count($ERGEBNIS_USER); $k++) 
+			{
+				$SELECTED_USER[$ERGEBNIS_USER[$k]['usertype_id']-1] = 'checked';
+			}
+
 			//Neues Objekt von Formular erstellen
 			$Formular = new Formular;
 			//Alle Variablen setzen
-			$Formular->setALL(
-							$NAME, 
-							$ID, 
-							$TAG, 
-							$MONAT, 
-							$JAHR, 
-							$STUNDEN, 
-							$MINUTEN, 
-							$BESCHREIBUNG, 
-							$FB1, 
-							$FB2, 
-							$FB3, 
-							$FB4, 
-							$FB5, 
-							$FB6, 
-							$FB7, 
-							$INTERESSENT,
-							$STUDENT, 
-							$ERSTI
-							);
+			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $SELECTED_FB[0], $SELECTED_FB[1], $SELECTED_FB[2], $SELECTED_FB[3], $SELECTED_FB[4], $SELECTED_FB[5], $SELECTED_FB[6], $SELECTED_USER[0], $SELECTED_USER[1], $SELECTED_USER[2]);
 			//Veranstaltung darstellen mit Bearbeiten-Option
 			echo $Formular->getEventContainer($FB_GET);
+			echo '<br/><br/>';
 			//JQuery erstellen
 			$JQUERY .= $Formular->getJquery();
 		}
@@ -168,8 +159,7 @@
 	{
 		echo "Kein Datensatz vorhanden!";
 	}
-			
-	//require_once 'backend_datenbank_eintraege_control.php';
+
 	echo '<br/><br/><br/><br/>';
 	
 	//JQuery Ausgeben

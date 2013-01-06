@@ -111,7 +111,7 @@ class Formular{
 		return $JQUERY;
 	}
 	
-	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB1, $FB2, $FB3, $FB4, $FB5, $FB6, $FB7, $INTERESSENT, $STUDENT, $ERSTI)
+	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB1, $FB2, $FB3, $FB4, $FB5, $FB6, $FB7, $INTERESSENT, $ERSTI, $STUDENT)
 	{
 		$this->NAME = 			$NAME;
 		$this->ID = 			$ID;
@@ -153,8 +153,9 @@ class Formular{
 		$this->EVENTFORM =  str_replace ('###FB6###'				,$this->FB6		  		,$this->EVENTFORM );
 		$this->EVENTFORM =  str_replace ('###FB7###'				,$this->FB7		  		,$this->EVENTFORM );
 		$this->EVENTFORM =  str_replace ('###INTERESSENT###'		,$this->INTERESSENT		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###STUDENT###'			,$this->STUDENT			,$this->EVENTFORM );
 		$this->EVENTFORM =  str_replace ('###ERSTI###'				,$this->ERSTI			,$this->EVENTFORM );
+		$this->EVENTFORM =  str_replace ('###STUDENT###'			,$this->STUDENT			,$this->EVENTFORM );
+		
 		
 		$this->EVENTRESULT =  str_replace ('###NAME###'				,$this->NAME  			,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###ID###'				,$this->ID    			,$this->EVENTRESULT );
@@ -172,8 +173,9 @@ class Formular{
 		$this->EVENTRESULT =  str_replace ('###FB6###'				,$this->FB6		  		,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###FB7###'				,$this->FB7		  		,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###INTERESSENT###'		,$this->INTERESSENT		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###STUDENT###'			,$this->STUDENT			,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###ERSTI###'			,$this->ERSTI			,$this->EVENTRESULT );
+		$this->EVENTRESULT =  str_replace ('###STUDENT###'			,$this->STUDENT			,$this->EVENTRESULT );
+		
 	}
 	
 	public function getNAME(){
