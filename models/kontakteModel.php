@@ -29,29 +29,29 @@ class kontakteModel{
 	}
 
 	public function m_alterContact($id){
+
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to get all the Categories that affect contacts
 			$result = $db->query("UPDATE contacts SET
-									title = '" . $_POST['alterContactTitle'] . "',
-									category_id = " . $_POST['alterContactCategory'] . ",
-									department_id =" . $_POST['alterContactDepartment'] . ",
-									description = '" . $_POST['alterContactDescription'] ."',
-									contact = '" . $_POST['alterContactContact'] ."',
-									phone = '" . $_POST['alterContactPhone'] ."',
-									fax = '" . $_POST['alterContactFax'] ."',
-									mail = '" . $_POST['alterContactMail'] ."',
-									room = '" . $_POST['alterContactRoom'] ."',
-									address = '" . $_POST['alterContactAddress'] ."',
-									office_hours = '" . $_POST['alterContactOfficeHours'] ."',
-									phone_office_hours = '" . $_POST['alterContactPhoneOfficeHours'] ."'
-									");
-										
+										title = '" . $_POST['alterContactTitle'] . "',
+										category_id = " . $_POST['alterContactCategory'] . ",
+										department_id =" . $_POST['alterContactDepartment'] . ",
+										description = '" . $_POST['alterContactDescription'] ."',
+										contact = '" . $_POST['alterContactContact'] ."',
+										phone = '" . $_POST['alterContactPhone'] ."',
+										fax = '" . $_POST['alterContactFax'] ."',
+										mail = '" . $_POST['alterContactMail'] ."',
+										room = '" . $_POST['alterContactRoom'] ."',
+										address = '" . $_POST['alterContactAddress'] ."',
+										office_hours = '" . $_POST['alterContactOfficeHours'] ."',
+										phone_office_hours = '" . $_POST['alterContactPhoneOfficeHours'] ."' 
+									WHERE id = " . $id);
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
-		}		
+		}	
 	}
 
 	public function m_getCategories(){
@@ -112,9 +112,7 @@ class kontakteModel{
 	}
 
 	public function m_deleteContact($id){
-		
-		var_dump($id);
-		/*
+			
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
@@ -125,7 +123,6 @@ class kontakteModel{
 		catch(Exception $e){
 			echo $e->getMessage();
 		}
-		*/
 	}
 
 	public function m_getContact($id){

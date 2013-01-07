@@ -50,6 +50,9 @@ class kontakteController {
 	}
 
 	public function c_alterContact($id){
-		$this->contactsModel->m_alterContact($id);
+
+		$contactID = $id['id'];
+		
+		$this->contactsModel->m_alterContact($contactID);
 	}
 }
