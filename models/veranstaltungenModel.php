@@ -220,7 +220,8 @@ class Veranstaltungen{
 				WHERE events.id = events_mm_departments.event_id 
 				AND events.language_id = languages.id 
 				AND events_mm_departments.department_id = departments.id
-				AND events_mm_departments.department_id = ".$department."";
+				AND events_mm_departments.department_id = ".$department."
+				ORDER BY events.date";
 
 		return $this->getInformation($STATEMENT);
 	}
