@@ -363,9 +363,6 @@ class Formular{
 			<table id="table_veranstaltung_backend" border="0" width="100%">
 				
 			<thead>
-				<tr>
-				  <th colspan="2">Veranstaltung Bearbeiten</th>
-				</tr>
 			</thead>
 				
 			<tfoot>
