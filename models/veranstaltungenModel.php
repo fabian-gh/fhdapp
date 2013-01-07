@@ -220,8 +220,7 @@ class Veranstaltungen{
 				WHERE events.id = events_mm_departments.event_id 
 				AND events.language_id = languages.id 
 				AND events_mm_departments.department_id = departments.id
-				AND events_mm_departments.department_id = ".$department."
-				ORDER BY events.date";
+				AND events_mm_departments.department_id = ".$department."";
 
 		return $this->getInformation($STATEMENT);
 	}
@@ -258,12 +257,15 @@ class Veranstaltungen{
 	}
 				
 	$request = "SELECT events.id,events.language_id,events.name,events.date,events.description
+	
 				FROM events,events_mm_departments,events_mm_usertypes,departments,languages,usertypes
+				
 				WHERE events.id = events_mm_departments.event_id AND events.language_id = languages.id AND
 				events_mm_departments.department_id = departments.id AND events_mm_usertypes.usertype_id = usertypes.id
 				AND events_mm_usertypes.event_id = events.id AND events_mm_usertypes.usertype_id = ".$usertype."
-				AND events_mm_departments.department_id = ".$department."";
-				;
+				AND events_mm_departments.department_id = ".$department."
+				
+				ORDER BY events.date";
 
 	return $this->getInformation($request);
 	}
