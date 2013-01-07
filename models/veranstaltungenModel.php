@@ -71,21 +71,23 @@ class Veranstaltungen{
 	//Methode die die Beziehungen zwischen Fachbereichen und Veranstaltungen 
 	//in die Datenbank eintraegt
 	public function addRelationshipEventDepartment($EVENT_ID)
-	{
+	{	
+		$DEPARTMENTS = $this->createStatementDepartments();
 		//Fachbereiche bestimmen die zur Veranstaltung gehören
 		$VALUES = '';
 		$ERSTER_EINTRAG = true;
 		
-		for($i=1; $i <= 7;$i++)
+		//So oft durchlaufen wie es Fachbereiche gibt
+		for($i=0; $i < count($DEPARTMENTS);$i++)
 		{
-			if(isset($_POST['veranstaltungen_fachbereich_'.$i]))
+			if(isset($_POST['veranstaltungen_fachbereich_'.$DEPARTMENTS[$i]['id']]))
 			{
 				if($ERSTER_EINTRAG == true)
 				{
 					$ERSTER_EINTRAG = false;
 					$VALUES .= 	'
 							(
-								'. $i.',
+								'.$DEPARTMENTS[$i]['id'].',
 								'.$EVENT_ID.'
 							)';
 				}
@@ -93,7 +95,7 @@ class Veranstaltungen{
 				{
 					$VALUES .= 	',
 							(
-								'. $i.',
+								'.$DEPARTMENTS[$i]['id'].',
 								'.$EVENT_ID.'
 							)';
 				}
@@ -126,20 +128,21 @@ class Veranstaltungen{
 	//in die Datenbank eintraegt
 	public function addRelationshipEventUsertype($EVENT_ID)
 	{
+		$USERTYPES = $this->createStatementUsertypes();
 		//Usertypes bestimmen die zur Veranstaltung gehören
 		$VALUES = '';
 		$ERSTER_EINTRAG = true;
 		
-		for($i=1; $i <= 3;$i++)
+		for($i=0; $i < count($USERTYPES);$i++)
 		{
-			if(isset($_POST['veranstaltungen_usertypes_'.$i]))
+			if(isset($_POST['veranstaltungen_usertypes_'.$USERTYPES[$i]['id']]))
 			{
 				if($ERSTER_EINTRAG == true)
 				{
 					$ERSTER_EINTRAG = false;
 					$VALUES .= 	'
 							(
-								'.$i.',
+								'.$USERTYPES[$i]['id'].',
 								'.$EVENT_ID.'
 							)';
 				}
@@ -147,7 +150,7 @@ class Veranstaltungen{
 				{
 					$VALUES .= 	'
 							,(
-								'.$i.',
+								'.$USERTYPES[$i]['id'].',
 								'.$EVENT_ID.'
 							)';
 				}
@@ -220,7 +223,9 @@ class Veranstaltungen{
 				WHERE events.id = events_mm_departments.event_id 
 				AND events.language_id = languages.id 
 				AND events_mm_departments.department_id = departments.id
-				AND events_mm_departments.department_id = ".$department."";
+				AND events_mm_departments.department_id = ".$department."
+				ORDER BY events.date
+				";
 
 		return $this->getInformation($STATEMENT);
 	}
@@ -231,7 +236,8 @@ class Veranstaltungen{
 	{
 		$STATEMENT = '	SELECT *
 						FROM events_mm_departments
-						WHERE event_id = '.$event_id;
+						WHERE event_id = '.$event_id.'
+						ORDER BY department_id';
 		return $this->getInformation($STATEMENT); 
 	}
 	
@@ -241,7 +247,31 @@ class Veranstaltungen{
 	{
 		$STATEMENT = '	SELECT *
 						FROM events_mm_usertypes
-						WHERE event_id = '.$event_id;
+						WHERE event_id = '.$event_id.'
+						ORDER BY usertype_id';
+		return $this->getInformation($STATEMENT);
+	}
+	
+	//Backend
+	//Methode die alle Fachbereiche auszuliest
+	public function createStatementDepartments()
+	{
+		$STATEMENT = '	SELECT id,name
+						FROM departments
+						ORDER BY id;
+					';
+						
+		return $this->getInformation($STATEMENT);
+	}
+	
+	//Backend
+	//Methode die alle Benutzer auszuliest
+	public function createStatementUsertypes()
+	{
+		$STATEMENT = '	SELECT *
+						FROM usertypes
+						ORDER BY id;
+					';
 						
 		return $this->getInformation($STATEMENT);
 	}

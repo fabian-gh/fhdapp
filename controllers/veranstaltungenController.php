@@ -15,6 +15,9 @@
      */
     private $Model;
 	
+	private $DEPARTMENTS;
+	private $USERTYPES;
+	
 	
     /**
      * Konstruktor des VeranstaltungsController
@@ -23,11 +26,14 @@
     public function __construct(){
         // Veranstaltung-Modell einbinden
         
-		 if (!@include ('models/veranstaltungenModel.php'))
+		if (!@include ('models/veranstaltungenModel.php'))
 			include ('../../models/veranstaltungenModel.php');
         
 		// und Objekt erstellen
         $this->Model = new Veranstaltungen();
+		
+		$this->getInformationDepartments();
+		$this->getInformationUsertypes();
     }
 	
 
@@ -77,7 +83,35 @@
 	public function deleteEvent($event_id)
 	{		
 		return $this->Model->deleteEvent($event_id);
-	}	
+	}
+	
+	//Backend
+	//Methode die alle Benutzer ausliest
+	private function getInformationDepartments()
+	{
+		$this->DEPARTMENTS = $this->Model->createStatementDepartments();	
+	}
+	
+	//Backend
+	//Methode die alle Fachbereiche
+	private function getInformationUsertypes()
+	{
+		$this->USERTYPES = $this->Model->createStatementUsertypes();
+	}
+	
+	//Backend
+	//Methode die alle Benutzer ausliest
+	public function getDepartments()
+	{
+		return $this->DEPARTMENTS;	
+	}
+	
+	//Backend
+	//Methode die alle Fachbereiche
+	public function getUsertypes()
+	{
+		return $this->USERTYPES;
+	}
 }
  
 /* End of file veranstaltungenController.php */

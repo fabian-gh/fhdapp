@@ -17,9 +17,11 @@
 	require_once '../../controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController;
 	
+	//Fachbereiche laden
+	$FACHBEREICHE =  $Controller->getDepartments();
+	
 	//Klasse für Formularfelder einbinden
 	require_once 'backend_formular.php';
-		
 
 	if(isset($_GET['FB']))
 		$FB_GET = $_GET['FB'];
@@ -75,7 +77,7 @@
 	echo '<br/><br/><br/><br/>';
 	
 	//Neues Objekt von Formular erstellen
-	$Formular = new Formular;
+	$Formular = new Formular($Controller);
 	//Leeres Formular erstellen
 	echo $Formular->getEmptyForm();
 	//JQuery für das leere Formular erstellen
@@ -83,26 +85,40 @@
 	
 	echo '<br/><br/><br/><br/>';
 	
-	//Auswahl des Fachbereiches 
-	//Leeres Array mit 8 Feldern
-	$SELECTED_MENUE = array('', '', '' ,'', '', '', '');
-	$SELECTED_MENUE[$FB_GET-1] = 'Selected';
-	echo'
-		<div id="div_fachbereich_auswahl">
-			<h3>W&auml;hlen Sie den Fachbereich aus f&uuml;r den Sie die Veranstaltungen bearbeiten m&ouml;chten</h3>
-			<form id="fachbereich_auswahl" action="">
-				<select id="fachbereich_select" name="FB" size="1">
-					<option value="1" '.$SELECTED_MENUE[1-1].'> Fachbereich 1 - Architektur  </option>
-					<option value="2" '.$SELECTED_MENUE[2-1].'> Fachbereich 2 - Design </option>
-					<option value="3" '.$SELECTED_MENUE[3-1].'> Fachbereich 3 - Elektrotechnik </option>
-					<option value="4" '.$SELECTED_MENUE[4-1].'> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </option>
-					<option value="5" '.$SELECTED_MENUE[5-1].'> Fachbereich 5 - Medien </option>
-					<option value="6" '.$SELECTED_MENUE[6-1].'> Fachbereich 6 - Sozial- und Kulturwissenschaften </option>
-					<option value="7" '.$SELECTED_MENUE[7-1].'> Fachbereich 7 - Wirtschaft </option>
-				</select>
-			</form>
-		</div>
-	';
+	//Fachbereiche durchlaufen und DropDownListe füllen
+	if($FACHBEREICHE != null)
+	{
+		$INPUT_FACHBEREICH = '';
+		//Durch alle Fachbereiche durchlaufen
+		for($i=0; $i<count($FACHBEREICHE); $i++) 
+		{
+			//Überprüfen ob Fachbereiche der ausgewählte ist
+			if($FACHBEREICHE[$i]['id'] == $FB_GET)
+				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" SELECTED> '.$FACHBEREICHE[$i]['name'].' </option>
+				';
+			else
+				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" > '.$FACHBEREICHE[$i]['name'].' </option>
+				';
+		}
+		//Komplette DropDownListe ausgeben
+		echo'
+			<div id="div_fachbereich_auswahl">
+				<h3>W&auml;hlen Sie den Fachbereich aus f&uuml;r den Sie die Veranstaltungen bearbeiten m&ouml;chten</h3>
+				<form id="fachbereich_auswahl" action="">
+					<select id="fachbereich_select" name="FB" size="1">
+						'.$INPUT_FACHBEREICH.'
+					</select>
+				</form>
+			</div>
+		';
+	}
+	else
+	{
+		//Falls keine Fachbereiche in der Datenbank, Fehlermeldung ausgeben
+		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
+	}
+		
+		
 	
 	echo '<br/><br/><br/><br/>';
 	
@@ -126,30 +142,16 @@
 			$STUNDEN	= date_format($DATUM, 'H');
 			$MINUTEN	= date_format($DATUM, 'i');
 			
+						
 			//Alle Fachbereiche laden, die zur Veranstaltung gehören
 			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
-			$SELECTED_FB = array('', '', '' ,'', '', '', '');
-			
-			//Ergebnis-Relation durchlaufen und Fachbereiche vormarkieren
-			for($j=0; $j<count($ERGEBNIS_FB); $j++) 
-			{
-				$SELECTED_FB[$ERGEBNIS_FB[$j]['department_id']-1] = 'checked';
-			}
-			
 			//Alle Usertypes laden, die zur Veranstaltung gehören
 			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
-			$SELECTED_USER = array('', '', '');
-			
-			//Ergebnis-Relation durchlaufen und Usertypes vormarkieren
-			for($k=0; $k<count($ERGEBNIS_USER); $k++) 
-			{
-				$SELECTED_USER[$ERGEBNIS_USER[$k]['usertype_id']-1] = 'checked';
-			}
 
 			//Neues Objekt von Formular erstellen
-			$Formular = new Formular;
+			$Formular = new Formular($Controller);
 			//Alle Variablen setzen
-			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $SELECTED_FB[0], $SELECTED_FB[1], $SELECTED_FB[2], $SELECTED_FB[3], $SELECTED_FB[4], $SELECTED_FB[5], $SELECTED_FB[6], $SELECTED_USER[0], $SELECTED_USER[1], $SELECTED_USER[2]);
+			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
 			//Veranstaltung darstellen mit Bearbeiten-Option
 			echo $Formular->getEventContainer($FB_GET);
 			echo '<br/><br/>';

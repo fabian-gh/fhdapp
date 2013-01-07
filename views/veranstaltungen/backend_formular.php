@@ -10,34 +10,104 @@
  
 class Formular{
 
-	private $NAME = 		null;
-	private $ID = 			null;
-	private $TAG = 			null;
-	private $MONAT = 		null;
-	private $JAHR = 		null;
-	private $STUNDEN = 		null;
-	private $MINUTEN = 		null;
-	private $BESCHREIBUNG = null;
-	private $FB1 = 			null;
-	private $FB2 = 			null;
-	private $FB3 = 			null;
-	private $FB4 = 			null;
-	private $FB5 = 			null;
-	private $FB6 = 			null;
-	private $FB7 = 			null;
-	private $INTERESSENT =	null;
-	private $STUDENT =	 	null;
-	private $ERSTI = 		null;
 	
 
-	public function __construct(){
+	private $NAME 			= null;
+	private $ID				= null;
+	private $TAG 			= null;
+	private $MONAT 			= null;
+	private $JAHR 			= null;
+	private $STUNDEN 		= null;
+	private $MINUTEN 		= null;
+	private $BESCHREIBUNG 	= null;
+	private $FB 			= null;
+	private $USER 			= null;
+
+	private $Controller;
+	//Fachbereiche aus der DB geladen
+	private $FACHBEREICHE	= null;
+	//Fachbereiche aus der DB geladen
+	private $USERTYPES		= null;
+	
+	public function __construct($Controller){
         // Konstruktor
+		$this->Controller = $Controller;
+		$this->FACHBEREICHE = $this->Controller->getDepartments();
+		$this->USERTYPES = $this->Controller->getUsertypes();
+		
+		$this->createDepartmentsInput();
+		$this->createUsertypesInput();
     }
+	
+	//Methode die Fachbereiche läd und dazu die INPUTS für die Formulare erstellt
+	private function createDepartmentsInput()
+	{		
+		if($this->FACHBEREICHE != null)
+		{	
+			$INPUT_FORM = '';
+			$INPUT_RESULT = '';
+			for($i=0; $i<count($this->FACHBEREICHE); $i++) 
+			{
+				$INPUT_FORM .=
+					'
+									<br/>
+									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###"	name="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'" ###FB'.$this->FACHBEREICHE[$i]['id'].'### />
+									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'">'.$this->FACHBEREICHE[$i]['name'].'</label> 
+					';
+				$INPUT_RESULT .= 
+					'
+									<br/>
+									<input type="checkbox" class="veranstaltung_checkbox" 	id="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'"	name="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'" ###FB'.$this->FACHBEREICHE[$i]['id'].'### disabled="disabled" />
+									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'">'.$this->FACHBEREICHE[$i]['name'].'</label>
+					';
+			}
+			
+			$this->EVENTFORM 	=  str_replace ('###INPUT_FB###'			,$INPUT_FORM			,$this->EVENTFORM 	);
+			$this->EVENTRESULT 	=  str_replace ('###INPUT_FB###'			,$INPUT_RESULT			,$this->EVENTRESULT );
+		}
+		else
+		{
+			$this->EVENTFORM 	=  str_replace ('Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden'			,$INPUT_FORM			,$this->EVENTFORM 	);
+			$this->EVENTRESULT 	=  str_replace ('Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden'			,$INPUT_RESULT			,$this->EVENTRESULT );
+		}
+	}
+	
+	//Methode die Usertypes läd und dazu die INPUTS für die Formulare erstellt
+	private function createUsertypesInput()
+	{
+		if($this->USERTYPES != null)
+		{	
+			$INPUT_FORM = '';
+			$INPUT_RESULT = '';
+			for($i=0; $i<count($this->USERTYPES); $i++) 
+			{
+				$INPUT_FORM .=
+					'
+									<br/>
+									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###"	name="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'" ###USER'.$this->USERTYPES[$i]['id'].'### />
+									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'">'.$this->USERTYPES[$i]['name'].'	</label>
+					';
+				$INPUT_RESULT .= 
+					'
+									<br/> 
+									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'"	name="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'" ###USER'.$this->USERTYPES[$i]['id'].'### disabled="disabled" />
+									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'">'.$this->USERTYPES[$i]['name'].'	</label>
+					';
+			}
+			$this->EVENTFORM 	=  str_replace ('###INPUT_UT###'			,$INPUT_FORM			,$this->EVENTFORM 	);
+			$this->EVENTRESULT 	=  str_replace ('###INPUT_UT###'			,$INPUT_RESULT			,$this->EVENTRESULT );
+		}
+		else
+		{
+			$this->EVENTFORM 	=  str_replace ('Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden'			,$INPUT_FORM			,$this->EVENTFORM 	);
+			$this->EVENTRESULT 	=  str_replace ('Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden'			,$INPUT_RESULT			,$this->EVENTRESULT );
+		}
+	}
 	
 	public function getEmptyForm()
 	{
 		//Alle Variablen auf null setzen bis auf die ID
-		$this->setALL(null, 'new', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		$this->setALL(null, 'new', null, null, null, null, null, null, null, null);
 		$this->replaceALL();
 		
 		$RESULT =
@@ -114,7 +184,30 @@ class Formular{
 	}
 	
 	private function getJqueryValid()
-	{
+	{	
+		$CHECK_FB_INPUT = '';
+		
+		for($i=0; $i<count($this->FACHBEREICHE); $i++) 
+		{
+			$CHECK_FB_INPUT .=
+				'
+				if ($("#veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_'.$this->ID.'").is(":checked")){
+					CHECKED = true;
+				}
+				';
+		}
+		
+		$CHECK_UT_INPUT = '';
+		for($i=0; $i<count($this->USERTYPES); $i++) 
+		{
+			$CHECK_UT_INPUT .=
+				'
+				if ($("#veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_'.$this->ID.'").is(":checked")){
+							CHECKED = true;
+						}
+				';
+		}
+		
 		$JQUERY =
 				'
 				$("#veranstaltung_form_'.$this->ID.'").submit(function(){
@@ -131,62 +224,50 @@ class Formular{
 					
 					if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
 					{
-						FALSCHE_EINGABEN += "Uhrzeit Falsch\n";
+						FALSCHE_EINGABEN += "Datum falsch.Bitte Uepruefen!\n";
 						CORRECT = false;
 					}
 										
 					if(!(checkDatum(TAG,MONAT,JAHR) == true))
 					{
-						FALSCHE_EINGABEN += "Datum Falsch\n";
+						FALSCHE_EINGABEN += "Datum falsch.Bitte Uepruefen!\n";
 						CORRECT = false;
 					}
 					
 					if(!(checkText(BESCHREIBUNG) == true))
 					{
-						FALSCHE_EINGABEN += "Beschreibung Falsch\n";
+						FALSCHE_EINGABEN += "Bitte geben Sie eine Beschreibung ein!\n";
 						CORRECT = false;
 					}
 					
 					if(!(checkText(NAME) == true))
 					{
-						FALSCHE_EINGABEN += "Name Falsch\n";
+						FALSCHE_EINGABEN += "Bitte geben Sie einen Namen fuer die Veranstaltung ein!\n";
 						CORRECT = false;
 					}
 					
 					CHECKED = false;
-					for (var i = 1; i <= 7; i++)
-					{
-		
-						if ($("#veranstaltungen_fachbereich_"+i+"_'.$this->ID.'").is(":checked")){
-							CHECKED = true;
-						}
-					}
+					'.$CHECK_FB_INPUT.'
 					
 					if(!(CHECKED == true))
 					{
-						FALSCHE_EINGABEN += "Fachbereich Falsch\n";
+						FALSCHE_EINGABEN += "Es muss mindestens ein Fachbereich ausgewaehlt werden!\n";
 						CORRECT = false;
 					}
 					
 					CHECKED = false;
-					for (var i = 1; i <= 7; i++)
-					{
-		
-						if ($("#veranstaltungen_usertypes_"+i+"_'.$this->ID.'").is(":checked")){
-							CHECKED = true;
-						}
-					}
+					'.$CHECK_UT_INPUT.'
 					
 					if(!(CHECKED == true))
 					{
-						FALSCHE_EINGABEN += "Modus Falsch\n";
+						FALSCHE_EINGABEN += "Es muss mindestens ein Modus ausgewaehlt werden!\n";
 						CORRECT = false;
 					}
 					
 					
 					if(CORRECT == false)
 					{
-						alert(FALSCHE_EINGABEN);
+						alert("Bitte beachten Sie:\n"+FALSCHE_EINGABEN);
 						return false;
 					}
 
@@ -197,31 +278,23 @@ class Formular{
 		return $JQUERY;
 	}
 	
-	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB1, $FB2, $FB3, $FB4, $FB5, $FB6, $FB7, $INTERESSENT, $ERSTI, $STUDENT)
+	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB, $USER)
 	{
-		$this->NAME = 			$NAME;
-		$this->ID = 			$ID;
-		$this->TAG = 			$TAG;
-		$this->MONAT = 			$MONAT;
-		$this->JAHR = 			$JAHR;
-		$this->STUNDEN = 		$STUNDEN;
-		$this->MINUTEN = 		$MINUTEN;
-		$this->BESCHREIBUNG = 	$BESCHREIBUNG;
-		$this->FB1 = 			$FB1;
-		$this->FB2 = 			$FB2;
-		$this->FB3 = 			$FB3;
-		$this->FB4 = 			$FB4;
-		$this->FB5 = 			$FB5;
-		$this->FB6 = 			$FB6;
-		$this->FB7 = 			$FB7;
-		$this->INTERESSENT = 	$INTERESSENT;
-		$this->STUDENT = 		$STUDENT;
-		$this->ERSTI = 			$ERSTI;
+		$this->NAME			= $NAME;
+		$this->ID 			= $ID;
+		$this->TAG 			= $TAG;
+		$this->MONAT	 	= $MONAT;
+		$this->JAHR 		= $JAHR;
+		$this->STUNDEN 		= $STUNDEN;
+		$this->MINUTEN 		= $MINUTEN;
+		$this->BESCHREIBUNG = $BESCHREIBUNG;
+		$this->FB 			= $FB;
+		$this->USER 		= $USER;
 		
 		$this->replaceALL();
 	}	
 
-	public function replaceALL()
+	private function replaceALL()
 	{	
 		$this->EVENTFORM =  str_replace ('###NAME###'				,$this->NAME  			,$this->EVENTFORM );
 		$this->EVENTFORM =  str_replace ('###ID###'					,$this->ID    			,$this->EVENTFORM );
@@ -231,17 +304,6 @@ class Formular{
 		$this->EVENTFORM =  str_replace ('###STUNDEN###'			,$this->STUNDEN			,$this->EVENTFORM );
 		$this->EVENTFORM =  str_replace ('###MINUTEN###'			,$this->MINUTEN			,$this->EVENTFORM );
 		$this->EVENTFORM =  str_replace ('###BESCHREIBUNG###'		,$this->BESCHREIBUNG	,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB1###'				,$this->FB1		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB2###'				,$this->FB2		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB3###'				,$this->FB3		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB4###'				,$this->FB4		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB5###'				,$this->FB5		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB6###'				,$this->FB6		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###FB7###'				,$this->FB7		  		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###INTERESSENT###'		,$this->INTERESSENT		,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###ERSTI###'				,$this->ERSTI			,$this->EVENTFORM );
-		$this->EVENTFORM =  str_replace ('###STUDENT###'			,$this->STUDENT			,$this->EVENTFORM );
-		
 		
 		$this->EVENTRESULT =  str_replace ('###NAME###'				,$this->NAME  			,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###ID###'				,$this->ID    			,$this->EVENTRESULT );
@@ -251,161 +313,48 @@ class Formular{
 		$this->EVENTRESULT =  str_replace ('###STUNDEN###'			,$this->STUNDEN			,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###MINUTEN###'			,$this->MINUTEN			,$this->EVENTRESULT );
 		$this->EVENTRESULT =  str_replace ('###BESCHREIBUNG###'		,$this->BESCHREIBUNG	,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB1###'				,$this->FB1		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB2###'				,$this->FB2		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB3###'				,$this->FB3		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB4###'				,$this->FB4		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB5###'				,$this->FB5		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB6###'				,$this->FB6		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###FB7###'				,$this->FB7		  		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###INTERESSENT###'		,$this->INTERESSENT		,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###ERSTI###'			,$this->ERSTI			,$this->EVENTRESULT );
-		$this->EVENTRESULT =  str_replace ('###STUDENT###'			,$this->STUDENT			,$this->EVENTRESULT );
 		
-	}
-	
-	public function getNAME(){
-		return $this->NAME;
-	}
-
-	public function setNAME($NAME){
-		$this->NAME = $NAME;
-	}
-
-	public function getID(){
-		return $this->ID;
-	}
-
-	public function setID($ID){
-		$this->ID = $ID;
-	}
-
-	public function getTAG(){
-		return $this->TAG;
-	}
-
-	public function setTAG($TAG){
-		$this->TAG = $TAG;
-	}
-
-	public function getMONAT(){
-		return $this->MONAT;
-	}
-
-	public function setMONAT($MONAT){
-		$this->MONAT = $MONAT;
-	}
-
-	public function getJAHR(){
-		return $this->JAHR;
-	}
-
-	public function setJAHR($JAHR){
-		$this->JAHR = $JAHR;
-	}
-
-	public function getSTUNDEN(){
-		return $this->STUNDEN;
-	}
-
-	public function setSTUNDEN($STUNDEN){
-		$this->STUNDEN = $STUNDEN;
-	}
-
-	public function getMINUTEN(){
-		return $this->MINUTEN;
-	}
-
-	public function setMINUTEN($MINUTEN){
-		$this->MINUTEN = $MINUTEN;
-	}
-
-	public function getBESCHREIBUNG(){
-		return $this->BESCHREIBUNG;
-	}
-
-	public function setBESCHREIBUNG($BESCHREIBUNG){
-		$this->BESCHREIBUNG = $BESCHREIBUNG;
-	}
-
-	public function getFB1(){
-		return $this->FB1;
-	}
-
-	public function setFB1($FB1){
-		$this->FB1 = $FB1;
-	}
-
-	public function getFB2(){
-		return $this->FB2;
-	}
-
-	public function setFB2($FB2){
-		$this->FB2 = $FB2;
-	}
-
-	public function getFB3(){
-		return $this->FB3;
-	}
-
-	public function setFB3($FB3){
-		$this->FB3 = $FB3;
-	}
-
-	public function getFB4(){
-		return $this->FB4;
-	}
-
-	public function setFB4($FB4){
-		$this->FB4 = $FB4;
-	}
-
-	public function getFB5(){
-		return $this->FB5;
-	}
-
-	public function setFB5($FB5){
-		$this->FB5 = $FB5;
-	}
-
-	public function getFB6(){
-		return $this->FB6;
-	}
-
-	public function setFB6($FB6){
-		$this->FB6 = $FB6;
-	}
-
-	public function getFB7(){
-		return $this->FB7;
-	}
-
-	public function setFB7($FB7){
-		$this->FB7 = $FB7;
-	}
-
-	public function getINTERESSENT(){
-		return $this->INTERESSENT;
-	}
-
-	public function setINTERESSENT($INTERESSENT){
-		$this->INTERESSENT = $INTERESSENT;
-	}
-
-	public function getSTUDENT(){
-		return $this->STUDENT;
-	}
-
-	public function setSTUDENT($STUDENT){
-		$this->STUDENT = $STUDENT;
-	}
-
-	public function getERSTI(){
-		return $this->ERSTI;
-	}
-
-	public function setERSTI($ERSTI){
-		$this->ERSTI = $ERSTI;
+		//Schleife die alle Fachbereiche durchläuft
+		for($i=0; $i<count($this->FACHBEREICHE); $i++)
+		{
+			$checked = false;
+			for($k=0; $k<count($this->FB); $k++)
+			{
+				if($this->FACHBEREICHE[$i]['id'] == $this->FB[$k]['department_id'])
+				{
+					$checked = true;
+					$this->EVENTRESULT =  	str_replace ('###FB'.$this->FACHBEREICHE[$i]['id'].'###'				,'checked'  		,$this->EVENTRESULT );
+					$this->EVENTFORM =  	str_replace ('###FB'.$this->FACHBEREICHE[$i]['id'].'###'				,'checked'			,$this->EVENTFORM );
+				}
+			}
+			if($checked == false)
+			{
+				$this->EVENTRESULT =  	str_replace ('###FB'.$this->FACHBEREICHE[$i]['id'].'###'				,''  		,$this->EVENTRESULT );
+				$this->EVENTFORM =  	str_replace ('###FB'.$this->FACHBEREICHE[$i]['id'].'###'				,''			,$this->EVENTFORM );
+			}
+			
+		}
+		
+		//Schleife die alle Usertypes durchläuft
+		for($i=0; $i<count($this->USERTYPES); $i++)
+		{
+			$checked = false;
+			for($k=0; $k<count($this->USER); $k++)
+			{
+				if($this->USERTYPES[$i]['id'] == $this->USER[$k]['usertype_id'])
+				{
+					$checked = true;
+					$this->EVENTRESULT =  	str_replace ('###USER'.$this->USERTYPES[$i]['id'].'###'				,'checked'  		,$this->EVENTRESULT );
+					$this->EVENTFORM =  	str_replace ('###USER'.$this->USERTYPES[$i]['id'].'###'				,'checked'			,$this->EVENTFORM );
+				}
+			}
+			if($checked == false)
+			{
+				$this->EVENTRESULT =  	str_replace ('###USER'.$this->USERTYPES[$i]['id'].'###'				,''  		,$this->EVENTRESULT );
+				$this->EVENTFORM =  	str_replace ('###USER'.$this->USERTYPES[$i]['id'].'###'				,''			,$this->EVENTFORM );
+			}
+			
+		}
 	}
 	
 	private $EVENTFORM =
@@ -474,35 +423,8 @@ class Formular{
 							<fieldset>
 								<legend>Fachbereich:</legend>
 								
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_1_###ID###"	name="veranstaltungen_fachbereich_1" ###FB1### />
-								<label for="veranstaltungen_fachbereich_1">Fachbereich 1 - Architektur							</label>  
-									
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_2_###ID###"	name="veranstaltungen_fachbereich_2" ###FB2### />
-								<label for="veranstaltungen_fachbereich_2">Fachbereich 2 - Design								</label>
-									
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_3_###ID###"	name="veranstaltungen_fachbereich_3" ###FB3### />
-								<label for="veranstaltungen_fachbereich_3">Fachbereich 3 - Elektrotechnik						</label>
-									
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_4_###ID###"	name="veranstaltungen_fachbereich_4" ###FB4### />
-								<label for="veranstaltungen_fachbereich_4">Fachbereich 4 - Maschinenbau und Verfahrenstechnik	</label>
-									
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_5_###ID###"	name="veranstaltungen_fachbereich_5" ###FB5### />
-								<label for="veranstaltungen_fachbereich_5">Fachbereich 5 - Medien								</label>
-									
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_6_###ID###"	name="veranstaltungen_fachbereich_6" ###FB6### />
-								<label for="veranstaltungen_fachbereich_6">Fachbereich 6 - Sozial- und Kulturwissenschaften		</label>
-									
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_7_###ID###"	name="veranstaltungen_fachbereich_7" ###FB7### />
-								<label for="veranstaltungen_fachbereich_7">Fachbereich 7 - Wirtschaft 							</label>
-								
-								<br/>
+								###INPUT_FB###
+							
 							</fieldset>
 						</div>
 					</td>
@@ -514,19 +436,8 @@ class Formular{
 							<fieldset>
 								<legend>Modus:</legend>
 								
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_1_###ID###"	name="veranstaltungen_usertypes_1" ###INTERESSENT### />
-								<label for="veranstaltungen_usertypes_1">Interessent	</label>
+								###INPUT_UT###
 								
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_2_###ID###"	name="veranstaltungen_usertypes_2" ###ERSTI###		 />
-								<label for="veranstaltungen_usertypes_2">Ersti			</label>
-								
-								<br/>
-								<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_3_###ID###"	name="veranstaltungen_usertypes_3" ###STUDENT###	 />
-								<label for="veranstaltungen_usertypes_3">Student		</label>
-								
-								<br/>
 							</fieldset>
 						</div>
 					</td> 
@@ -575,35 +486,8 @@ class Formular{
 							<fieldset>
 								<legend>Fachbereich:</legend>
 								
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_1"	name="veranstaltungen_fachbereich_1" ###FB1### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_1">Fachbereich 1 - Architektur							</label>  
-									
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_2"	name="veranstaltungen_fachbereich_2" ###FB2### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_2">Fachbereich 2 - Design								</label>  
-									
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_3"	name="veranstaltungen_fachbereich_3" ###FB3### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_3">Fachbereich 3 - Elektrotechnik						</label>
-									
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_4"	name="veranstaltungen_fachbereich_4" ###FB4### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_4">Fachbereich 4 - Maschinenbau und Verfahrenstechnik	</label>
-									
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_5"	name="veranstaltungen_fachbereich_5" ###FB5### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_5">Fachbereich 5 - Medien								</label>
-									
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_6"	name="veranstaltungen_fachbereich_6" ###FB6### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_6">Fachbereich 6 - Sozial- und Kulturwissenschaften		</label>
-									
-								<br/>
-								<input type="checkbox" id="veranstaltungen_fachbereich_7"	name="veranstaltungen_fachbereich_7" ###FB7### disabled="disabled" />
-								<label for="veranstaltungen_fachbereich_7">Fachbereich 7 - Wirtschaft 							</label>
+								###INPUT_FB###
 								
-								<br/>
 							</fieldset>
 						</div>
 					</td>
@@ -615,19 +499,8 @@ class Formular{
 							<fieldset>
 								<legend>Modus:</legend>
 								
-								<br/> 
-								<input type="checkbox" id="veranstaltungen_usertypes_1"	name="veranstaltungen_usertypes_1" ###INTERESSENT### disabled="disabled" />
-								<label for="veranstaltungen_usertypes_1">Interessent	</label>
+								###INPUT_UT###
 								
-								<br/>
-								<input type="checkbox" id="veranstaltungen_usertypes_2"	name="veranstaltungen_usertypes_2" ###ERSTI###		 disabled="disabled" />
-								<label for="veranstaltungen_usertypes_2">Ersti			</label>
-								
-								<br/>
-								<input type="checkbox" id="veranstaltungen_usertypes_3"	name="veranstaltungen_usertypes_3" ###STUDENT###	 disabled="disabled" />
-								<label for="veranstaltungen_usertypes_3">Student		</label>
-								
-								<br/>
 							</fieldset>
 						</div>
 					</td>
