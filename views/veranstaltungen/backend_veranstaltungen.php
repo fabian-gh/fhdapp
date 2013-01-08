@@ -60,9 +60,9 @@
 			}
 		}		
 	}
-	else if(isset($_GET['loeschen']))
+	else if(isset($_POST['loeschen']))
 	{
-		if($Controller->deleteEvent($_GET['loeschen']) == true)
+		if($Controller->deleteEvent($_POST['loeschen']) == true)
 			$MESSAGE = 'Veranstaltung wurde gel&ouml;scht.';
 		else
 			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht gel&ouml;scht.';
@@ -79,7 +79,7 @@
 	//Neues Objekt von Formular erstellen
 	$Formular = new Formular($Controller);
 	//Leeres Formular erstellen
-	echo $Formular->getEmptyForm();
+	echo $Formular->getEmptyForm($FB_GET);
 	//JQuery für das leere Formular erstellen
 	$JQUERY .= $Formular->getJqueryEmptyForm();
 	

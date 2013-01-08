@@ -104,11 +104,12 @@ class Formular{
 		}
 	}
 	
-	public function getEmptyForm()
+	public function getEmptyForm($FB_GET)
 	{
 		//Alle Variablen auf null setzen bis auf die ID
 		$this->setALL(null, 'new', null, null, null, null, null, null, null, null);
 		$this->replaceALL();
+		$this->EVENTFORM 	=  str_replace ('###FB_GET###'			,$FB_GET			,$this->EVENTFORM );
 		
 		$RESULT =
 		'
@@ -124,6 +125,8 @@ class Formular{
 	
 	public function getEventContainer($FB_GET)
 	{
+		$this->EVENTFORM 	=  str_replace ('###FB_GET###'			,$FB_GET			,$this->EVENTFORM );
+		
 		$RESULT =
 		'
 		<div class="veranstaltung_'.$this->ID.'" style="border-width:1px; border-style:solid;">
@@ -131,7 +134,10 @@ class Formular{
 		
 			<a class="button" id="veranstaltung_anzeigen_'.$this->ID.'"		>Veranstaltung anzeigen	</a>
 			<a class="button" id="veranstaltung_bearbeiten_'.$this->ID.'"	>Veranstaltung bearbeiten</a>
-			<a href="?FB='.$FB_GET.'&amp;loeschen='.$this->ID.'" class="button" id="loesch_button_'.$this->ID.'">L&ouml;schen</a>
+			<a class="button" id="loesch_button_'.$this->ID.'">L&ouml;schen</a>
+			<form action="?FB='.$FB_GET.'" id="veranstaltung_loeschen_'.$this->ID.'" method="post">
+				<input type="hidden" name="loeschen" id="loeschen" value="'.$this->ID.'"/>
+			</form>
 		';
 		
 		$RESULT .= $this->getEventResult();
@@ -141,12 +147,12 @@ class Formular{
 		return $RESULT;
 	}
 	
-	public function getEventForm()
+	private function getEventForm()
 	{
 		return $this->EVENTFORM;	
 	}
 	
-	public function getEventResult()
+	private function getEventResult()
 	{
 		return $this->EVENTRESULT;
 	}
@@ -165,6 +171,12 @@ class Formular{
 					$(".form_veranstaltung_new").hide();
 					$("#show_veranstaltung_'.$this->ID.'").hide();
 					$("#form_veranstaltung_'.$this->ID.'").slideToggle("fast");
+				});
+				
+				$("#loesch_button_'.$this->ID.'").click(function(){
+					MESSAGE = "Veranstaltung wirklich Loeschen?";
+					if(confirm(MESSAGE))
+						$("#veranstaltung_loeschen_'.$this->ID.'").submit();
 				});
 				';
 		$JQUERY .= $this->getJqueryValid();
@@ -359,7 +371,7 @@ class Formular{
 	
 	private $EVENTFORM =
 	'<div class="veranstaltung" id="form_veranstaltung_###ID###" style="display:none;">
-		<form action="" class="veranstaltung_form" id="veranstaltung_form_###ID###" method="post">
+		<form action="?FB=###FB_GET###"	class="veranstaltung_form" id="veranstaltung_form_###ID###" method="post">
 			<table id="table_veranstaltung_backend" border="0" width="100%">
 				
 			<thead>
