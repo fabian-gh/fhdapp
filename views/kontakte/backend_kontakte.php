@@ -7,13 +7,6 @@
 	require_once '../../controllers/kontakteController.php';
 	$controller = new kontakteController();
 
-	$contacts = $controller->c_getContacts();
-	//getting the categories from the db
-	$categories = $controller->c_getCategories();	
-	//getting the departments from the db
-	$departments = $controller->c_getDepartments();	
-
-
 	//check if the addContact-submit button has been pressed
 	if(isset($_POST['contactSubmit'])){
 		//call function to submit the typed values
@@ -21,12 +14,10 @@
 	}
 	if(isset($_POST['alterContactSubmit'])){
 		$controller->c_alterContact($_POST);
-	}					
-	foreach ($contacts as $value) {
-		if(isset($_POST['deleteContact' . $value['contactID']])){
-			$controller->c_deleteContact($value['contactID']);
-		}
-	}	
+	}
+	if(isset($_POST['deleteContact'])){
+		$controller->c_deleteContact($_POST);
+	}				
 ?>
 			<script type="text/javascript">
 				/**
@@ -59,27 +50,27 @@
 		                <th>Löschen</th>
 		            </tr>
 				<?php 
-					echo '<form action="" method="post">';
+					$contacts = $controller->c_getContacts();
 					foreach ($contacts as $value) {
+					echo '<form action="" method="post">';
+					
 						// function for the buttons!? 
 						echo '<tr>
 								<td>' . $value['title'] . '</td>
 								<td>' . $value['catName'] . '</td>
 								<td>' . $value['deptName'] . '</td>
-								<td> <input type="submit" name="alterContact'. $value['contactID'] .'" value="Daten bearbeiten" /> </td>
-								<td> <input type="submit" name="deleteContact'. $value['contactID'] .'" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
+								<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
+								<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
 							</tr>';
-					}
 					echo '</form>';
+					}
 				?>
 				</table>
 			</div>
 			<!-- End alter contacts -->
 			<?php
-				foreach ($contacts as $value) {
-					if(isset($_POST['alterContact' . $value['contactID']])){
-
-						$alterContact = $controller->c_getContact($value['contactID']);
+					if(isset($_POST['alterContact'])){
+						$alterContact = $controller->c_getContact($_POST['contactID']);
 						//getting the categories from the db
 						$categories = $controller->c_getCategories();	
 						//getting the departments from the db
@@ -100,7 +91,7 @@
 						echo '		</fieldset>
 									<fieldset>';
 						for ($i = 0; $i < count($departments); $i++) {
-							if($categories[$i]['id'] != $alterContact[0]['catID'])
+							if($departments[$i]['id'] != $alterContact[0]['deptID'])
 								echo '<input type="radio" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 							else
 								echo '<input type="radio" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" checked="checked" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
@@ -125,7 +116,6 @@
 							</div>';
 
 						}
-					}
 			?>
 			<!-- Section for adding new contacts -->
 			<button id="addContactButton" onclick="showAddContact()" style="margin-bottom: 20px;" >Neuen Kontakt hinzufügen</button>

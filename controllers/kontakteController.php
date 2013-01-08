@@ -42,7 +42,10 @@ class kontakteController {
 	}
 
 	public function c_deleteContact($id){
-		$this->contactsModel->m_deleteContact($id);
+
+		$contactID = $id['contactID'];
+
+		$this->contactsModel->m_deleteContact($contactID);
 	}
 
 	public function c_getContact($id){
@@ -52,7 +55,7 @@ class kontakteController {
 	public function c_alterContact($id){
 
 		$contactID = $id['id'];
-		
+
 		$this->contactsModel->m_alterContact($contactID);
 	}
 }
