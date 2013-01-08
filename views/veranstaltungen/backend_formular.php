@@ -237,26 +237,38 @@ class Formular{
 					if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
 					{
 						FALSCHE_EINGABEN += "Datum falsch.Bitte Uepruefen!\n";
+						$("#div_veranstaltung_uhrzeit_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
+					else
+						$("#div_veranstaltung_uhrzeit_'.$this->ID.'").css("border", "0px solid black");
 										
 					if(!(checkDatum(TAG,MONAT,JAHR) == true))
 					{
 						FALSCHE_EINGABEN += "Datum falsch.Bitte Uepruefen!\n";
+						$("#div_veranstaltung_datum_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
+					else
+						$("#div_veranstaltung_datum_'.$this->ID.'").css("border", "0px solid black");
 					
 					if(!(checkText(BESCHREIBUNG) == true))
 					{
 						FALSCHE_EINGABEN += "Bitte geben Sie eine Beschreibung ein!\n";
+						$("#div_veranstaltung_beschreibung_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
+					else
+						$("#div_veranstaltung_beschreibung_'.$this->ID.'").css("border", "0px solid black");
 					
 					if(!(checkText(NAME) == true))
 					{
 						FALSCHE_EINGABEN += "Bitte geben Sie einen Namen fuer die Veranstaltung ein!\n";
+						$("#div_veranstaltung_name_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
+					else
+						$("#div_veranstaltung_name_'.$this->ID.'").css("border", "0px solid black");
 					
 					CHECKED = false;
 					'.$CHECK_FB_INPUT.'
@@ -264,8 +276,11 @@ class Formular{
 					if(!(CHECKED == true))
 					{
 						FALSCHE_EINGABEN += "Es muss mindestens ein Fachbereich ausgewaehlt werden!\n";
+						$("#div_veranstaltung_fachbereiche'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
+					else
+						$("#div_veranstaltung_fachbereiche'.$this->ID.'").css("border", "0px solid black");
 					
 					CHECKED = false;
 					'.$CHECK_UT_INPUT.'
@@ -273,8 +288,12 @@ class Formular{
 					if(!(CHECKED == true))
 					{
 						FALSCHE_EINGABEN += "Es muss mindestens ein Modus ausgewaehlt werden!\n";
+						$("#div_veranstaltung_usertype'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
+					else
+						$("#div_veranstaltung_usertype'.$this->ID.'").css("border", "0px solid black");
+					
 					
 					
 					if(CORRECT == false)
