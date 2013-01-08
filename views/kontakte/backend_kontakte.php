@@ -1,5 +1,8 @@
 <?php session_start();
 
+// TODO: Campus berücksichtigen beim Einfügen / Ändern
+
+
     //header einbinden
     require_once '../../layout/backend/header.php';
     
@@ -19,7 +22,7 @@
 		$controller->c_deleteContact($_POST);
 	}				
 ?>
-			<script type="text/javascript">
+		<script type="text/javascript">
 				/**
 				*	Gets called when the "add new contact" button is pressed
 				*/
@@ -39,6 +42,22 @@
 					}
 				}
 			</script>
+			<style type="text/css">
+
+				.confirmation{
+					background-color: #76FF76;
+					border: 2px solid #00B100;
+					text-align: center;
+					width: 100%;
+					height: 30px;
+					margin-bottom: 20px;
+				}
+				
+				.confirmation p {
+					padding-top: 7px;
+				}
+			</style>	
+
 			<!-- List the existing data in a table and give the possibility to alter or delete it -->
 			<div id="alterContact">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">
