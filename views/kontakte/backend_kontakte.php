@@ -1,6 +1,7 @@
 <?php session_start();
 
 // TODO: Campus berücksichtigen beim Einfügen / Ändern
+// TODO: Allgemeinen Fachbereich berücksichtigen und in neuer Zwischentabelle eintragen
 
 
     //header einbinden
@@ -78,7 +79,7 @@
 								<td>' . $value['title'] . '</td>
 								<td>' . $value['catName'] . '</td>
 								<td>' . $value['deptName'] . '</td>
-								<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
+								<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /> <input type="hidden" name="deptID" value="' . $value['deptID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
 								<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
 							</tr>';
 					echo '</form>';
@@ -89,7 +90,7 @@
 			<!-- End alter contacts -->
 			<?php
 					if(isset($_POST['alterContact'])){
-						$alterContact = $controller->c_getContact($_POST['contactID']);
+						$alterContact = $controller->c_getContact($_POST);
 						//getting the categories from the db
 						$categories = $controller->c_getCategories();	
 						//getting the departments from the db
@@ -128,6 +129,7 @@
 								<label class="contactLabel" for="alterContactOfficeHours"> Büro-Offnungszeiten</label> <input type="text" id="alterContactOfficeHours" name="alterContactOfficeHours" value="'. $alterContact[0]['office_hours'].'" />
 								<label class="contactLabel" for="alterContactPhoneOfficeHours"> Telefonische Sprechzeiten</label> <input type="text" id="alterContactPhoneOfficeHours" name="alterContactPhoneOfficeHours" value="'. $alterContact[0]['phone_office_hours'].'" />
 								<input type="hidden" name="id" value="' . $alterContact[0]['contactID'] . ' " />
+								<input type="hidden" name="deptID" value="' . $alterContact[0]['deptID'] . '" />
 								<input type="submit" name="alterContactSubmit" value="Daten ändern" id="alterContactBtn" />
 						';
 

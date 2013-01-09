@@ -44,18 +44,24 @@ class kontakteController {
 	public function c_deleteContact($id){
 
 		$contactID = $id['contactID'];
+		$deptID = $id['deptID'];
 
-		$this->contactsModel->m_deleteContact($contactID);
+		$this->contactsModel->m_deleteContact($contactID, $deptID);
 	}
 
 	public function c_getContact($id){
-		return $this->contactsModel->m_getContact($id);
+
+		$contactID = $id['contactID']; 
+		$deptID = $id['deptID'];
+
+		return $this->contactsModel->m_getContact($contactID, $deptID);
 	}
 
 	public function c_alterContact($id){
 
 		$contactID = $id['id'];
+		$deptID = $id['deptID'];
 
-		$this->contactsModel->m_alterContact($contactID);
+		$this->contactsModel->m_alterContact($contactID, $deptID);
 	}
 }
