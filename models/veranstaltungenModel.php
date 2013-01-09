@@ -210,22 +210,42 @@ class Veranstaltungen{
 	}
 	
 	//Backend
+	//Methode die alle Veranstaltungen ausliest, die älter vorm heutigen Datum liegen
+	public function getOldEvents()
+	{
+		$STATEMENT = "
+				SELECT EVENTS.id
+				
+				FROM EVENTS , EVENTS_MM_DEPARTMENTS, DEPARTMENTS, LANGUAGES
+				
+				WHERE EVENTS.id = EVENTS_MM_DEPARTMENTS.event_id 
+				AND EVENTS.language_id = LANGUAGES.id 
+				AND EVENTS_MM_DEPARTMENTS.department_id = DEPARTMENTS.id
+				AND EVENTS.date < NOW()
+				ORDER BY EVENTS.date
+				";
+				
+		return $this->getInformation($STATEMENT);
+	}
+	
+	//Backend
 	//Methode die Veranstaltung aus der Datenbank laed,
 	//Unter Auswahl des Fachbereiches
 	//Ohne auf Benutzertyp zu achten
 	public function createStatementEventsWithDepartmentsWihoutUsertype($department){
 		$STATEMENT = "
 				SELECT 
-				events.id,events.language_id,events.name,events.date,events.description
+				EVENTS.id,EVENTS.language_id,EVENTS.name,EVENTS.date,EVENTS.description				
 				
-				FROM EVENTS ,events_mm_departments,departments,languages
+				FROM EVENTS , EVENTS_MM_DEPARTMENTS, DEPARTMENTS, LANGUAGES
 				
-				WHERE events.id = events_mm_departments.event_id 
-				AND events.language_id = languages.id 
-				AND events_mm_departments.department_id = departments.id
-				AND events_mm_departments.department_id = ".$department."
-				AND events.date >= NOW()
-				ORDER BY events.date
+				WHERE EVENTS.id = EVENTS_MM_DEPARTMENTS.event_id 
+				AND EVENTS.language_id = LANGUAGES.id 
+				AND EVENTS_MM_DEPARTMENTS.department_id = departments.id
+				AND EVENTS_MM_DEPARTMENTS.department_id = ".$department."
+				AND EVENTS.date >= NOW()
+				
+				ORDER BY EVENTS.date
 				";
 
 		return $this->getInformation($STATEMENT);

@@ -86,6 +86,24 @@
 	}
 	
 	//Backend
+	//Methode die alle Veranstaltungen löscht, die älter vorm heutigen Datum liegen
+	public function deleteOldEvent()
+	{
+		$ERGEBNIS = $this->Model->getOldEvents();
+		
+		if($ERGEBNIS != null)
+		{
+			//Veranstaltungen durchlaufen und darstellen
+			for($i=0; $i<count($ERGEBNIS); $i++) 
+			{
+				if($this->deleteEvent($ERGEBNIS[$i]['id']) == false)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	//Backend
 	//Methode die alle Benutzer ausliest
 	private function getInformationDepartments()
 	{

@@ -67,12 +67,12 @@
 		else
 			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht gel&ouml;scht.';
 	}
-	else if(isset($_POST['loeschen_all']))
+	else if(isset($_POST['veranstaltung_alt_loeschen']))
 	{
 		if($Controller->deleteOldEvent() == true)
-			$MESSAGE = 'Alte Veranstaltung wurde gel&ouml;scht.';
+			$MESSAGE = 'Alte Veranstaltungen wurde gel&ouml;scht.';
 		else
-			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltung wurde nicht gel&ouml;scht.';
+			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltungen wurde nicht gel&ouml;scht.';
 	}
 	
 	
@@ -192,7 +192,7 @@
 				});
 				
 				$("#loesch_button_all").click(function(){
-					MESSAGE = "Achtung!!!\nSollen wirklich alle Veranstaltungen geloescht werden?";
+					MESSAGE = "Achtung!!!\nSollen wirklich alle Veranstaltungen gelöscht werden?";
 					if(confirm(MESSAGE))
 						$("#veranstaltungen_loeschen").submit();
 				});
@@ -256,11 +256,5 @@
 	require_once '../../layout/backend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
-	/*
-					$("#new_formular_button").click(function(){
-						hide_all();
-						$("#new_formular").slideToggle("fast");
-					});
-	*/
 	/* Location: ./views/veranstaltungen/veranstaltungen_edit.php */
 ?>
