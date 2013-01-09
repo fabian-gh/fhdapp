@@ -19,6 +19,8 @@ $plans = $MensaController->callGetAllPlans();
 
 ?>
 
+<link href="../../sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
+
        	  <h2>Mensapl&auml;ne</h2>
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
               <tr>
