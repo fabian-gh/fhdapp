@@ -236,7 +236,7 @@ class Formular{
 					
 					if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
 					{
-						FALSCHE_EINGABEN += "Datum falsch.Bitte Uepruefen!\n";
+						FALSCHE_EINGABEN += "Datum falsch.Bitte Ueberpruefen!\n";
 						$("#div_veranstaltung_uhrzeit_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
@@ -245,7 +245,7 @@ class Formular{
 										
 					if(!(checkDatum(TAG,MONAT,JAHR) == true))
 					{
-						FALSCHE_EINGABEN += "Datum falsch.Bitte Uepruefen!\n";
+						FALSCHE_EINGABEN += "Datum falsch.Bitte Ueberpruefen!\n";
 						$("#div_veranstaltung_datum_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
