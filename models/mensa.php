@@ -138,6 +138,7 @@ class Mensa{
 
 	/**
 	 * Queries all plans for the choosing-site
+	 * @return Array $plan
 	 */
 	public function getAllPlans(){
 		try{
@@ -185,11 +186,11 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_stud_mon_'):
-					$this->monday_stud_prices[] = mysql_real_escape_string($value);
+					$this->monday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				case strstr($key, 'price_att_mon_'):
-					$this->monday_att_prices[] = mysql_real_escape_string($value);
+					$this->monday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Tuesday
@@ -198,11 +199,11 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_stud_tue_'):
-					$this->tuesday_stud_prices[] = mysql_real_escape_string($value);
+					$this->tuesday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				case strstr($key, 'price_att_tue_'):
-					$this->tuesday_att_prices[] = mysql_real_escape_string($value);
+					$this->tuesday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Wednesday
@@ -211,11 +212,11 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_stud_wed_'):
-					$this->wednesday_stud_prices[] = mysql_real_escape_string($value);
+					$this->wednesday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				case strstr($key, 'price_att_wed_'):
-					$this->wednesday_att_prices[] = mysql_real_escape_string($value);
+					$this->wednesday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Thursday
@@ -224,11 +225,11 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_stud_thu_'):
-					$this->thursday_stud_prices[] = mysql_real_escape_string($value);
+					$this->thursday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				case strstr($key, 'price_att_thu_'):
-					$this->thursday_att_prices[] = mysql_real_escape_string($value);
+					$this->thursday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Friday
@@ -237,11 +238,11 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_stud_fri_'):
-					$this->friday_stud_prices[] = mysql_real_escape_string($value);
+					$this->friday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				case strstr($key, 'price_att_fri_'):
-					$this->friday_att_prices[] = mysql_real_escape_string($value);
+					$this->friday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 			}
 		}
@@ -256,12 +257,26 @@ class Mensa{
 
 
 	/**
+	 * Check if the price has a comma or a dot
+	 * @param float $price
+	 */
+	public function checkComma($price){
+		if(strstr($price, ',')){
+			return str_replace(',', '.', $price);
+		} else if(strstr($price, '.')){
+			return $price;
+		}
+	}
+
+
+
+	/**
 	 * Insert the Plan into the database
 	 * @param Array $post Post-Data
 	 */
 	public function insertPlan($get){
 
-		if(($this->calenderweek>0 && $this->calenderweek<=52) && !empty($this->mealdate)){
+		if($this->calenderweek>0 && $this->calenderweek<=52 && !empty($this->mealdate)){
 
 			try{
 			// delete old entries
