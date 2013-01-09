@@ -75,66 +75,10 @@ class Mensa{
 	public function __construct(){
 		// open database-connection
 		$this->DbCon = new mysqli();
-		$this->DbCon->connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
-	}
-
-	// ================================================ Frontend-Methods =========================================================
-
-	public function getCanteenPlans(){
-		try{
-
-			$query = $this->DbCon->query("SELECT * 
-										FROM meals AS m
-										INNER JOIN days AS d 
-										ON m.day_id = d.id
-										WHERE m.mealdate BETWEEN CURDATE( ) AND CURDATE( )+21
-										ORDER BY m.mealdate ASC");
-
-			while($row = $query->fetch_assoc()){
-                $plans[$row['calenderweek']][$row['day_id']] = array(
-                	'Calenderweek'		=> $row['calenderweek'],
-                	'mealdate'			=> $row['mealdate'],
-                	'dayname'			=> $row['day'],
-                	'meal_one'			=> $row['meal_one'],
-                	'meal_two'			=> $row['meal_two'],
-                	'side'				=> $row['side'],
-                	'hotpot'			=> $row['hotpot'],
-                	'bbq'				=> $row['bbq'],
-                	'price_stud_bbq'	=> $row['price_stud_bbq'],
-                	'price_att_bbq'		=> $row['price_att_bbq'],
-                	'pan'				=> $row['pan'],
-                	'price_stud_pan'	=> $row['price_stud_pan'],
-                	'price_att_pan'		=> $row['price_att_pan'],
-                	'action'			=> $row['action'],
-                	'price_stud_action'	=> $row['price_stud_action'],
-                	'price_att_action'	=> $row['price_att_action'],
-                	'wok'				=> $row['wok'],
-                	'price_stud_wok'	=> $row['price_stud_wok'],
-                	'price_att_wok'		=> $row['price_att_wok'],
-                	'gratin'			=> $row['gratin'],
-                	'price_stud_gratin'	=> $row['price_stud_gratin'],
-                	'price_att_gratin'	=> $row['price_att_gratin'],
-                	'mensavital'		=> $row['mensavital'],
-                	'price_stud_mensavital'	=> $row['price_stud_mensavital'],
-                	'price_att_mensavital'	=> $row['price_att_mensavital'],
-                	'green_corner'		=> $row['green_corner'],
-                	'price_stud_green_corner'=> $row['price_stud_green_corner'],
-                	'price_att_green_corner' => $row['price_att_green_corner'],
-            	);
-             }
-             
-             // Return the reversed array with the original keys
-             //return array_reverse($plans, true);
-             return $plans;
-
-		} catch (Exception $e){
-			echo $e->getMessage();
-		}
+        $this->DbCon->connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 	}
 
 
-
-	// ================================================ Backend-Methods ==========================================================
 
 	/**
 	 * Queries all plans for the choosing-site

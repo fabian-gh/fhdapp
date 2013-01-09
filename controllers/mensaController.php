@@ -30,14 +30,6 @@ class MensaController{
 
 
 	/**
-	 * Call the getCanteenPlans()-Method
-	 */
-	public function callGetCanteenPlans(){
-		return $this->MensaModel->getCanteenPlans();
-	}
-
-
-	/**
 	 * Call the getAllPlans()-Method
 	 * @param Array $post
 	 */
