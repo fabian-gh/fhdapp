@@ -21,9 +21,12 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 	if(isset($_GET['mode']) && $_GET['mode'] == 'edit'){
 		$post = $MensaController->callEditPlan($_GET['cw']);
 	}
+} else{
+	header("Location: choose.php");
 }
 
 ?>
+<link href="../../sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script type="text/javascript" src="../../sources/customjs/mensa.js"></script>
 
