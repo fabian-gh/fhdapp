@@ -276,11 +276,11 @@ class Formular{
 					if(!(CHECKED == true))
 					{
 						FALSCHE_EINGABEN += "Es muss mindestens ein Fachbereich ausgewaehlt werden!\n";
-						$("#div_veranstaltung_fachbereiche_'.$this->ID.'").css("border", "2px solid red");
+						$("#div_veranstaltung_form_fachbereiche_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
 					else
-						$("#div_veranstaltung_fachbereiche_'.$this->ID.'").css("border", "0px solid black");
+						$("#div_veranstaltung_form_fachbereiche_'.$this->ID.'").css("border", "0px solid black");
 					
 					CHECKED = false;
 					'.$CHECK_UT_INPUT.'
@@ -288,11 +288,11 @@ class Formular{
 					if(!(CHECKED == true))
 					{
 						FALSCHE_EINGABEN += "Es muss mindestens ein Modus ausgewaehlt werden!\n";
-						$("#div_veranstaltung_usertype_'.$this->ID.'").css("border", "2px solid red");
+						$("#div_veranstaltung_form_usertype_'.$this->ID.'").css("border", "2px solid red");
 						CORRECT = false;
 					}
 					else
-						$("#div_veranstaltung_usertype_'.$this->ID.'").css("border", "0px solid black");
+						$("#div_veranstaltung_form_usertype_'.$this->ID.'").css("border", "0px solid black");
 					
 					
 					
@@ -447,7 +447,7 @@ class Formular{
 				
 				<tr>
 					<td colspan="2">
-						<div class="div_veranstaltung_form_fachbereiche" id="div_veranstaltung_fachbereiche_###ID###">
+						<div class="div_veranstaltung_form_fachbereiche" id="div_veranstaltung_form_fachbereiche_###ID###">
 							<fieldset>
 								<legend>Fachbereich:</legend>
 								
@@ -460,7 +460,7 @@ class Formular{
 				
 				<tr>
 					<td colspan="2">
-						<div class="div_veranstaltung_form_usertype" id="div_veranstaltung_usertype_###ID###">
+						<div class="div_veranstaltung_form_usertype" id="div_veranstaltung_form_usertype_###ID###">
 							<fieldset>
 								<legend>Modus:</legend>
 								
@@ -510,7 +510,7 @@ class Formular{
 				
 				<tr>
 					<td colspan="2">
-						<div class="div_veranstaltung_show_fachbereiche" id="div_veranstaltung_fachbereiche_###ID###">
+						<div class="div_veranstaltung_show_fachbereiche" id="div_veranstaltung_show_fachbereiche_###ID###">
 							<fieldset>
 								<legend>Fachbereich:</legend>
 								
@@ -523,7 +523,7 @@ class Formular{
 				
 				<tr>
 					<td colspan="2">
-						<div class="div_veranstaltung_show_usertype" id="div_veranstaltung_usertype_###ID###">
+						<div class="div_veranstaltung_show_usertype" id="div_veranstaltung_show_usertype_###ID###">
 							<fieldset>
 								<legend>Modus:</legend>
 								
