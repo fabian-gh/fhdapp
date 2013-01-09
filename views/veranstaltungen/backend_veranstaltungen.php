@@ -192,7 +192,7 @@
 				});
 				
 				$("#loesch_button_all").click(function(){
-					MESSAGE = "Achtung!!!\nSollen wirklich alle Veranstaltungen gelöscht werden?";
+					MESSAGE = "Achtung!!!\nSollen wirklich alle vergangenen Veranstaltungen gelöscht werden?";
 					if(confirm(MESSAGE))
 						$("#veranstaltungen_loeschen").submit();
 				});
