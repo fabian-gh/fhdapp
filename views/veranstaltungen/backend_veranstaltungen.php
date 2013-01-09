@@ -344,14 +344,14 @@
 				return CHECKED;
 			}
 			
-			function setSelected(FIELDSET)
+			function setSelected(INPUTCLASS)
 			{
-				 $("."+FIELDSET).attr ("checked" ,"checked" );
+				 $("."+INPUTCLASS).attr ("checked" ,"checked" );
 			}
 			
-			function setUnselected(FIELDSET)
+			function setUnselected(INPUTCLASS)
 			{
-				$("."+FIELDSET).removeAttr("checked");
+				$("."+INPUTCLASS).removeAttr("checked");
 			}
 		</script>';
 	
