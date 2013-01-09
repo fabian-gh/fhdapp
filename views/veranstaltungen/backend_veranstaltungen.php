@@ -346,18 +346,12 @@
 			
 			function setSelected(FIELDSET)
 			{
-				var ele = document.getElementById(FIELDSET).getElementsByTagName("input");
-				for(var i=0;i<ele.length;i++)
-					if(ele[i].getAttribute("type") == "checkbox")
-						ele[i].setAttribute("checked","checked");
+				 $("."+FIELDSET).attr ("checked" ,"checked" );
 			}
 			
 			function setUnselected(FIELDSET)
 			{
-				var ele = document.getElementById(FIELDSET).getElementsByTagName("input");
-				for(var i=0;i<ele.length;i++)
-					if(ele[i].getAttribute("type") == "checkbox")
-						ele[i].removeAttribute("checked");
+				$("."+FIELDSET).removeAttr("checked");
 			}
 		</script>';
 	

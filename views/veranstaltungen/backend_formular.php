@@ -51,7 +51,7 @@ class Formular{
 				$INPUT_FORM .=
 					'
 									<br/>
-									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###"	name="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'" ###FB'.$this->FACHBEREICHE[$i]['id'].'### />
+									<input type="checkbox" class="veranstaltung_checkbox_fachbereich_###ID###"	id="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###"	name="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'" ###FB'.$this->FACHBEREICHE[$i]['id'].'### />
 									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###">'.$this->FACHBEREICHE[$i]['name'].'</label> 
 					';
 				$INPUT_RESULT .= 
@@ -90,7 +90,7 @@ class Formular{
 				$INPUT_FORM .=
 					'
 									<br/>
-									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###"	name="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'" ###USER'.$this->USERTYPES[$i]['id'].'### />
+									<input type="checkbox" class="veranstaltung_checkbox_usertype_###ID###"	id="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###"	name="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'" ###USER'.$this->USERTYPES[$i]['id'].'### />
 									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###">'.$this->USERTYPES[$i]['name'].'	</label>
 					';
 				$INPUT_RESULT .= 
@@ -218,22 +218,22 @@ class Formular{
 				
 				//Methode um allen Checkboxen von Fachbereich das Haekchen zu setzen
 				$("#select_fachbereich_all_'.$this->ID.'").click(function(){
-					setSelected("fieldset_veranstaltung_form_fachbereich_'.$this->ID.'");
+					setSelected("veranstaltung_checkbox_fachbereich_'.$this->ID.'");
 				});
 				
 				//Methode um allen Checkboxen von Fachbereich das Haekchen zu entfernen
 				$("#select_fachbereich_none_'.$this->ID.'").click(function(){
-					setUnselected("fieldset_veranstaltung_form_fachbereich_'.$this->ID.'");
+					setUnselected("veranstaltung_checkbox_fachbereich_'.$this->ID.'");
 				});
 				
 				//Methode um allen Checkboxen von Usertype das Haekchen zu setzen
 				$("#select_usertype_all_'.$this->ID.'").click(function(){
-					setSelected("fieldset_veranstaltung_form_usertype_'.$this->ID.'");
+					setSelected("veranstaltung_checkbox_usertype_'.$this->ID.'");
 				});
 				
 				//Methode um allen Checkboxen von Usertype das Haekchen zu entfernen
 				$("#select_usertype_none_'.$this->ID.'").click(function(){
-					setUnselected("fieldset_veranstaltung_form_usertype_'.$this->ID.'");
+					setUnselected("veranstaltung_checkbox_usertype_'.$this->ID.'");
 				});
 					
 		';
