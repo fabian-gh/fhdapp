@@ -224,6 +224,7 @@ class Veranstaltungen{
 				AND events.language_id = languages.id 
 				AND events_mm_departments.department_id = departments.id
 				AND events_mm_departments.department_id = ".$department."
+				AND events.date >= NOW()
 				ORDER BY events.date
 				";
 
@@ -293,7 +294,7 @@ class Veranstaltungen{
 				WHERE events.id = events_mm_departments.event_id AND events.language_id = languages.id AND
 				events_mm_departments.department_id = departments.id AND events_mm_usertypes.usertype_id = usertypes.id
 				AND events_mm_usertypes.event_id = events.id AND events_mm_usertypes.usertype_id = ".$usertype."
-				AND events_mm_departments.department_id = ".$department."
+				AND events_mm_departments.department_id = ".$department." AND events.date >= NOW()
 				
 				ORDER BY events.date";
 
