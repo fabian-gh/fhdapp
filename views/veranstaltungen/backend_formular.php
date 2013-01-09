@@ -62,6 +62,12 @@ class Formular{
 					';
 			}
 			
+			if($INPUT_FORM != '')
+				$INPUT_FORM .= '<br/><br/>
+								<a class="button" id="select_fachbereich_all_###ID###">Alle markieren</a>
+								<a class="button" id="select_fachbereich_none_###ID###">Auswahl entfernen</a>
+							';
+			
 			$this->EVENTFORM 	=  str_replace ('###INPUT_FB###'			,$INPUT_FORM			,$this->EVENTFORM 	);
 			$this->EVENTRESULT 	=  str_replace ('###INPUT_FB###'			,$INPUT_RESULT			,$this->EVENTRESULT );
 		}
@@ -94,6 +100,11 @@ class Formular{
 									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###">'.$this->USERTYPES[$i]['name'].'	</label>
 					';
 			}
+			if($INPUT_FORM != '')
+				$INPUT_FORM .= '<br/><br/>
+								<a class="button" id="select_usertype_all_###ID###">Alle markieren</a>
+								<a class="button" id="select_usertype_none_###ID###">Auswahl entfernen</a>
+							';
 			$this->EVENTFORM 	=  str_replace ('###INPUT_UT###'			,$INPUT_FORM			,$this->EVENTFORM 	);
 			$this->EVENTRESULT 	=  str_replace ('###INPUT_UT###'			,$INPUT_RESULT			,$this->EVENTRESULT );
 		}
@@ -179,7 +190,7 @@ class Formular{
 						$("#veranstaltung_loeschen_'.$this->ID.'").submit();
 				});
 				';
-		$JQUERY .= $this->getJqueryValid();
+		$JQUERY .= $this->getJqueryforAll();
 		return $JQUERY;
 	}
 	
@@ -191,11 +202,11 @@ class Formular{
 					$("#form_veranstaltung_'.$this->ID.'").slideToggle("fast");
 				});
 				';
-		$JQUERY .= $this->getJqueryValid();
+		$JQUERY .= $this->getJqueryforAll();
 		return $JQUERY;
 	}
 	
-	private function getJqueryValid()
+	private function getJqueryforAll()
 	{	
 		$CHECK_FB_INPUT = '';
 		
@@ -304,6 +315,24 @@ class Formular{
 
 					return true;
 				});
+				
+				$("#select_fachbereich_all_'.$this->ID.'").click(function(){
+					setSelected("fieldset_veranstaltung_form_fachbereich_'.$this->ID.'");
+				});
+				
+				$("#select_fachbereich_none_'.$this->ID.'").click(function(){
+					setUnselected("fieldset_veranstaltung_form_fachbereich_'.$this->ID.'");
+				});
+				
+					
+				$("#select_usertype_all_'.$this->ID.'").click(function(){
+					setSelected("fieldset_veranstaltung_form_usertype_'.$this->ID.'");
+				});
+				
+				$("#select_usertype_none_'.$this->ID.'").click(function(){
+					setUnselected("fieldset_veranstaltung_form_usertype_'.$this->ID.'");
+				});
+					
 		';
 		
 		return $JQUERY;
@@ -448,7 +477,7 @@ class Formular{
 				<tr>
 					<td colspan="2">
 						<div class="div_veranstaltung_form_fachbereiche" id="div_veranstaltung_form_fachbereiche_###ID###">
-							<fieldset>
+							<fieldset id="fieldset_veranstaltung_form_fachbereich_###ID###" >
 								<legend>Fachbereich:</legend>
 								
 								###INPUT_FB###
@@ -461,7 +490,7 @@ class Formular{
 				<tr>
 					<td colspan="2">
 						<div class="div_veranstaltung_form_usertype" id="div_veranstaltung_form_usertype_###ID###">
-							<fieldset>
+							<fieldset id="fieldset_veranstaltung_form_usertype_###ID###">
 								<legend>Modus:</legend>
 								
 								###INPUT_UT###
