@@ -88,6 +88,18 @@ class FaqController{
         // Methode ausführen und zurückgeben
         return $faqModel->createReadStatementUsertypes();
     }
+	
+	/**
+     * Führt die Abfragemethode aus um alle Usergruppen zu erhalten
+     * @return Array
+     */
+    public function getLang(){
+        
+		 // Objekt erstellen
+	   $faqModel = new Faq();
+        // Methode ausführen und zurückgeben
+        return $faqModel->createReadStatementLang();
+    }
 
 
 

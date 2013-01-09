@@ -8,7 +8,16 @@
 </head>
 
 <body>
-
+<script type="text/javascript">
+<!--
+  function conf(){
+    check = window.confirm("Wollen Sie wirklich löschen?");
+ 
+    return check;
+    
+  }
+// -->
+</script>
 	<div id ="header">
     	<div id ="headline">
         	<h1>CMS Web-App</h1>
@@ -59,6 +68,7 @@
 		
 		$resultSetDepartments = $controller->getDepartments();
 		$resultSetUsertypes = $controller->getUsertypes();
+		$resultSetLang = $controller->getLang();
 		
 		?>
 		<div id="mainContainer">
@@ -161,7 +171,24 @@
 									<tr>
 									
 										<td >
-											<input name=\"lang\" type=\"text\" value=\"$lang\" size=\"7\" maxlength=\"5\" >
+											 <select name=\"lang\" size=\"1\">";
+											 
+											//Schleife die alle Usertypes als <option> ausgibt.
+											//der passende Usertype wird dabei vorausgewählt
+											 for($n=0; $n<count($resultSetLang); $n++) {
+												$id = $resultSetLang[$n]['id'];
+												$name = $resultSetLang[$n]['name'];
+												
+												//Vorauswahl des Usertypes aus Datenbank
+												if($id == $lang){
+													echo "<option value=\"$id\" selected>$name</option>";
+												}else{
+													echo "<option value=\"$id\">$name</option>";
+												}
+											}
+											
+											
+											echo "</select>
 											
 										</td>
 										<td >
@@ -216,7 +243,7 @@
 								</table>
 								<div class=\"formRight\">
 									<input  class=\"button\" name=\"change\" type=\"submit\" value=\"Ändern\"> &nbsp &nbsp &nbsp
-									<input  class=\"button\" name=\"delete\" type=\"submit\" value=\"Löschen\">
+									<input  class=\"button\" name=\"delete\" type=\"submit\" onclick=\"return conf()\" value=\"Löschen\">
 									
 								</div>
 							</td>

@@ -8,26 +8,17 @@
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
- 
- 
- /*
- Fragen: 
-	Konstruktor: Instanz erzeugen möglich?
-	createInsertStatementFaq: Einzelne Abarbeitung der Inserts ok oder bessere möglichkeit?(Großen Befehl bauen)
-	INSERT und DELETE: Zwei InDB methoden oder eine?
-	UMLAUTE!!!!!
-	Department Alle, Usertype Alle?
- 
- */
 
 class Faq {
+	
+	//Globale Variable zur überprüfung ob alle SQL Abfragen bgeschickt wurden
+	public $checkDBInsert = 0;
 
-    /**
+	 /**
      * Kontrolliert Daten auf vollständigkeit und richtige eingabewerte
      *
      */
     public function controllInput($data){
-
 		// check ob eingabe und überprüfung
 		if($data['inputArt'] == 1){
 			$checkOverall = true;
@@ -131,6 +122,15 @@ class Faq {
 				
 				//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
 				$this->createInsertStatementFaq_User($faqID, $user);
+				
+				// Überprüfung ob alles in Datenbank gespeichert wurde
+				if($this->checkDBInsert == 3){
+					echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
+				}else{
+					echo "<br/> Fehler!!!";
+				}
+				//Rücksetzen der Variable
+				$this->checkDBInsert == 0;
 			}
         } catch(Exception $e){
             echo $e->getMessage();
@@ -144,6 +144,7 @@ class Faq {
 	public function createInsertStatementFaq_Dept($faqID, $dept){
 		// Abfrage erstellen
 		$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ('$faqID', '$dept')";
+		
 		// Fertige SQL-Abfrage an Methode zum speichern übergeben
 		$this->intoDB($insert, true);
 	}
@@ -173,6 +174,14 @@ class Faq {
 		$this->createDeleteStatementUsertyp($id);
 		//FAQ löschen
 		$this->createDeleteStatementFaq($id);
+		// Überprüfung ob alles in Datenbank gelöscht wurde
+		if($this->checkDBInsert == 3){
+			echo "<br/> Die FAQ wurde erfolgreich gelöscht. <br/> <br/>";
+		}else{
+			echo "<br/> Fehler!!!";
+		}
+		//Rücksetzen der Variable
+		$this->checkDBInsert == 0;
 		
 	}
 	/**
@@ -225,7 +234,14 @@ class Faq {
 		$this->createUpdateStatementFaq_Dept($data['id'],$data['departmentID']);
 		//FAQ löschen
 		$this->createUpdateStatementFaq_User($data['id'],$data['usertypeID']);
-		
+		// Überprüfung ob alles in Datenbank geändert wurde
+		if($this->checkDBInsert == 3){
+			echo "<br/> Ihre Änderungen wurden erfolgreich gespeichert. <br/><br/>";
+		}else{
+			echo "<br/> Fehler!!!";
+		}
+		//Rücksetzen der Variable
+		$this->checkDBInsert == 0;
 	}
 	
 	/**
@@ -284,10 +300,10 @@ class Faq {
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			//Connection Minh
-			$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
-            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
             
 			
             // Abfrage ausführen
@@ -301,9 +317,10 @@ class Faq {
 			}
             // Ergebnis der Abfrage ausgeben
 			if($result == 1){
-				echo "</br> Ihre Eingaben wurden erfolgreich gespeichert.";
+				//$this->setCheckDBInsert($this->getCheckDBInsert()+1);
+				$this->checkDBInsert += 1;
 			}else{
-				echo "</br> !!! Eingaben wurden NICHT gespeichert.";
+				echo "</br> !!! Eingaben der".($this->checkDBInsert + 1)." Abfrage wurden NICHT gespeichert.";
 			}
 
         } catch(Exception $e){
@@ -385,6 +402,18 @@ class Faq {
 		// Abfrage an Datenbank
 		return $this->getData($read);
 	}
+	
+	/**
+     * SQL-Statement zum auslesen der Sprache aus der Datenbank erstellen
+     * @return Array mit Datenbank werten
+     */
+	public function createReadStatementLang(){
+		// Select Statement erstellen
+			$read = "SELECT id, name FROM languages"; 
+
+		// Abfrage an Datenbank
+		return $this->getData($read);
+	}
 
 	
 	
@@ -401,10 +430,10 @@ class Faq {
             //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
 			//Connection Minh
-			$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
-            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
 			
             // Abfrage ausführen
             $result = $db->query($read);
@@ -417,7 +446,7 @@ class Faq {
 				}
 				return $resultSet;
 			}else{
-				echo "Keine FAQ zu ihrer Auswahl vorhanden<br />";
+				echo "Keine FAQ zu ihrer Auswahl vorhanden <br/> <br />";
 			}
 			
 			//Rückgabe

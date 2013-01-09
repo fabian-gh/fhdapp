@@ -40,6 +40,7 @@
 		
 		$resultSetDepartments = $controller->getDepartments();
 		$resultSetUsertypes = $controller->getUsertypes();
+		$resultSetLang = $controller->getLang();
 		
 		$anzahl = 1;
 		if(isset($_POST['anzahl'])){
@@ -115,7 +116,16 @@
 									<tr>
 									
 										<td >
-											<input name="lang<?php echo $i ?>" type="text" value="1" size="7" maxlength="5" >
+											 <select name="lang<?php echo $i ?>" size="1">
+											<?php
+											for($n=0; $n<count($resultSetLang); $n++) {
+												$id = $resultSetLang[$n]['id'];
+												$name = $resultSetLang[$n]['name'];
+												
+												echo "<option value=\"$id\">$name</option>";
+											}
+											?>
+											</select>
 											
 										</td>
 										<td >
