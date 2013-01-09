@@ -208,127 +208,30 @@ class Formular{
 	
 	private function getJqueryforAll()
 	{	
-		$CHECK_FB_INPUT = '';
-		
-		for($i=0; $i<count($this->FACHBEREICHE); $i++) 
-		{
-			$CHECK_FB_INPUT .=
-				'
-				if ($("#veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_'.$this->ID.'").is(":checked")){
-					CHECKED = true;
-				}
-				';
-		}
-		
-		$CHECK_UT_INPUT = '';
-		for($i=0; $i<count($this->USERTYPES); $i++) 
-		{
-			$CHECK_UT_INPUT .=
-				'
-				if ($("#veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_'.$this->ID.'").is(":checked")){
-							CHECKED = true;
-						}
-				';
-		}
-		
+	
 		$JQUERY =
 				'
+				//Methode um Formular zu ueberpruefen
 				$("#veranstaltung_form_'.$this->ID.'").submit(function(){
-					TAG 			= $("#veranstaltung_datum_tag_'.$this->ID.'").val();
-					MONAT 			= $("#veranstaltung_datum_monat_'.$this->ID.'").val();
-					JAHR			= $("#veranstaltung_datum_jahr_'.$this->ID.'").val();
-					STUNDEN			= $("#veranstaltung_uhrzeit_stunden_'.$this->ID.'").val();
-					MINUTEN 		= $("#veranstaltung_uhrzeit_minuten_'.$this->ID.'").val();
-					BESCHREIBUNG 	= $("#veranstaltung_beschreibung_'.$this->ID.'").val();
-					NAME 			= $("#veranstaltung_name_'.$this->ID.'").val();
-										
-					FALSCHE_EINGABEN = "";
-					CORRECT = true;
-					
-					if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
-					{
-						FALSCHE_EINGABEN += "Uhrzeit falsch.Bitte Ueberpruefen!\n";
-						$("#div_veranstaltung_form_uhrzeit_'.$this->ID.'").css("border", "2px solid red");
-						CORRECT = false;
-					}
-					else
-						$("#div_veranstaltung_form_uhrzeit_'.$this->ID.'").css("border", "0px solid black");
-										
-					if(!(checkDatum(TAG,MONAT,JAHR) == true))
-					{
-						FALSCHE_EINGABEN += "Datum falsch.Bitte Ueberpruefen!\n";
-						$("#div_veranstaltung_form_datum_'.$this->ID.'").css("border", "2px solid red");
-						CORRECT = false;
-					}
-					else
-						$("#div_veranstaltung_form_datum_'.$this->ID.'").css("border", "0px solid black");
-					
-					if(!(checkText(BESCHREIBUNG) == true))
-					{
-						FALSCHE_EINGABEN += "Bitte geben Sie eine Beschreibung ein!\n";
-						$("#div_veranstaltung_form_beschreibung_'.$this->ID.'").css("border", "2px solid red");
-						CORRECT = false;
-					}
-					else
-						$("#div_veranstaltung_form_beschreibung_'.$this->ID.'").css("border", "0px solid black");
-					
-					if(!(checkText(NAME) == true))
-					{
-						FALSCHE_EINGABEN += "Bitte geben Sie einen Namen fuer die Veranstaltung ein!\n";
-						$("#div_veranstaltung_form_name_'.$this->ID.'").css("border", "2px solid red");
-						CORRECT = false;
-					}
-					else
-						$("#div_veranstaltung_form_name_'.$this->ID.'").css("border", "0px solid black");
-					
-					CHECKED = false;
-					'.$CHECK_FB_INPUT.'
-					
-					if(!(CHECKED == true))
-					{
-						FALSCHE_EINGABEN += "Es muss mindestens ein Fachbereich ausgewaehlt werden!\n";
-						$("#div_veranstaltung_form_fachbereiche_'.$this->ID.'").css("border", "2px solid red");
-						CORRECT = false;
-					}
-					else
-						$("#div_veranstaltung_form_fachbereiche_'.$this->ID.'").css("border", "0px solid black");
-					
-					CHECKED = false;
-					'.$CHECK_UT_INPUT.'
-					
-					if(!(CHECKED == true))
-					{
-						FALSCHE_EINGABEN += "Es muss mindestens ein Modus ausgewaehlt werden!\n";
-						$("#div_veranstaltung_form_usertype_'.$this->ID.'").css("border", "2px solid red");
-						CORRECT = false;
-					}
-					else
-						$("#div_veranstaltung_form_usertype_'.$this->ID.'").css("border", "0px solid black");
-					
-					
-					
-					if(CORRECT == false)
-					{
-						alert("Bitte beachten Sie:\n"+FALSCHE_EINGABEN);
-						return false;
-					}
-
-					return true;
+					return checkFormular("'.$this->ID.'");
 				});
 				
+				//Methode um allen Checkboxen von Fachbereich das Haekchen zu setzen
 				$("#select_fachbereich_all_'.$this->ID.'").click(function(){
 					setSelected("fieldset_veranstaltung_form_fachbereich_'.$this->ID.'");
 				});
 				
+				//Methode um allen Checkboxen von Fachbereich das Haekchen zu entfernen
 				$("#select_fachbereich_none_'.$this->ID.'").click(function(){
 					setUnselected("fieldset_veranstaltung_form_fachbereich_'.$this->ID.'");
 				});
 				
-					
+				//Methode um allen Checkboxen von Usertype das Haekchen zu setzen
 				$("#select_usertype_all_'.$this->ID.'").click(function(){
 					setSelected("fieldset_veranstaltung_form_usertype_'.$this->ID.'");
 				});
 				
+				//Methode um allen Checkboxen von Usertype das Haekchen zu entfernen
 				$("#select_usertype_none_'.$this->ID.'").click(function(){
 					setUnselected("fieldset_veranstaltung_form_usertype_'.$this->ID.'");
 				});
