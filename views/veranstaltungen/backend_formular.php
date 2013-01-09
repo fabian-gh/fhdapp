@@ -52,13 +52,13 @@ class Formular{
 					'
 									<br/>
 									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###"	name="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'" ###FB'.$this->FACHBEREICHE[$i]['id'].'### />
-									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'">'.$this->FACHBEREICHE[$i]['name'].'</label> 
+									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###">'.$this->FACHBEREICHE[$i]['name'].'</label> 
 					';
 				$INPUT_RESULT .= 
 					'
 									<br/>
 									<input type="checkbox" class="veranstaltung_checkbox" 	id="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'"	name="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'" ###FB'.$this->FACHBEREICHE[$i]['id'].'### disabled="disabled" />
-									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'">'.$this->FACHBEREICHE[$i]['name'].'</label>
+									<label for="veranstaltungen_fachbereich_'.$this->FACHBEREICHE[$i]['id'].'_###ID###">'.$this->FACHBEREICHE[$i]['name'].'</label>
 					';
 			}
 			
@@ -85,13 +85,13 @@ class Formular{
 					'
 									<br/>
 									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###"	name="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'" ###USER'.$this->USERTYPES[$i]['id'].'### />
-									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'">'.$this->USERTYPES[$i]['name'].'	</label>
+									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###">'.$this->USERTYPES[$i]['name'].'	</label>
 					';
 				$INPUT_RESULT .= 
 					'
 									<br/> 
 									<input type="checkbox" class="veranstaltung_checkbox"	id="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'"	name="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'" ###USER'.$this->USERTYPES[$i]['id'].'### disabled="disabled" />
-									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'">'.$this->USERTYPES[$i]['name'].'	</label>
+									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###">'.$this->USERTYPES[$i]['name'].'	</label>
 					';
 			}
 			$this->EVENTFORM 	=  str_replace ('###INPUT_UT###'			,$INPUT_FORM			,$this->EVENTFORM 	);
@@ -136,7 +136,7 @@ class Formular{
 			<a class="button" id="veranstaltung_bearbeiten_'.$this->ID.'"	>Veranstaltung bearbeiten</a>
 			<a class="button" id="loesch_button_'.$this->ID.'">L&ouml;schen</a>
 			<form action="?FB='.$FB_GET.'" id="veranstaltung_loeschen_'.$this->ID.'" method="post">
-				<input type="hidden" name="loeschen" id="loeschen" value="'.$this->ID.'"/>
+				<input type="hidden" name="loeschen_id" id="loeschen_hidden_'.$this->ID.'" value="'.$this->ID.'"/>
 			</form>
 		';
 		

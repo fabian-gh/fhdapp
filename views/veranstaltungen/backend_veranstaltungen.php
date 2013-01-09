@@ -60,13 +60,21 @@
 			}
 		}		
 	}
-	else if(isset($_POST['loeschen']))
+	else if(isset($_POST['loeschen_id']))
 	{
-		if($Controller->deleteEvent($_POST['loeschen']) == true)
+		if($Controller->deleteEvent($_POST['loeschen_id']) == true)
 			$MESSAGE = 'Veranstaltung wurde gel&ouml;scht.';
 		else
 			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht gel&ouml;scht.';
 	}
+	else if(isset($_POST['loeschen_all']))
+	{
+		if($Controller->deleteOldEvent() == true)
+			$MESSAGE = 'Alte Veranstaltung wurde gel&ouml;scht.';
+		else
+			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltung wurde nicht gel&ouml;scht.';
+	}
+	
 	
 	echo '
 		<div class="veranstaltung_message" style="border-width:1px; border-style:solid;">
@@ -75,6 +83,14 @@
 	';
 	
 	echo '<br/><br/><br/><br/>';
+	
+	echo '	
+		<a class="button" id="loesch_button_all">Alle vergangenen Veranstaltungen l&ouml;schen</a>
+			<form action="?FB='.$FB_GET.'" id="veranstaltungen_loeschen" method="post">
+				<input type="hidden" name="veranstaltung_alt_loeschen" id="loeschen_hidden_all" value="true"/>
+			</form>
+		<br/><br/>	
+		';
 	
 	//Neues Objekt von Formular erstellen
 	$Formular = new Formular($Controller);
@@ -173,6 +189,12 @@
 				
 				$("#fachbereich_select").change(function(){
 					$("#fachbereich_auswahl").submit();
+				});
+				
+				$("#loesch_button_all").click(function(){
+					MESSAGE = "Achtung!!!\nSollen wirklich alle Veranstaltungen geloescht werden?";
+					if(confirm(MESSAGE))
+						$("#veranstaltungen_loeschen").submit();
 				});
 				
 				'.$JQUERY.'	
