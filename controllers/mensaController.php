@@ -23,7 +23,11 @@ class MensaController{
 	 * Constructor
 	 */
 	public function __construct(){
-		require_once '../../models/mensa.php';
+		if(!isset($_GET['eis'])){
+			require_once '../../models/mensa.php';
+		} else {
+			require_once 'models/mensa.php';
+		}
 		$this->MensaModel = new Mensa();
 	}
 
@@ -81,6 +85,5 @@ class MensaController{
 	}
 }
 
- 
 /* End of file mensaController.php */
 /* Location: ./controllers/mensaController.php */

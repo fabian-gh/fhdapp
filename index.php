@@ -91,6 +91,7 @@
                             switch($_GET['page'])
                             {
                                 case 'Termine': require_once 'views/termine/termine.php'; break;
+								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
                             }
                         }
                         else //ebene3: "startseite", auswahl der unterkategorie

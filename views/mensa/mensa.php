@@ -10,12 +10,12 @@
  */
 
 // include layout
-require_once '../../layout/frontend/header.php';
+//require_once '../../layout/frontend/header.php';
 ?>
-<link href="../../sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
 <?php
 
-    require_once '../../controllers/mensaController.php';
+    require_once 'controllers/mensaController.php';
     $MensaController = new MensaController();
     $plans = $MensaController->callGetCanteenPlans();
 
@@ -94,5 +94,5 @@ require_once '../../layout/frontend/header.php';
 
 
 <?php
-require_once '../../layout/frontend/footer.php';
+//require_once '../../layout/frontend/footer.php';
 ?>
