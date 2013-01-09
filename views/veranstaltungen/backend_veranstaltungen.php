@@ -201,13 +201,13 @@
 			});
 			
 			function checkFormular(ID){
-				TAG 			= $("#veranstaltung_datum_tag_"+ID+"").val();
-				MONAT 			= $("#veranstaltung_datum_monat_"+ID+"").val();
-				JAHR			= $("#veranstaltung_datum_jahr_"+ID+"").val();
-				STUNDEN			= $("#veranstaltung_uhrzeit_stunden_"+ID+"").val();
-				MINUTEN 		= $("#veranstaltung_uhrzeit_minuten_"+ID+"").val();
-				BESCHREIBUNG 	= $("#veranstaltung_beschreibung_"+ID+"").val();
-				NAME 			= $("#veranstaltung_name_"+ID+"").val();
+				TAG 			= $("#veranstaltung_datum_tag_"+ID).val();
+				MONAT 			= $("#veranstaltung_datum_monat_"+ID).val();
+				JAHR			= $("#veranstaltung_datum_jahr_"+ID).val();
+				STUNDEN			= $("#veranstaltung_uhrzeit_stunden_"+ID).val();
+				MINUTEN 		= $("#veranstaltung_uhrzeit_minuten_"+ID).val();
+				BESCHREIBUNG 	= $("#veranstaltung_beschreibung_"+ID).val();
+				NAME 			= $("#veranstaltung_name_"+ID).val();
 									
 				FALSCHE_EINGABEN = "";
 				CORRECT = true;
@@ -216,61 +216,61 @@
 				if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
 				{
 					FALSCHE_EINGABEN += "Uhrzeit falsch.Bitte Überprüfen!\n";
-					$("#div_veranstaltung_form_uhrzeit_"+ID+"").css("border", "2px solid red");
+					$("#div_veranstaltung_form_uhrzeit_"+ID).css("border", "2px solid red");
 					CORRECT = false;
 				}
 				else
-					$("#div_veranstaltung_form_uhrzeit_"+ID+"").css("border", "0px solid black");
+					$("#div_veranstaltung_form_uhrzeit_"+ID).css("border", "0px solid black");
 				
 				//Überprüfen des Datums				
 				if(!(checkDatum(TAG,MONAT,JAHR) == true))
 				{
 					FALSCHE_EINGABEN += "Datum falsch.Bitte Überprüfen!\n";
-					$("#div_veranstaltung_form_datum_"+ID+"").css("border", "2px solid red");
+					$("#div_veranstaltung_form_datum_"+ID).css("border", "2px solid red");
 					CORRECT = false;
 				}
 				else
-					$("#div_veranstaltung_form_datum_"+ID+"").css("border", "0px solid black");
+					$("#div_veranstaltung_form_datum_"+ID).css("border", "0px solid black");
 				
 				//Überprüfen ob Veranstaltungs-Beschreibung gesetzt ist	
 				if(!(checkText(BESCHREIBUNG) == true))
 				{
 					FALSCHE_EINGABEN += "Bitte geben Sie eine Beschreibung ein!\n";
-					$("#div_veranstaltung_form_beschreibung_"+ID+"").css("border", "2px solid red");
+					$("#div_veranstaltung_form_beschreibung_"+ID).css("border", "2px solid red");
 					CORRECT = false;
 				}
 				else
-					$("#div_veranstaltung_form_beschreibung_"+ID+"").css("border", "0px solid black");
+					$("#div_veranstaltung_form_beschreibung_"+ID).css("border", "0px solid black");
 				
 				//Überprüfen ob Veranstaltungsname gesetzt ist	
 				if(!(checkText(NAME) == true))
 				{
 					FALSCHE_EINGABEN += "Bitte geben Sie einen Namen für die Veranstaltung ein!\n";
-					$("#div_veranstaltung_form_name_"+ID+"").css("border", "2px solid red");
+					$("#div_veranstaltung_form_name_"+ID).css("border", "2px solid red");
 					CORRECT = false;
 				}
 				else
-					$("#div_veranstaltung_form_name_"+ID+"").css("border", "0px solid black");
+					$("#div_veranstaltung_form_name_"+ID).css("border", "0px solid black");
 				
 				//Überprüfen ob mind. 1 Fachbereicha ausgewählt ist	
 				if(!(checkSelected("fieldset_veranstaltung_form_fachbereich_"+ID) == true))
 				{
 					FALSCHE_EINGABEN += "Es muss mindestens ein Fachbereich ausgewählt werden!\n";
-					$("#div_veranstaltung_form_fachbereiche_"+ID+"").css("border", "2px solid red");
+					$("#div_veranstaltung_form_fachbereiche_"+ID).css("border", "2px solid red");
 					CORRECT = false;
 				}
 				else
-					$("#div_veranstaltung_form_fachbereiche_"+ID+"").css("border", "0px solid black");
+					$("#div_veranstaltung_form_fachbereiche_"+ID).css("border", "0px solid black");
 				
 				//Überprüfen ob mind. 1 Usertype ausgewählt ist	
 				if(!(checkSelected("fieldset_veranstaltung_form_usertype_"+ID) == true))
 				{
 					FALSCHE_EINGABEN += "Es muss mindestens ein Modus ausgewählt werden!\n";
-					$("#div_veranstaltung_form_usertype_"+ID+"").css("border", "2px solid red");
+					$("#div_veranstaltung_form_usertype_"+ID).css("border", "2px solid red");
 					CORRECT = false;
 				}
 				else
-					$("#div_veranstaltung_form_usertype_"+ID+"").css("border", "0px solid black");
+					$("#div_veranstaltung_form_usertype_"+ID).css("border", "0px solid black");
 				
 				
 				if(CORRECT == false)
