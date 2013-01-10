@@ -2,9 +2,15 @@
 
 class kontakteController {
 
+	private $contactsModel;
+
 	public function __construct(){
 		//create new contact Model
-		require_once '../../models/kontakteModel.php';
+		if(!isset($_GET['eis'])){
+			require_once '../../models/kontakteModel.php';
+		} else {
+			require_once 'models/kontakteModel.php';
+		}
 		$this->contactsModel = new kontakteModel();
 	}
 

@@ -77,7 +77,7 @@ class kontakteModel{
 				$resultSet[] = $row;
 			}
 			return $resultSet;
-										
+
 		}
 		catch(Exception $e){
 			echo $e->getMessage();

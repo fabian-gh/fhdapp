@@ -1,4 +1,4 @@
-<?php session_start();
+<?php
 
 // TODO: Campus berücksichtigen beim Einfügen / Ändern
 

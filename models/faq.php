@@ -401,7 +401,8 @@ class Faq {
             //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
 			//Connection Minh
-			$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			$db = new mysqli();
+			$db->connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			
 			//Connection Marc
             //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');

@@ -1,15 +1,3 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="../../sources/css/style.css" media="screen" />
-		<link rel="stylesheet" href="../../sources/css/jquery.mobile-1.2.0.css"/>
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-        <title>Kontakte</title>
-    </head>
 	<script type="text/javascript">	
 		
 		function init() {
@@ -69,21 +57,7 @@
 		}
 		
 	</style>
-	<!-- Looking for deep links or setting default page content -->
-	<body onLoad="init()">
-		<div id ="header">
-			<div id ="logo">
-				<a href="#">FHD</a>
-			</div>
-			<div id ="breadcrumb">
-				<a href="#">Start</a> »  
-				<a href="#" class="nav-icon">Interessent</a> »  
-				<a href="#">Studgang »</a>
-				<a href="#">BMI »</a>
-				<a href="#">Kontakte</a>
-			</div>
-		</div>
-		
+
 		<div id ="content" data-role="content">
 			<div >
 				<!-- Categories -->
@@ -107,7 +81,7 @@
 					<?php
 					
 						// Create controller object to access data
-						require_once '../../controllers/kontakteController.php';
+						require_once 'controllers/kontakteController.php';
 						$Contacts = new kontakteController();
 						
 						// Get contacts from database
