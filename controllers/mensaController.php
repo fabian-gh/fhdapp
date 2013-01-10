@@ -4,7 +4,7 @@
  * FHD-App
  *
  * @version 0.0.1
- * @copyright Fachhochschule Duesseldorf, 2012
+ * @copyright Fachhochschule Duesseldorf, 2012/2013
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
@@ -23,31 +23,22 @@ class MensaController{
 	 * Constructor
 	 */
 	public function __construct(){
-		require_once '../../models/mensa.php';
+		if(!isset($_GET['eis'])){
+			require_once '../../models/mensa.php';
+		} else {
+			require_once 'models/mensa.php';
+		}
 		$this->MensaModel = new Mensa();
-			
-		/*if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
-
-			if(isset($_GET['mode'])){
-
-				switch($_GET['mode']){
-					case 'add':
-						require_once 'edit.php';
-					break;
-
-					case 'edit':
-						$this->callEditPlan($_GET['cw']);
-						require_once 'edit.php';
-					break;
-
-					case 'delete':
-						$this->callDeletePlan($_GET['cw']);
-					break;
-				}
-			}
-		}*/
 	}
 
+
+
+	/**
+	 * Call the getCanteenPlans()-Method
+	 */
+	public function callGetCanteenPlans(){
+		return $this->MensaModel->getCanteenPlans();
+	}
 
 
 	/**
@@ -64,7 +55,7 @@ class MensaController{
 	 * @param Array $post
 	 */
 	public function callEditPlan($calenderweek){
-		$this->MensaModel->editPlan($calenderweek);
+		return $this->MensaModel->editPlan($calenderweek);
 	}
 
 
@@ -89,11 +80,10 @@ class MensaController{
 	/**
 	 * Insert the canteen plan into the database
 	 */
-	public function callInsertPlan(){
-		$this->MensaModel->insertPlan();
+	public function callInsertPlan($get){
+		$this->MensaModel->insertPlan($get);
 	}
 }
 
- 
 /* End of file mensaController.php */
 /* Location: ./controllers/mensaController.php */

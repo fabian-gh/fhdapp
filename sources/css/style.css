@@ -90,14 +90,15 @@ data-expanded-icon="arrow-d" data-theme="a">
 .ui-btn-up-a,
 .ui-btn-hover-a { 
 	border: 1px solid #ffdfdf; 
-	background:#a60909; 
+	background:#111111; 
 	color:#ffffff; 
 	font-weight: bold; 
 	text-shadow: 0 -1px 1px #000000; 
 	background-image: -moz-linear-gradient(top, #d54343, #a60909); 
-	background-image: -o-linear-gradient(top, #d54343, #a60909);
-	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#d54343),color-stop(1,#a60909));
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#d54343),color-stop(1,#a60909)); 
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#d54343', EndColorStr='#a60909')";
 	background-image: -ms-linear-gradient(top, #d54343, #a60909);
+	background-image: -o-linear-gradient(top, #d54343, #a60909);
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 	-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);

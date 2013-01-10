@@ -10,5 +10,3 @@ header('Location: ../../index.php');
 
 /* End of file login.php */
 /* Location: ./views/login.php */
-
-?>

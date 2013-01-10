@@ -37,7 +37,7 @@
 <script type="text/javascript">$('#liAppointments').attr('class', 'active');</script>
 
 <!-- funktionen zum überprüfen der felder einbinden -->
-<script type="text/javascript" src="../../sources/js/termine.js"></script>
+<script type="text/javascript" src="../../sources/customjs/termine.js"></script>
 
 <h2>Termine</h2>
 

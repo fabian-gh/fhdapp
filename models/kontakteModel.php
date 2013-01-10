@@ -21,7 +21,12 @@ class kontakteModel{
 														.$_POST['contactRoom'] . "', '"
 														.$_POST['contactAdress'] . "', '"
 														.$_POST['contactOfficehours'] . "', '"
-														.$_POST['contactPhoneOfficehours'] . "');");	
+														.$_POST['contactPhoneOfficehours'] . "');");
+			echo '
+			<div class="confirmation">
+				<p> Der Kontakt wurde eingefügt. </p>
+			</div>
+			';	
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -29,29 +34,36 @@ class kontakteModel{
 	}
 
 	public function m_alterContact($id){
+
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to get all the Categories that affect contacts
 			$result = $db->query("UPDATE contacts SET
-									title = '" . $_POST['alterContactTitle'] . "',
-									category_id = " . $_POST['alterContactCategory'] . ",
-									department_id =" . $_POST['alterContactDepartment'] . ",
-									description = '" . $_POST['alterContactDescription'] ."',
-									contact = '" . $_POST['alterContactContact'] ."',
-									phone = '" . $_POST['alterContactPhone'] ."',
-									fax = '" . $_POST['alterContactFax'] ."',
-									mail = '" . $_POST['alterContactMail'] ."',
-									room = '" . $_POST['alterContactRoom'] ."',
-									address = '" . $_POST['alterContactAddress'] ."',
-									office_hours = '" . $_POST['alterContactOfficeHours'] ."',
-									phone_office_hours = '" . $_POST['alterContactPhoneOfficeHours'] ."'
-									");
-										
+										title = '" . $_POST['alterContactTitle'] . "',
+										category_id = " . $_POST['alterContactCategory'] . ",
+										department_id =" . $_POST['alterContactDepartment'] . ",
+										description = '" . $_POST['alterContactDescription'] ."',
+										contact = '" . $_POST['alterContactContact'] ."',
+										phone = '" . $_POST['alterContactPhone'] ."',
+										fax = '" . $_POST['alterContactFax'] ."',
+										mail = '" . $_POST['alterContactMail'] ."',
+										room = '" . $_POST['alterContactRoom'] ."',
+										address = '" . $_POST['alterContactAddress'] ."',
+										office_hours = '" . $_POST['alterContactOfficeHours'] ."',
+										phone_office_hours = '" . $_POST['alterContactPhoneOfficeHours'] ."' 
+									WHERE id = " . $id);
+
+
+			echo '
+					<div class="confirmation">
+						<p> Die Kontaktdaten wurden geändert. </p>
+					</div>
+				';
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
-		}		
+		}	
 	}
 
 	public function m_getCategories(){
@@ -65,7 +77,7 @@ class kontakteModel{
 				$resultSet[] = $row;
 			}
 			return $resultSet;
-										
+
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -95,7 +107,7 @@ class kontakteModel{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to get all the Categories that affect contacts
-			$result = $db->query("SELECT con.id AS contactID, con.title, con.description, con.contact, con.phone, con.fax, con.mail, con.room, con.address, con.office_hours, con.phone_office_hours, dept.name AS deptName, cat.Name AS catName
+			$result = $db->query("SELECT con.id AS contactID, con.title, con.description, con.contact, con.phone, con.fax, con.mail, con.room, con.address, con.office_hours, con.phone_office_hours, dept.name AS deptName, cat.Name AS catName, con.category_id
 									FROM contacts con, contact_categories cat, departments dept
 									WHERE con.category_id = cat.id AND con.department_id = dept.id");
 			$resultSet = null;
@@ -112,12 +124,19 @@ class kontakteModel{
 	}
 
 	public function m_deleteContact($id){
+			
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to insert the values
 			// *** Foreign Keys
-			$db->query("DELETE FROM contacts WHERE id = " . $id);					
+			$db->query("DELETE FROM contacts WHERE id = " . $id);	
+
+			echo '
+			<div class="confirmation">
+				<p> Der Kontakt wurde gelöscht. </p>
+			</div>
+			';				
 		}
 		catch(Exception $e){
 			echo $e->getMessage();

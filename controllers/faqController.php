@@ -13,7 +13,7 @@ class FaqController{
     
 	function __construct() {
 		// Model einbinden
-       require_once '../../models/faq.php';
+       require_once __DIR__.'../../models/faq.php';
    }
     /**
      * Übergibt neue Daten an Model
@@ -43,13 +43,13 @@ class FaqController{
      * Führt die Abfragemethode aus um alle Faqs zu erhalten
      * @return Array
      */
-    public function getFAQsFrontend($user, $dept){
+    public function getFAQsFrontend($dept, $eis){
         
 		
 	   // Objekt erstellen
 	   $faqModel = new Faq();
         // Methode ausführen und zurückgeben
-        return $faqModel->createReadStatementAllFrontend($user, $dept);
+        return $faqModel->createReadStatementAllFrontend($dept, $eis);
     }
 	
 	/**

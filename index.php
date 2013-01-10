@@ -1,27 +1,23 @@
-﻿<?php
+<?php session_start();
 
-    //falls keine connection vorhanden, connection erstellen
-    if(!isset($_SESSION['connection']))
+    //falls keine connection vorhanden, also beim ersten start der seite, connection erstellen und gegebenenfalls cookies laden
+    if(!isset($_SESSION['user']))
     {
-        session_start();
         require_once 'system/database.php';
         new Database();
-    }
-    //cookies lesen, damit beim ersten aufruf der seite der letzte kram geladen wird
 
-	    //falls kein deeplink verwendet wird
+        //falls kein deeplink verwendet wird
         if(count($_GET) <= 0)
-		
             if(isset($_COOKIE['get']))
             {
-               $link = "index.php?";
-            foreach($_COOKIE['get'] as $key => $value)
+                $link = "index.php?";
+                foreach($_COOKIE['get'] as $key => $value)
                     $link .= "$key=$value" . "&";//$link .= "{$_GET["$key"]}=$value";
                 header("Location: $link");
             }
-    
+    }
     //sonst cookies bei jedem seitenaufbau schreiben
-    else
+    else 
     {
         //alte cookies löschen
         if(isset($_COOKIE['get']))
@@ -32,23 +28,24 @@
         foreach($_GET as $key => $value)
             setcookie("get[$key]", $value, 2000000000);
     }
+
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-<title>FHD WebApp</title>
-<!-- max. Breite u. Skalierung -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- Zeichensatz -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- CSS -->
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-<link rel="stylesheet" href="sources/css/style.css" />
-<!-- jQuery -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <title>FHD WebApp</title>
+    <!-- max. Breite u. Skalierung -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Zeichensatz -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="sources/css/style.css" />
+    <!-- jQuery -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 </head>
 
 <body>
@@ -59,10 +56,12 @@
         </div>
         <div id ="breadcrumb">
             <a href="index.php">Start</a> 
-		
+
             <?php
+
                 if(isset($_GET['eis']))
-					echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
+                    echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
+
                 if(isset($_GET['selector']))
                     echo "» <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}'>{$_GET['selector']}</a>";
 
@@ -71,6 +70,7 @@
 
                 if(isset($_GET['page']))
                     echo " » <a href=''>{$_GET['page']}</a>";
+
             ?>
 
         </div>
@@ -79,7 +79,7 @@
     <div id ="content">
 
         <?php 
-		
+
             if(isset($_GET['eis']))
             {
                 if(isset($_GET['selector']))
@@ -90,8 +90,12 @@
                         {
                             switch($_GET['page'])
                             {
+                                case 'Termine': require_once 'views/termine/termine.php'; break;
+								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
+								case 'FAQ': require_once 'views/faq/faq.php'; break;
+								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
+								case 'Studiengang': require_once 'views/studiengaenge/studiengaenge.php'; break;
 								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
-								case 'Termine': require_once 'views/termine/termine.php'; break;
                             }
                         }
                         else //ebene3: "startseite", auswahl der unterkategorie
@@ -103,7 +107,7 @@
                     {
                         switch($_GET['selector'])
                         {
-                            case 'Studiengänge': require_once 'views/navigation/courses.php'; break;
+                            case 'Studiengaenge': require_once 'views/navigation/courses.php'; break;
                             case 'Quiz': require_once 'views/navigation/quiz.php'; break;
                         }
                     }

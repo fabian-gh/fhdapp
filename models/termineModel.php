@@ -18,7 +18,7 @@
 			try
 			{
 				$result = $this->connection->query("SELECT * FROM semester WHERE department_id = $dept");
-				$resultSet = [];
+				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
 					$resultSet[] = new Semester($row["id"], $row["name"], $row["department_id"]);
@@ -49,7 +49,7 @@
 														&& appointments.semester_id = semester.id
 														&& $eis
 														GROUP BY semester.id");
-				$resultSet = [];
+				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
 					$resultSet[] = new Semester($row["id"], $row["name"], $row["department_id"]);
@@ -108,7 +108,7 @@
 			try
 			{
 				$result = $this->connection->query("SELECT * FROM appointments WHERE semester_id = $semester_id");
-				$resultSet = [];
+				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
 					$resultSet[] = $row;
@@ -137,7 +137,7 @@
 				$result = $this->connection->query("SELECT * FROM appointments
 														WHERE semester_id = $semester_id
 														&& $eis");
-				$resultSet = [];
+				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
 					$resultSet[] = $row;
