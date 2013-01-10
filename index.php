@@ -92,6 +92,10 @@
                             {
                                 case 'Termine': require_once 'views/termine/termine.php'; break;
 								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
+								case 'FAQ': require_once 'views/faq/faq.php'; break;
+								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
+								case 'Studiengang': require_once 'views/studiengaenge/studiengaenge.php'; break;
+								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
                             }
                         }
                         else //ebene3: "startseite", auswahl der unterkategorie

@@ -7,7 +7,6 @@ if(!isset($_SESSION['host'])){
     new Database();
 }
 
-
 ?>
 
 <!DOCTYPE html><!-- HTML 5 -->
