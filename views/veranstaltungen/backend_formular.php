@@ -185,7 +185,7 @@ class Formular{
 				});
 				
 				$("#loesch_button_'.$this->ID.'").click(function(){
-					MESSAGE = "Veranstaltung wirklich Loeschen?";
+					MESSAGE = "Veranstaltung wird geloescht!";
 					if(confirm(MESSAGE))
 						$("#veranstaltung_loeschen_'.$this->ID.'").submit();
 				});
