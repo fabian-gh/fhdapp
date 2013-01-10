@@ -111,10 +111,11 @@
 						echo '		</fieldset>
 									<fieldset>';
 						for ($i = 0; $i < count($departments); $i++) {
+							// TODO: keine Radio, sondern Checkboxen, damit ein Kontakt direkt für mehrere FB eingetragen werden kann
 							if($departments[$i]['id'] != $alterContact[0]['deptID'])
-								echo '<input type="radio" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
+								echo '<input type="checkbox" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 							else
-								echo '<input type="radio" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" checked="checked" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
+								echo '<input type="checkbox" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" checked="checked" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 							if($i == 3)
 								echo '<br />';
 						}	
@@ -139,6 +140,8 @@
 						}
 			?>
 			<!-- Section for adding new contacts -->
+
+			<!-- TODO: Funktion ohne JavaScript realisieren -->
 			<button id="addContactButton" onclick="showAddContact()" style="margin-bottom: 20px;" >Neuen Kontakt hinzufügen</button>
 			<div id="addContact" style="visibility : hidden; height: 0px;">
 				<form name="contactForm" method="post" action="#" id="contactForm">
@@ -150,7 +153,7 @@
 								$categories = $controller->c_getCategories();
 								//creating a radiobutton for every category. Value is set to match the ID
 								for ($i = 0; $i < count($categories); $i++) {
-									echo '<input type="radio" name="contactCategory" class="radioInput" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
+									echo '<input type="radio" name="contactCategory" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
 								}
 							?>
 					</fieldset>
@@ -161,7 +164,7 @@
 								$departments = $controller->c_getDepartments();
 								//creating a radiobutton for every department. Value is matching the ID
 								for ($i = 0; $i < count($departments); $i++) {
-									echo '<input type="radio" name="contactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
+									echo '<input type="checkbox" name="contactDepartment" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 									if($i == 3)
 										echo '<br />';
 								}

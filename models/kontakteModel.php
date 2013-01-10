@@ -2,6 +2,7 @@
 
 class kontakteModel{
 	
+	// TODO: Möglichkeit, einen Kontakt direkt für mehrere FB einzutragen
 	// TODO: language_id berücksichtigen, auch im Backend
 	public function m_insertContact(){
 		try{
