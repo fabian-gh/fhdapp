@@ -31,7 +31,7 @@ div.ui-body-c {
 	color: #ececec;
 	text-transform: uppercase;
 	font-weight: bold;
-	padding: 10px 20px 0 20px;
+	padding: 10px 20px 10px 20px;
 	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -42,7 +42,10 @@ div.ui-body-c {
 
 #breadcrumb a.nav-icon-i {
 	background: url(../img/nav-icon-i.png) no-repeat;
+	background-position: 0px 2px;
 	padding-top: 7px;
+	margin-top: -7px;
+	margin-bottom: -13px;
 	display: inline-block;
 	text-indent: -9999em;
 	width: 26px;
@@ -51,7 +54,10 @@ div.ui-body-c {
 
 #breadcrumb a.nav-icon-e {
 	background: url(../img/nav-icon-e.png) no-repeat;
+	background-position: 0px 2px;
 	padding-top: 7px;
+	margin-top: -7px;
+	margin-bottom: -13px;
 	display: inline-block;
 	text-indent: -9999em;
 	width: 26px;
@@ -60,7 +66,10 @@ div.ui-body-c {
 
 #breadcrumb a.nav-icon-s {
 	background: url(../img/nav-icon-s.png) no-repeat;
+	background-position: 0px 2px;
 	padding-top: 7px;
+	margin-top: -7px;
+	margin-bottom: -13px;
 	display: inline-block;
 	text-indent: -9999em;
 	width: 26px;
