@@ -1,13 +1,33 @@
-<?php
+<?php session_start();
 
-    //falls keine connection vorhanden, connection erstellen
-    if(!isset($_SESSION['connection']))
+    //falls keine connection vorhanden, also beim ersten start der seite, connection erstellen und gegebenenfalls cookies laden
+    if(!isset($_SESSION['user']))
     {
-        session_start();
         require_once 'system/database.php';
         new Database();
+
+        //falls kein deeplink verwendet wird
+        if(count($_GET) <= 0)
+            if(isset($_COOKIE['get']))
+            {
+                $link = "index.php?";
+                foreach($_COOKIE['get'] as $key => $value)
+                    $link .= "$key=$value" . "&";//$link .= "{$_GET["$key"]}=$value";
+                header("Location: $link");
+            }
     }
-    //cookies lesen, damit beim ersten aufruf der seite der letzte kram geladen wird
+    //sonst cookies bei jedem seitenaufbau schreiben
+    else 
+    {
+        //alte cookies löschen
+        if(isset($_COOKIE['get']))
+            foreach($_COOKIE['get'] as $key => $value)
+                setcookie("get[$key]", "", time() - 1);
+        
+        //neue cookies speichern
+        foreach($_GET as $key => $value)
+            setcookie("get[$key]", $value, 2000000000);
+    }
 
 ?>
 
