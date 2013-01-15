@@ -346,7 +346,7 @@
 			
 			function setSelected(INPUTCLASS)
 			{
-				 $("."+INPUTCLASS).attr ("checked" ,"checked" );
+				 $("."+INPUTCLASS).prop("checked", true);
 			}
 			
 			function setUnselected(INPUTCLASS)
