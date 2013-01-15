@@ -143,8 +143,21 @@ class Faq {
      */
 	public function createInsertStatementFaq_Dept($faqID, $dept){
 		// Abfrage erstellen
-		$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ('$faqID', '$dept')";
-		
+		if($dept == 100){
+			$resultSetDepartments = $this->createReadStatementDepartments();
+			$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ";
+			for($n=0; $n<count($resultSetDepartments); $n++) {
+				$deptId = $resultSetDepartments[$n]['id'];
+				if($n ==0){
+					$insert .= "('$faqID', '$deptId')";
+				}
+				else{
+					$insert .= ",('$faqID', '$deptId')";
+				}
+			}
+		}else{
+			$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ('$faqID', '$dept')";
+		}
 		// Fertige SQL-Abfrage an Methode zum speichern übergeben
 		$this->intoDB($insert, true);
 	}
@@ -308,6 +321,7 @@ class Faq {
 			
             // Abfrage ausführen
 			$result = $db->query($insert);
+			
 			
 			//Abfrage ob eingefügt wurde um id zu ermitteln
 			if($bool){

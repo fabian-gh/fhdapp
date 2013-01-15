@@ -144,6 +144,7 @@
 												echo "<option value=\"$id\">$name</option>";
 											}
 											?>
+											<option value="100">Allgemein</option>";
 											</select>
 											
 										</td>
