@@ -68,8 +68,11 @@
                 if(isset($_GET['course']))
                     echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}'>{$_GET['course']}</a>";
 
+                if(isset($_GET['grade']))
+                    echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
+
                 if(isset($_GET['page']))
-                    echo " » <a href=''>{$_GET['page']}</a>";
+                    echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
 
             ?>
 
@@ -86,21 +89,28 @@
                 {
                     if(isset($_GET['course']))
                     {
-                        if(isset($_GET['page']))
+                        if(isset($_GET['grade']))
                         {
-                            switch($_GET['page'])
+                            if(isset($_GET['page']))
                             {
-                                case 'Termine': require_once 'views/termine/termine.php'; break;
-								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
-								case 'FAQ': require_once 'views/faq/faq.php'; break;
-								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
-								case 'Studiengang': require_once 'views/studiengaenge/studiengaenge.php'; break;
-								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+                                switch($_GET['page'])
+                                {
+                                    case 'Termine': require_once 'views/termine/termine.php'; break;
+    								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
+    								case 'FAQ': require_once 'views/faq/faq.php'; break;
+    								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
+    								case 'Studiengang': require_once 'views/studiengaenge/studiengaenge.php'; break;
+    								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+                                }
+                            }
+                            else //ebene4: "startseite", auswahl der unterkategorie
+                            {
+                                require_once 'views/navigation/subcategory.php';
                             }
                         }
-                        else //ebene3: "startseite", auswahl der unterkategorie
+                        else //ebene3: auswahl bachelor / master
                         {
-                            require_once 'views/navigation/subcategory.php';
+                            require_once 'views/navigation/grade.php';
                         }
                     }
                     else //ebene2: auswahl des studienganges in liste oder quiz

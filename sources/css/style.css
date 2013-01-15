@@ -40,9 +40,8 @@ div.ui-body-c {
 	text-decoration: none;
 }
 
-#breadcrumb a.nav-icon-i {
-	background: url(../img/nav-icon-i.png) no-repeat;
-	background-position: 0px 2px;
+#breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s {
+	background-position: 0px 1px;
 	padding-top: 7px;
 	margin-top: -7px;
 	margin-bottom: -13px;
@@ -50,30 +49,18 @@ div.ui-body-c {
 	text-indent: -9999em;
 	width: 26px;
 	height: 32px;
+}
+
+#breadcrumb a.nav-icon-i {
+	background: url(../img/nav-icon-i.png) no-repeat;
 }
 
 #breadcrumb a.nav-icon-e {
 	background: url(../img/nav-icon-e.png) no-repeat;
-	background-position: 0px 2px;
-	padding-top: 7px;
-	margin-top: -7px;
-	margin-bottom: -13px;
-	display: inline-block;
-	text-indent: -9999em;
-	width: 26px;
-	height: 32px;
 }
 
 #breadcrumb a.nav-icon-s {
 	background: url(../img/nav-icon-s.png) no-repeat;
-	background-position: 0px 2px;
-	padding-top: 7px;
-	margin-top: -7px;
-	margin-bottom: -13px;
-	display: inline-block;
-	text-indent: -9999em;
-	width: 26px;
-	height: 32px;
 }
 
 #content {
