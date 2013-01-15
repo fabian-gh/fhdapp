@@ -90,9 +90,9 @@
 							}
 						}
 						if($selected == 0){
-							echo "<option value=\"0\" selected>Alle</option>";
+							echo "<option value=\"0\" selected>Allgemein</option>";
 						}else{
-							echo "<option value=\"0\">Alle</option>";
+							echo "<option value=\"0\">Allgemein</option>";
 						}
 						
 						?>
@@ -109,7 +109,10 @@
 						$antwort = $resultSet[$i]['answer'];
 						$sort = $resultSet[$i]['sorting'];
 						$lang = $resultSet[$i]['language_id'];
-						$dept = $resultSet[$i]['deptid'];
+						if(isset($resultSet[$i]['deptid']))
+							$dept = $resultSet[$i]['deptid'];
+						else
+							$dept = 100;
 						$user = $resultSet[$i]['userid'];
 						
 						echo "
@@ -214,6 +217,10 @@
 													echo "<option value=\"$id\">$name</option>";
 												}
 											}
+											if($dept == 100)
+												echo "<option value=\"$\" selected>Allgemein</option>";
+											else
+												echo "<option value=\"$\">Allgemein</option>";
 											
 											
 											echo "</select>

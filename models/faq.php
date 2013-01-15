@@ -379,19 +379,67 @@ class Faq {
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid, departments.id AS deptid
 						  FROM faq, faq_mm_usertype, faq_mm_departments, usertypes, departments 
 						  WHERE faq.id = faq_mm_usertype.faq_id AND faq_mm_usertype.usertype_id = usertypes.id
-						  AND faq.id = faq_mm_departments.faq_id AND faq_mm_departments.department_id =departments.id;"; 
+						  AND faq.id = faq_mm_departments.faq_id AND faq_mm_departments.department_id =departments.id;";
+			$read = "
+					SELECT DISTINCT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid
+					FROM faq, faq_mm_usertype, faq_mm_departments, usertypes
+					WHERE faq.id = faq_mm_usertype.faq_id 
+					AND faq_mm_usertype.usertype_id = usertypes.id
+					AND faq.id = faq_mm_departments.faq_id
+					AND faq.id IN
+					(
+					SELECT faq_id
+					FROM faq_mm_departments
+					group by faq_id
+					HAVING count(faq_id)=7
+					)";
 		}else{
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid, departments.id AS deptid
 						  FROM faq, faq_mm_usertype, faq_mm_departments, usertypes, departments 
 						  WHERE faq.id = faq_mm_usertype.faq_id AND faq_mm_usertype.usertype_id = usertypes.id
 						  AND faq.id = faq_mm_departments.faq_id AND faq_mm_departments.department_id =departments.id AND departments.id =$department"; 
+			$read = '
+					SELECT DISTINCT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid, departments.id AS deptid
+					FROM faq, faq_mm_usertype, faq_mm_departments, usertypes, departments
+					WHERE faq.id = faq_mm_usertype.faq_id
+					AND faq_mm_usertype.usertype_id = usertypes.id
+					AND faq.id = faq_mm_departments.faq_id
+					AND departments.id = faq_mm_departments.department_id
+					AND departments.id ='.$department.'
+					AND faq.id NOT IN
+					(
+					SELECT faq_id
+					FROM faq_mm_departments
+					GROUP BY faq_id
+					HAVING count( faq_id ) =7
+					)';
 		}
 			
 		// An Methode
 		return $this->getData($read);
 	}
 	
-	
+	public function createStatementAllDepartments()
+	{
+		$temp =
+			'
+			SELECT DISTINCT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid
+			FROM faq, faq_mm_usertype, faq_mm_departments, usertypes
+			WHERE faq.id = faq_mm_usertype.faq_id 
+			AND faq_mm_usertype.usertype_id = usertypes.id
+			AND faq.id = faq_mm_departments.faq_id
+			AND faq.id IN
+			(
+			SELECT faq_id
+			FROM faq_mm_departments
+			group by faq_id
+			HAVING count(faq_id)=7
+			)
+		';
+		$this->getData($temp);
+		
+	}
+		
 	
 	/**
      * SQL-Statement zum auslesen der Fachbereiche aus der Datenbank erstellen
