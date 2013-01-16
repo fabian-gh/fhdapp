@@ -79,36 +79,37 @@
 			$contacts = $Contacts->c_getContacts();	
 
 			// Print data on website
-			foreach ($contacts as $contact) {
-				// Create collapsable
-				echo "<div class='hidden category_" . $contact['category_id'] . "' data-role='collapsible' data-theme='a' data-collapsed='false'>";							
-				// Header
-				echo "<h3>" . $contact['title'] . "</br>" .
-					$contact['title'] . "</h3>";
-				
-				// Content
-				echo "<p>Raum " . $contact['room'] . " (" . $contact['campus'] . ")</br>";
+			if($contacts != null)
+				foreach ($contacts as $contact) {
+					// Create collapsable
+					echo "<div class='hidden category_" . $contact['category_id'] . "' data-role='collapsible' data-theme='a' data-collapsed='false'>";							
+					// Header
+					echo "<h3>" . $contact['title'] . "</br>" .
+						$contact['title'] . "</h3>";
 					
-				if(strlen($contact['office_hours']) > 0) 
-					echo $contact['office_hours'] . "</br>";
+					// Content
+					echo "<p>Raum " . $contact['room'] . " (" . $contact['campus'] . ")</br>";
+						
+					if(strlen($contact['office_hours']) > 0) 
+						echo $contact['office_hours'] . "</br>";
+						
+					if(strlen($contact['phone_office_hours']) > 0)
+						echo $contact['phone_office_hours'] . "</br></br>";	
+						
+					echo $contact['contact'] . "</br>" .
+						 $contact['phone'] . "</br>";
+						 
+					if(strlen($contact['fax']) > 0)
+						echo "Fax: " . $contact['fax'] . "</br>";
+						
+					echo "<a href='mailto:'>" . $contact['mail'] . "</a></br></br>";
+						
+					if(strlen($contact['address']) > 0) 
+						echo $contact['address'];								
 					
-				if(strlen($contact['phone_office_hours']) > 0)
-					echo $contact['phone_office_hours'] . "</br></br>";	
-					
-				echo $contact['contact'] . "</br>" .
-					 $contact['phone'] . "</br>";
-					 
-				if(strlen($contact['fax']) > 0)
-					echo "Fax: " . $contact['fax'] . "</br>";
-					
-				echo "<a href='mailto:'>" . $contact['mail'] . "</a></br></br>";
-					
-				if(strlen($contact['address']) > 0) 
-					echo $contact['address'];								
-				
-				// End of collapsable
-				echo "</p></div>";
-			}
+					// End of collapsable
+					echo "</p></div>";
+				}
 		?>          
 	</div>
 </div>

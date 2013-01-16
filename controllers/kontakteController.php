@@ -2,15 +2,9 @@
 
 class kontakteController {
 
-	private $contactsModel;
-
 	public function __construct(){
 		//create new contact Model
-		if(!isset($_GET['eis'])){
-			require_once '../../models/kontakteModel.php';
-		} else {
-			require_once 'models/kontakteModel.php';
-		}
+		require_once '__DIR__/../../models/kontakteModel.php';
 		$this->contactsModel = new kontakteModel();
 	}
 
@@ -50,18 +44,24 @@ class kontakteController {
 	public function c_deleteContact($id){
 
 		$contactID = $id['contactID'];
+		$deptID = $id['deptID'];
 
-		$this->contactsModel->m_deleteContact($contactID);
+		$this->contactsModel->m_deleteContact($contactID, $deptID);
 	}
 
 	public function c_getContact($id){
-		return $this->contactsModel->m_getContact($id);
+
+		$contactID = $id['contactID']; 
+		$deptID = $id['deptID'];
+
+		return $this->contactsModel->m_getContact($contactID, $deptID);
 	}
 
 	public function c_alterContact($id){
 
 		$contactID = $id['id'];
+		$deptID = $id['deptID'];
 
-		$this->contactsModel->m_alterContact($contactID);
+		$this->contactsModel->m_alterContact($contactID, $deptID);
 	}
 }

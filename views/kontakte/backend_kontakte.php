@@ -1,6 +1,7 @@
 <?php
 
 // TODO: Campus berücksichtigen beim Einfügen / Ändern
+// TODO: Allgemeinen Fachbereich berücksichtigen und in neuer Zwischentabelle eintragen
 
 
     //header einbinden
@@ -70,26 +71,27 @@
 		            </tr>
 				<?php 
 					$contacts = $controller->c_getContacts();
-					foreach ($contacts as $value) {
-					echo '<form action="" method="post">';
-					
-						// function for the buttons!? 
-						echo '<tr>
-								<td>' . $value['title'] . '</td>
-								<td>' . $value['catName'] . '</td>
-								<td>' . $value['deptName'] . '</td>
-								<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
-								<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
-							</tr>';
-					echo '</form>';
-					}
+					if($contacts != null)
+						foreach ($contacts as $value) {
+						echo '<form action="" method="post">';
+						
+							// function for the buttons!? 
+							echo '<tr>
+									<td>' . $value['title'] . '</td>
+									<td>' . $value['catName'] . '</td>
+									<td>' . $value['deptName'] . '</td>
+									<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /> <input type="hidden" name="deptID" value="' . $value['deptID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
+									<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
+								</tr>';
+						echo '</form>';
+						}
 				?>
 				</table>
 			</div>
 			<!-- End alter contacts -->
 			<?php
 					if(isset($_POST['alterContact'])){
-						$alterContact = $controller->c_getContact($_POST['contactID']);
+						$alterContact = $controller->c_getContact($_POST);
 						//getting the categories from the db
 						$categories = $controller->c_getCategories();	
 						//getting the departments from the db
@@ -110,10 +112,11 @@
 						echo '		</fieldset>
 									<fieldset>';
 						for ($i = 0; $i < count($departments); $i++) {
+							// TODO: keine Radio, sondern Checkboxen, damit ein Kontakt direkt für mehrere FB eingetragen werden kann
 							if($departments[$i]['id'] != $alterContact[0]['deptID'])
-								echo '<input type="radio" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
+								echo '<input type="checkbox" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 							else
-								echo '<input type="radio" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" checked="checked" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
+								echo '<input type="checkbox" name="alterContactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" checked="checked" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 							if($i == 3)
 								echo '<br />';
 						}	
@@ -128,6 +131,7 @@
 								<label class="contactLabel" for="alterContactOfficeHours"> Büro-Offnungszeiten</label> <input type="text" id="alterContactOfficeHours" name="alterContactOfficeHours" value="'. $alterContact[0]['office_hours'].'" />
 								<label class="contactLabel" for="alterContactPhoneOfficeHours"> Telefonische Sprechzeiten</label> <input type="text" id="alterContactPhoneOfficeHours" name="alterContactPhoneOfficeHours" value="'. $alterContact[0]['phone_office_hours'].'" />
 								<input type="hidden" name="id" value="' . $alterContact[0]['contactID'] . ' " />
+								<input type="hidden" name="deptID" value="' . $alterContact[0]['deptID'] . '" />
 								<input type="submit" name="alterContactSubmit" value="Daten ändern" id="alterContactBtn" />
 						';
 
@@ -137,6 +141,8 @@
 						}
 			?>
 			<!-- Section for adding new contacts -->
+
+			<!-- TODO: Funktion ohne JavaScript realisieren -->
 			<button id="addContactButton" onclick="showAddContact()" style="margin-bottom: 20px;" >Neuen Kontakt hinzufügen</button>
 			<div id="addContact" style="visibility : hidden; height: 0px;">
 				<form name="contactForm" method="post" action="#" id="contactForm">
@@ -148,7 +154,7 @@
 								$categories = $controller->c_getCategories();
 								//creating a radiobutton for every category. Value is set to match the ID
 								for ($i = 0; $i < count($categories); $i++) {
-									echo '<input type="radio" name="contactCategory" class="radioInput" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
+									echo '<input type="radio" name="contactCategory" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
 								}
 							?>
 					</fieldset>
@@ -159,7 +165,7 @@
 								$departments = $controller->c_getDepartments();
 								//creating a radiobutton for every department. Value is matching the ID
 								for ($i = 0; $i < count($departments); $i++) {
-									echo '<input type="radio" name="contactDepartment" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
+									echo '<input type="checkbox" name="contactDepartment" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
 									if($i == 3)
 										echo '<br />';
 								}
