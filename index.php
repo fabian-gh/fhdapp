@@ -49,89 +49,90 @@
 </head>
 
 <body>
+    <div data-role='page' data-theme='c'>
+        <div id ="header">
+            <div id ="logo">
+                <a href="index.php">FHD</a>
+            </div>
+            <div id ="breadcrumb">
+                <a href="index.php">Start</a> 
 
-    <div id ="header">
-        <div id ="logo">
-            <a href="index.php">FHD</a>
+                <?php
+
+                    if(isset($_GET['eis']))
+                        echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
+
+                    if(isset($_GET['selector']))
+                        echo "» <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}'>{$_GET['selector']}</a>";
+
+                    if(isset($_GET['course']))
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}'>{$_GET['course']}</a>";
+
+                    if(isset($_GET['grade']))
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
+
+                    if(isset($_GET['page']))
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
+
+                ?>
+
+            </div>
         </div>
-        <div id ="breadcrumb">
-            <a href="index.php">Start</a> 
+        
+        <div id ="content">
 
-            <?php
+            <?php 
 
                 if(isset($_GET['eis']))
-                    echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
-
-                if(isset($_GET['selector']))
-                    echo "» <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}'>{$_GET['selector']}</a>";
-
-                if(isset($_GET['course']))
-                    echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}'>{$_GET['course']}</a>";
-
-                if(isset($_GET['grade']))
-                    echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
-
-                if(isset($_GET['page']))
-                    echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
+                {
+                    if(isset($_GET['selector']))
+                    {
+                        if(isset($_GET['course']))
+                        {
+                            if(isset($_GET['grade']))
+                            {
+                                if(isset($_GET['page']))
+                                {
+                                    switch($_GET['page'])
+                                    {
+                                        case 'Termine': require_once 'views/termine/termine.php'; break;
+        								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
+        								case 'FAQ': require_once 'views/faq/faq.php'; break;
+        								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
+        								case 'Studiengang': require_once 'views/studiengaenge/studiengaenge.php'; break;
+        								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+                                    }
+                                }
+                                else //ebene4: "startseite", auswahl der unterkategorie
+                                {
+                                    require_once 'views/navigation/subcategory.php';
+                                }
+                            }
+                            else //ebene3: auswahl bachelor / master
+                            {
+                                require_once 'views/navigation/grade.php';
+                            }
+                        }
+                        else //ebene2: auswahl des studienganges in liste oder quiz
+                        {
+                            switch($_GET['selector'])
+                            {
+                                case 'Studiengaenge': require_once 'views/navigation/courses.php'; break;
+                                case 'Quiz': require_once 'views/navigation/quiz.php'; break;
+                            }
+                        }
+                    }
+                    else //ebene1: auswahl der vorgehensweise einen studiengang zu finden (liste, quiz)
+                        require_once 'views/navigation/selector.php';
+                }
+                else //ebene0: auswahl von interessent, ersti, student
+                {
+                    require_once 'views/navigation/start.php';
+                }
 
             ?>
 
         </div>
-    </div>
-    
-    <div id ="content">
-
-        <?php 
-
-            if(isset($_GET['eis']))
-            {
-                if(isset($_GET['selector']))
-                {
-                    if(isset($_GET['course']))
-                    {
-                        if(isset($_GET['grade']))
-                        {
-                            if(isset($_GET['page']))
-                            {
-                                switch($_GET['page'])
-                                {
-                                    case 'Termine': require_once 'views/termine/termine.php'; break;
-    								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
-    								case 'FAQ': require_once 'views/faq/faq.php'; break;
-    								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
-    								case 'Studiengang': require_once 'views/studiengaenge/studiengaenge.php'; break;
-    								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
-                                }
-                            }
-                            else //ebene4: "startseite", auswahl der unterkategorie
-                            {
-                                require_once 'views/navigation/subcategory.php';
-                            }
-                        }
-                        else //ebene3: auswahl bachelor / master
-                        {
-                            require_once 'views/navigation/grade.php';
-                        }
-                    }
-                    else //ebene2: auswahl des studienganges in liste oder quiz
-                    {
-                        switch($_GET['selector'])
-                        {
-                            case 'Studiengaenge': require_once 'views/navigation/courses.php'; break;
-                            case 'Quiz': require_once 'views/navigation/quiz.php'; break;
-                        }
-                    }
-                }
-                else //ebene1: auswahl der vorgehensweise einen studiengang zu finden (liste, quiz)
-                    require_once 'views/navigation/selector.php';
-            }
-            else //ebene0: auswahl von interessent, ersti, student
-            {
-                require_once 'views/navigation/start.php';
-            }
-
-        ?>
-
     </div>
 
 </body>

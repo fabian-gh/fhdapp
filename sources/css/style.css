@@ -3,6 +3,8 @@
 	padding: 0;	
 }
 
+.ui-listview .ui-li-icon{max-height:30px;max-width:30px;left:10px;top:.9em}
+
 body.ui-overlay-c {
 	background: #ff0000 url(../img/bg-body.png) no-repeat;
 	background-size: 100%;
