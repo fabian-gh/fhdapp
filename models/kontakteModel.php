@@ -140,8 +140,7 @@ class kontakteModel{
 			$result = $db->query("SELECT con.id AS contactID, con.title, con.description, con.contact, con.phone, con.fax, con.mail, con.room, con.address, con.office_hours, con.phone_office_hours, cat.Name AS catName, con.category_id, dept.name AS deptName, dept.id AS deptID
 									FROM contacts con, contact_categories cat, contacts_mm_departments condept, departments dept
 									WHERE con.category_id = cat.id AND con.id = condept.contact_id AND condept.department_id = dept.id");
-			$resultSet = null;
-
+			
 			while($row = $result->fetch_assoc()){
 				$resultSet[] = $row;
 			}

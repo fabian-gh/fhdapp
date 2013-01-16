@@ -9,6 +9,7 @@
 		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
         <title>Kontakte</title>
+		<!-- BREADCRUMB -->
     </head>
 	<script type="text/javascript">	
 		
@@ -18,7 +19,7 @@
 			showCategory( 
 				<?php 
 					// Check if cat is set and is in proper range (1 to 4)
-					if (isset($_GET['cat']) && $_GET['cat'] > 0 && $_GET['cat'] < 5)
+					if (isset($_GET['cat']) && $_GET['cat'] > -1 && $_GET['cat'] < 5)
 						echo $_GET['cat'];
 					else echo "1";
 				?>
@@ -36,12 +37,6 @@
 			$('.category_' + id).addClass("visible");
 			$('.category_' + id).removeClass("hidden");
 		}
-		
-		function styleButton(id) {
-			
-			// Problem: Buttons turns into a div due to JQuery, unable to access via id
-			$('#category_1').css('background-color', 'red');
-		}
 	
 	</script>
 	<style type="text/css">
@@ -54,18 +49,6 @@
 		.hidden { 
 			visibility : hidden;
 			height: 0px;
-		}
-		
-		<!-- Styling buttons -->
-		.ui-btn {
-			background-color: white;
-			border-radius: 1px;
-			margin-right: 20px;
-		}
-		
-		.body {
-			font-size: 14px;
-			color: black;
 		}
 		
 	</style>
@@ -90,7 +73,18 @@
 				<div id="categories" style="margin: auto;">
 					<table style="margin: auto;">
 						<tr>
-							<td><input id="categtory_1" type="button" value="Bewerbung" onClick="showCategory(1);" style="background-color: white;"/></td>
+							<?php
+								// Decide role of student or interested person
+								if (isset($_GET['role'])) {
+									// Student
+									if ($_GET['role'] == 'i')
+										echo '<td><input id="categtory_0" type="button" value="Bewerbung" onClick="showCategory(0);" style="background-color: white;"/></td>';
+									else 
+										echo '<td><input id="categtory_1" type="button" value="Studiengang" onClick="showCategory(1);" style="background-color: white;"/></td>';
+								}
+								else 
+									echo '<td><input id="categtory_0" type="button" value="Bewerbung" onClick="showCategory(0);" style="background-color: white;"/></td>';
+							?>
 							<td><input id="categtory_2" type="button" value="Leben" onClick="showCategory(2)"/></td>
 						</tr>
 						<tr>
@@ -122,7 +116,7 @@
 								$contact['title'] . "</h3>";
 							
 							// Content
-							echo "<p>Raum " . $contact['room'] . " (Campus Nord/Sued)</br>";
+							echo "<p>Raum " . $contact['room'] . " (" . $contact['campus'] . ")</br>";
 								
 							if(strlen($contact['office_hours']) > 0) 
 								echo $contact['office_hours'] . "</br>";
@@ -136,7 +130,7 @@
 							if(strlen($contact['fax']) > 0)
 								echo "Fax: " . $contact['fax'] . "</br>";
 								
-							echo "<a href=''>" . $contact['mail'] . "</a></br></br>";
+							echo "<a href='mailto:'>" . $contact['mail'] . "</a></br></br>";
 								
 							if(strlen($contact['address']) > 0) 
 								echo $contact['address'];								
