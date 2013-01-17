@@ -11,30 +11,18 @@
 
 class db_connector{
     
-private $server;
-private $username;
-private $password;
-private $dbname;
-
-
 function __construct()
 {
-    //db config
-    include 'config/db.php';
-    $this->server= $db['hostname'];
-    $this->username= $db['username'];
-    $this->password= $db['password'];
-    $this->dbname= $db['database'];
 }
 
 function connect()
 {
-$conn = mysql_connect($this->server,  $this->username,  $this->password);
+    $conn = mysql_connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd']);
     if(!$conn)
     {
     die('Could not connect to the Server: '.  mysql_error($conn));
     }
-$db = mysql_select_db($this->dbname,$conn);
+    $db = mysql_select_db($_SESSION['db'],$conn);
     if (!$db)
     {
     die('Could not connect to the Database: '.  mysql_error($db));
