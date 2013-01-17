@@ -118,17 +118,22 @@
 			$parts = explode('-', $date);
 			return "$parts[2].$parts[1].$parts[0]";
 		}
+
+		//fachbereich eines studienganges herausfinden
+		public function getDepartmentFromStudycourse($name)
+		{
+			return $this->appointmentModel->getDepartmentFromStudycourse($name)['department_id'];
+		}
 	}
 
 	class Semester
 	{
 		public $appointments;
 		
-		public function __construct($id, $name, $dept)
+		public function __construct($id, $name)
 		{
 			$this->id = $id;
 			$this->name = $name;
-			$this->department = $dept;
 		}
 
 		public function addAppointment($appointment)

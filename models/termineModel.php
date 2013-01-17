@@ -17,11 +17,12 @@
 		{
 			try
 			{
-				$result = $this->connection->query("SELECT * FROM semester WHERE department_id = $dept");
+				$result = $this->connection->query("SELECT * FROM semester
+														WHERE department_id = $dept");
 				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
-					$resultSet[] = new Semester($row["id"], $row["name"], $row["department_id"]);
+					$resultSet[] = new Semester($row["id"], $row["name"]);
 				}
 				return $resultSet;
 			}
@@ -31,12 +32,12 @@
 			}
 		}
 
-		//alle semester für eine bestimmte nutzergruppe ausgeben(nur die semester, welche termine für den bestimmten nutzer haben)
+		//alle semester für eine bestimmte nutzergruppe ausgeben(nur die semester, welche termine für den bestimmten nutzer haben, also keine leeren)
 		public function getSemestersForUsertype($dept, $eis)
 		{
 			try
 			{
-				//aus der getvariable die whereklausel der nutzergruppe bestimmen
+				//aus der getvariable die where-klausel der nutzergruppe bestimmen
 				switch($eis)
 				{
 					case 'i': $eis = "appointments.interested = 1"; break;
@@ -44,15 +45,14 @@
 					case 's': $eis = "appointments.student = 1"; break;
 				}
 
-				$result = $this->connection->query("SELECT semester.id, semester.name, semester.department_id, count(*) FROM semester, appointments
-														WHERE semester.department_id = $dept
-														&& appointments.semester_id = semester.id
-														&& $eis
+				$result = $this->connection->query("SELECT semester.id, semester.name, count(*)
+														FROM semester, appointments
+														WHERE semester.department_id = $dept && appointments.semester_id = semester.id && $eis
 														GROUP BY semester.id");
 				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
-					$resultSet[] = new Semester($row["id"], $row["name"], $row["department_id"]);
+					$resultSet[] = new Semester($row["id"], $row["name"]);
 				}
 				return $resultSet;
 			}
@@ -66,7 +66,8 @@
 		{
 			try
 			{
-				$this->connection->query("INSERT INTO semester(language_id, name, department_id) VALUES($language, '$name', $department)");
+				$this->connection->query("INSERT INTO semester(language_id, name, department_id)
+											VALUES($language, '$name', $department)");
 			}
 			catch(Exception $e)
 			{
@@ -78,7 +79,9 @@
 		{
 			try
 			{
-				$this->connection->query("UPDATE semester SET language_id = $language, name = '$name' WHERE id = $id");
+				$this->connection->query("UPDATE semester
+											SET language_id = $language, name = '$name'
+											WHERE id = $id");
 			}
 			catch(Exception $e)
 			{
@@ -91,7 +94,8 @@
 		{
 			try
 			{
-				$this->connection->query("DELETE FROM semester WHERE id = $id");
+				$this->connection->query("DELETE FROM semester
+											WHERE id = $id");
 			}
 			catch(Exception $e)
 			{
@@ -107,7 +111,8 @@
 		{
 			try
 			{
-				$result = $this->connection->query("SELECT * FROM appointments WHERE semester_id = $semester_id");
+				$result = $this->connection->query("SELECT * FROM appointments
+														WHERE semester_id = $semester_id");
 				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
@@ -135,8 +140,7 @@
 				}
 
 				$result = $this->connection->query("SELECT * FROM appointments
-														WHERE semester_id = $semester_id
-														&& $eis");
+														WHERE semester_id = $semester_id && $eis");
 				$resultSet = array();
 				while($row = $result->fetch_assoc())
 				{
@@ -154,7 +158,8 @@
 		{
 			try
 			{
-				$this->connection->query("INSERT INTO appointments(language_id, semester_id, name, date_from, date_to, interested, freshman, student) VALUES($language, $semester, '$name', '$date_from', '$date_to', $interested, $freshman, $student)");
+				$this->connection->query("INSERT INTO appointments(language_id, semester_id, name, date_from, date_to, interested, freshman, student)
+											VALUES($language, $semester, '$name', '$date_from', '$date_to', $interested, $freshman, $student)");
 			}
 			catch(Exception $e)
 			{
@@ -166,7 +171,9 @@
 		{
 			try
 			{
-				$this->connection->query("UPDATE appointments SET language_id = $language, name = '$name', date_from = '$date_from', date_to = '$date_to', interested = $interested, freshman = $freshman, student = $student WHERE id = $id");
+				$this->connection->query("UPDATE appointments
+											SET language_id = $language, name = '$name', date_from = '$date_from', date_to = '$date_to', interested = $interested, freshman = $freshman, student = $student
+											WHERE id = $id");
 			}
 			catch(Exception $e)
 			{
@@ -179,13 +186,35 @@
 		{
 			try
 			{
-				$this->connection->query("DELETE FROM appointments WHERE id = $id");
+				$this->connection->query("DELETE FROM appointments
+											WHERE id = $id");
+				
 			}
 			catch(Exception $e)
 			{
 				echo $e->getMessage();
 			}
-		}		
+		}
+
+
+		//zusatz
+
+		//fachbereich eines studienganges herausfinden
+		public function getDepartmentFromStudycourse($name)
+		{
+			try
+			{
+				$result = $this->connection->query("SELECT department_id
+														FROM studycourses
+														WHERE name = '$name'
+														LIMIT 1");
+				return $result->fetch_assoc();
+			}
+			catch(Exception $e)
+			{
+				echo $e->getMessage();
+			}
+		}
 	}
 
 ?>
