@@ -163,12 +163,10 @@ $cl = $this->courses_list();
 $eis = json_encode($_GET['eis']);
 
 // build a page
-$html="<div data-role='content'>
-<div id='filter_options' data-role='collapsible' data-theme='b' data-collapsed-icon='gear' data-expanded-icon='gear' data-inset='true' data-collapsed='false'>
+$html="<div id='filter_options' data-role='collapsible' data-theme='b' data-collapsed-icon='gear' data-expanded-icon='gear' data-inset='true' data-collapsed='false'>
 <h3>Studiengänge filtern</h3>".$this->filter()."</div>
 <ul data-role='listview' data-inset='true'>".$cl."
 </ul>
-</div>
 </div>
 <script src='views/studiengaenge/data/scripts/checkboxes_control.js'></script>
 <script>filter($j_arr)</script>

@@ -24,22 +24,6 @@ class controller
         $page = new courses_list_page();
         
         $model = new db_connector();
-        if(isset($_GET['scourse'])&& !isset($_GET['graduate']))
-        {
-        if($model->get_graduate_amount($_GET['scourse'])>1)
-        return $page_2->content($_GET['scourse']);
-        else
-        {
-        header("Location: index.php?eis=".$_GET['eis']."&selector=Studiengaenge&scourse=".$_GET['scourse']."&graduate=".$model->get_graduate_info($_GET['scourse']));
-        }
-        }
-        else if(isset($_GET['scourse']) && isset($_GET['graduate']))
-        {
-            if($_GET['graduate']=='Bachelor' || $_GET['graduate']=='Master' )
-            return $page_3->content($_GET['scourse'],$_GET['graduate']);
-        }
-        else
-        {
         $arr = array();
             for($x=0;$x<8;$x++)
             {
@@ -49,7 +33,6 @@ class controller
                 }
             }
          return $page->content($arr); 
-        }
     }
 }
 
