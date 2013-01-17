@@ -1,7 +1,7 @@
 <?php
 
 	if($_GET['eis'] == 'i') //liste oder quiz auswählen
-		echo "<a href='index.php?eis=i&selector=Studiengaenge' data-role='button'>Studiengänge</a><br>
+		echo "<a href='index.php?eis=i&selector=Studiengaenge' data-role='button'>Studiengänge</a>
 		<a href='index.php?eis=i&selector=Quiz' data-role='button'>Quiz</a>";
 
 	else //direkt zur liste weiterleiten

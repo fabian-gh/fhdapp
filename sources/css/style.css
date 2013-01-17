@@ -3,8 +3,6 @@
 	padding: 0;	
 }
 
-.ui-listview .ui-li-icon{max-height:30px;max-width:30px;left:10px;top:.9em}
-
 body.ui-overlay-c {
 	background: #ff0000 url(../img/bg-body.png) no-repeat;
 	background-size: 100%;
@@ -43,14 +41,11 @@ div.ui-body-c {
 }
 
 #breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s {
-	background-position: 0px 1px;
-	padding-top: 7px;
-	margin-top: -7px;
-	margin-bottom: -13px;
+	padding-top: 2px;
 	display: inline-block;
 	text-indent: -9999em;
-	width: 26px;
-	height: 32px;
+	width: 18px;
+	height: 22px;
 }
 
 #breadcrumb a.nav-icon-i {
@@ -67,15 +62,14 @@ div.ui-body-c {
 
 #content {
 	background: rgba(255, 255, 255, 0.8);
-	margin: 20px;
+	margin: 5px;
 	text-shadow: 1px 1px 0px #ffffff;
-	padding: 20px;
+	padding: 5px;
 }
 
 #content h1 {
 	font-weight: normal;
 	margin-bottom: 10px;
-
 }
 
 /* CSS JQuery mobile */
@@ -88,7 +82,7 @@ data-expanded-icon="arrow-d" data-theme="a">
 */
 
 .ui-btn-up-a,
-.ui-btn-hover-a { 
+.ui-btn-hover-a {
 	border: 1px solid #ffdfdf; 
 	background:#d54343; 
 	color:#ffffff; 
@@ -113,4 +107,8 @@ data-expanded-icon="arrow-d" data-theme="a">
 
 .ui-collapsible-content {
 	background: #fff;
+}
+
+.ui-li-aside { 
+	width: auto;
 }
