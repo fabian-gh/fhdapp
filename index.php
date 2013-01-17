@@ -79,7 +79,7 @@
             </div>
         </div>
         
-        <div id ="content">
+        <div id ="content" data-role='content'>
 
             <?php 
 

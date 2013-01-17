@@ -1,6 +1,4 @@
 <?php
-require_once 'models/studiengaenge.php';
-require_once 'views/studiengaenge/info.php';
 
 /**
  * FHD-App
@@ -14,18 +12,17 @@ require_once 'views/studiengaenge/info.php';
 
 class controller
 {
-    function _construct()
+    public function __construct()
     {
+        require_once 'models/studiengaenge.php';
+        require_once 'views/studiengaenge/info.php';
+        $this->db = new db_connector;
     }
-    
+
     // load a needed view
     function load_view()
     {
-        $page = new info_page();
-        
-        $model = new db_connector();
-
-        return $page->content($_GET['course'],$_GET['grade']);
+        return $this->db->get_course_information($_GET['course'], $_GET['grade']);
     }
 }
 
