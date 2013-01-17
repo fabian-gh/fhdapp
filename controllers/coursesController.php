@@ -22,8 +22,6 @@ class controller
     function load_view()
     {
         $page = new courses_list_page();
-        $page_2 = new select_graduate_page();
-        $page_3 = new info_page();
         
         $model = new db_connector();
         if(isset($_GET['scourse'])&& !isset($_GET['graduate']))
