@@ -32,7 +32,7 @@
             <div id ="nav">
                     <h3>Seiteninhalt bearbeiten:</h3>
                     <ul>
-                        <li><a href="../../views/studiengaenge/backend_studiengaenge.php">Studieng&auml;nge</a></li>
+                        <li><a id='liStudyCourses' href="../../views/studiengaenge/backend_studiengaenge.php?page=Studiengaenge">Studieng&auml;nge</a></li>
 						<?php
 							//Wenn man im Navigationspunkt "Studiengänge" ist
 							if(@$_GET["page"]=="Studiengaenge"){

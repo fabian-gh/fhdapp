@@ -3,6 +3,58 @@
 	padding: 0;	
 }
 
+
+#insertUpdateStudycourse div.focused {
+	background: #dedede;
+}
+
+#insertUpdateStudycourse label{
+	width: 200px;
+	display: block;
+	float: left;
+}
+
+#insertUpdateStudycourse .button {
+	border: 1px solid #d1ccc1;
+	background: #f7f5f0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f7f5f0), to(#dddddd));
+	background: -webkit-linear-gradient(top, #f7f5f0, #dddddd);
+	background: -moz-linear-gradient(top, #f7f5f0, #dddddd);
+	background: -ms-linear-gradient(top, #f7f5f0, #dddddd);
+	background: -o-linear-gradient(top, #f7f5f0, #dddddd);
+	padding: 4px 13px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	color: #322929;
+	font-size: 12px;
+	font-family: Verdana, Geneva, sans-serif;
+	text-decoration: none;
+	vertical-align: middle;
+   }
+#insertUpdateStudycourse  .button:hover {
+	background: #fbf9f5;
+	border-color: #d9d4ca;
+	color: #433939;
+   }
+#insertUpdateStudycourse .button:active {
+	-moz-box-shadow:	inset 0 0 4px #8d8d8d;
+	-webkit-box-shadow:	inset 0 0 4px #8d8d8d;
+	box-shadow:	inset 0 0 4px #8d8d8d;
+	border-color: #878581;
+	font-weight: normal;
+	background: #dbd9d5;
+	color: #000000;
+   }
+
+#insertUpdateStudycourse .error{
+	color: red;
+}
+
+#showStudycourses_table tr:hover   {
+	background-color: lightgreen; 
+}
+
 body {
 	background: #f7f5f0;
 	font-family: Verdana, Geneva, sans-serif;

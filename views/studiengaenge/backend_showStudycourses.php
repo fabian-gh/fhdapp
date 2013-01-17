@@ -4,7 +4,7 @@
 	<script type="text/javascript">$('#editDeleteStudycourse').attr('class', 'active');</script>	
 	
 	<h3>Studieng&auml;nge l&ouml;schen oder bearbeiten</h3>
-	<table border=1>
+	<table id="showStudycourses_table" border=1>
 		<tr><th>Nr.</th><th>Name</th><th>Abschlussart</th><th>Art</th><th>Sprache</th><th>Bearbeiten</th><th>L&ouml;schen</th></tr>
 		<?php
 			$studycourses = $studycoursesController->selectStudicourses();	//Alle Studiengänge alphabetisch geordnet mit study_name, graduate_name, category_name, id 
