@@ -11,7 +11,6 @@
 	        <li><div style='font-size: 12pt'>Semesteranzahl: ".$row['semestercount']."</div></li> 
 	        <li data-theme='c'><div><h3>Über uns:</h3><a style='color:black; font-size: 10pt'>".$row['description']."</a></div></li>
 	        <li><a style='font-size: 12pt' href='".$row['link']."'>URL: zur Studiengangsseite</a></li>
-	        </ul>
-	    </div>";
+	    </ul>";
 
 ?>
