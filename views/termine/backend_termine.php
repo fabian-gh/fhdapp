@@ -108,7 +108,7 @@
             //form zum termin hinzufügen
             echo "<form action='' method='post'>
                 <input type='hidden' name='semester' value='$id'/>
-                <tr><td></td><td><input type='text' name='name' value='Terminname' onclick='this.focus()' onblur=\"checkName(this);\"/></td><td><input type='text' name='date_from' value='T.M.JJJJ' onclick='this.focus()' onblur=\"checkDate(this);\"/></td><td><input type='text' name='date_to' value='T.M.JJJJ' onclick='this.focus()' onblur=\"checkDate(this);\"/></td><td><input type='checkbox' name='interested' value='true' /></td><td><input type='checkbox' name='freshman' value='true' /></td><td><input type='checkbox' name='student' value='true' /></td><td><input name='saveAppointment' type='submit' value='Hinzufügen'/><input type='reset' value='Felder zurücksetzen'/></td></tr>
+                <tr class='alt'><td></td><td><input type='text' name='name' value='Terminname' onclick='this.focus()' onblur=\"checkName(this);\"/></td><td><input type='text' name='date_from' value='T.M.JJJJ' onclick='this.focus()' onblur=\"checkDate(this);\"/></td><td><input type='text' name='date_to' value='T.M.JJJJ' onclick='this.focus()' onblur=\"checkDate(this);\"/></td><td><input type='checkbox' name='interested' value='true' /></td><td><input type='checkbox' name='freshman' value='true' /></td><td><input type='checkbox' name='student' value='true' /></td><td><input name='saveAppointment' type='submit' value='Hinzufügen'/><input type='reset' value='Felder zurücksetzen'/></td></tr>
             </form>
         </table>";
     }
@@ -119,7 +119,7 @@
 
             <form action='' method='post'>
             <input type='hidden' name='dept' value='{$_GET['dept']}'/>
-            <tr><td></td><td colspan='5'><input type='text' name='from' value='JJJJ' onclick='this.focus()' onblur=\"checkYear(this);\"/></td><td><input type='radio' name='type' value='summer' checked='checked'/> Sommer <input type='radio' name='type' value='winter'/> Winter</td><td><input name='saveSemester' type='submit' value='Hinzufügen'/><input type='reset' value='Felder zurücksetzen'/></td></tr>
+            <tr class='alt'><td></td><td colspan='5'><input type='text' name='from' value='JJJJ' onclick='this.focus()' onblur=\"checkYear(this);\"/></td><td><input type='radio' name='type' value='summer' checked='checked'/> Sommer <input type='radio' name='type' value='winter'/> Winter</td><td><input name='saveSemester' type='submit' value='Hinzufügen'/><input type='reset' value='Felder zurücksetzen'/></td></tr>
             </form>
         </table>";
 

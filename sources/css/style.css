@@ -72,6 +72,15 @@ div.ui-body-c {
 	margin-bottom: 10px;
 }
 
+table.appointment{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.appointment td {
+	border-bottom: 2px solid lightgray;
+}
+
 /* CSS JQuery mobile */
 
 /*
