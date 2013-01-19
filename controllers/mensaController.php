@@ -23,11 +23,7 @@ class MensaController{
 	 * Constructor
 	 */
 	public function __construct(){
-		if(!isset($_GET['eis'])){
-			require_once '../../models/mensa.php';
-		} else {
-			require_once 'models/mensa.php';
-		}
+		require_once __DIR__.'../../models/mensa.php';
 		$this->MensaModel = new Mensa();
 	}
 

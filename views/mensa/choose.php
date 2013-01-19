@@ -36,7 +36,7 @@ $plans = $MensaController->callGetAllPlans();
                 <td><?php echo $plan['calenderweek']<10? "0".$plan['calenderweek'] : $plan['calenderweek']; ?></td>
                 <td><?php echo date("d.m.Y", strtotime($plan['start_date'])); ?></td>
                 <td><?php echo date("d.m.Y", strtotime($plan['start_date'])+345600); ?></td>
-                <td><a class="button" href="edit.php?category=canteen&mode=edit&cw=<?php echo $plan['calenderweek']; ?>">bearbeiten</a> <a class="button" href="choose.php?category=canteen&mode=delete&cw=<?php echo $plan['calenderweek']; ?>">löschen</a></td>
+                <td><a class="button" href="edit.php?category=canteen&mode=edit&cw=<?php echo $plan['calenderweek']; ?>">bearbeiten</a> <a class="button" href="choose.php?category=canteen&mode=delete&cw=<?php echo $plan['calenderweek']; ?>"  onclick="return confirm('Plan der Kalenderwoche <?php echo $plan['calenderweek']; ?> wird gelöscht.')">löschen</a></td>
               </tr>
 
             <?php endforeach; ?>

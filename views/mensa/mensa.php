@@ -9,10 +9,10 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
-// include layout
-//require_once '../../layout/frontend/header.php';
 ?>
 <link href="sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="sources/customjs/mensa.js" type="text/javascript"></script>
+
 <?php
 
     require_once 'controllers/mensaController.php';
@@ -21,9 +21,19 @@
 
 ?>
 
+<!-- ToggleSwitch-->
+<div data-role="fieldcontain">
+<label for="flip-2"><h3>Campus:</h3></label>
+    <select name="flip-2" id="flip-2" data-role="slider" data-theme="a">
+        <option value="north">Nord</option>
+        <option value="south">S&uuml;d</option>
+    </select> 
+</div>
+<br />
+
 <?php  foreach($plans as $plankey => $planvalue):  ?>
 
-<h1>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h1>
+<h2>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h2>
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
 
     <?php foreach($planvalue as $day): ?>
@@ -89,10 +99,6 @@
     </div> <!-- Ende collapsible -->
  <?php endforeach; ?>
 </div> <!-- Ende collapsible-set -->
+<br />
 
 <?php endforeach; ?>
-
-
-<?php
-//require_once '../../layout/frontend/footer.php';
-?>

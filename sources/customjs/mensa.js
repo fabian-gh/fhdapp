@@ -1,24 +1,20 @@
 $(document).ready(function(){
 
-	// Kalenderwochenhandling
-	$("#calenderweek").focusout(function(){
-		
-		var cw = $("#calenderweek").val();
-		if(cw<=0 || cw>52){
-			$("#cw_error").html("Ungültige Eingabe").addClass("error");
-			$("#calenderweek").addClass("error");
-			$("#calenderweek").val("");
-		} 
+	//Datepicker formating
+	$("#start_date").click(function() {
+		$("#start_date").datepicker({ dateFormat: "dd.mm.yy", firstDay: 1, 
+									  dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+									  dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+									  monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"] });
+	});
 
-		if(cw>0 && cw<=52){
-			$("#cw_error").html("").removeClass("error");
-			$("#calenderweek").removeClass("error");
+
+	//Flip-Switch Handling
+	$('.south').hide();
+	$("#flip-2").on('slidestop', function(){
+		if($('.south').is(':hidden')){
+			$('.south').toggle();
 		}
-	})
-
-	//Startdatumshandling
-	 $("#start_date").click(function() {
-        $("#start_date").datepicker({ dateFormat: "dd.mm.yy" });
-    });
+	});
 
 });
