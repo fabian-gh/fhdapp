@@ -23,7 +23,7 @@
 
 <!-- ToggleSwitch-->
 <div data-role="fieldcontain">
-<label for="flip-2"><h3>Campus:</h3></label>
+<label for="flip-2"><h4>Campus:</h4></label>
     <select name="flip-2" id="flip-2" data-role="slider" data-theme="a">
         <option value="north">Nord</option>
         <option value="south">S&uuml;d</option>
@@ -33,7 +33,7 @@
 
 <?php  foreach($plans as $plankey => $planvalue):  ?>
 
-<h2>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h2>
+<h4>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h4>
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
 
     <?php foreach($planvalue as $day): ?>
