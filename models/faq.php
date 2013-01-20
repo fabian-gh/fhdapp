@@ -347,7 +347,7 @@ class Faq {
 //READ Befehle Erstellen
 	
 	/**
-     * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
+     * SQL-Statement zum Auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
      * @return Array mit Datenbank werten
      */
 	public function createReadStatementAllFrontend($dept, $eis){
@@ -373,6 +373,21 @@ class Faq {
 		// An Methode
 		return $this->getData($read);
 	}
+	/**
+     * SQL-Statement zum Auslesen des Fachbereichs abhängig vom Studiengang
+     * @return Array mit Datenbank werten
+     */
+		public function getDepartmentFromStudycourse($course){
+		
+			$read = "SELECT department_id
+					FROM studycourses
+					WHERE name = '$course'
+					LIMIT 1";
+				
+			return $this->getData($read);
+			
+		}
+	
 	public function createReadStatementBackend($department){
 		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur für Fachbereich)
 		if($department == 0){

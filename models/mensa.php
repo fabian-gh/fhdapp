@@ -155,7 +155,7 @@ class Mensa{
              if(!empty($plans)){
              	return $plans;
              } else {
-             	echo '<span>Es sind keine Einträge vorhanden.</span>'
+             	echo '<span>Es sind keine Einträge vorhanden.</span>';
              }
 
 		} catch (Exception $e){

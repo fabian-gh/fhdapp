@@ -1,6 +1,6 @@
 <?php
-require_once 'models/studiengaenge.php';
-require_once 'views/navigation/courses.php';
+require_once __DIR__.'../../models/studiengaenge.php';
+require_once __DIR__.'../../views/navigation/courses.php';
 
 /**
  * FHD-App
@@ -12,7 +12,7 @@ require_once 'views/navigation/courses.php';
  */
 
 
-class controller
+class studiengaengeController
 {
     function _construct()
     {

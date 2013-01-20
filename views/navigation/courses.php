@@ -4,9 +4,9 @@
 
     function showpage()
     {
-        require_once 'models/studiengaenge.php';
-        require_once 'controllers/coursesController.php';
-        $controller = new controller();  
+        require_once '../../models/studiengaenge.php';
+        require_once '../../controllers/coursesController.php';
+        $controller = new coursesController();  
         return $controller->load_view();  
     }
 
