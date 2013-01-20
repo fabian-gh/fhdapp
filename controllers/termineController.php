@@ -29,6 +29,23 @@
 			return $allSemesters;
 		}
 
+		//array aller semester mit ihren terminen eines bestimmten fachbereichs und einer bestimmten nutzergruppe ausgeben
+		public function semestersWithAppointmentsForUsertype($dept, $eis)
+		{
+			$allSemesters = $this->appointmentModel->getSemestersForUsertype($dept, $eis);
+
+			//den semesterblöcken jeweils die termine hinzufügen
+			for($i = 0; $i < count($allSemesters); $i++)
+			{
+				$ownAppointments = $this->appointmentModel->getAppointmentsForUsertype($allSemesters[$i]->id, $eis);
+				for($j = 0; $j < count($ownAppointments); $j++)
+				{
+					$allSemesters[$i]->addAppointment($ownAppointments[$j]);
+				}
+			}
+			return $allSemesters;
+		}
+
 		//semester abspeichern
 		public function saveSemester($params)
 		{
@@ -101,17 +118,22 @@
 			$parts = explode('-', $date);
 			return "$parts[2].$parts[1].$parts[0]";
 		}
+
+		//fachbereich eines studienganges herausfinden
+		public function getDepartmentFromStudycourse($name)
+		{
+			return $this->appointmentModel->getDepartmentFromStudycourse($name)['department_id'];
+		}
 	}
 
 	class Semester
 	{
 		public $appointments;
 		
-		public function __construct($id, $name, $dept)
+		public function __construct($id, $name)
 		{
 			$this->id = $id;
 			$this->name = $name;
-			$this->department = $dept;
 		}
 
 		public function addAppointment($appointment)

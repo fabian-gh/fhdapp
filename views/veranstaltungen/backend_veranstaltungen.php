@@ -9,103 +9,354 @@
  * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
 	ob_start();
-	require_once 'layout/frontend/header.php';
-	
+
+	//Header einbinden
+	require_once '../../layout/backend/header.php';
+
+	//Conroller einbinden
+	require_once '../../controllers/veranstaltungenController.php';
+	$Controller = new VeranstaltungenController;
+
+	//Fachbereiche laden
+	$FACHBEREICHE =  $Controller->getDepartments();
+
+	//Klasse für Formularfelder einbinden
+	require_once 'backend_formular.php';
+
+	if(isset($_GET['FB']))
+		$FB_GET = $_GET['FB'];
+	else
+		$FB_GET = 1;
+
+	//Variable für alle JQuery Methoden, wird am Ende des Dokuments ausgegeben
+	$JQUERY = '';
+	$MESSAGE = '';
+
+	//Überprüfung ob Formular abgesendet wurde
 	if(isset($_POST['veranstaltung_speichern']))
 	{
-		echo 'Vielen Dank';
-		require_once 'controllers/veranstaltungenController.php';
-        // Controller-Instanz erstellen und das Data-Objekt übergeben
-        $Controller = new VeranstaltungenController();
-		$Controller->addDatensatz();
+		if($_POST['veranstaltung_id'] == 'new')
+		{
+			//Neue Veranstaltung hinzufügen
+			if($Controller->addEvent() == false)
+				$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht eingetragen.';
+			else
+				$MESSAGE = 'Veranstaltung wurde eingetragen.';
+		}
+		else
+		{
+			//Veranstaltung ändern = Veranstaltung löschen + Veranstaltung neu hinzufügen
+			if($Controller->deleteEvent($_POST['veranstaltung_id']) == false)
+			{
+				$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht ge&auml;ndert.';
+			}
+			else
+			{
+				//Veranstaltung wurde ohne Fehler gelöscht, Veranstaltung neu einfügen
+				if($Controller->addEventID($_POST['veranstaltung_id']) == false)
+					$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht ge&auml;ndert.';
+				else
+					$MESSAGE = 'Veranstaltung wurde ge&auml;ndert.';
+			}
+		}		
+	}
+	else if(isset($_POST['loeschen_id']))
+	{
+		if($Controller->deleteEvent($_POST['loeschen_id']) == true)
+			$MESSAGE = 'Veranstaltung wurde gel&ouml;scht.';
+		else
+			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht gel&ouml;scht.';
+	}
+	else if(isset($_POST['veranstaltung_alt_loeschen']))
+	{
+		if($Controller->deleteOldEvent() == true)
+			$MESSAGE = 'Alte Veranstaltungen wurde gel&ouml;scht.';
+		else
+			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltungen wurde nicht gel&ouml;scht.';
+	}
+
+
+	echo '
+		<div class="veranstaltung_message" style="border-width:1px; border-style:solid;">
+		'.$MESSAGE.'
+		</div>
+	';
+
+	echo '<br/><br/><br/><br/>';
+
+	echo '	
+		<a class="button" id="loesch_button_all">Alle vergangenen Veranstaltungen l&ouml;schen</a>
+			<form action="?FB='.$FB_GET.'" id="veranstaltungen_loeschen" method="post">
+				<input type="hidden" name="veranstaltung_alt_loeschen" id="loeschen_hidden_all" value="true"/>
+			</form>
+		<br/><br/>	
+		';
+
+	//Neues Objekt von Formular erstellen
+	$Formular = new Formular($Controller);
+	//Leeres Formular erstellen
+	echo $Formular->getEmptyForm($FB_GET);
+	//JQuery für das leere Formular erstellen
+	$JQUERY .= $Formular->getJqueryEmptyForm();
+
+	echo '<br/><br/><br/><br/>';
+
+	//Fachbereiche durchlaufen und DropDownListe füllen
+	if($FACHBEREICHE != null)
+	{
+		$INPUT_FACHBEREICH = '';
+		//Durch alle Fachbereiche durchlaufen
+		for($i=0; $i<count($FACHBEREICHE); $i++) 
+		{
+			//Überprüfen ob Fachbereiche der ausgewählte ist
+			if($FACHBEREICHE[$i]['id'] == $FB_GET)
+				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" SELECTED> '.$FACHBEREICHE[$i]['name'].' </option>
+				';
+			else
+				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" > '.$FACHBEREICHE[$i]['name'].' </option>
+				';
+		}
+		//Komplette DropDownListe ausgeben
+		echo'
+			<div id="div_fachbereich_auswahl">
+				<h3>W&auml;hlen Sie den Fachbereich aus f&uuml;r den Sie die Veranstaltungen bearbeiten m&ouml;chten</h3>
+				<form id="fachbereich_auswahl" action="">
+					<select id="fachbereich_select" name="FB" size="1">
+						'.$INPUT_FACHBEREICH.'
+					</select>
+				</form>
+			</div>
+		';
 	}
 	else
 	{
-		echo'  
-		<form action="?id=backend_veranstaltungen" method="post">
-		
-		<table id="table_veranstaltung_backend" border="1">
-			<thead>
-			<tr>
-			  <th colspan="2">Veranstaltung</th>
-			</tr>
-		   </thead>
-			<tfoot>
-			<tr>
-			  <td colspan="2">
-				<input type="submit" name="veranstaltung_speichern" id="veranstaltung_speichern" value="Speichern">
-			  </td>
-			</tr>
-		  </tfoot>
-		  
-		  <tbody>
-		  
-			<tr>
-			  <td>Name:</td>
-			  <td>
-				<div data-role="fieldcontain" class="ui-hide-label">
-					<input type="text" name="veranstaltung_name" id="veranstaltung_name" value="" placeholder="Name" size="50" maxlength="30" />
-				</div>
-			  </td>
-			</tr>
-			
-			<tr>
-			 <td>Datum:</td>
-			  <td>
-			  <div data-role="fieldcontain" class="ui-hide-label">
-					<input type="text" name="veranstaltung_datum_tag" id="veranstaltung_datum_tag" value="" placeholder="DD" size="5" maxlength="2" />
-					<input type="text" name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" value="" placeholder="MM" size="5" maxlength="2" />
-					<input type="text" name="veranstaltung_datum_jahr" id="veranstaltung_datum_jahr" value="" placeholder="YYYY" size="10" maxlength="4" />
-			  </div>
-			  </td>
-			</tr>
-			
-			<tr>
-			  <td>Beschreibung:</td>
-			  <td>
-				<div data-role="fieldcontain" class="ui-hide-label">
-				<textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10"></textarea>
-				</div>
-			  </td>
-			</tr>
-			
-			<tr>
-			  <td>Fachbereich:</td>
-			  <td>				
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_1" /> Fachbereich 1 - Architektur  </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_2" /> Fachbereich 2 - Design </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_3" /> Fachbereich 3 - Elektrotechnik </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_4" /> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_5" /> Fachbereich 5 - Medien </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_6" /> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_7" /> Fachbereich 7 - Wirtschaft </label>
-			  </td>
-			</tr>
-			
-			<tr>
-			  <td>Modus:</td>
-			  <td>
-				<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup">
-					
-					<label><input type="checkbox" name="veranstaltungen_usertypes_1" /> Interessent </label>
-					<label><input type="checkbox" name="veranstaltungen_usertypes_2" /> Ersti </label>
-					<label><input type="checkbox" name="veranstaltungen_usertypes_3" /> Student </label>
-
-				</fieldset>
-				</div>
-			  </td>
-			</tr>
-			
-		  </tbody>
-		</table>
-		
-		</form>
-		';
+		//Falls keine Fachbereiche in der Datenbank, Fehlermeldung ausgeben
+		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
-	
-	
-	require_once 'layout/frontend/footer.php';
+
+
+
+	echo '<br/><br/><br/><br/>';
+
+	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_GET);
+
+	if($ERGEBNIS != null)
+	{
+		//Veranstaltungen durchlaufen und darstellen
+		for($i=0; $i<count($ERGEBNIS); $i++) 
+		{
+			$NAME				= $ERGEBNIS[$i]['name'];
+			$EVENTID			= $ERGEBNIS[$i]['id'];
+			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
+			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
+
+			//DATUM SPLITTEN
+			$TAG		= date_format($DATUM, 'd');
+			$MONAT		= date_format($DATUM, 'm');
+			$JAHR		= date_format($DATUM, 'Y');
+			$STUNDEN	= date_format($DATUM, 'H');
+			$MINUTEN	= date_format($DATUM, 'i');
+
+
+			//Alle Fachbereiche laden, die zur Veranstaltung gehören
+			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
+			//Alle Usertypes laden, die zur Veranstaltung gehören
+			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
+
+			//Neues Objekt von Formular erstellen
+			$Formular = new Formular($Controller);
+			//Alle Variablen setzen
+			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
+			//Veranstaltung darstellen mit Bearbeiten-Option
+			echo $Formular->getEventContainer($FB_GET);
+			echo '<br/><br/>';
+			//JQuery erstellen
+			$JQUERY .= $Formular->getJquery();
+		}
+	}
+	else
+	{
+		echo "Kein Datensatz vorhanden!";
+	}
+
+	echo '<br/><br/><br/><br/>';
+
+	//JQuery Ausgeben
+	echo '
+		<script type="text/javascript">
+				$(function(){
+				
+				$("#fachbereich_select").change(function(){
+					$("#fachbereich_auswahl").submit();
+				});
+				
+				$("#loesch_button_all").click(function(){
+					MESSAGE = "Achtung!!!\nSollen wirklich alle vergangenen Veranstaltungen gelöscht werden?";
+					if(confirm(MESSAGE))
+						$("#veranstaltungen_loeschen").submit();
+				});
+				
+				'.$JQUERY.'	
+			});
+			
+			function checkFormular(ID){
+				TAG 			= $("#veranstaltung_datum_tag_"+ID).val();
+				MONAT 			= $("#veranstaltung_datum_monat_"+ID).val();
+				JAHR			= $("#veranstaltung_datum_jahr_"+ID).val();
+				STUNDEN			= $("#veranstaltung_uhrzeit_stunden_"+ID).val();
+				MINUTEN 		= $("#veranstaltung_uhrzeit_minuten_"+ID).val();
+				BESCHREIBUNG 	= $("#veranstaltung_beschreibung_"+ID).val();
+				NAME 			= $("#veranstaltung_name_"+ID).val();
+									
+				FALSCHE_EINGABEN = "";
+				CORRECT = true;
+				
+				//Überprüfen der Uhrzeit
+				if(!(checkStunden(STUNDEN) == true && checkMinuten(MINUTEN) == true))
+				{
+					FALSCHE_EINGABEN += "Uhrzeit falsch.Bitte Überprüfen!\n";
+					$("#div_veranstaltung_form_uhrzeit_"+ID).css("border", "2px solid red");
+					CORRECT = false;
+				}
+				else
+					$("#div_veranstaltung_form_uhrzeit_"+ID).css("border", "0px solid black");
+				
+				//Überprüfen des Datums				
+				if(!(checkDatum(TAG,MONAT,JAHR) == true))
+				{
+					FALSCHE_EINGABEN += "Datum falsch.Bitte Überprüfen!\n";
+					$("#div_veranstaltung_form_datum_"+ID).css("border", "2px solid red");
+					CORRECT = false;
+				}
+				else
+					$("#div_veranstaltung_form_datum_"+ID).css("border", "0px solid black");
+				
+				//Überprüfen ob Veranstaltungs-Beschreibung gesetzt ist	
+				if(!(checkText(BESCHREIBUNG) == true))
+				{
+					FALSCHE_EINGABEN += "Bitte geben Sie eine Beschreibung ein!\n";
+					$("#div_veranstaltung_form_beschreibung_"+ID).css("border", "2px solid red");
+					CORRECT = false;
+				}
+				else
+					$("#div_veranstaltung_form_beschreibung_"+ID).css("border", "0px solid black");
+				
+				//Überprüfen ob Veranstaltungsname gesetzt ist	
+				if(!(checkText(NAME) == true))
+				{
+					FALSCHE_EINGABEN += "Bitte geben Sie einen Namen für die Veranstaltung ein!\n";
+					$("#div_veranstaltung_form_name_"+ID).css("border", "2px solid red");
+					CORRECT = false;
+				}
+				else
+					$("#div_veranstaltung_form_name_"+ID).css("border", "0px solid black");
+				
+				//Überprüfen ob mind. 1 Fachbereicha ausgewählt ist	
+				if(!(checkSelected("fieldset_veranstaltung_form_fachbereich_"+ID) == true))
+				{
+					FALSCHE_EINGABEN += "Es muss mindestens ein Fachbereich ausgewählt werden!\n";
+					$("#div_veranstaltung_form_fachbereiche_"+ID).css("border", "2px solid red");
+					CORRECT = false;
+				}
+				else
+					$("#div_veranstaltung_form_fachbereiche_"+ID).css("border", "0px solid black");
+				
+				//Überprüfen ob mind. 1 Usertype ausgewählt ist	
+				if(!(checkSelected("fieldset_veranstaltung_form_usertype_"+ID) == true))
+				{
+					FALSCHE_EINGABEN += "Es muss mindestens ein Modus ausgewählt werden!\n";
+					$("#div_veranstaltung_form_usertype_"+ID).css("border", "2px solid red");
+					CORRECT = false;
+				}
+				else
+					$("#div_veranstaltung_form_usertype_"+ID).css("border", "0px solid black");
+				
+				
+				if(CORRECT == false)
+				{
+					alert("Bitte beachten Sie:\n"+FALSCHE_EINGABEN);
+					return false;
+				}
+
+				return true;
+			};
+			
+			function checkStunden(Zahl){
+				Zahl = parseInt(Zahl);
+				if (!isNaN(Zahl))
+				{
+					if(Zahl >= 0 && Zahl <= 23)
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+			}
+			
+			function checkMinuten(Zahl){
+				Zahl = parseInt(Zahl);
+				if (!isNaN(Zahl))
+				{
+					if(Zahl >= 0 && Zahl <= 59)
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+			}
+
+			
+			function checkDatum(TAG,MONAT,JAHR)
+			{
+				MONAT = MONAT - 1;
+				// Erzeugung eines neuen Dateobjektes
+				var REALDATE = new Date(JAHR,MONAT,TAG);
+				
+				// Überprüfung ob das Datum stimmt
+				if (REALDATE.getDate()== TAG && REALDATE.getMonth()== MONAT && REALDATE.getFullYear()== JAHR)
+					return true; 
+				else 
+					return false;
+			}
+
+			function checkText(Text){
+				if (Text == "")
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			
+			function checkSelected(ID)
+			{
+				var CHECKED = false;
+				var ele = document.getElementById(ID).getElementsByTagName("input");
+					for(var i=0;i<ele.length;i++)
+						if(ele[i].getAttribute("type") == "checkbox")
+							if(ele[i].checked == true)
+								CHECKED = true;
+				return CHECKED;
+			}
+			
+			function setSelected(INPUTCLASS)
+			{
+				 $("."+INPUTCLASS).attr ("checked" ,"checked" );
+			}
+			
+			function setUnselected(INPUTCLASS)
+			{
+				$("."+INPUTCLASS).removeAttr("checked");
+			}
+		</script>';
+
+
+	require_once '../../layout/backend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen_edit.php */

@@ -20,7 +20,7 @@ body {
 #headline,
 #wrapper {
 	width: 900px;
-	margin: 0 auto 0 auto;
+	margin: 0 auto 0 100px;
 }
 
 #wrapper {
@@ -103,6 +103,10 @@ body {
 	background-color: #e6e2d8;
 }
 
+#content table tr.alt {
+	background: #D6D6D6;
+}
+
 #content a.button {
 	color: #ff0000;
 	border: 2px solid #ff0000; 
@@ -118,22 +122,9 @@ body {
 	background-color: #ff0000; 
 }
 
-#content input.price{
-	width: 50px;
-}
-
-#content input.mealinput{
-	height: 50px;
-}
-
-#content td.mealdescription{
-	vertical-align: top;
-	padding-top: 1%;
-	padding-left: 1%;
-}
-
-#content input#mensasubmit{
-	padding: 3px 10px;
+#content #mensaform textarea{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
 }
 
 .clear {

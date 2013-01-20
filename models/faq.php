@@ -313,10 +313,10 @@ class Faq {
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			//Connection Minh
-			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			$db = new mysqli('localhost', 'root', '','fhdapp');
 			
 			//Connection Marc
-            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
             
 			
             // Abfrage ausführen
@@ -492,10 +492,10 @@ class Faq {
             //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
 			//Connection Minh
-			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			$db = new mysqli('localhost', 'root', '','fhdapp');
 			
 			//Connection Marc
-            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
 			
             // Abfrage ausführen
             $result = $db->query($read);

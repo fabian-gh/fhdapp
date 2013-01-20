@@ -1,18 +1,29 @@
 <?php
 
 	if($_GET['eis'] == 'i')
-		echo "hier stehen alle unterkategorien von interessenten<br>
-		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&page=Termine'>Termine</a><br>
-		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&page=FAQ'>FAQ</a>";
+	{
+		require_once "views/studiengaenge/info.php";
+
+		echo "<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=FAQ' data-role='button'>FAQ</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Kontakte' data-role='button'>Kontakte</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Termine' data-role='button'>Termine</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Veranstaltungen' data-role='button'>Veranstaltungen</a>";
+	}
 
 	else if($_GET['eis'] == 'e')
-		echo "hier stehen alle unterkategorien von erstis<br>
-		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&page=Termine'>Termine</a><br>
-		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&page=FAQ'>FAQ</a>";
-	
+		echo "<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Info' data-role='button'>Info</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=FAQ' data-role='button'>FAQ</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Kontakte' data-role='button'>Kontakte</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Termine' data-role='button'>Termine</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Veranstaltungen' data-role='button'>Veranstaltungen</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Mensa' data-role='button'>Mensa</a>";
+
 	else if($_GET['eis'] == 's')
-		echo "hier stehen alle unterkategorien von studenten<br>
-		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&page=Termine'>Termine</a><br>
-		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&page=FAQ'>FAQ</a>";
+		echo "<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Info' data-role='button'>Info</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=FAQ' data-role='button'>FAQ</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Kontakte' data-role='button'>Kontakte</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Termine' data-role='button'>Termine</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Veranstaltungen' data-role='button'>Veranstaltungen</a>
+		<a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page=Mensa' data-role='button'>Mensa</a>";
 
 ?>

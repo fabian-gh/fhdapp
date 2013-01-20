@@ -27,12 +27,11 @@ div.ui-body-c {
 }
 
 #breadcrumb {
-	height: 40px;
 	background: #a50707;
 	color: #ececec;
 	text-transform: uppercase;
 	font-weight: bold;
-	padding: 12px 20px 0 20px;
+	padding: 10px 20px 10px 20px;
 	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -41,41 +40,45 @@ div.ui-body-c {
 	text-decoration: none;
 }
 
-#breadcrumb a.nav-icon-i {
-	background: url(../img/nav-icon-i.png) no-repeat;
+#breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s {
+	padding-top: 2px;
 	display: inline-block;
 	text-indent: -9999em;
-	width: 26px;
-	height: 32px;
+	width: 18px;
+	height: 22px;
+}
+
+#breadcrumb a.nav-icon-i {
+	background: url(../img/nav-icon-i.png) no-repeat;
 }
 
 #breadcrumb a.nav-icon-e {
 	background: url(../img/nav-icon-e.png) no-repeat;
-	display: inline-block;
-	text-indent: -9999em;
-	width: 26px;
-	height: 32px;
 }
 
 #breadcrumb a.nav-icon-s {
 	background: url(../img/nav-icon-s.png) no-repeat;
-	display: inline-block;
-	text-indent: -9999em;
-	width: 26px;
-	height: 32px;
 }
 
 #content {
 	background: rgba(255, 255, 255, 0.8);
-	margin: 20px;
+	margin: 5px;
 	text-shadow: 1px 1px 0px #ffffff;
-	padding: 20px;
+	padding: 5px;
 }
 
 #content h1 {
 	font-weight: normal;
 	margin-bottom: 10px;
+}
 
+table.appointment{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.appointment td {
+	border-bottom: 2px solid lightgray;
 }
 
 /* CSS JQuery mobile */
@@ -88,16 +91,17 @@ data-expanded-icon="arrow-d" data-theme="a">
 */
 
 .ui-btn-up-a,
-.ui-btn-hover-a { 
+.ui-btn-hover-a {
 	border: 1px solid #ffdfdf; 
-	background:#a60909; 
+	background:#d54343; 
 	color:#ffffff; 
 	font-weight: bold; 
 	text-shadow: 0 -1px 1px #000000; 
 	background-image: -moz-linear-gradient(top, #d54343, #a60909); 
-	background-image: -o-linear-gradient(top, #d54343, #a60909);
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#d54343),color-stop(1,#a60909));
 	background-image: -ms-linear-gradient(top, #d54343, #a60909);
+	background-image: -o-linear-gradient(top, #d54343, #a60909);
+	background-image: linear-gradient(top, #d54343, #a60909);
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 	-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
@@ -112,4 +116,8 @@ data-expanded-icon="arrow-d" data-theme="a">
 
 .ui-collapsible-content {
 	background: #fff;
+}
+
+.ui-li-aside { 
+	width: auto;
 }
