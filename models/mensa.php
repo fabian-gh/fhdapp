@@ -138,6 +138,53 @@ class Mensa{
 
 
 
+	/**
+	 * Queries all possible additives from the DB
+	 * @return Array $additives
+	 */
+	public function getAdditives(){
+		try{
+			$query = $this->DbCon->query("SELECT * FROM additives");
+
+			while($row = $query->fetch_assoc()){
+				$additives[] = array(
+					'abbreviation' 	=> $row['abbreviation'],
+					'name'			=> $row['name']
+				);
+			}
+
+			return $additives;
+
+		} catch (Exception $e){
+			echo $e->getMessage();
+		}
+	}
+
+
+	/**
+	 * Queries opening hours
+	 * @return Array $openHour
+	 */
+	public function getOpeningHours(){
+		try{
+			$query = $this->DbCon->query("SELECT * FROM canteens");
+
+			while($row = $query->fetch_assoc()){
+				$openHour[] = array(
+					'name' 			=> $row['name'],
+					'openingHours'	=> $row['opening_hours']
+				);
+			}
+
+			return $openHour;
+
+		} catch (Exception $e){
+			echo $e->getMessage();
+		}
+	}
+
+
+
 	// ================================================ Backend-Methods ==========================================================
 
 	/**

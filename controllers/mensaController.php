@@ -38,6 +38,22 @@ class MensaController{
 
 
 	/**
+	 * Call the getAdditives()-Method
+	 */
+	public function callGetAdditives(){
+		return $this->MensaModel->getAdditives();
+	}
+
+
+	/**
+	 * Call the getAdditives()-Method
+	 */
+	public function callGetOpeningHours(){
+		return $this->MensaModel->getOpeningHours();
+	}
+
+
+	/**
 	 * Call the getAllPlans()-Method
 	 * @param Array $post
 	 */

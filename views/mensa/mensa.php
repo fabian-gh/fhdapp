@@ -18,6 +18,8 @@
     require_once 'controllers/mensaController.php';
     $MensaController = new MensaController();
     $plans = $MensaController->callGetCanteenPlans();
+    $additives = $MensaController->callGetAdditives();
+    $openHours = $MensaController->callGetOpeningHours();
 
 ?>
 
@@ -31,7 +33,23 @@
 </div>
 <br />
 
-<?php  
+<div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
+    <div data-role='collapsible' data-collapsed='true'>
+        <h3>Öffnungszeiten</h3>
+        <table class="openHours">
+            <tr><th class="openHours">Mensa</th><th class="openHours">Öffnungszeiten während Semester</th></tr>
+            <?php if(!empty($openHours)):
+                    foreach($openHours as $open): ?>
+
+                <tr><td id="canteen" class="openHours"><?php echo $open['name']; ?></td><td><?php echo $open['openingHours']; ?></td></tr>
+
+            <?php endforeach; endif; ?>
+        </table>
+    </div>
+</div>
+<br />
+
+<?php
 
 if(!empty($plans)):
 
@@ -106,3 +124,18 @@ foreach($plans as $plankey => $planvalue):  ?>
 <br />
 
 <?php endforeach; endif;?>
+
+<div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
+    <div data-role='collapsible' data-collapsed='true'>
+        <h3>Zeichenerklärung</h3>
+        <table class="abbreviations">
+            <tr><th class="abbreviations">Zeichen</th><th class="abbreviations">Beschreibung</th></tr>
+            <?php if(!empty($additives)):
+                    foreach($additives as $add): ?>
+
+                <tr><td class="abbreviations"><?php echo $add['abbreviation']; ?></td><td class="abbreviations"><?php echo $add['name']; ?></td></tr>
+
+            <?php endforeach; endif; ?>
+        </table>
+    </div>
+</div>
