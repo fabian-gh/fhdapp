@@ -57,11 +57,31 @@ class kontakteController {
 		return $this->contactsModel->m_getContact($contactID, $deptID);
 	}
 
-	public function c_alterContact($id){
+	public function c_getContactDepts($id){
+		$contactID = $id['contactID'];
 
-		$contactID = $id['id'];
-		$deptID = $id['deptID'];
+		return $this->contactsModel->m_getContactDepts($contactID);
+	}
+
+	public function c_alterContact($id){
+		$contactID = $id['contactID'];
+		$deptID = $id['alterContactDepartment'];
 
 		$this->contactsModel->m_alterContact($contactID, $deptID);
+	}
+
+	public function c_alterAllContacts($id){
+
+		$contactID = $id['contactID'];
+
+		$this->contactsModel->m_alterAllContacts($contactID);
+	}
+
+	public function c_alterOneContact($id){
+		
+		$contactID = $id['contactID'];
+		$deptID = $id['deptID'];
+
+		$this->contactsModel->m_alterOneContact($contactID, $deptID);
 	}
 }
