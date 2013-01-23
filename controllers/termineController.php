@@ -132,8 +132,8 @@
 
 	class Semester
 	{
-		private $id;
-		private $name;
+		public $id;
+		public $name;
 		public $appointments;
 		
 		public function __construct($id, $name)
