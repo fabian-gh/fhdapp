@@ -4,7 +4,7 @@ class kontakteController {
 
 	public function __construct(){
 		//create new contact Model
-		require_once '__DIR__/../../models/kontakteModel.php';
+		require_once __DIR__.'../../models/kontakteModel.php';
 		$this->contactsModel = new kontakteModel();
 	}
 

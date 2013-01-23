@@ -31,7 +31,11 @@
 </div>
 <br />
 
-<?php  foreach($plans as $plankey => $planvalue):  ?>
+<?php  
+
+if(!empty($plans)):
+
+foreach($plans as $plankey => $planvalue):  ?>
 
 <h4>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h4>
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
@@ -101,4 +105,4 @@
 </div> <!-- Ende collapsible-set -->
 <br />
 
-<?php endforeach; ?>
+<?php endforeach; endif;?>
