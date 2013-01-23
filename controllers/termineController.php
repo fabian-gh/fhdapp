@@ -2,6 +2,9 @@
 
 	class AppointmentController
 	{
+
+		private $appointmentModel;
+
 		public function __construct()
 		{
 			//appointmentModel instanziieren
@@ -128,6 +131,8 @@
 
 	class Semester
 	{
+		private $id;
+		private $name;
 		public $appointments;
 		
 		public function __construct($id, $name)
