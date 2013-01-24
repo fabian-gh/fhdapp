@@ -70,7 +70,7 @@ foreach($plans as $plankey => $planvalue):  ?>
                 <td>1,00€</td>
             </tr>
             <tr class="both">
-                <td><span class="heading">Beilagen:</span><br /><td><?php echo $day['side']; ?></td>
+                <td><span class="heading">Beilagen:</span><br /><?php echo $day['side']; ?></td>
                 <td>0,40€ - 0,60€</td>
             </tr>
             <tr class="both">

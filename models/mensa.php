@@ -234,7 +234,7 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_mon_'):
-					$this->monday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
+					$this->monday_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Tuesday
@@ -243,7 +243,7 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_tue_'):
-					$this->tuesday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
+					$this->tuesday_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Wednesday
@@ -252,7 +252,7 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_wed_'):
-					$this->wednesday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
+					$this->wednesday_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Thursday
@@ -261,7 +261,7 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_thu_'):
-					$this->thursday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
+					$this->thursday_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Friday
@@ -270,7 +270,7 @@ class Mensa{
 				break;
 
 				case strstr($key, 'price_fri_'):
-					$this->friday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
+					$this->friday_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 			}
 		}
