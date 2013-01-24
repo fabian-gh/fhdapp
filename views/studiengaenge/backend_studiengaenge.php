@@ -2,7 +2,7 @@
 
 <?php
     require_once '../../layout/backend/header.php';	//header einbinden
-	require_once '../../controllers/studiengaengeController.php';	//Einbinden des Controllers
+	require_once '../../controllers/studiengaengeController2.php';	//Einbinden des Controllers
 	$studycoursesController = new StudycoursesController();	//neues ControllerObjekt wird erzeugt und in der Variabel gespeichert
 	echo "<script type=\"text/javascript\">$('#liStudyCourses').attr('class', 'active');</script>";	//link aktivieren
 	
