@@ -36,15 +36,14 @@
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
     <div data-role='collapsible' data-collapsed='true'>
         <h3>Öffnungszeiten</h3>
+        <?php if(!empty($openHours)): ?>
         <table class="openHours">
-            <tr><th class="openHours">Mensa</th><th class="openHours">Öffnungszeiten während Semester</th></tr>
-            <?php if(!empty($openHours)):
-                    foreach($openHours as $open): ?>
-
-                <tr><td id="canteen" class="openHours"><?php echo $open['name']; ?></td><td><?php echo $open['openingHours']; ?></td></tr>
-
-            <?php endforeach; endif; ?>
+            <tr><th class="openHours">Mensa</th><th class="openHours">während des Semester</th><th>in den Semesterferien</th></tr>
+            <?php foreach($openHours as $open): ?>
+                <tr><td class="openHours canteen"><?php echo utf8_encode($open['name']); ?></td><td><?php echo utf8_encode($open['hoursDuring']); ?></td></td><td><?php echo utf8_encode($open['hoursOutOf']); ?></td></tr>
+            <?php endforeach; ?>
         </table>
+        <?php endif; ?>
     </div>
 </div>
 <br />
@@ -63,59 +62,48 @@ foreach($plans as $plankey => $planvalue):  ?>
     	<h3><?php echo $day['dayname']; ?></h3>
         <table class="meals" width='100%'>
     		<tr class="both">
-    			<th>Essen 1</th>
-    			<td><?php echo $day['meal_one']; ?></td>
-    			<td>Stud.: 1,00€<br />Bed.: 2,60€</td>
+    			<td><span class="heading">Essen 1:</span><br /><?php echo $day['meal_one']; ?></td>
+    			<td>1,00€</td>
     		</tr>
             <tr class="both">
-                <th>Essen 2</th>
-                <td><?php echo $day['meal_two']; ?></td>
-                <td>Stud.: 1,00€<br />Bed.: 2,60€</td>
+                <td><span class="heading">Essen 2:</span><br /><?php echo $day['meal_two']; ?></td>
+                <td>1,00€</td>
             </tr>
             <tr class="both">
-                <th>Beilagen</th>
-                <td><?php echo $day['side']; ?></td>
-                <td>Stud.: 0,40€ - 0,60€</td>
+                <td><span class="heading">Beilagen:</span><br /><td><?php echo $day['side']; ?></td>
+                <td>0,40€ - 0,60€</td>
             </tr>
             <tr class="both">
-                <th>Eintopf</th>
-                <td><?php echo $day['hotpot']; ?></td>
-                <td>Stud.: 1,10€<br />Bed.: 1,20€</td>
+                <td><span class="heading">Eintopf:</span><br /><?php echo $day['hotpot']; ?></td>
+                <td>1,10€</td>
             </tr>
             <tr class="south">
-                <th>Grill</th>
-                <td><?php echo $day['bbq']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_bbq']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_bbq']; ?>€</td>
+                <td><span class="heading">Grill:</span><br /><?php echo $day['bbq']; ?></td>
+                <td><?php echo $day['price_bbq']; ?>€</td>
             </tr>
             <tr class="south">
-                <th>Pfanne</th>
-                <td><?php echo $day['pan']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_pan']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_pan']; ?>€</td>
+                <td><span class="heading">Pfanne:</span><br /><?php echo $day['pan']; ?></td>
+                <td><?php echo $day['price_pan']; ?>€</td>
             </tr>
             <tr class="south">
-                <th>Aktion</th>
-                <td><?php echo $day['action']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_action']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_action']; ?>€</td>
+                <td><span class="heading">Aktion:</span><br /><?php echo $day['action']; ?></td>
+                <td><?php echo $day['price_action']; ?>€</td>
             </tr>
             <tr class="south">
-                <th>Wok</th>
-                <td><?php echo $day['bbq']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_wok']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_wok']; ?>€</td>
+                <td><span class="heading">Wok:</span><br /><?php echo $day['wok']; ?></td>
+                <td><?php echo $day['price_wok']; ?>€</td>
             </tr>
             <tr class="south">
-                <th>Gratin</th>
-                <td><?php echo $day['gratin']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_gratin']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_gratin']; ?>€</td>
+                <td><span class="heading">Gratin:</span><br /><?php echo $day['gratin']; ?></td>
+                <td><?php echo $day['price_gratin']; ?>€</td>
             </tr>
             <tr class="south">
-                <th>mensavital</th>
-                <td><?php echo $day['mensavital']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_mensavital']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_mensavital']; ?>€</td>
+                <td><span class="heading">mensavital:</span><br /><?php echo $day['mensavital']; ?></td>
+                <td><?php echo $day['price_mensavital']; ?>€</td>
             </tr>
             <tr class="south">
-                <th>Green Corner</th>
-                <td><?php echo $day['green_corner']; ?></td>
-                <td>Stud.:&nbsp;<?php echo $day['price_stud_green_corner']; ?>€<br />Bed.:&nbsp;<?php echo $day['price_att_green_corner']; ?>€</td>
+                <td><span class="heading">Green Corner:</span><br /><?php echo $day['green_corner']; ?></td>
+                <td><?php echo $day['price_green_corner']; ?>€</td>
             </tr>
 		</table>
     </div> <!-- Ende collapsible -->
@@ -133,7 +121,7 @@ foreach($plans as $plankey => $planvalue):  ?>
             <?php if(!empty($additives)):
                     foreach($additives as $add): ?>
 
-                <tr><td class="abbreviations"><?php echo $add['abbreviation']; ?></td><td class="abbreviations"><?php echo $add['name']; ?></td></tr>
+                <tr><td class="abbreviations"><?php echo $add['abbreviation']; ?></td><td class="abbreviations"><?php echo utf8_encode($add['name']); ?></td></tr>
 
             <?php endforeach; endif; ?>
         </table>

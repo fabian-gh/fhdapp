@@ -79,196 +79,161 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 			<td class="mealdescription">Grill</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_bbq" ><?php echo (!empty($post['mon_bbq'])) ? $post['mon_bbq'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_bbq" value="<?php echo (!empty($post['price_stud_mon_bbq'])) ? $post['price_stud_mon_bbq'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_bbq" value="<?php echo (!empty($post['price_att_mon_bbq'])) ? $post['price_att_mon_bbq'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_bbq" value="<?php echo (!empty($post['price_mon_bbq'])) ? $post['price_mon_bbq'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_bbq" ><?php echo (!empty($post['tue_bbq'])) ? $post['tue_bbq'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_bbq" value="<?php echo (!empty($post['price_stud_tue_bbq'])) ? $post['price_stud_tue_bbq'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_bbq" value="<?php echo (!empty($post['price_att_tue_bbq'])) ? $post['price_att_tue_bbq'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_tue_bbq" value="<?php echo (!empty($post['price_tue_bbq'])) ? $post['price_tue_bbq'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_bbq" ><?php echo (!empty($post['wed_bbq'])) ? $post['wed_bbq'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_bbq" value="<?php echo (!empty($post['price_stud_wed_bbq'])) ? $post['price_stud_wed_bbq'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_bbq" value="<?php echo (!empty($post['price_att_wed_bbq'])) ? $post['price_att_wed_bbq'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_bbq" value="<?php echo (!empty($post['price_wed_bbq'])) ? $post['price_wed_bbq'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_bbq" ><?php echo (!empty($post['thu_bbq'])) ? $post['thu_bbq'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_bbq" value="<?php echo (!empty($post['price_stud_thu_bbq'])) ? $post['price_stud_thu_bbq'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_bbq" value="<?php echo (!empty($post['price_att_thu_bbq'])) ? $post['price_att_thu_bbq'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_bbq" value="<?php echo (!empty($post['price_thu_bbq'])) ? $post['price_thu_bbq'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_bbq" ><?php echo (!empty($post['fri_bbq'])) ? $post['fri_bbq'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_bbq" value="<?php echo (!empty($post['price_stud_fri_bbq'])) ? $post['price_stud_fri_bbq'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_bbq" value="<?php echo (!empty($post['price_att_fri_bbq'])) ? $post['price_att_fri_bbq'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_bbq" value="<?php echo (!empty($post['price_fri_bbq'])) ? $post['price_fri_bbq'] : ""; ?>" /> €</td></tr>
 				</table></td>
 		</tr>
 		<tr id="pan">
 			<td class="mealdescription">Pfanne</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_pan" ><?php echo (!empty($post['mon_pan'])) ? $post['mon_pan'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_pan" value="<?php echo (!empty($post['price_stud_mon_pan'])) ? $post['price_stud_mon_pan'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_pan" value="<?php echo (!empty($post['price_att_mon_pan'])) ? $post['price_att_mon_pan'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_pan" value="<?php echo (!empty($post['price_mon_pan'])) ? $post['price_mon_pan'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_pan" ><?php echo (!empty($post['tue_pan'])) ? $post['tue_pan'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_pan" value="<?php echo (!empty($post['price_stud_tue_pan'])) ? $post['price_stud_tue_pan'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_pan" value="<?php echo (!empty($post['price_att_tue_pan'])) ? $post['price_att_tue_pan'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_tue_pan" value="<?php echo (!empty($post['price_tue_pan'])) ? $post['price_tue_pan'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_pan" ><?php echo (!empty($post['wed_pan'])) ? $post['wed_pan'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_pan" value="<?php echo (!empty($post['price_stud_wed_pan'])) ? $post['price_stud_wed_pan'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_pan" value="<?php echo (!empty($post['price_att_wed_pan'])) ? $post['price_att_wed_pan'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_pan" value="<?php echo (!empty($post['price_wed_pan'])) ? $post['price_wed_pan'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_pan" ><?php echo (!empty($post['thu_pan'])) ? $post['thu_pan'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_pan" value="<?php echo (!empty($post['price_stud_thu_pan'])) ? $post['price_stud_thu_pan'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_pan" value="<?php echo (!empty($post['price_att_thu_pan'])) ? $post['price_att_thu_pan'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_pan" value="<?php echo (!empty($post['price_thu_pan'])) ? $post['price_thu_pan'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_pan" ><?php echo (!empty($post['fri_pan'])) ? $post['fri_pan'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_pan" value="<?php echo (!empty($post['price_stud_fri_pan'])) ? $post['price_stud_fri_pan'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_pan" value="<?php echo (!empty($post['price_att_fri_pan'])) ? $post['price_att_fri_pan'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_pan" value="<?php echo (!empty($post['price_fri_pan'])) ? $post['price_fri_pan'] : ""; ?>" /> €</td></tr>
 				</table></td>
 		</tr>
 		<tr id="action">
 			<td class="mealdescription">Aktionsstand</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_action" ><?php echo (!empty($post['mon_action'])) ? $post['mon_action'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_action" value="<?php echo (!empty($post['price_stud_mon_action'])) ? $post['price_stud_mon_action'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_action" value="<?php echo (!empty($post['price_att_mon_action'])) ? $post['price_att_mon_action'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_action" value="<?php echo (!empty($post['price_mon_action'])) ? $post['price_mon_action'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_action" ><?php echo (!empty($post['tue_action'])) ? $post['tue_action'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_action" value="<?php echo (!empty($post['price_stud_tue_action'])) ? $post['price_stud_tue_action'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_action" value="<?php echo (!empty($post['price_att_tue_action'])) ? $post['price_att_tue_action'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_tue_action" value="<?php echo (!empty($post['price_tue_action'])) ? $post['price_tue_action'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_action" ><?php echo (!empty($post['wed_action'])) ? $post['wed_action'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_action" value="<?php echo (!empty($post['price_stud_wed_action'])) ? $post['price_stud_wed_action'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_action" value="<?php echo (!empty($post['price_att_wed_action'])) ? $post['price_att_wed_action'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_action" value="<?php echo (!empty($post['price_wed_action'])) ? $post['price_wed_action'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_action" ><?php echo (!empty($post['thu_action'])) ? $post['thu_action'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_action" value="<?php echo (!empty($post['price_stud_thu_action'])) ? $post['price_stud_thu_action'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_action" value="<?php echo (!empty($post['price_att_thu_action'])) ? $post['price_att_thu_action'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_action" value="<?php echo (!empty($post['price_thu_action'])) ? $post['price_thu_action'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_action" ><?php echo (!empty($post['fri_action'])) ? $post['fri_action'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_action" value="<?php echo (!empty($post['price_stud_fri_action'])) ? $post['price_stud_fri_action'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_action" value="<?php echo (!empty($post['price_att_fri_action'])) ? $post['price_att_fri_action'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_action" value="<?php echo (!empty($post['price_fri_action'])) ? $post['price_fri_action'] : ""; ?>" /> €</td></tr>
 				</table></td>
 		</tr>
 		<tr id="wok">
 			<td class="mealdescription">Wok</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_wok" ><?php echo (!empty($post['mon_wok'])) ? $post['mon_wok'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_wok" value="<?php echo (!empty($post['price_stud_mon_wok'])) ? $post['price_stud_mon_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_wok" value="<?php echo (!empty($post['price_att_mon_wok'])) ? $post['price_att_mon_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_wok" value="<?php echo (!empty($post['price_mon_wok'])) ? $post['price_mon_wok'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_wok" ><?php echo (!empty($post['tue_wok'])) ? $post['tue_wok'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_wok" value="<?php echo (!empty($post['price_stud_tue_wok'])) ? $post['price_stud_tue_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_wok" value="<?php echo (!empty($post['price_att_tue_wok'])) ? $post['price_att_tue_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_tue_wok" value="<?php echo (!empty($post['price_tue_wok'])) ? $post['price_tue_wok'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_wok" ><?php echo (!empty($post['wed_wok'])) ? $post['wed_wok'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_wok" value="<?php echo (!empty($post['price_stud_wed_wok'])) ? $post['price_stud_wed_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_wok" value="<?php echo (!empty($post['price_att_wed_wok'])) ? $post['price_att_wed_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_wok" value="<?php echo (!empty($post['price_wed_wok'])) ? $post['price_wed_wok'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_wok" ><?php echo (!empty($post['thu_wok'])) ? $post['thu_wok'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_wok" value="<?php echo (!empty($post['price_stud_thu_wok'])) ? $post['price_stud_thu_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_wok" value="<?php echo (!empty($post['price_att_thu_wok'])) ? $post['price_att_thu_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_wok" value="<?php echo (!empty($post['price_thu_wok'])) ? $post['price_thu_wok'] : ""; ?>" /> €</td></tr>					
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_wok" ><?php echo (!empty($post['fri_wok'])) ? $post['fri_wok'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_wok" value="<?php echo (!empty($post['price_stud_fri_wok'])) ? $post['price_stud_fri_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_wok" value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_wok" value="<?php echo (!empty($post['price_fri_wok'])) ? $post['price_fri_wok'] : ""; ?>" /> €</td></tr>
 				</table></td>
 		</tr>
 		<tr id="gratin">
 			<td class="mealdescription">Gratin</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_gratin" ><?php echo (!empty($post['mon_gratin'])) ? $post['mon_gratin'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_gratin" value="<?php echo (!empty($post['price_stud_mon_gratin'])) ? $post['price_stud_mon_gratin'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_gratin" value="<?php echo (!empty($post['price_att_mon_gratin'])) ? $post['price_att_mon_gratin'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_gratin" value="<?php echo (!empty($post['price_mon_gratin'])) ? $post['price_mon_gratin'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_gratin" ><?php echo (!empty($post['tue_gratin'])) ? $post['tue_gratin'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_gratin" value="<?php echo (!empty($post['price_stud_tue_gratin'])) ? $post['price_stud_tue_gratin'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_gratin" value="<?php echo (!empty($post['price_att_tue_gratin'])) ? $post['price_att_tue_gratin'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_gratin" value="<?php echo (!empty($post['price_tue_gratin'])) ? $post['price_tue_gratin'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_gratin" ><?php echo (!empty($post['wed_gratin'])) ? $post['wed_gratin'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_gratin" value="<?php echo (!empty($post['price_stud_wed_gratin'])) ? $post['price_stud_wed_gratin'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_gratin" value="<?php echo (!empty($post['price_att_wed_gratin'])) ? $post['price_att_wed_gratin'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_gratin" value="<?php echo (!empty($post['price_wed_gratin'])) ? $post['price_wed_gratin'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_gratin" ><?php echo (!empty($post['thu_gratin'])) ? $post['thu_gratin'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_gratin" value="<?php echo (!empty($post['price_stud_thu_gratin'])) ? $post['price_stud_thu_gratin'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_gratin" value="<?php echo (!empty($post['price_att_thu_gratin'])) ? $post['price_att_thu_gratin'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_gratin" value="<?php echo (!empty($post['price_thu_gratin'])) ? $post['price_thu_gratin'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_gratin" ><?php echo (!empty($post['fri_gratin'])) ? $post['fri_gratin'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_gratin" value="<?php echo (!empty($post['price_stud_fri_gratin'])) ? $post['price_stud_fri_gratin'] : ""; ?>"  value="<?php echo (!empty($post['price_att_fri_wok'])) ? $post['price_att_fri_wok'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_gratin" value="<?php echo (!empty($post['price_att_fri_gratin'])) ? $post['price_att_fri_gratin'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_gratin" value="<?php echo (!empty($post['price_fri_gratin'])) ? $post['price_fri_gratin'] : ""; ?>"/> €</td></tr>
 				</table></td>
 		</tr>
 		<tr id="mensavital">
 			<td class="mealdescription">mensa vital</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_mensavital" ><?php echo (!empty($post['mon_mensavital'])) ? $post['mon_mensavital'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_mensavital" value="<?php echo (!empty($post['price_stud_mon_mensavital'])) ? $post['price_stud_mon_mensavital'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_mensavital"  value="<?php echo (!empty($post['price_att_mon_mensavital'])) ? $post['price_att_mon_mensavital'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_mensavital" value="<?php echo (!empty($post['price_mon_mensavital'])) ? $post['price_mon_mensavital'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_mensavital" ><?php echo (!empty($post['tue_mensavital'])) ? $post['tue_mensavital'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_mensavital" value="<?php echo (!empty($post['price_stud_tue_mensavital'])) ? $post['price_stud_tue_mensavital'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_mensavital" value="<?php echo (!empty($post['price_att_tue_mensavital'])) ? $post['price_att_tue_mensavital'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_tue_mensavital" value="<?php echo (!empty($post['price_tue_mensavital'])) ? $post['price_tue_mensavital'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_mensavital" ><?php echo (!empty($post['wed_mensavital'])) ? $post['wed_mensavital'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_mensavital" value="<?php echo (!empty($post['price_stud_wed_mensavital'])) ? $post['price_stud_wed_mensavital'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_mensavital" value="<?php echo (!empty($post['price_att_wed_mensavital'])) ? $post['price_att_wed_mensavital'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_mensavital" value="<?php echo (!empty($post['price_wed_mensavital'])) ? $post['price_wed_mensavital'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_mensavital" ><?php echo (!empty($post['thu_mensavital'])) ? $post['thu_mensavital'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_mensavital" value="<?php echo (!empty($post['price_stud_thu_mensavital'])) ? $post['price_stud_thu_mensavital'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_mensavital" value="<?php echo (!empty($post['price_att_thu_mensavital'])) ? $post['price_att_thu_mensavital'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_mensavital" value="<?php echo (!empty($post['price_thu_mensavital'])) ? $post['price_thu_mensavital'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_mensavital" ><?php echo (!empty($post['fri_mensavital'])) ? $post['fri_mensavital'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_mensavital" value="<?php echo (!empty($post['price_stud_fri_mensavital'])) ? $post['price_stud_fri_mensavital'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_mensavital" value="<?php echo (!empty($post['price_att_fri_mensavital'])) ? $post['price_att_fri_mensavital'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_mensavital" value="<?php echo (!empty($post['price_fri_mensavital'])) ? $post['price_fri_mensavital'] : ""; ?>" /> €</td></tr>					
 				</table></td>
 		</tr>
 		<tr id="green_corner">
 			<td class="mealdescription">Green Corner</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_green_corner" ><?php echo (!empty($post['mon_green_corner'])) ? $post['mon_green_corner'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_mon_green_corner" value="<?php echo (!empty($post['price_stud_mon_green_corner'])) ? $post['price_stud_mon_green_corner'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_mon_green_corner" value="<?php echo (!empty($post['price_att_mon_green_corner'])) ? $post['price_att_mon_green_corner'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_mon_green_corner" value="<?php echo (!empty($post['price_mon_green_corner'])) ? $post['price_mon_green_corner'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="tue_green_corner" ><?php echo (!empty($post['tue_green_corner'])) ? $post['tue_green_corner'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_tue_green_corner" value="<?php echo (!empty($post['price_stud_tue_green_corner'])) ? $post['price_stud_tue_green_corner'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_tue_green_corner" value="<?php echo (!empty($post['price_att_tue_green_corner'])) ? $post['price_att_tue_green_corner'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_tue_green_corner" value="<?php echo (!empty($post['price_tue_green_corner'])) ? $post['price_tue_green_corner'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="wed_green_corner" ><?php echo (!empty($post['wed_green_corner'])) ? $post['wed_green_corner'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_wed_green_corner" value="<?php echo (!empty($post['price_stud_wed_green_corner'])) ? $post['price_stud_wed_green_corner'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_wed_green_corner" value="<?php echo (!empty($post['price_att_wed_green_corner'])) ? $post['price_att_wed_green_corner'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_wed_green_corner" value="<?php echo (!empty($post['price_wed_green_corner'])) ? $post['price_wed_green_corner'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="thu_green_corner" ><?php echo (!empty($post['thu_green_corner'])) ? $post['thu_green_corner'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_thu_green_corner" value="<?php echo (!empty($post['price_stud_thu_green_corner'])) ? $post['price_stud_thu_green_corner'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_thu_green_corner" value="<?php echo (!empty($post['price_att_thu_green_corner'])) ? $post['price_att_thu_green_corner'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_thu_green_corner" value="<?php echo (!empty($post['price_thu_green_corner'])) ? $post['price_thu_green_corner'] : ""; ?>" /> €</td></tr>
 				</table></td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="fri_green_corner" ><?php echo (!empty($post['fri_green_corner'])) ? $post['fri_green_corner'] : ""; ?></textarea>
 				<table>
-					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_stud_fri_green_corner" value="<?php echo (!empty($post['price_stud_fri_green_corner'])) ? $post['price_stud_fri_green_corner'] : ""; ?>" /> €</td></tr>
-					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_att_fri_green_corner" value="<?php echo (!empty($post['price_att_fri_green_corner'])) ? $post['price_att_fri_green_corner'] : ""; ?>" /> €</td></tr>
+					<tr><td>Preis: </td><td><input type="textfield" class="price" size="5" maxlength="5" name="price_fri_green_corner" value="<?php echo (!empty($post['price_fri_green_corner'])) ? $post['price_fri_green_corner'] : ""; ?>" /> €</td></tr>
 				</table></td>
 		</tr>
 		<tr><td><input type="submit" id="mensasubmit" name="speichern" value="Speichern"/></td></tr>

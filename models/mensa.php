@@ -51,21 +51,11 @@ class Mensa{
 	 * Arrays with studendprices for each day
 	 * @var Array
 	 */
-	private $monday_stud_prices;
-	private $tuesday_stud_prices;
-	private $wednesday_stud_prices;
-	private $thursday_stud_prices;
-	private $friday_stud_prices;
-
-	/**
-	 * Arrays with attendentprices for each day
-	 * @var Array
-	 */
-	private $monday_att_prices;
-	private $tuesday_att_prices;
-	private $wednesday_att_prices;
-	private $thursday_att_prices;
-	private $friday_att_prices;
+	private $monday_prices;
+	private $tuesday_prices;
+	private $wednesday_prices;
+	private $thursday_prices;
+	private $friday_prices;
 
 
 
@@ -81,8 +71,8 @@ class Mensa{
 	// ================================================ Frontend-Methods =========================================================
 
 	/**
-	 * Queries the current plan + the plans for the next two weeks
-	 * in the whole 3 or less weeks will be listed
+	 * Queries the current plan + the plans for the next three weeks
+	 * in the whole 4 or less weeks will be listed
 	 * @return Array $plans
 	 */
 	public function getCanteenPlans(){
@@ -93,7 +83,7 @@ class Mensa{
 										INNER JOIN days AS d ON m.day_id = d.id
 										WHERE m.calenderweek
 										BETWEEN DATE_FORMAT(NOW(), '%v')
-										AND DATE_FORMAT(FROM_UNIXTIME(UNIX_TIMESTAMP( )+1814400 ), '%v')
+										AND DATE_FORMAT(FROM_UNIXTIME(UNIX_TIMESTAMP( )+2419200 ), '%v')
 										ORDER BY m.mealdate ASC");
 
 			while($row = $query->fetch_assoc()){
@@ -106,31 +96,28 @@ class Mensa{
                 	'side'				=> $row['side'],
                 	'hotpot'			=> $row['hotpot'],
                 	'bbq'				=> $row['bbq'],
-                	'price_stud_bbq'	=> $row['price_stud_bbq'],
-                	'price_att_bbq'		=> $row['price_att_bbq'],
+                	'price_bbq'			=> $row['price_bbq'],
                 	'pan'				=> $row['pan'],
-                	'price_stud_pan'	=> $row['price_stud_pan'],
-                	'price_att_pan'		=> $row['price_att_pan'],
+                	'price_pan'			=> $row['price_pan'],
                 	'action'			=> $row['action'],
-                	'price_stud_action'	=> $row['price_stud_action'],
-                	'price_att_action'	=> $row['price_att_action'],
+                	'price_action'		=> $row['price_action'],
                 	'wok'				=> $row['wok'],
-                	'price_stud_wok'	=> $row['price_stud_wok'],
-                	'price_att_wok'		=> $row['price_att_wok'],
+                	'price_wok'			=> $row['price_wok'],
                 	'gratin'			=> $row['gratin'],
-                	'price_stud_gratin'	=> $row['price_stud_gratin'],
-                	'price_att_gratin'	=> $row['price_att_gratin'],
+                	'price_gratin'		=> $row['price_gratin'],
                 	'mensavital'		=> $row['mensavital'],
-                	'price_stud_mensavital'	=> $row['price_stud_mensavital'],
-                	'price_att_mensavital'	=> $row['price_att_mensavital'],
+                	'price_mensavital'	=> $row['price_mensavital'],
                 	'green_corner'		=> $row['green_corner'],
-                	'price_stud_green_corner'=> $row['price_stud_green_corner'],
-                	'price_att_green_corner' => $row['price_att_green_corner'],
+                	'price_green_corner'=> $row['price_green_corner']
             	);
              }
              
-             return $plans;
-
+             if(!empty($plans)){
+             	return $plans;
+             } else {
+             	return null;
+             }
+             
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
@@ -172,7 +159,8 @@ class Mensa{
 			while($row = $query->fetch_assoc()){
 				$openHour[] = array(
 					'name' 			=> $row['name'],
-					'openingHours'	=> $row['opening_hours']
+					'hoursDuring'	=> $row['hours_during_semester'],
+					'hoursOutOf'	=> $row['hours_out_of_semester']
 				);
 			}
 
@@ -245,12 +233,8 @@ class Mensa{
 					$this->monday_meals[] = nl2br($value);
 				break;
 
-				case strstr($key, 'price_stud_mon_'):
+				case strstr($key, 'price_mon_'):
 					$this->monday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
-				break;
-
-				case strstr($key, 'price_att_mon_'):
-					$this->monday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Tuesday
@@ -258,12 +242,8 @@ class Mensa{
 					$this->tuesday_meals[] = nl2br($value);
 				break;
 
-				case strstr($key, 'price_stud_tue_'):
+				case strstr($key, 'price_tue_'):
 					$this->tuesday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
-				break;
-
-				case strstr($key, 'price_att_tue_'):
-					$this->tuesday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Wednesday
@@ -271,12 +251,8 @@ class Mensa{
 					$this->wednesday_meals[] = nl2br($value);
 				break;
 
-				case strstr($key, 'price_stud_wed_'):
+				case strstr($key, 'price_wed_'):
 					$this->wednesday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
-				break;
-
-				case strstr($key, 'price_att_wed_'):
-					$this->wednesday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Thursday
@@ -284,12 +260,8 @@ class Mensa{
 					$this->thursday_meals[] = nl2br($value);
 				break;
 
-				case strstr($key, 'price_stud_thu_'):
+				case strstr($key, 'price_thu_'):
 					$this->thursday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
-				break;
-
-				case strstr($key, 'price_att_thu_'):
-					$this->thursday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 
 				// Friday
@@ -297,12 +269,8 @@ class Mensa{
 					$this->friday_meals[] = nl2br($value);
 				break;
 
-				case strstr($key, 'price_stud_fri_'):
+				case strstr($key, 'price_fri_'):
 					$this->friday_stud_prices[] = mysql_real_escape_string($this->checkComma($value));
-				break;
-
-				case strstr($key, 'price_att_fri_'):
-					$this->friday_att_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 			}
 		}
@@ -347,58 +315,58 @@ class Mensa{
 			// insert whole week with one INSERT
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
 														meal_one, meal_two, side, hotpot,
-														bbq, price_stud_bbq, price_att_bbq,
-														pan, price_stud_pan, price_att_pan,
-														action, price_stud_action, price_att_action,
-														wok, price_stud_wok, price_att_wok,
-														gratin, price_stud_gratin, price_att_gratin,
-														mensavital, price_stud_mensavital, price_att_mensavital,
-														green_corner, price_stud_green_corner, price_att_green_corner) 
+														bbq, price_bbq,
+														pan, price_pan,
+														action, price_action,
+														wok, price_wok,
+														gratin, price_gratin,
+														mensavital, price_mensavital,
+														green_corner, price_green_corner) 
 			VALUES ('".$this->calenderweek."', '".$this->mealdate[0]."', '1',
 					'".$this->monday_meals[0]."', '".$this->monday_meals[1]."', '".$this->monday_meals[2]."', '".$this->monday_meals[3]."', 
-					'".$this->monday_meals[4]."', '".$this->monday_stud_prices[0]."', '".$this->monday_att_prices[0]."',
-					'".$this->monday_meals[5]."', '".$this->monday_stud_prices[1]."', '".$this->monday_att_prices[1]."',
-					'".$this->monday_meals[6]."', '".$this->monday_stud_prices[2]."', '".$this->monday_att_prices[2]."',
-					'".$this->monday_meals[7]."', '".$this->monday_stud_prices[3]."', '".$this->monday_att_prices[3]."',
-					'".$this->monday_meals[8]."', '".$this->monday_stud_prices[4]."', '".$this->monday_att_prices[4]."',
-					'".$this->monday_meals[9]."', '".$this->monday_stud_prices[5]."', '".$this->monday_att_prices[5]."',
-					'".$this->monday_meals[10]."', '".$this->monday_stud_prices[6]."', '".$this->monday_att_prices[6]."'),
+					'".$this->monday_meals[4]."', '".$this->monday_prices[0]."',
+					'".$this->monday_meals[5]."', '".$this->monday_prices[1]."',
+					'".$this->monday_meals[6]."', '".$this->monday_prices[2]."',
+					'".$this->monday_meals[7]."', '".$this->monday_prices[3]."',
+					'".$this->monday_meals[8]."', '".$this->monday_prices[4]."',
+					'".$this->monday_meals[9]."', '".$this->monday_prices[5]."',
+					'".$this->monday_meals[10]."', '".$this->monday_prices[6]."'),
 					('".$this->calenderweek."', '".$this->mealdate[1]."', '2',
 					'".$this->tuesday_meals[0]."', '".$this->tuesday_meals[1]."', '".$this->tuesday_meals[2]."', '".$this->tuesday_meals[3]."', 
-					'".$this->tuesday_meals[4]."', '".$this->tuesday_stud_prices[0]."', '".$this->tuesday_att_prices[0]."',
-					'".$this->tuesday_meals[5]."', '".$this->tuesday_stud_prices[1]."', '".$this->tuesday_att_prices[1]."',
-					'".$this->tuesday_meals[6]."', '".$this->tuesday_stud_prices[2]."', '".$this->tuesday_att_prices[2]."',
-					'".$this->tuesday_meals[7]."', '".$this->tuesday_stud_prices[3]."', '".$this->tuesday_att_prices[3]."',
-					'".$this->tuesday_meals[8]."', '".$this->tuesday_stud_prices[4]."', '".$this->tuesday_att_prices[4]."',
-					'".$this->tuesday_meals[9]."', '".$this->tuesday_stud_prices[5]."', '".$this->tuesday_att_prices[5]."',
-					'".$this->tuesday_meals[10]."', '".$this->tuesday_stud_prices[6]."', '".$this->tuesday_att_prices[6]."'),
+					'".$this->tuesday_meals[4]."', '".$this->tuesday_prices[0]."',
+					'".$this->tuesday_meals[5]."', '".$this->tuesday_prices[1]."',
+					'".$this->tuesday_meals[6]."', '".$this->tuesday_prices[2]."',
+					'".$this->tuesday_meals[7]."', '".$this->tuesday_prices[3]."',
+					'".$this->tuesday_meals[8]."', '".$this->tuesday_prices[4]."',
+					'".$this->tuesday_meals[9]."', '".$this->tuesday_prices[5]."',
+					'".$this->tuesday_meals[10]."', '".$this->tuesday_prices[6]."'),
 					('".$this->calenderweek."', '".$this->mealdate[2]."', '3',
 					'".$this->wednesday_meals[0]."', '".$this->wednesday_meals[1]."', '".$this->wednesday_meals[2]."', '".$this->wednesday_meals[3]."', 
-					'".$this->wednesday_meals[4]."', '".$this->wednesday_stud_prices[0]."', '".$this->wednesday_att_prices[0]."',
-					'".$this->wednesday_meals[5]."', '".$this->wednesday_stud_prices[1]."', '".$this->wednesday_att_prices[1]."',
-					'".$this->wednesday_meals[6]."', '".$this->wednesday_stud_prices[2]."', '".$this->wednesday_att_prices[2]."',
-					'".$this->wednesday_meals[7]."', '".$this->wednesday_stud_prices[3]."', '".$this->wednesday_att_prices[3]."',
-					'".$this->wednesday_meals[8]."', '".$this->wednesday_stud_prices[4]."', '".$this->wednesday_att_prices[4]."',
-					'".$this->wednesday_meals[9]."', '".$this->wednesday_stud_prices[5]."', '".$this->wednesday_att_prices[5]."',
-					'".$this->wednesday_meals[10]."', '".$this->wednesday_stud_prices[6]."', '".$this->wednesday_att_prices[6]."'),
+					'".$this->wednesday_meals[4]."', '".$this->wednesday_prices[0]."',
+					'".$this->wednesday_meals[5]."', '".$this->wednesday_prices[1]."',
+					'".$this->wednesday_meals[6]."', '".$this->wednesday_prices[2]."',
+					'".$this->wednesday_meals[7]."', '".$this->wednesday_prices[3]."',
+					'".$this->wednesday_meals[8]."', '".$this->wednesday_prices[4]."',
+					'".$this->wednesday_meals[9]."', '".$this->wednesday_prices[5]."',
+					'".$this->wednesday_meals[10]."', '".$this->wednesday_prices[6]."'),
 					('".$this->calenderweek."', '".$this->mealdate[3]."', '4',
 					'".$this->thursday_meals[0]."', '".$this->thursday_meals[1]."', '".$this->thursday_meals[2]."', '".$this->thursday_meals[3]."', 
-					'".$this->thursday_meals[4]."', '".$this->thursday_stud_prices[0]."', '".$this->thursday_att_prices[0]."',
-					'".$this->thursday_meals[5]."', '".$this->thursday_stud_prices[1]."', '".$this->thursday_att_prices[1]."',
-					'".$this->thursday_meals[6]."', '".$this->thursday_stud_prices[2]."', '".$this->thursday_att_prices[2]."',
-					'".$this->thursday_meals[7]."', '".$this->thursday_stud_prices[3]."', '".$this->thursday_att_prices[3]."',
-					'".$this->thursday_meals[8]."', '".$this->thursday_stud_prices[4]."', '".$this->thursday_att_prices[4]."',
-					'".$this->thursday_meals[9]."', '".$this->thursday_stud_prices[5]."', '".$this->thursday_att_prices[5]."',
-					'".$this->thursday_meals[10]."', '".$this->thursday_stud_prices[6]."', '".$this->thursday_att_prices[6]."'),
+					'".$this->thursday_meals[4]."', '".$this->thursday_prices[0]."',
+					'".$this->thursday_meals[5]."', '".$this->thursday_prices[1]."',
+					'".$this->thursday_meals[6]."', '".$this->thursday_prices[2]."',
+					'".$this->thursday_meals[7]."', '".$this->thursday_prices[3]."',
+					'".$this->thursday_meals[8]."', '".$this->thursday_prices[4]."',
+					'".$this->thursday_meals[9]."', '".$this->thursday_prices[5]."',
+					'".$this->thursday_meals[10]."', '".$this->thursday_prices[6]."'),
 					('".$this->calenderweek."', '".$this->mealdate[4]."', '5',
 					'".$this->friday_meals[0]."', '".$this->friday_meals[1]."', '".$this->friday_meals[2]."', '".$this->friday_meals[3]."', 
-					'".$this->friday_meals[4]."', '".$this->friday_stud_prices[0]."', '".$this->friday_att_prices[0]."',
-					'".$this->friday_meals[5]."', '".$this->friday_stud_prices[1]."', '".$this->friday_att_prices[1]."',
-					'".$this->friday_meals[6]."', '".$this->friday_stud_prices[2]."', '".$this->friday_att_prices[2]."',
-					'".$this->friday_meals[7]."', '".$this->friday_stud_prices[3]."', '".$this->friday_att_prices[3]."',
-					'".$this->friday_meals[8]."', '".$this->friday_stud_prices[4]."', '".$this->friday_att_prices[4]."',
-					'".$this->friday_meals[9]."', '".$this->friday_stud_prices[5]."', '".$this->friday_att_prices[5]."',
-					'".$this->friday_meals[10]."', '".$this->friday_stud_prices[6]."', '".$this->friday_att_prices[6]."')");
+					'".$this->friday_meals[4]."', '".$this->friday_prices[0]."',
+					'".$this->friday_meals[5]."', '".$this->friday_prices[1]."',
+					'".$this->friday_meals[6]."', '".$this->friday_prices[2]."',
+					'".$this->friday_meals[7]."', '".$this->friday_prices[3]."',
+					'".$this->friday_meals[8]."', '".$this->friday_prices[4]."',
+					'".$this->friday_meals[9]."', '".$this->friday_prices[5]."',
+					'".$this->friday_meals[10]."', '".$this->friday_prices[6]."')");
 
 			} catch (Exception $e){
 				echo $e->getMessage();
@@ -457,26 +425,19 @@ class Mensa{
 				$post['mon_side'] = $this->replaceBR($row['side']);
 				$post['mon_hotpot'] = $this->replaceBR($row['hotpot']);
 				$post['mon_bbq'] = $this->replaceBR($row['bbq']);
-				$post['price_stud_mon_bbq'] = $row['price_stud_bbq'];
-				$post['price_att_mon_bbq'] = $row['price_att_bbq'];
+				$post['price_mon_bbq'] = $row['price_bbq'];
 				$post['mon_pan'] = $this->replaceBR($row['pan']);
-				$post['price_stud_mon_pan'] = $row['price_stud_pan'];
-				$post['price_att_mon_pan'] = $row['price_att_pan'];
+				$post['price_mon_pan'] = $row['price_pan'];
 				$post['mon_action'] = $this->replaceBR($row['action']);
-				$post['price_stud_mon_action'] = $row['price_stud_action'];
-				$post['price_att_mon_action'] = $row['price_att_action'];
+				$post['price_mon_action'] = $row['price_action'];
 				$post['mon_wok'] = $this->replaceBR($row['wok']);
-				$post['price_stud_mon_wok'] = $row['price_stud_wok'];
-				$post['price_att_mon_wok'] = $row['price_att_wok'];
+				$post['price_mon_wok'] = $row['price_wok'];
 				$post['mon_gratin'] = $this->replaceBR($row['gratin']);
-				$post['price_stud_mon_gratin'] = $row['price_stud_gratin'];
-				$post['price_att_mon_gratin'] = $row['price_att_gratin'];
+				$post['price_mon_gratin'] = $row['price_gratin'];
 				$post['mon_mensavital'] = $this->replaceBR($row['mensavital']);
-				$post['price_stud_mon_mensavital'] = $row['price_stud_mensavital'];
-				$post['price_att_mon_mensavital'] = $row['price_att_mensavital'];
+				$post['price_mon_mensavital'] = $row['price_mensavital'];
 				$post['mon_green_corner'] = $this->replaceBR($row['green_corner']);
-				$post['price_stud_mon_green_corner'] = $row['price_stud_green_corner'];
-				$post['price_att_mon_green_corner'] = $row['price_att_green_corner'];
+				$post['price_mon_green_corner'] = $row['price_green_corner'];
 			}
 
 			// Tuesday
@@ -487,26 +448,19 @@ class Mensa{
 				$post['tue_side'] = $this->replaceBR($row['side']);
 				$post['tue_hotpot'] = $this->replaceBR($row['hotpot']);
 				$post['tue_bbq'] = $this->replaceBR($row['bbq']);
-				$post['price_stud_tue_bbq'] = $row['price_stud_bbq'];
-				$post['price_att_tue_bbq'] = $row['price_att_bbq'];
+				$post['price_tue_bbq'] = $row['price_bbq'];
 				$post['tue_pan'] = $this->replaceBR($row['pan']);
-				$post['price_stud_tue_pan'] = $row['price_stud_pan'];
-				$post['price_att_tue_pan'] = $row['price_att_pan'];
+				$post['price_tue_pan'] = $row['price_pan'];
 				$post['tue_action'] = $this->replaceBR($row['action']);
-				$post['price_stud_tue_action'] = $row['price_stud_action'];
-				$post['price_att_tue_action'] = $row['price_att_action'];
+				$post['price_tue_action'] = $row['price_action'];
 				$post['tue_wok'] = $this->replaceBR($row['wok']);
-				$post['price_stud_tue_wok'] = $row['price_stud_wok'];
-				$post['price_att_tue_wok'] = $row['price_att_wok'];
+				$post['price_tue_wok'] = $row['price_wok'];
 				$post['tue_gratin'] = $this->replaceBR($row['gratin']);
-				$post['price_stud_tue_gratin'] = $row['price_stud_gratin'];
-				$post['price_att_tue_gratin'] = $row['price_att_gratin'];
+				$post['price_tue_gratin'] = $row['price_gratin'];
 				$post['tue_mensavital'] = $this->replaceBR($row['mensavital']);
-				$post['price_stud_tue_mensavital'] = $row['price_stud_mensavital'];
-				$post['price_att_tue_mensavital'] = $row['price_att_mensavital'];
+				$post['price_tue_mensavital'] = $row['price_mensavital'];
 				$post['tue_green_corner'] = $this->replaceBR($row['green_corner']);
-				$post['price_stud_tue_green_corner'] = $row['price_stud_green_corner'];
-				$post['price_att_tue_green_corner'] = $row['price_att_green_corner'];
+				$post['price_tue_green_corner'] = $row['price_green_corner'];
 			}
 
 			// Wednesday
@@ -517,26 +471,19 @@ class Mensa{
 				$post['wed_side'] = $this->replaceBR($row['side']);
 				$post['wed_hotpot'] = $this->replaceBR($row['hotpot']);
 				$post['wed_bbq'] = $this->replaceBR($row['bbq']);
-				$post['price_stud_wed_bbq'] = $row['price_stud_bbq'];
-				$post['price_att_wed_bbq'] = $row['price_att_bbq'];
+				$post['price_wed_bbq'] = $row['price_bbq'];
 				$post['wed_pan'] = $this->replaceBR($row['pan']);
-				$post['price_stud_wed_pan'] = $row['price_stud_pan'];
-				$post['price_att_wed_pan'] = $row['price_att_pan'];
+				$post['price_wed_pan'] = $row['price_pan'];
 				$post['wed_action'] = $this->replaceBR($row['action']);
-				$post['price_stud_wed_action'] = $row['price_stud_action'];
-				$post['price_att_wed_action'] = $row['price_att_action'];
+				$post['price_wed_action'] = $row['price_action'];
 				$post['wed_wok'] = $this->replaceBR($row['wok']);
-				$post['price_stud_wed_wok'] = $row['price_stud_wok'];
-				$post['price_att_wed_wok'] = $row['price_att_wok'];
+				$post['price_wed_wok'] = $row['price_wok'];
 				$post['wed_gratin'] = $this->replaceBR($row['gratin']);
-				$post['price_stud_wed_gratin'] = $row['price_stud_gratin'];
-				$post['price_att_wed_gratin'] = $row['price_att_gratin'];
+				$post['price_wed_gratin'] = $row['price_gratin'];
 				$post['wed_mensavital'] = $this->replaceBR($row['mensavital']);
-				$post['price_stud_wed_mensavital'] = $row['price_stud_mensavital'];
-				$post['price_att_wed_mensavital'] = $row['price_att_mensavital'];
+				$post['price_wed_mensavital'] = $row['price_mensavital'];
 				$post['wed_green_corner'] = $this->replaceBR($row['green_corner']);
-				$post['price_stud_wed_green_corner'] = $row['price_stud_green_corner'];
-				$post['price_att_wed_green_corner'] = $row['price_att_green_corner'];
+				$post['price_wed_green_corner'] = $row['price_green_corner'];
 			}
 
 			// Thursday
@@ -547,26 +494,19 @@ class Mensa{
 				$post['thu_side'] = $this->replaceBR($row['side']);
 				$post['thu_hotpot'] = $this->replaceBR($row['hotpot']);
 				$post['thu_bbq'] = $this->replaceBR($row['bbq']);
-				$post['price_stud_thu_bbq'] = $row['price_stud_bbq'];
-				$post['price_att_thu_bbq'] = $row['price_att_bbq'];
+				$post['price_thu_bbq'] = $row['price_bbq'];
 				$post['thu_pan'] = $this->replaceBR($row['pan']);
-				$post['price_stud_thu_pan'] = $row['price_stud_pan'];
-				$post['price_att_thu_pan'] = $row['price_att_pan'];
+				$post['price_thu_pan'] = $row['price_pan'];
 				$post['thu_action'] = $this->replaceBR($row['action']);
-				$post['price_stud_thu_action'] = $row['price_stud_action'];
-				$post['price_att_thu_action'] = $row['price_att_action'];
+				$post['price_thu_action'] = $row['price_action'];
 				$post['thu_wok'] = $this->replaceBR($row['wok']);
-				$post['price_stud_thu_wok'] = $row['price_stud_wok'];
-				$post['price_att_thu_wok'] = $row['price_att_wok'];
+				$post['price_thu_wok'] = $row['price_wok'];
 				$post['thu_gratin'] = $this->replaceBR($row['gratin']);
-				$post['price_stud_thu_gratin'] = $row['price_stud_gratin'];
-				$post['price_att_thu_gratin'] = $row['price_att_gratin'];
+				$post['price_thu_gratin'] = $row['price_gratin'];
 				$post['thu_mensavital'] = $this->replaceBR($row['mensavital']);
-				$post['price_stud_thu_mensavital'] = $row['price_stud_mensavital'];
-				$post['price_att_thu_mensavital'] = $row['price_att_mensavital'];
+				$post['price_thu_mensavital'] = $row['price_mensavital'];
 				$post['thu_green_corner'] = $this->replaceBR($row['green_corner']);
-				$post['price_stud_thu_green_corner'] = $row['price_stud_green_corner'];
-				$post['price_att_thu_green_corner'] = $row['price_att_green_corner'];
+				$post['price_thu_green_corner'] = $row['price_green_corner'];
 			}
 
 			// Friday
@@ -577,26 +517,19 @@ class Mensa{
 				$post['fri_side'] = $this->replaceBR($row['side']);
 				$post['fri_hotpot'] = $this->replaceBR($row['hotpot']);
 				$post['fri_bbq'] = $this->replaceBR($row['bbq']);
-				$post['price_stud_fri_bbq'] = $row['price_stud_bbq'];
-				$post['price_att_fri_bbq'] = $row['price_att_bbq'];
+				$post['price_fri_bbq'] = $row['price_bbq'];
 				$post['fri_pan'] = $this->replaceBR($row['pan']);
-				$post['price_stud_fri_pan'] = $row['price_stud_pan'];
-				$post['price_att_fri_pan'] = $row['price_att_pan'];
+				$post['price_fri_pan'] = $row['price_pan'];
 				$post['fri_action'] = $this->replaceBR($row['action']);
-				$post['price_stud_fri_action'] = $row['price_stud_action'];
-				$post['price_att_fri_action'] = $row['price_att_action'];
+				$post['price_fri_action'] = $row['price_action'];
 				$post['fri_wok'] = $this->replaceBR($row['wok']);
-				$post['price_stud_fri_wok'] = $row['price_stud_wok'];
-				$post['price_att_fri_wok'] = $row['price_att_wok'];
+				$post['price_fri_wok'] = $row['price_wok'];
 				$post['fri_gratin'] = $this->replaceBR($row['gratin']);
-				$post['price_stud_fri_gratin'] = $row['price_stud_gratin'];
-				$post['price_att_fri_gratin'] = $row['price_att_gratin'];
+				$post['price_fri_gratin'] = $row['price_gratin'];
 				$post['fri_mensavital'] = $this->replaceBR($row['mensavital']);
-				$post['price_stud_fri_mensavital'] = $row['price_stud_mensavital'];
-				$post['price_att_fri_mensavital'] = $row['price_att_mensavital'];
+				$post['price_fri_mensavital'] = $row['price_mensavital'];
 				$post['fri_green_corner'] = $this->replaceBR($row['green_corner']);
-				$post['price_stud_fri_green_corner'] = $row['price_stud_green_corner'];
-				$post['price_att_fri_green_corner'] = $row['price_att_green_corner'];
+				$post['price_fri_green_corner'] = $row['price_green_corner'];
 			}
 
 			return $post;

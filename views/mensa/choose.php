@@ -22,6 +22,9 @@ $plans = $MensaController->callGetAllPlans();
 <link href="../../sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
 
        	  <h2>Mensapl&auml;ne</h2>
+
+            <?php if(!empty($plans)): ?>
+
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <th>Kalenderwoche</th>
@@ -42,6 +45,9 @@ $plans = $MensaController->callGetAllPlans();
             <?php endforeach; ?>
 
             </table>
+
+            <?php endif; ?>
+            
             <p><a class="button" href="edit.php?category=canteen&mode=add">neue Woche hinzufügen</a></p>
 
 
