@@ -46,3 +46,7 @@
 #content table.openHours .canteen{
 	vertical-align: top;
 }
+
+#content table.meals .heading{
+	font-weight: bold;
+}

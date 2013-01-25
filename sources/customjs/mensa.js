@@ -9,12 +9,10 @@ $(document).ready(function(){
 	});
 
 
-	//Flip-Switch Handling
+	// Radio Button control
 	$('.south').hide();
-	$("#flip-2").on('slidestop', function(){
-		if($('.south').is(':hidden')){
-			$('.south').toggle();
-		}
+	$("#radio-south").click(function() {
+		$(".south").toggle();
 	});
 
 });

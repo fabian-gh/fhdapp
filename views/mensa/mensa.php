@@ -25,11 +25,14 @@
 
 <!-- ToggleSwitch-->
 <div data-role="fieldcontain">
-<label for="flip-2"><h4>Campus:</h4></label>
-    <select name="flip-2" id="flip-2" data-role="slider" data-theme="a">
-        <option value="north">Nord</option>
-        <option value="south">S&uuml;d</option>
-    </select> 
+    <fieldset data-role="controlgroup" data-type="horizontal">
+        <h3>Campus:</h3>
+            <input type="radio" name="radio-north" id="radio-north" value="1" checked="checked" />
+            <label for="radio-north">Nord</label>
+
+            <input type="radio" name="radio-south" id="radio-south" value="2" />
+            <label for="radio-south">S&uuml;d</label>
+    </fieldset>
 </div>
 <br />
 
