@@ -125,14 +125,15 @@
 		//fachbereich eines studienganges herausfinden
 		public function getDepartmentFromStudycourse($name)
 		{
-			return $this->appointmentModel->getDepartmentFromStudycourse($name)['department_id'];
+			$temp = $this->appointmentModel->getDepartmentFromStudycourse($name);
+			return $temp['department_id'];
 		}
 	}
 
 	class Semester
 	{
-		private $id;
-		private $name;
+		public $id;
+		public $name;
 		public $appointments;
 		
 		public function __construct($id, $name)
