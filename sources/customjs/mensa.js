@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	// Essen der Mensa Süd zu Beginn verstecken
+	$(".south").hide();
 
 	//Datepicker formating
 	$("#start_date").click(function() {
@@ -10,13 +12,14 @@ $(document).ready(function(){
 
 
 	// Radio Button control
-	$(".south").hide();
 	$("#radio-south").click(function() {
 		if($(".south").is(":hidden")){
-			$(".south").toggle();
-		} else {
-			$(".south").hide();
+			$(".south").show();
 		}
+	});
+
+	$("#radio-north").click(function() {
+		$(".south").hide();
 	});
 
 });
