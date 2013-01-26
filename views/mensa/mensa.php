@@ -27,10 +27,10 @@
 <div data-role="fieldcontain">
     <fieldset data-role="controlgroup" data-type="horizontal">
         <h3>Campus:</h3>
-            <input type="radio" name="radio-north" id="radio-north" value="1" checked="checked" />
+            <input type="radio" name="radio-canteen" id="radio-north" value="1" checked="checked" />
             <label for="radio-north">Nord</label>
 
-            <input type="radio" name="radio-south" id="radio-south" value="2" />
+            <input type="radio" name="radio-canteen" id="radio-south" value="2" />
             <label for="radio-south">S&uuml;d</label>
     </fieldset>
 </div>

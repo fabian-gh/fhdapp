@@ -10,9 +10,13 @@ $(document).ready(function(){
 
 
 	// Radio Button control
-	$('.south').hide();
+	$(".south").hide();
 	$("#radio-south").click(function() {
-		$(".south").toggle();
+		if($(".south").is(":hidden")){
+			$(".south").toggle();
+		} else {
+			$(".south").hide();
+		}
 	});
 
 });
