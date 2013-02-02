@@ -43,6 +43,20 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 			<th class="weekday">Donnerstag</th>
 			<th class="weekday">Freitag</th>
 		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="checkbox" id="mon_hol" name="mon_hol" <?php echo (isset($post['mon_holiday']) && $post['mon_holiday'] != null) ? "checked='checked'" : ""; ?> />&nbsp;Feiertag<br />
+				<span class="hol_text mon_hol_text">Bezeichnung:&nbsp;</span><input type="textfield" class="hol_text mon_hol_text" id="mon_hol_name" name="mon_hol_name" value="<?php echo (isset($post['mon_holiday']) && $post['mon_holiday'] != null) ? $post['mon_holiday'] : ""; ?>" /></td>
+			<td><input type="checkbox" id="tue_hol" name="tue_hol" <?php echo (isset($post['tue_holiday']) && $post['tue_holiday'] != null) ? "checked='checked'" : ""; ?> />&nbsp;Feiertag<br />
+				<span class="hol_text tue_hol_text">Bezeichnung:&nbsp;</span><input type="textfield" class="hol_text tue_hol_text" id="tue_hol_name" name="tue_hol_name" value="<?php echo (isset($post['tue_holiday']) && $post['tue_holiday'] != null) ? $post['tue_holiday'] : ""; ?>" /></td>
+			<td><input type="checkbox" id="wed_hol" name="wed_hol" <?php echo (isset($post['wed_holiday']) && $post['wed_holiday'] != null) ? "checked='checked'" : ""; ?> />&nbsp;Feiertag<br />
+				<span class="hol_text wed_hol_text">Bezeichnung:&nbsp;</span><input type="textfield" class="hol_text wed_hol_text" id="wed_hol_name" name="wed_hol_name" value="<?php echo (isset($post['wed_holiday']) && $post['wed_holiday'] != null) ? $post['wed_holiday'] : ""; ?>" /></td>
+			<td><input type="checkbox" id="thu_hol" name="thu_hol" <?php echo (isset($post['thu_holiday']) && $post['thu_holiday'] != null) ? "checked='checked'" : ""; ?> />&nbsp;Feiertag<br />
+				<span class="hol_text thu_hol_text">Bezeichnung:&nbsp;</span><input type="textfield" class="hol_text thu_hol_text" id="thu_hol_name" name="thu_hol_name" value="<?php echo (isset($post['thu_holiday']) && $post['thu_holiday'] != null) ? $post['thu_holiday'] : ""; ?>" /></td>
+			<td><input type="checkbox" id="fri_hol" name="fri_hol" <?php echo (isset($post['fri_holiday']) && $post['fri_holiday'] != null) ? "checked='checked'" : ""; ?> />&nbsp;Feiertag<br />
+				<span class="hol_text fri_hol_text">Bezeichnung:&nbsp;</span><input type="textfield" class="hol_text fri_hol_text" id="fri_hol_name" name="fri_hol_name" value="<?php echo (isset($post['fri_holiday']) && $post['fri_holiday'] != null) ? $post['fri_holiday'] : ""; ?>" /></td>
+
+		</tr>
 		<tr id="meal_one">
 			<td class="mealdescription">Essen 1</td>
 			<td><textarea rows="3" cols="20" class="mealinput" name="mon_meal_one" ><?php echo (!empty($post['mon_meal_one'])) ? $post['mon_meal_one'] : ""; ?></textarea></td>

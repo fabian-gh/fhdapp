@@ -37,6 +37,17 @@ class Mensa{
 	 */
 	private $start;
 
+
+	/**
+	 * Holiday-Variables
+	 * @var String Holiday
+	 */
+	private $mon_holiday;
+	private $tue_holiday;
+	private $wed_holiday;
+	private $thu_holiday;
+	private $fri_holiday;
+
 	/**
 	 * Arrays with monday_mealss for each day
 	 * @var Array
@@ -90,6 +101,7 @@ class Mensa{
                 $plans[$row['calenderweek']][$row['day_id']] = array(
                 	'Calenderweek'		=> $row['calenderweek'],
                 	'mealdate'			=> $row['mealdate'],
+                	'holiday'			=> $row['holiday'],
                 	'dayname'			=> $row['day'],
                 	'meal_one'			=> $row['meal_one'],
                 	'meal_two'			=> $row['meal_two'],
@@ -228,6 +240,27 @@ class Mensa{
 					$this->start = mysql_real_escape_string($value);
 				break;
 
+				// Holiday-Handling
+				case strstr($key, 'mon_hol_name'):
+					$this->mon_holiday = mysql_real_escape_string($value);
+				break;
+
+				case strstr($key, 'tue_hol_name'):
+					$this->tue_holiday = mysql_real_escape_string($value);
+				break;
+
+				case strstr($key, 'wed_hol_name'):
+					$this->wed_holiday = mysql_real_escape_string($value);
+				break;
+
+				case strstr($key, 'thu_hol_name'):
+					$this->thu_holiday = mysql_real_escape_string($value);
+				break;
+
+				case strstr($key, 'fri_hol_name'):
+					$this->fri_holiday = mysql_real_escape_string($value);
+				break;
+
 				// Monday
 				case strstr($key, 'mon_'):
 					$this->monday_meals[] = nl2br($value);
@@ -313,7 +346,7 @@ class Mensa{
 			}
 
 			// insert whole week with one INSERT
-			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, day_id, 
+			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, holiday, day_id, 
 														meal_one, meal_two, side, hotpot,
 														bbq, price_bbq,
 														pan, price_pan,
@@ -322,7 +355,7 @@ class Mensa{
 														gratin, price_gratin,
 														mensavital, price_mensavital,
 														green_corner, price_green_corner) 
-			VALUES ('".$this->calenderweek."', '".$this->mealdate[0]."', '1',
+			VALUES ('".$this->calenderweek."', '".$this->mealdate[0]."','".$this->mon_holiday."', '1',
 					'".$this->monday_meals[0]."', '".$this->monday_meals[1]."', '".$this->monday_meals[2]."', '".$this->monday_meals[3]."', 
 					'".$this->monday_meals[4]."', '".$this->monday_prices[0]."',
 					'".$this->monday_meals[5]."', '".$this->monday_prices[1]."',
@@ -331,7 +364,7 @@ class Mensa{
 					'".$this->monday_meals[8]."', '".$this->monday_prices[4]."',
 					'".$this->monday_meals[9]."', '".$this->monday_prices[5]."',
 					'".$this->monday_meals[10]."', '".$this->monday_prices[6]."'),
-					('".$this->calenderweek."', '".$this->mealdate[1]."', '2',
+					('".$this->calenderweek."', '".$this->mealdate[1]."','".$this->tue_holiday."', '2',
 					'".$this->tuesday_meals[0]."', '".$this->tuesday_meals[1]."', '".$this->tuesday_meals[2]."', '".$this->tuesday_meals[3]."', 
 					'".$this->tuesday_meals[4]."', '".$this->tuesday_prices[0]."',
 					'".$this->tuesday_meals[5]."', '".$this->tuesday_prices[1]."',
@@ -340,7 +373,7 @@ class Mensa{
 					'".$this->tuesday_meals[8]."', '".$this->tuesday_prices[4]."',
 					'".$this->tuesday_meals[9]."', '".$this->tuesday_prices[5]."',
 					'".$this->tuesday_meals[10]."', '".$this->tuesday_prices[6]."'),
-					('".$this->calenderweek."', '".$this->mealdate[2]."', '3',
+					('".$this->calenderweek."', '".$this->mealdate[2]."','".$this->wed_holiday."', '3',
 					'".$this->wednesday_meals[0]."', '".$this->wednesday_meals[1]."', '".$this->wednesday_meals[2]."', '".$this->wednesday_meals[3]."', 
 					'".$this->wednesday_meals[4]."', '".$this->wednesday_prices[0]."',
 					'".$this->wednesday_meals[5]."', '".$this->wednesday_prices[1]."',
@@ -349,7 +382,7 @@ class Mensa{
 					'".$this->wednesday_meals[8]."', '".$this->wednesday_prices[4]."',
 					'".$this->wednesday_meals[9]."', '".$this->wednesday_prices[5]."',
 					'".$this->wednesday_meals[10]."', '".$this->wednesday_prices[6]."'),
-					('".$this->calenderweek."', '".$this->mealdate[3]."', '4',
+					('".$this->calenderweek."', '".$this->mealdate[3]."','".$this->thu_holiday."', '4',
 					'".$this->thursday_meals[0]."', '".$this->thursday_meals[1]."', '".$this->thursday_meals[2]."', '".$this->thursday_meals[3]."', 
 					'".$this->thursday_meals[4]."', '".$this->thursday_prices[0]."',
 					'".$this->thursday_meals[5]."', '".$this->thursday_prices[1]."',
@@ -358,7 +391,7 @@ class Mensa{
 					'".$this->thursday_meals[8]."', '".$this->thursday_prices[4]."',
 					'".$this->thursday_meals[9]."', '".$this->thursday_prices[5]."',
 					'".$this->thursday_meals[10]."', '".$this->thursday_prices[6]."'),
-					('".$this->calenderweek."', '".$this->mealdate[4]."', '5',
+					('".$this->calenderweek."', '".$this->mealdate[4]."','".$this->fri_holiday."', '5',
 					'".$this->friday_meals[0]."', '".$this->friday_meals[1]."', '".$this->friday_meals[2]."', '".$this->friday_meals[3]."', 
 					'".$this->friday_meals[4]."', '".$this->friday_prices[0]."',
 					'".$this->friday_meals[5]."', '".$this->friday_prices[1]."',
@@ -384,7 +417,6 @@ class Mensa{
 		try{
 			$cw = $_GET['cw'];
 			$this->DbCon->query("DELETE FROM meals WHERE calenderweek = ".$calenderweek);
-			echo 'Plan der Kalenderwoche'.$calenderweek.'gelöscht';
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
@@ -420,6 +452,7 @@ class Mensa{
 			// Monday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 1");
 			while($row = $query->fetch_assoc()){
+				$post['mon_holiday'] = $row['holiday'];
 				$post['mon_meal_one'] = $this->replaceBR($row['meal_one']);
 				$post['mon_meal_two'] = $this->replaceBR($row['meal_two']);
 				$post['mon_side'] = $this->replaceBR($row['side']);
@@ -443,6 +476,7 @@ class Mensa{
 			// Tuesday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 2");
 			while($row = $query->fetch_assoc()){
+				$post['tue_holiday'] = $row['holiday'];
 				$post['tue_meal_one'] = $this->replaceBR($row['meal_one']);
 				$post['tue_meal_two'] = $this->replaceBR($row['meal_two']);
 				$post['tue_side'] = $this->replaceBR($row['side']);
@@ -466,6 +500,7 @@ class Mensa{
 			// Wednesday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 3");
 			while($row = $query->fetch_assoc()){
+				$post['wed_holiday'] = $row['holiday'];
 				$post['wed_meal_one'] = $this->replaceBR($row['meal_one']);
 				$post['wed_meal_two'] = $this->replaceBR($row['meal_two']);
 				$post['wed_side'] = $this->replaceBR($row['side']);
@@ -489,6 +524,7 @@ class Mensa{
 			// Thursday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 4");
 			while($row = $query->fetch_assoc()){
+				$post['thu_holiday'] = $row['holiday'];
 				$post['thu_meal_one'] = $this->replaceBR($row['meal_one']);
 				$post['thu_meal_two'] = $this->replaceBR($row['meal_two']);
 				$post['thu_side'] = $this->replaceBR($row['side']);
@@ -512,6 +548,7 @@ class Mensa{
 			// Friday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 5");
 			while($row = $query->fetch_assoc()){
+				$post['fri_holiday'] = $row['holiday'];
 				$post['fri_meal_one'] = $this->replaceBR($row['meal_one']);
 				$post['fri_meal_two'] = $this->replaceBR($row['meal_two']);
 				$post['fri_side'] = $this->replaceBR($row['side']);

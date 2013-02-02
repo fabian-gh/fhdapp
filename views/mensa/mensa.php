@@ -26,7 +26,7 @@
 <!-- ToggleSwitch-->
 <div data-role="fieldcontain">
     <fieldset data-role="controlgroup" data-type="horizontal">
-        <h3>Campus:</h3>
+        <h3>Campus w&auml;hlen:</h3>
             <input type="radio" name="radio-canteen" id="radio-north" value="1" checked="checked" />
             <label for="radio-north">Nord</label>
 
@@ -41,7 +41,7 @@
         <h3>Öffnungszeiten</h3>
         <?php if(!empty($openHours)): ?>
         <table class="openHours">
-            <tr><th class="openHours">Mensa</th><th class="openHours">während des Semester</th><th>in den Semesterferien</th></tr>
+            <tr><th class="openHours">Mensa</th><th class="openHours">während des Semester</th><th>in der vorlesungsfreien Zeit</th></tr>
             <?php foreach($openHours as $open): ?>
                 <tr><td class="openHours canteen"><?php echo utf8_encode($open['name']); ?></td><td><?php echo utf8_encode($open['hoursDuring']); ?></td></td><td><?php echo utf8_encode($open['hoursOutOf']); ?></td></tr>
             <?php endforeach; ?>
@@ -63,6 +63,11 @@ foreach($plans as $plankey => $planvalue):  ?>
     <?php foreach($planvalue as $day): ?>
 	<div data-role='collapsible' data-collapsed='true'>
     	<h3><?php echo $day['dayname']; ?></h3>
+
+        <?php if($day['holiday'] != null) echo $day['holiday']; ?>
+
+        <?php if($day['holiday'] == null): ?>
+
         <table class="meals" width='100%'>
     		<tr class="both">
     			<td><span class="heading">Essen 1:</span><br /><?php echo $day['meal_one']; ?></td>
@@ -109,6 +114,7 @@ foreach($plans as $plankey => $planvalue):  ?>
                 <td><?php echo $day['price_green_corner']; ?>€</td>
             </tr>
 		</table>
+    <?php  endif; ?>
     </div> <!-- Ende collapsible -->
  <?php endforeach; ?>
 </div> <!-- Ende collapsible-set -->

@@ -43,6 +43,10 @@
 	padding: 1% 3%;
 }
 
+#content table.openHours{
+	width: 100%;
+}
+
 #content table.openHours .canteen{
 	vertical-align: top;
 }
