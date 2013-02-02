@@ -6,7 +6,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012/2013
  * @link http://www.fh-duesseldorf.de
- * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
+ * @author Tobias Emde (TE), <tobias.emde@gmx.de>
  */
 
 ?>
