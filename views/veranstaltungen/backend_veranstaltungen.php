@@ -24,8 +24,6 @@
 	
 	//Fachbereiche laden
 	$FACHBEREICHE =  $Controller->getDepartments();
-	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
-	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
 	
 	//Klasse für Formularfelder einbinden
 	require_once 'backend_formular.php';	
@@ -103,6 +101,9 @@
 	$JQUERY .= $Formular->getJqueryEmptyForm();
 	
 	echo '<br/><br/><br/><br/>';
+	
+	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
 	
 	//Fachbereiche durchlaufen und DropDownListe füllen
 	if($FACHBEREICHE != null)
