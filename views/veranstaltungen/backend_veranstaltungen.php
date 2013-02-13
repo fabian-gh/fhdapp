@@ -17,16 +17,18 @@
 	require_once '../../controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController;
 	
+	if(isset($_GET['FB']))
+		$FB_AKTUELLER = $_GET['FB'];
+	else
+		$FB_AKTUELLER = 1;
+	
 	//Fachbereiche laden
 	$FACHBEREICHE =  $Controller->getDepartments();
+	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
 	
 	//Klasse für Formularfelder einbinden
-	require_once 'backend_formular.php';
-
-	if(isset($_GET['FB']))
-		$FB_GET = $_GET['FB'];
-	else
-		$FB_GET = 1;
+	require_once 'backend_formular.php';	
 	
 	//Variable für alle JQuery Methoden, wird am Ende des Dokuments ausgegeben
 	$JQUERY = '';
@@ -59,14 +61,14 @@
 					$MESSAGE = 'Veranstaltung wurde ge&auml;ndert.';
 			}
 		}		
-	}
+	}//Veranstaltung löschen, anhand der ID
 	else if(isset($_POST['loeschen_id']))
 	{
 		if($Controller->deleteEvent($_POST['loeschen_id']) == true)
 			$MESSAGE = 'Veranstaltung wurde gel&ouml;scht.';
 		else
 			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Veranstaltung wurde nicht gel&ouml;scht.';
-	}
+	}//Alle Veranstaltungen die älter als heute sind löschen
 	else if(isset($_POST['veranstaltung_alt_loeschen']))
 	{
 		if($Controller->deleteOldEvent() == true)
@@ -75,7 +77,7 @@
 			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltungen wurde nicht gel&ouml;scht.';
 	}
 	
-	
+	//Ausgeben der Meldung
 	echo '
 		<div class="veranstaltung_message" style="border-width:1px; border-style:solid;">
 		'.$MESSAGE.'
@@ -84,9 +86,10 @@
 	
 	echo '<br/><br/><br/><br/>';
 	
+	//Lösch Button für alle alten Veranstaltungen
 	echo '	
 		<a class="button" id="loesch_button_all">Alle vergangenen Veranstaltungen l&ouml;schen</a>
-			<form action="?FB='.$FB_GET.'" id="veranstaltungen_loeschen" method="post">
+			<form action="?FB='.$FB_AKTUELLER.'" id="veranstaltungen_loeschen" method="post">
 				<input type="hidden" name="veranstaltung_alt_loeschen" id="loeschen_hidden_all" value="true"/>
 			</form>
 		<br/><br/>	
@@ -95,7 +98,7 @@
 	//Neues Objekt von Formular erstellen
 	$Formular = new Formular($Controller);
 	//Leeres Formular erstellen
-	echo $Formular->getEmptyForm($FB_GET);
+	echo $Formular->getEmptyForm($FB_AKTUELLER);
 	//JQuery für das leere Formular erstellen
 	$JQUERY .= $Formular->getJqueryEmptyForm();
 	
@@ -109,9 +112,12 @@
 		for($i=0; $i<count($FACHBEREICHE); $i++) 
 		{
 			//Überprüfen ob Fachbereiche der ausgewählte ist
-			if($FACHBEREICHE[$i]['id'] == $FB_GET)
+			if($FACHBEREICHE[$i]['id'] == $FB_AKTUELLER)
+			{
 				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" SELECTED> '.$FACHBEREICHE[$i]['name'].' </option>
 				';
+				$FB_AKTUELLER_NAME = $FACHBEREICHE[$i]['name'];
+			}
 			else
 				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" > '.$FACHBEREICHE[$i]['name'].' </option>
 				';
@@ -126,6 +132,9 @@
 					</select>
 				</form>
 			</div>
+			<br /><br />
+			<h3>Veranstaltungen vom Fachbereich '.$FB_AKTUELLER_NAME.':</h3>
+			<br /><br />
 		';
 	}
 	else
@@ -133,13 +142,6 @@
 		//Falls keine Fachbereiche in der Datenbank, Fehlermeldung ausgeben
 		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
-		
-		
-	
-	echo '<br/><br/><br/><br/>';
-	
-	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
-	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_GET);
 	
 	if($ERGEBNIS != null)
 	{
@@ -169,7 +171,7 @@
 			//Alle Variablen setzen
 			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
 			//Veranstaltung darstellen mit Bearbeiten-Option
-			echo $Formular->getEventContainer($FB_GET);
+			echo $Formular->getEventContainer($FB_AKTUELLER);
 			echo '<br/><br/>';
 			//JQuery erstellen
 			$JQUERY .= $Formular->getJquery();

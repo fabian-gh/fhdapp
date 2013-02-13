@@ -62,6 +62,7 @@ class Formular{
 					';
 			}
 			
+			//Option für Markieren und Unmarkieren der Fachbereiche hinzufügen (Buttons)
 			if($INPUT_FORM != '')
 				$INPUT_FORM .= '<br/><br/>
 								<a class="button" id="select_fachbereich_all_###ID###">Alle markieren</a>
@@ -100,6 +101,7 @@ class Formular{
 									<label for="veranstaltungen_usertypes_'.$this->USERTYPES[$i]['id'].'_###ID###">'.$this->USERTYPES[$i]['name'].'	</label>
 					';
 			}
+			//Option für Markieren und Unmarkieren der Usertypes hinzufügen (Buttons)
 			if($INPUT_FORM != '')
 				$INPUT_FORM .= '<br/><br/>
 								<a class="button" id="select_usertype_all_###ID###">Alle markieren</a>
