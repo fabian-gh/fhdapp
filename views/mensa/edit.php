@@ -32,7 +32,6 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 
 <form name="mensa" id="mensaform" method="post" action="">
 	<table>
-		<tr><td>Kalenderwoche:</td><td><input type="textfield" id="calenderweek" name="calenderweek" value="<?php echo (!empty($post['calenderweek'])) ? $post['calenderweek'] : ""; ?>" /><span id="cw_error"></span></td></tr>
 		<tr><td>Startdatum:</td><td><input type="textfield" id="start_date" name="start_date" value="<?php echo (!empty($post['start_date'])) ? date("d.m.Y", strtotime($post['start_date'])) : ""; ?>" /><span id="date_error"></span></td></tr>
 	</table>
 	<table>

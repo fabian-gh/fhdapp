@@ -17,22 +17,32 @@
 	padding: 3px 10px;
 }
 
-#content .error{
-	border: 1px solid #ff0000;
-	color: #ff0000;
-}
-
 
 /* Frontend-Styles */
 #content table.meals,
 #content table.meals th,
-#content table.meals td{
+#content table.meals td,
+#content table.abbreviations,
+#content table.abbreviations th,
+#content table.abbreviations td,
+#content table.openHours,
+#content table.openHours th,
+#content table.openHours td{
 	border-collapse: collapse;
 	border: 1px solid #cccccc;
 }
 
 #content table.meals th,
-#content table.meals td{
+#content table.meals td,
+#content table.abbreviations th,
+#content table.abbreviations td,
+#content table.openHours th,
+#content table.openHours td{
 	text-align: left;
-	padding: 1%;
+	width: auto;
+	padding: 1% 3%;
+}
+
+#content table.openHours #canteen{
+	vertical-align: top;
 }

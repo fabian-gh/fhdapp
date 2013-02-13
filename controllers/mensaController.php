@@ -23,11 +23,7 @@ class MensaController{
 	 * Constructor
 	 */
 	public function __construct(){
-		if(!isset($_GET['eis'])){
-			require_once '../../models/mensa.php';
-		} else {
-			require_once 'models/mensa.php';
-		}
+		require_once __DIR__.'../../models/mensa.php';
 		$this->MensaModel = new Mensa();
 	}
 
@@ -38,6 +34,22 @@ class MensaController{
 	 */
 	public function callGetCanteenPlans(){
 		return $this->MensaModel->getCanteenPlans();
+	}
+
+
+	/**
+	 * Call the getAdditives()-Method
+	 */
+	public function callGetAdditives(){
+		return $this->MensaModel->getAdditives();
+	}
+
+
+	/**
+	 * Call the getAdditives()-Method
+	 */
+	public function callGetOpeningHours(){
+		return $this->MensaModel->getOpeningHours();
 	}
 
 

@@ -280,11 +280,11 @@ class Faq {
 	public function intoDB($insert, $bool){
 		 try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-           // $db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
+            $db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			//Connection Minh
-			$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
             //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');

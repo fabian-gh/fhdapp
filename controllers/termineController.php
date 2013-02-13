@@ -2,6 +2,9 @@
 
 	class AppointmentController
 	{
+
+		private $appointmentModel;
+
 		public function __construct()
 		{
 			//appointmentModel instanziieren
@@ -118,19 +121,34 @@
 			$parts = explode('-', $date);
 			return "$parts[2].$parts[1].$parts[0]";
 		}
+
+		//alle fachbereiche ausgeben
+		public function getDepartments()
+		{
+			return $this->appointmentModel->getDepartments();
+		}
+
+		//fachbereich eines studienganges herausfinden
+		public function getDepartmentFromStudycourse($name)
+		{
+			$temp = $this->appointmentModel->getDepartmentFromStudycourse($name);
+			return $temp['department_id'];
+		}
 	}
 
 	class Semester
 	{
+		public $id;
+		public $name;
 		public $appointments;
 		
-		public function __construct($id, $name, $dept)
+		public function __construct($id, $name)
 		{
 			$this->id = $id;
 			$this->name = $name;
-			$this->department = $dept;
 		}
 
+		//termin hinzufügen (der klasse, nicht der datenbank)
 		public function addAppointment($appointment)
 		{
 			$this->appointments[] = $appointment;

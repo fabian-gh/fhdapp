@@ -103,6 +103,10 @@ body {
 	background-color: #e6e2d8;
 }
 
+#content table tr.alt {
+	background: #D6D6D6;
+}
+
 #content a.button {
 	color: #ff0000;
 	border: 2px solid #ff0000; 

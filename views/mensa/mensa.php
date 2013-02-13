@@ -9,21 +9,53 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
-// include layout
-//require_once '../../layout/frontend/header.php';
 ?>
 <link href="sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="sources/customjs/mensa.js" type="text/javascript"></script>
+
 <?php
 
     require_once 'controllers/mensaController.php';
     $MensaController = new MensaController();
     $plans = $MensaController->callGetCanteenPlans();
+    $additives = $MensaController->callGetAdditives();
+    $openHours = $MensaController->callGetOpeningHours();
 
 ?>
 
-<?php  foreach($plans as $plankey => $planvalue):  ?>
+<!-- ToggleSwitch-->
+<div data-role="fieldcontain">
+<label for="flip-2"><h4>Campus:</h4></label>
+    <select name="flip-2" id="flip-2" data-role="slider" data-theme="a">
+        <option value="north">Nord</option>
+        <option value="south">S&uuml;d</option>
+    </select> 
+</div>
+<br />
 
-<h1>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h1>
+<div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
+    <div data-role='collapsible' data-collapsed='true'>
+        <h3>Öffnungszeiten</h3>
+        <table class="openHours">
+            <tr><th class="openHours">Mensa</th><th class="openHours">Öffnungszeiten während Semester</th></tr>
+            <?php if(!empty($openHours)):
+                    foreach($openHours as $open): ?>
+
+                <tr><td id="canteen" class="openHours"><?php echo $open['name']; ?></td><td><?php echo $open['openingHours']; ?></td></tr>
+
+            <?php endforeach; endif; ?>
+        </table>
+    </div>
+</div>
+<br />
+
+<?php
+
+if(!empty($plans)):
+
+foreach($plans as $plankey => $planvalue):  ?>
+
+<h4>KW <?php echo $plankey<10? "0".$plankey.":" : $plankey.":"; ?> <?php echo date("d.m.", strtotime($planvalue[1]['mealdate'])).' - '.date("d.m.Y", strtotime($planvalue[5]['mealdate'])); ?></h4>
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
 
     <?php foreach($planvalue as $day): ?>
@@ -89,10 +121,21 @@
     </div> <!-- Ende collapsible -->
  <?php endforeach; ?>
 </div> <!-- Ende collapsible-set -->
+<br />
 
-<?php endforeach; ?>
+<?php endforeach; endif;?>
 
+<div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
+    <div data-role='collapsible' data-collapsed='true'>
+        <h3>Zeichenerklärung</h3>
+        <table class="abbreviations">
+            <tr><th class="abbreviations">Zeichen</th><th class="abbreviations">Beschreibung</th></tr>
+            <?php if(!empty($additives)):
+                    foreach($additives as $add): ?>
 
-<?php
-//require_once '../../layout/frontend/footer.php';
-?>
+                <tr><td class="abbreviations"><?php echo $add['abbreviation']; ?></td><td class="abbreviations"><?php echo $add['name']; ?></td></tr>
+
+            <?php endforeach; endif; ?>
+        </table>
+    </div>
+</div>

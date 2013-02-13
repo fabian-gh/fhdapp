@@ -145,7 +145,7 @@
 					<div class="formRight">
 						<br class="smallUmbruch"/>
 						<input  class="button" name="save" type="submit" value="Speichern"> &nbsp &nbsp &nbsp
-						<input  class="button" type="reset" value="Löschen">
+						<input  class="button" type="reset" value="L&ouml;schen">
 					</div>
 				</form>
 			</div>
