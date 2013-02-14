@@ -17,6 +17,11 @@
 	padding: 3px 10px;
 }
 
+#content span#date_error{
+	font-weight: bold;
+	color: #ff0000;
+}
+
 
 /* Frontend-Styles */
 #content table.meals,

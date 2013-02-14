@@ -20,26 +20,26 @@ class Mensa{
 	private $DbCon;
 
 	/**
-	 * Calenderweek
-	 * @var int Calenderweek
+	 * Kalenderwoche
+	 * @var int calenderweek
 	 */
 	private $calenderweek;
 
 	/**
-	 * Date of the day where the monday_meals is served
+	 * Datum des Tages an dem das Montagsessen serviert wird
 	 * @var Date
 	 */
 	private $mealdate;
 
 	/**
-	 * Startdate from the form
+	 * Startdatum aus dem Formular
 	 * @var String Date
 	 */
 	private $start;
 
 
 	/**
-	 * Holiday-Variables
+	 * Feiertagsvariablen
 	 * @var String Holiday
 	 */
 	private $mon_holiday;
@@ -49,7 +49,7 @@ class Mensa{
 	private $fri_holiday;
 
 	/**
-	 * Arrays with monday_mealss for each day
+	 * Arrays mit den Mahlzeiten
 	 * @var Array
 	 */
 	private $monday_meals;
@@ -59,7 +59,7 @@ class Mensa{
 	private $friday_meals;
 
 	/**
-	 * Arrays with studendprices for each day
+	 * Arrays mit den Studentenpreisen
 	 * @var Array
 	 */
 	private $monday_prices;
@@ -74,7 +74,7 @@ class Mensa{
 	 * Constructor
 	 */
 	public function __construct(){
-		// open database-connection
+		// database-connection öffnen
 		$this->DbCon = new mysqli();
 		$this->DbCon->connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 	}
@@ -82,13 +82,13 @@ class Mensa{
 	// ================================================ Frontend-Methods =========================================================
 
 	/**
-	 * Queries the current plan + the plans for the next three weeks
-	 * in the whole 4 or less weeks will be listed
+	 * Pläne für die nächsten 5 Wochen abgefragt
 	 * @return Array $plans
 	 */
 	public function getCanteenPlans(){
 		try{
 
+			// Datenbankabfrage
 			$query = $this->DbCon->query("SELECT * 
 										FROM meals AS m
 										INNER JOIN days AS d ON m.day_id = d.id
@@ -97,6 +97,7 @@ class Mensa{
 										AND DATE_FORMAT(FROM_UNIXTIME(UNIX_TIMESTAMP( )+2419200 ), '%v')
 										ORDER BY m.mealdate ASC");
 
+			// Ergebnisse verarbeiten
 			while($row = $query->fetch_assoc()){
                 $plans[$row['calenderweek']][$row['day_id']] = array(
                 	'Calenderweek'		=> $row['calenderweek'],
@@ -138,13 +139,15 @@ class Mensa{
 
 
 	/**
-	 * Queries all possible additives from the DB
+	 * Zusatzstoffe werden abgefragt
 	 * @return Array $additives
 	 */
 	public function getAdditives(){
 		try{
+			// Datenbankabfrage
 			$query = $this->DbCon->query("SELECT * FROM additives");
 
+			// Verarbeitung der Ergebnisse
 			while($row = $query->fetch_assoc()){
 				$additives[] = array(
 					'abbreviation' 	=> $row['abbreviation'],
@@ -161,13 +164,15 @@ class Mensa{
 
 
 	/**
-	 * Queries opening hours
+	 * Öffnungszeiten werden abgefragt
 	 * @return Array $openHour
 	 */
 	public function getOpeningHours(){
 		try{
+			// Datenbankabfrage
 			$query = $this->DbCon->query("SELECT * FROM canteens");
 
+			// Verarbeitung der Ergebnisse
 			while($row = $query->fetch_assoc()){
 				$openHour[] = array(
 					'name' 			=> $row['name'],
@@ -188,7 +193,8 @@ class Mensa{
 	// ================================================ Backend-Methods ==========================================================
 
 	/**
-	 * Calculates the Calenderweek out of the Startdate
+	 * Berechnung der Kalenderwoche
+	 * @param Date $date
 	 */
 	private function calculateCalenderweek($date){
 		$this->calenderweek = date("W", strtotime($date));
@@ -196,15 +202,16 @@ class Mensa{
 
 
 	/**
-	 * Queries all plans for the choosing-site
+	 * Abfrage aller Pläne für die Auswahlseite
 	 * @return Array $plan
 	 */
 	public function getAllPlans(){
 		try{
-
+			// Datenbankabfrage
 			$query = $this->DbCon->query("SELECT calenderweek, mealdate FROM meals GROUP BY calenderweek ORDER BY mealdate DESC");
-			while($row = $query->fetch_assoc()){
 
+			// Verarbeitung der Ergebnisse
+			while($row = $query->fetch_assoc()){
                 $plans[] = array(
                 	'calenderweek' 	=> $row['calenderweek'],
                 	'start_date'	=> $row['mealdate']
@@ -225,12 +232,11 @@ class Mensa{
 
 
 	/**
-	 * Proceeds the post-data
+	 * Verarbeitung der POST-Daten
 	 * @param Array $_POST
 	 */
 	public function proceedPost($post){
 
-		// Verarbeitung der POST-Daten
 		foreach($post as $key => $value){
 
 			switch($key){
@@ -263,7 +269,7 @@ class Mensa{
 
 				// Monday
 				case strstr($key, 'mon_'):
-					$this->monday_meals[] = nl2br($value);
+					empty($value) ? $this->monday_meals[] = null : $this->monday_meals[] = nl2br($value);
 				break;
 
 				case strstr($key, 'price_mon_'):
@@ -272,7 +278,7 @@ class Mensa{
 
 				// Tuesday
 				case strstr($key, 'tue_'):
-					$this->tuesday_meals[] = nl2br($value);
+					empty($value) ? $this->tuesday_meals[] = null : $this->tuesday_meals[] = nl2br($value);
 				break;
 
 				case strstr($key, 'price_tue_'):
@@ -281,7 +287,7 @@ class Mensa{
 
 				// Wednesday
 				case strstr($key, 'wed_'):
-					$this->wednesday_meals[] = nl2br($value);
+					empty($value) ? $this->wednesday_meals[] = null : $this->wednesday_meals[] = nl2br($value);
 				break;
 
 				case strstr($key, 'price_wed_'):
@@ -290,7 +296,7 @@ class Mensa{
 
 				// Thursday
 				case strstr($key, 'thu_'):
-					$this->thursday_meals[] = nl2br($value);
+					empty($value) ? $this->thursday_meals[] = null : $this->thursday_meals[] = nl2br($value);
 				break;
 
 				case strstr($key, 'price_thu_'):
@@ -299,16 +305,15 @@ class Mensa{
 
 				// Friday
 				case strstr($key, 'fri_'):
-					$this->friday_meals[] = nl2br($value);
+					empty($value) ? $this->friday_meals[] = null : $this->friday_meals[] = nl2br($value);
 				break;
 
-				case strstr($key, 'price_fri_'):
-					$this->friday_prices[] = mysql_real_escape_string($this->checkComma($value));
+				case strstr($key, 'price_fri_'):$this->friday_prices[] = mysql_real_escape_string($this->checkComma($value));
 				break;
 			}
 		}
 
-		// calculate the dates of the week
+		// Daten der übrigen tage berechnen
 		$start = strtotime($this->start);
 		for($i = 0; $i<=4; $i++){
 			$this->mealdate[$i] = date("Y-m-d", $start+($i*86400));
@@ -318,7 +323,7 @@ class Mensa{
 
 
 	/**
-	 * Check if the price has a comma or a dot
+	 * Preise auf Komma oder Punkt checken
 	 * @param float $price
 	 */
 	public function checkComma($price){
@@ -332,20 +337,20 @@ class Mensa{
 
 
 	/**
-	 * Insert the Plan into the database
-	 * @param Array $post Post-Data
+	 * Plan in Datenbank einfügen
+	 * @param Array $get
 	 */
 	public function insertPlan($get){
 
 		if($this->calenderweek>0 && $this->calenderweek<=52 && !empty($this->mealdate)){
 
 			try{
-			// delete old entries
+			// alte Einträge löschen
 			if(isset($get) && $get['mode'] == 'edit'){
 				$this->DbCon->query("DELETE FROM meals WHERE calenderweek = ".$get['cw']);
 			}
 
-			// insert whole week with one INSERT
+			// neuen Plan komplett einfügen
 			$this->DbCon->query("INSERT INTO meals (calenderweek, mealdate, holiday, day_id, 
 														meal_one, meal_two, side, hotpot,
 														bbq, price_bbq,
@@ -410,7 +415,7 @@ class Mensa{
 
 
 	/**
-	 * Delete a plan
+	 * Einen Plan löschen
 	 * @param int $calenderweek
 	 */
 	public function deletePlan($calenderweek){
@@ -425,7 +430,7 @@ class Mensa{
 
 
 	/**
-	 * Replayces the <br />-Tag with whitespace
+	 * br-Tags durch Leerzeichen ersetzen
 	 * @param String $text
 	 * @return String 
 	 */
@@ -436,14 +441,14 @@ class Mensa{
 
 
 	/**
-	 * Edit a plan
+	 * Einen Plan editieren
 	 * @param int $calenderweek
 	 * @return Array Data
 	 */
 	public function editPlan($calenderweek){
 		try{
 
-			// Query the calenderweek of the first day of a week
+			// Kalenderwoche herausfinden anhand des Montags der Woche
 			$query = $this->DbCon->query("SELECT mealdate FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 1");
 			while($row = $query->fetch_assoc()){
 				$post['start_date'] = $row['mealdate'];

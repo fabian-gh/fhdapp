@@ -28,27 +28,27 @@ $(document).ready(function(){
 	}
 
 	if($("#mon_hol").change(function(){
-		$(".mon_hol_text").toggle();
+		$(".mon_hol_text").toggle().val("");
 		$(".mon_col").toggle();
 	}))
 
 	if($("#tue_hol").change(function(){
-		$(".tue_hol_text").toggle();
+		$(".tue_hol_text").toggle().val("");
 		$(".tue_col").toggle();
 	}))
 
 	if($("#wed_hol").change(function(){
-		$(".wed_hol_text").toggle();
+		$(".wed_hol_text").toggle().val("");
 		$(".wed_col").toggle();
 	}))
 
 	if($("#thu_hol").change(function(){
-		$(".thu_hol_text").toggle();
+		$(".thu_hol_text").toggle().val("");
 		$(".thu_col").toggle();
 	}))
 
 	if($("#fri_hol").change(function(){
-		$(".fri_hol_text").toggle();
+		$(".fri_hol_text").toggle().val("");
 		$(".fri_col").toggle();
 	}))
 
@@ -74,6 +74,16 @@ $(document).ready(function(){
 
 	$("#radio-north").click(function() {
 		$(".south").hide();
+	});
+
+
+	// Submit-Button Handling
+	$("form").submit(function() {
+	  	if ($("#start_date").val() == "") {
+		    $("#date_error").text("Bitte Startdatum eintragen").show();
+		    $("#start_date").focus();
+		    return false;
+	  	}
 	});
 
 });

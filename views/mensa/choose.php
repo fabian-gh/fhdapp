@@ -9,6 +9,9 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
+// activate output Buffer, needed for header-redirection 
+ob_start();
+
 // include layout
 require_once '../../layout/backend/header.php';
 
@@ -60,6 +63,9 @@ $plans = $MensaController->callGetAllPlans();
         header("Location: choose.php");
       }
     }
+
+    // Close the output buffer
+    ob_end_flush();
 
 
 /* End of file choose.php */
