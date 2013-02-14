@@ -247,23 +247,23 @@ class Mensa{
 				break;
 
 				// Holiday-Handling
-				case strstr($key, 'mon_hol_name'):
+				case strstr($key, 'mon_hol'):
 					$this->mon_holiday = mysql_real_escape_string($value);
 				break;
 
-				case strstr($key, 'tue_hol_name'):
+				case strstr($key, 'tue_hol'):
 					$this->tue_holiday = mysql_real_escape_string($value);
 				break;
 
-				case strstr($key, 'wed_hol_name'):
+				case strstr($key, 'wed_hol'):
 					$this->wed_holiday = mysql_real_escape_string($value);
 				break;
 
-				case strstr($key, 'thu_hol_name'):
+				case strstr($key, 'thu_hol'):
 					$this->thu_holiday = mysql_real_escape_string($value);
 				break;
 
-				case strstr($key, 'fri_hol_name'):
+				case strstr($key, 'fri_hol'):
 					$this->fri_holiday = mysql_real_escape_string($value);
 				break;
 

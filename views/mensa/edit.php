@@ -260,7 +260,6 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 
 // Überprüfung ob Formular abgeschickt
 if(isset($_POST['speichern'])){
-	var_dump($_POST);exit();
 	unset($post);
 	$MensaController->callProceedPost($_POST);
 	$MensaController->callInsertPlan($_GET);
