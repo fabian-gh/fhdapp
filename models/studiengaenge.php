@@ -11,8 +11,11 @@
 
 class db_connector{
     
+private $language;
+
 function __construct()
 {
+$this->language='1';
 }
 
 function connect()
@@ -33,17 +36,17 @@ function connect()
 // main list of  courses
 function all_courses($filter)
 {
+
 $query = "SELECT distinct e1.name, e1.time as 'time1', e2.time as 'time2' , 
 e1.graduate as 'grad1', e2.graduate as 'grad2' 
 FROM studycourses_view e1 join studycourses_view e2 on e1.name = e2.name 
-and e1.graduate!= e2.graduate ".$filter."GROUP BY e1.name
+and e1.graduate!= e2.graduate and e1.language=".$this->language." ".$filter." GROUP BY e1.name
 UNION 
 SELECT e1.name, e1.time as 'time1', e2.time as 'time2', 
 e1.graduate  as 'grad1', e2.graduate as 'grad2' 
 FROM studycourses_view e1 join studycourses_view e2 on e1.name=e2.name 
 and e1.name not in (SELECT a1.name FROM studycourses_view a1, 
-studycourses_view a2 where a1.name = a2.name and a1.graduate!=a2.graduate) ".$filter."
-GROUP BY e1.name ORDER BY name";
+studycourses_view a2 where a1.name = a2.name and a1.graduate!=a2.graduate) and e1.language=".$this->language." ".$filter." GROUP BY e1.name ORDER BY name";
 return $rs = mysql_query($query,$this->connect());
 }
 
@@ -74,7 +77,7 @@ $query = "SELECT e1.name,e2.name as
 e1.description,e1.link FROM studycourses e1 join graduates e2 on e1. 
 graduate_id=e2.id join departments e3 on e1.department_id = e3.id 
 WHERE e1.id = (SELECT id FROM studycourses_view WHERE name='".$name."' and 
-graduate='".$graduate."' GROUP BY id);";
+graduate='".$graduate."' and language= ".$this->language." GROUP BY id);";
 $rs = mysql_query($query,$this->connect()); 
 return $row = mysql_fetch_array($rs);
 }
