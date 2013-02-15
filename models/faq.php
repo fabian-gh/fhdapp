@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 
 /**
  * FHD-App
@@ -11,19 +11,19 @@
 
 class Faq {
 	
-	//Globale Variable zur überprüfung ob alle SQL Abfragen bgeschickt wurden
+	//Globale Variable zur UeberprUefung ob alle SQL Abfragen bgeschickt wurden
 	public $checkDBInsert = 0;
 
 	 /**
-     * Kontrolliert Daten auf vollständigkeit und richtige eingabewerte
+     * Kontrolliert Daten auf vollstAendigkeit und richtige eingabewerte
      *
      */
     public function controllInput($data){
-		// check ob eingabe und überprüfung
+		// check ob eingabe und UeberprUefung
 		if($data['inputArt'] == 1){
 			$checkOverall = true;
 			for ($i = 1; $i <= $data['anzahl']; $i++) {
-				// Überprüfung ob die Sortierung eine Zahl ist
+				// UeberprUefung ob die Sortierung eine Zahl ist
 				$checkSort = filter_var($data['sort'.$i], FILTER_VALIDATE_INT);
 				if ($checkSort === false) 
 				{ 
@@ -31,7 +31,7 @@ class Faq {
 					echo "Sortierung muss eine Zahl sein<br />"; 
 					$checkOverall = false;
 				} 
-				// Überprüfung ob die Sprach ID eine Zahl ist
+				// UeberprUefung ob die Sprach ID eine Zahl ist
 				$checkLang = filter_var($data['lang'.$i], FILTER_VALIDATE_INT);
 				if ($checkLang === false) 
 				{ 
@@ -39,12 +39,12 @@ class Faq {
 					echo "Sprach ID muss eine Zahl sein<br />"; 
 					$checkOverall = false;
 				} 
-				// Überprüfung ob Frage eingegeben wurde
+				// UeberprUefung ob Frage eingegeben wurde
 				if (empty($data['question'.$i])) {
 					echo 'Es muss eine Frage eingegeben werden<br />';
 					$checkOverall = false;
 				}
-				// Überprüfung ob Antwort eingegeben wurde
+				// UeberprUefung ob Antwort eingegeben wurde
 				if (empty($data['answer'.$i])) {
 					echo 'Es muss eine Antwort eingegeben werden <br />';
 					$checkOverall = false;
@@ -56,10 +56,10 @@ class Faq {
 			}
 		}
 		
-		// check ob update und überprüfung
+		// check ob update und UeberprUefung
 		if($data['inputArt'] == 2){
 			$checkOverall = true;
-			// Überprüfung ob die Sortierung eine Zahl ist
+			// UeberprUefung ob die Sortierung eine Zahl ist
 			$checkSort = filter_var($data['sort'], FILTER_VALIDATE_INT);
 			if ($checkSort === false) 
 			{ 
@@ -67,7 +67,7 @@ class Faq {
 				echo "Sortierung muss eine Zahl sein<br />"; 
 				$checkOverall = false;
 			} 
-			// Überprüfung ob die Sprach ID eine Zahl ist
+			// UeberprUefung ob die Sprach ID eine Zahl ist
 			$checkLang = filter_var($data['lang'], FILTER_VALIDATE_INT);
 			if ($checkLang === false) 
 			{ 
@@ -75,12 +75,12 @@ class Faq {
 				echo "Sprach ID muss eine Zahl sein<br />"; 
 				$checkOverall = false;
 			} 
-			// Überprüfung ob Frage eingegeben wurde
+			// UeberprUefung ob Frage eingegeben wurde
 			if (empty($data['question'])) {
 				echo 'Es muss eine Frage eingegeben werden<br />';
 				$checkOverall = false;
 			}
-			// Überprüfung ob Antwort eingegeben wurde
+			// UeberprUefung ob Antwort eingegeben wurde
 			if (empty($data['answer'])) {
 				echo 'Es muss eine Antwort eingegeben werden <br />';
 				$checkOverall = false;
@@ -95,7 +95,7 @@ class Faq {
 //INSERT Befehle erstellen
 	
 	/**
-     * Statement zum einfügen einer FAQ in die Datenbank erstellen
+     * Statement zum einfUegen einer FAQ in die Datenbank erstellen
      *
      */
 	public function createInsertStatementFaq($data){
@@ -114,22 +114,22 @@ class Faq {
 				// Abfrage erstellen
 				$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
 				
-				// Fertige SQL-Abfrage an Methode zum speichern übergeben return wert ID des eintrags
+				// Fertige SQL-Abfrage an Methode zum speichern Uebergeben return wert ID des eintrags
 				$faqID = $this->intoDB($insert, true);
 
-				//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
+				//SQL Abfrage fUer FAQ_mm_Departments erstellen und ausfUehren
 				$this->createInsertStatementFaq_Dept($faqID, $dept);
 				
-				//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
+				//SQL Abfrage fUer FAQ_mm_Usertypes erstellen und ausfUehren
 				$this->createInsertStatementFaq_User($faqID, $user);
 				
-				// Überprüfung ob alles in Datenbank gespeichert wurde
+				// UeberprUefung ob alles in Datenbank gespeichert wurde
 				if($this->checkDBInsert == 3){
 					echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
 				}else{
 					echo "<br/> Fehler!!!";
 				}
-				//Rücksetzen der Variable
+				//RUecksetzen der Variable
 				$this->checkDBInsert = 0;
 			}
         } catch(Exception $e){
@@ -138,7 +138,7 @@ class Faq {
 	}
 	
 	/**
-     * Statement zum einfügen einer beziehung zwischen FAQ und Departments in die Datenbank erstellen
+     * Statement zum einfUegen einer beziehung zwischen FAQ und Departments in die Datenbank erstellen
      *
      */
 	public function createInsertStatementFaq_Dept($faqID, $dept){
@@ -158,77 +158,79 @@ class Faq {
 		}else{
 			$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ('$faqID', '$dept')";
 		}
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
+		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
 		$this->intoDB($insert, true);
 	}
 	
 	/**
-     * Statement zum einfügen einer beziehung zwischen FAQ und Usertypes in die Datenbank erstellen
+     * Statement zum einfUegen einer beziehung zwischen FAQ und Usertypes in die Datenbank erstellen
      *
      */
 	public function createInsertStatementFaq_User($faqID, $user){
 		// Abfrage erstellen
 		$insert = "INSERT INTO faq_mm_usertype (faq_id, usertype_id) VALUES ('$faqID', '$user')";
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
+		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
 		$this->intoDB($insert, true);
 	}
 	
 //DELETE Befehle Erstellen	
 	
 	/**
-     * Löschen einer FAQ inclusive beziehungen
+     * LOeschen einer FAQ inclusive beziehungen
      *
      */
-	public function deleteFAQ($id){
+	public function deleteFAQ($id, $checkIfChange){
 		
-		//Beziehung Departments löschen
+		//Beziehung Departments lOeschen
 		$this->createDeleteStatementDepartment($id);
-		//Beziehung Usertyp löschen
+		//Beziehung Usertyp lOeschen
 		$this->createDeleteStatementUsertyp($id);
-		//FAQ löschen
+		//FAQ lOeschen
 		$this->createDeleteStatementFaq($id);
-		// Überprüfung ob alles in Datenbank gelöscht wurde
-		if($this->checkDBInsert == 3){
-			echo "<br/> Die FAQ wurde erfolgreich gelöscht. <br/> <br/>";
-		}else{
-			echo "<br/> Fehler!!!";
+		// UeberprUefung ob alles in Datenbank gelOescht wurde
+		if($checkIfChange == false){
+			if($this->checkDBInsert == 3 ){
+				echo "<br/> Die FAQ wurde erfolgreich gelÃ¶scht. <br/> <br/>";
+			}else{
+				echo "<br/> Fehler!!!";
+			}
 		}
-		//Rücksetzen der Variable
+		//RUecksetzen der Variable
 		$this->checkDBInsert = 0;
 		
 	}
 	/**
-     * Statement zum löschen einer FAQ
+     * Statement zum lOeschen einer FAQ
      *
      */
 	public function createDeleteStatementFaq($id){
-		// Abfrage für FAQ erstellen
+		// Abfrage fUer FAQ erstellen
 		$insert = "DELETE FROM faq WHERE id = ".$id."";
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
+		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
 		$this->intoDB($insert, false);
 		
 	}
 	
 	/**
-     * Statement zum löschen einer beziehung zwischen FAQ und Department
+     * Statement zum lOeschen einer beziehung zwischen FAQ und Department
      *
      */
 	public function createDeleteStatementDepartment($id){
-		// Abfrage für FAQ erstellen
+		// Abfrage fUer FAQ erstellen
 		$insert = "DELETE FROM faq_mm_departments WHERE faq_id = ".$id."";
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
+		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
 		$this->intoDB($insert, false);
 		
 	}
 	
 	/**
-     * Statement zum löschen einer beziehung zwischen FAQ und Usertypes
+     * Statement zum lOeschen einer beziehung zwischen FAQ und Usertypes
      *
      */
 	public function createDeleteStatementUsertyp($id){
-		// Abfrage für FAQ erstellen
+		// Abfrage fUer FAQ erstellen
 		$insert = "DELETE FROM faq_mm_usertype WHERE faq_id = ".$id."";
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
+		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
 		$this->intoDB($insert, false);
 		
 	}
@@ -236,7 +238,7 @@ class Faq {
 //UPDATE Befehle Erstellen	
 	
 	/**
-     * ändern einer FAQ inclusive beziehungen
+     * Aendern einer FAQ inclusive beziehungen
      *
      */
 	public function updateFAQ($data){
@@ -252,22 +254,22 @@ class Faq {
 			// Abfrage erstellen
 			$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
 			
-			// Fertige SQL-Abfrage an Methode zum speichern übergeben return wert ID des eintrags
+			// Fertige SQL-Abfrage an Methode zum speichern Uebergeben return wert ID des eintrags
 			$faqID = $this->intoDB($insert, true);
 
-			//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
+			//SQL Abfrage fUer FAQ_mm_Departments erstellen und ausfUehren
 			$this->createInsertStatementFaq_Dept($faqID, $dept);
 			
-			//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
+			//SQL Abfrage fUer FAQ_mm_Usertypes erstellen und ausfUehren
 			$this->createInsertStatementFaq_User($faqID, $user);
 			
-			// Überprüfung ob alles in Datenbank gespeichert wurde
+			// UeberprUefung ob alles in Datenbank gespeichert wurde
 			if($this->checkDBInsert == 3){
-				echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
+				echo "<br /> Ihre Eingaben wurden erfolgreich geÃ¤ndert.";
 			}else{
 				echo "<br/> Fehler!!!";
 			}
-			//Rücksetzen der Variable
+			//RUecksetzen der Variable
 			$this->checkDBInsert = 0;
 			
         } catch(Exception $e){
@@ -276,56 +278,12 @@ class Faq {
 		
 	}
 	
-	/**
-     * Statement zum ändern einer FAQ in der Datenbank
-     *
-	 * @deprecated
-     */
-	public function createUpdateStatementFaq($data){
-		 
-		$id = $data['id'];
-		$lang = $data['lang'];
-		$question = $data['question'];
-		$answer = $data['answer'];
-		$sort = $data['sort'];
-		
-		// Abfrage erstellen
-		$insert = "UPDATE faq SET language_id ='$lang', question = '$question', answer = '$answer', sorting = '$sort' WHERE id = '$id'";
-		
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben return wert ID des eintrags
-		$this->intoDB($insert, false);
-	}
+//DATENBANK verbindung und INSERT ausfUehrung
 	
 	/**
-     * Statement zum ändern einer beziehung zwischen FAQ und Departments in die Datenbank erstellen
-     *
-	 * @deprecated
-     */
-	public function createUpdateStatementFaq_Dept($faqID, $dept){
-		// Abfrage erstellen
-		$insert = "UPDATE faq_mm_departments SET department_id = '$dept' WHERE faq_id = '$faqID'";
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
-		$this->intoDB($insert, false);
-	}
-	
-	/**
-     * Statement zum ändern einer beziehung zwischen FAQ und Usertypes in die Datenbank erstellen
-     *
-	 * @deprecated
-     */
-	public function createUpdateStatementFaq_User($faqID, $user){
-		// Abfrage erstellen
-		$insert = "UPDATE faq_mm_usertype SET usertype_id = '$user' WHERE faq_id = '$faqID'";
-		// Fertige SQL-Abfrage an Methode zum speichern übergeben
-		$this->intoDB($insert, false);
-	}
-	
-//DATENBANK verbindung und INSERT ausführung
-	
-	/**
-     * Datenbank conection erstellen und SQL Statement ausführen
-	 * @param $insert= SQL Befehl der ausgeführt werden soll
-	 * @param $bool= true = speichern in DB, false = löschen aus DB oder ändern(kein insert_id möglich)
+     * Datenbank conection erstellen und SQL Statement ausfUehren
+	 * @param $insert= SQL Befehl der ausgefUehrt werden soll
+	 * @param $bool= true = speichern in DB, false = lOeschen aus DB oder Aendern(kein insert_id mOeglich)
      * @return Letzte gespeicherte ID
      */
 	public function intoDB($insert, $bool){
@@ -334,18 +292,15 @@ class Faq {
 			//$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-			//Connection Minh
-			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
-			//Connection Marc
-            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            $db = new mysqli('localhost', 'root', '', 'fhdapp');
             
 			
-            // Abfrage ausführen
+            // Abfrage ausfUehren
 			$result = $db->query($insert);
 			
 			
-			//Abfrage ob eingefügt wurde um id zu ermitteln
+			//Abfrage ob eingefUegt wurde um id zu ermitteln
 			if($bool){
 				$returnID = $db->insert_id;
 			}else{
@@ -396,7 +351,7 @@ class Faq {
 		return $this->getData($read);
 	}
 	public function createReadStatementBackend($department){
-		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur für Fachbereich)
+		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur fUer Fachbereich)
 		if($department == 0){
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid, departments.id AS deptid
 						  FROM faq, faq_mm_usertype, faq_mm_departments, usertypes, departments 
@@ -501,7 +456,7 @@ class Faq {
 
 	
 	
-	//DATENBANK verbindung und READ ausführung
+	//DATENBANK verbindung und READ ausfUehrung
 	
 	
 	/**
@@ -513,16 +468,12 @@ class Faq {
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
             //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
-			//Connection Minh
-			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
+            $db = new mysqli('localhost', 'root', '', 'fhdapp');
 			
-			//Connection Marc
-            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
-			
-            // Abfrage ausführen
+            // Abfrage ausfUehren
             $result = $db->query($read);
 			
-			//Überprüfen ob die Abfrage ein Ergebnis hat
+			//UeberprUefen ob die Abfrage ein Ergebnis hat
 			if( $result->num_rows > 0){
 				// Ergebnis der Abfrage "durchwandern" und in Array schreiben
 				while($row = $result->fetch_assoc()){
@@ -530,10 +481,10 @@ class Faq {
 				}
 				return $resultSet;
 			}else{
-				echo "Keine FAQ zu ihrer Auswahl vorhanden <br/> <br />";
+				echo "Keine FAQ zu ihrer Auswahl vorhanden. <br/> <br />";
 			}
 			
-			//Rückgabe
+			//RUeckgabe
             
             
         } catch(Exception $e){

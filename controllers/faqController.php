@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 
 /**
  * FHD-App
@@ -6,7 +6,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
- * @author Marc Flören (MF), <marc.floeren@fh-duesseldorf.de>
+ * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
  */
 
 class FaqController{
@@ -16,44 +16,44 @@ class FaqController{
        require_once __DIR__.'../../models/faq.php';
    }
     /**
-     * Übergibt neue Daten an Model
+     * uebergibt neue Daten an Model
      *
      */
     public function setFaq($data){
        
          // Objekt erstellen
 	   $faqModel = new Faq();
-		// POST übergeben
+		// POST uebergeben
         $faqModel->controllInput($data);
     }
 	
 	/**
-     * Ändern von Daten an Model
+     * Aendern von Daten an Model
      *
      */
     public function changeFaq($data){
        
          // Objekt erstellen
 		$faqModel = new Faq();
-		// POST übergeben
-		$faqModel->DeleteFaq($data['id']);
+		// POST uebergeben
+		$faqModel->DeleteFaq($data['id'],true);
         $faqModel->controllInput($data);
     }
 	
 	/**
-     * Übergibt ID zum löschen an Modell
+     * uebergibt ID zum loeschen an Modell
      *
      */
 	 public function deleteFaq($id){
        
          // Objekt erstellen
 	   $faqModel = new Faq();
-		// POST übergeben
-        $faqModel->DeleteFaq($id);
+		// POST uebergeben
+        $faqModel->DeleteFaq($id,false);
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Faqs zu erhalten
+     * Fuehrt die Abfragemethode aus um alle Faqs zu erhalten
      * @return Array
      */
     public function getFAQsFrontend($dept, $eis){
@@ -61,12 +61,12 @@ class FaqController{
 		
 	   // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementAllFrontend($dept, $eis);
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Faqs zu erhalten
+     * Fuehrt die Abfragemethode aus um alle Faqs zu erhalten
      * @return Array
      */
     public function getFAQsBackend($department){
@@ -74,43 +74,43 @@ class FaqController{
 		
 	   // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementBackend($department);
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Fachbereiche zu erhalten
+     * Fuehrt die Abfragemethode aus um alle Fachbereiche zu erhalten
      * @return Array
      */
     public function getDepartments(){
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementDepartments();
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Usergruppen zu erhalten
+     * Fuehrt die Abfragemethode aus um alle Usergruppen zu erhalten
      * @return Array
      */
     public function getUsertypes(){
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementUsertypes();
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Usergruppen zu erhalten
+     * Fuehrt die Abfragemethode aus um alle Usergruppen zu erhalten
      * @return Array
      */
     public function getLang(){
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementLang();
     }
 
@@ -122,7 +122,7 @@ class FaqController{
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode die getestet werden soll ausführen und zurückgeben
+        // Methode die getestet werden soll ausfuehren und zurueckgeben
         return $faqModel->createReadStatementFaqID($test);
     }
 	

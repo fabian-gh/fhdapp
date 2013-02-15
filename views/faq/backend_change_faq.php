@@ -1,44 +1,17 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
-	<title>FHD App - CMS</title>
-</head>
-
-<body>
-<script type="text/javascript">
-<!--
-  function conf(){
-    check = window.confirm("Wollen Sie wirklich löschen?");
- 
-    return check;
-    
-  }
-// -->
-</script>
-	<div id ="header">
-    	<div id ="headline">
-        	<h1>CMS Web-App</h1>
-        </div>
-    </div>
-    
-    <div id ="wrapper">
-    
-    	<div id ="nav">
-            <h3>Seiteninhalt bearbeiten:</h3>
-        	<ul>
-            	<li><a href='#'>Studiengänge</a></li>
-                <li><a href='#'>Veranstaltungen</a></li>
-                <li><a href='#'>Termine</a></li>
-                <li><a href='#'>Mensa</a></li>
-                <li><a class ="active" href='#'>FAQ</a></li>
-                <li><a href='#'>Kontakt</a></li>
-			</ul>
-        </div>
-        
-        <div id ="content">
+ï»¿<?php
+//header einbinden
+require_once '../../layout/backend/header.php';
+?>	
+	<script type="text/javascript">
+	<!--
+	  function conf(){
+		check = window.confirm("Dieser Eintrag wird jetzt entfernt.");
+	 
+		return check;
+		
+	  }
+	// -->
+	</script>
 		<h1> FAQ Update/Delete </h1>
 		<br />
 		<?php
@@ -47,17 +20,17 @@
 		//Objekt erstellen
 		$controller = new FaqController();
 		
-		//Überprüfung ob ändern geklickt(Button wird automagically erkannt) und auführen der änderung
+		//ÃœberprÃ¼fung ob Ã„ndern geklickt(Button wird automagically erkannt) und aufÃ¼hren der Ã„nderung
 		if(isset($_POST['change'])){
 			$controller->changeFaq($_POST);
 		}
 		
-		//Überprüfung ob löschen geklickt(Button wird automagically erkannt) und löschen	
+		//ÃœberprÃ¼fung ob lÃ¶schen geklickt(Button wird automagically erkannt) und lÃ¶schen	
 		if(isset($_POST['delete'])){
 			$controller->deleteFaq($_POST['id']);
 		}
 		
-		//Überprüfung ob Selektiert werden soll	
+		//ÃœberprÃ¼fung ob Selektiert werden soll	
 		if(isset($_POST['select'])){
 			$resultSet = $controller->getFAQsBackend($_POST['departmentSelectID']);
 			$selected = $_POST['departmentSelectID'];
@@ -178,7 +151,7 @@
 											 <select name=\"lang\" size=\"1\">";
 											 
 											//Schleife die alle Usertypes als <option> ausgibt.
-											//der passende Usertype wird dabei vorausgewählt
+											//der passende Usertype wird dabei vorausgewÃ¤hlt
 											 for($n=0; $n<count($resultSetLang); $n++) {
 												$id = $resultSetLang[$n]['id'];
 												$name = $resultSetLang[$n]['name'];
@@ -206,7 +179,7 @@
 											 <select name=\"departmentID\" size=\"1\">";
 											 
 											//Schleife die alle Usertypes als <option> ausgibt.
-											//der passende Usertype wird dabei vorausgewählt
+											//der passende Usertype wird dabei vorausgewÃ¤hlt
 											 for($n=0; $n<count($resultSetDepartments); $n++) {
 												$id = $resultSetDepartments[$n]['id'];
 												$name = $resultSetDepartments[$n]['name'];
@@ -232,7 +205,7 @@
 											 &nbsp;  
 											<select name=\"usertypeID\" size=\"1\">";
 											//Schleife die alle Usertypes als <option> ausgibt.
-											//der passende Usertype wird dabei vorausgewählt
+											//der passende Usertype wird dabei vorausgewÃ¤hlt
 											  for($m=0; $m<count($resultSetUsertypes); $m++) {
 												$id = $resultSetUsertypes[$m]['id'];
 												$name = $resultSetUsertypes[$m]['name'];
@@ -251,8 +224,8 @@
 									</tr>
 								</table>
 								<div class=\"formRight\">
-									<input  class=\"button\" name=\"change\" type=\"submit\" value=\"Ändern\"> &nbsp &nbsp &nbsp
-									<input  class=\"button\" name=\"delete\" type=\"submit\" onclick=\"return conf()\" value=\"Löschen\">
+									<input  class=\"button\" name=\"change\" type=\"submit\" value=\"Ã¤ndern\"> &nbsp &nbsp &nbsp
+									<input  class=\"button\" name=\"delete\" type=\"submit\" onclick=\"return conf()\" value=\"LÃ¶schen\">
 									
 								</div>
 							</td>
@@ -266,15 +239,6 @@
 				
 			</div>
 		</div>
-		
-		</div>
-		        
-		<div class="clear"></div>
-	</div>
-    
-    <div id ="footer">
-</div>
-
-</body>
-
-</html>
+		<?php
+		require_once '../../layout/backend/footer.php';
+		?>
