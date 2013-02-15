@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 
 session_start();
 
@@ -36,3 +36,6 @@ if(isset($_POST['login'])){
 
 /* End of file login.php */
 /* Location: ./views/login.php */
+
+ob_flush();
+?>

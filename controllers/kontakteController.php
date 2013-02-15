@@ -41,6 +41,14 @@ class kontakteController {
 		return $this->contactsModel->m_getContacts();
 	}
 
+	/**
+	*	Calls the model and returns all the departmentID of a specific course name
+	*	@return Array of Strings 
+	*/
+	public function c_getDeptByCourse($courseName){
+		return $this->contactsModel->m_getContacts($courseName);
+	}
+	
 	public function c_deleteContact($id){
 
 		$contactID = $id['contactID'];

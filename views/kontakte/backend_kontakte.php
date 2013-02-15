@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 
 // TODO: Campus berücksichtigen beim Einfügen / Ändern
 
@@ -309,4 +309,5 @@
 			<!-- End add contact -->
 <?php
 	require_once '../../layout/backend/footer.php';
+	ob_flush();
 ?>
