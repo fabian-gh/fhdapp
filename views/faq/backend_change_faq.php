@@ -1,6 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
+	<title>FHD App - CMS</title>
+</head>
+
+<body>
+<script type="text/javascript">
+<!--
+  function conf(){
+    check = window.confirm("Wollen Sie wirklich löschen?");
+ 
+    return check;
+    
+  }
+// -->
+</script>
+	<div id ="header">
+    	<div id ="headline">
+        	<h1>CMS Web-App</h1>
+        </div>
+    </div>
+    
+    <div id ="wrapper">
+    
+    	<div id ="nav">
+            <h3>Seiteninhalt bearbeiten:</h3>
+        	<ul>
+            	<li><a href='#'>Studiengänge</a></li>
+                <li><a href='#'>Veranstaltungen</a></li>
+                <li><a href='#'>Termine</a></li>
+                <li><a href='#'>Mensa</a></li>
+                <li><a class ="active" href='#'>FAQ</a></li>
+                <li><a href='#'>Kontakt</a></li>
+			</ul>
+        </div>
+        
+        <div id ="content">
+		<h1> FAQ Update/Delete </h1>
+		<br />
 		<?php
-		//header einbinden
-		require_once '../../layout/backend/header.php';
 		//Controller einbinden
 		require_once '../../controllers/faqController.php';
 		//Objekt erstellen
@@ -8,7 +49,7 @@
 		
 		//Überprüfung ob ändern geklickt(Button wird automagically erkannt) und auführen der änderung
 		if(isset($_POST['change'])){
-			$controller->setFaq($_POST);
+			$controller->changeFaq($_POST);
 		}
 		
 		//Überprüfung ob löschen geklickt(Button wird automagically erkannt) und löschen	
@@ -93,6 +134,7 @@
 							<td>
 								<input type=\"hidden\" name=\"id\" value=\"$id\">
 								<input type=\"hidden\" name=\"inputArt\" value=\"2\">
+								<input type=\"hidden\" name=\"anzahl\" value=\"1\">
 							
 								<textarea name=\"question\" cols=\"70\" rows=\"2\">$frage</textarea>
 							</td>
@@ -177,9 +219,9 @@
 												}
 											}
 											if($dept == 100)
-												echo "<option value=\"$\" selected>Allgemein</option>";
+												echo "<option value=\"100\" selected>Allgemein</option>";
 											else
-												echo "<option value=\"$\">Allgemein</option>";
+												echo "<option value=\"100\">Allgemein</option>";
 											
 											
 											echo "</select>
@@ -218,8 +260,21 @@
 					</table>
 					</form>
 					";
-					}	
-					echo "</div> </div>";
-					//footer einbinden
-					require_once '../../layout/backend/footer.php';
+					}						
 						?>
+
+				
+			</div>
+		</div>
+		
+		</div>
+		        
+		<div class="clear"></div>
+	</div>
+    
+    <div id ="footer">
+</div>
+
+</body>
+
+</html>

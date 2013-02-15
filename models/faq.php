@@ -130,7 +130,7 @@ class Faq {
 					echo "<br/> Fehler!!!";
 				}
 				//Rücksetzen der Variable
-				$this->checkDBInsert == 0;
+				$this->checkDBInsert = 0;
 			}
         } catch(Exception $e){
             echo $e->getMessage();
@@ -194,7 +194,7 @@ class Faq {
 			echo "<br/> Fehler!!!";
 		}
 		//Rücksetzen der Variable
-		$this->checkDBInsert == 0;
+		$this->checkDBInsert = 0;
 		
 	}
 	/**
@@ -240,26 +240,46 @@ class Faq {
      *
      */
 	public function updateFAQ($data){
-		
-		//Beziehung Departments löschen
-		$this->createUpdateStatementFaq($data);
-		//Beziehung Usertyp löschen
-		$this->createUpdateStatementFaq_Dept($data['id'],$data['departmentID']);
-		//FAQ löschen
-		$this->createUpdateStatementFaq_User($data['id'],$data['usertypeID']);
-		// Überprüfung ob alles in Datenbank geändert wurde
-		if($this->checkDBInsert == 3){
-			echo "<br/> Ihre Änderungen wurden erfolgreich gespeichert. <br/><br/>";
-		}else{
-			echo "<br/> Fehler!!!";
+		try{
+			// Werte aneinanderreihen 
+			$lang = $data['lang'];
+			$question = $data['question'];
+			$answer = $data['answer'];
+			$sort = $data['sort'];
+			$dept = $data['departmentID'];
+			$user = $data['usertypeID'];
+			
+			// Abfrage erstellen
+			$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
+			
+			// Fertige SQL-Abfrage an Methode zum speichern übergeben return wert ID des eintrags
+			$faqID = $this->intoDB($insert, true);
+
+			//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
+			$this->createInsertStatementFaq_Dept($faqID, $dept);
+			
+			//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
+			$this->createInsertStatementFaq_User($faqID, $user);
+			
+			// Überprüfung ob alles in Datenbank gespeichert wurde
+			if($this->checkDBInsert == 3){
+				echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
+			}else{
+				echo "<br/> Fehler!!!";
+			}
+			//Rücksetzen der Variable
+			$this->checkDBInsert = 0;
+			
+        } catch(Exception $e){
+            echo $e->getMessage();
 		}
-		//Rücksetzen der Variable
-		$this->checkDBInsert == 0;
+		
 	}
 	
 	/**
      * Statement zum ändern einer FAQ in der Datenbank
      *
+	 * @deprecated
      */
 	public function createUpdateStatementFaq($data){
 		 
@@ -279,6 +299,7 @@ class Faq {
 	/**
      * Statement zum ändern einer beziehung zwischen FAQ und Departments in die Datenbank erstellen
      *
+	 * @deprecated
      */
 	public function createUpdateStatementFaq_Dept($faqID, $dept){
 		// Abfrage erstellen
@@ -290,6 +311,7 @@ class Faq {
 	/**
      * Statement zum ändern einer beziehung zwischen FAQ und Usertypes in die Datenbank erstellen
      *
+	 * @deprecated
      */
 	public function createUpdateStatementFaq_User($faqID, $user){
 		// Abfrage erstellen
@@ -309,14 +331,14 @@ class Faq {
 	public function intoDB($insert, $bool){
 		 try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-           // $db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
+			//$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			//Connection Minh
-			$db = new mysqli('localhost', 'root', '','fhdapp');
+			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
-            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
             
 			
             // Abfrage ausführen
@@ -347,7 +369,7 @@ class Faq {
 //READ Befehle Erstellen
 	
 	/**
-     * SQL-Statement zum Auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
+     * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
      * @return Array mit Datenbank werten
      */
 	public function createReadStatementAllFrontend($dept, $eis){
@@ -373,21 +395,6 @@ class Faq {
 		// An Methode
 		return $this->getData($read);
 	}
-	/**
-     * SQL-Statement zum Auslesen des Fachbereichs abhängig vom Studiengang
-     * @return Array mit Datenbank werten
-     */
-		public function getDepartmentFromStudycourse($course){
-		
-			$read = "SELECT department_id
-					FROM studycourses
-					WHERE name = '$course'
-					LIMIT 1";
-				
-			return $this->getData($read);
-			
-		}
-	
 	public function createReadStatementBackend($department){
 		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur für Fachbereich)
 		if($department == 0){
@@ -507,10 +514,10 @@ class Faq {
             //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
 			//Connection Minh
-			$db = new mysqli('localhost', 'root', '','fhdapp');
+			//$db = new mysqli('localhost', 'root', 'krakau123','fhdapp');
 			
 			//Connection Marc
-            //$db = new mysqli('localhost', 'root', 'test', 'fhdapp');
+            $db = new mysqli('localhost', 'root', 'test', 'fhdapp');
 			
             // Abfrage ausführen
             $result = $db->query($read);

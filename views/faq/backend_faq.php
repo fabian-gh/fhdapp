@@ -1,8 +1,38 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link href= "../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
+	<title>FHD App - CMS</title>
+</head>
+
+<body>
+
+	<div id ="header">
+    	<div id ="headline">
+        	<h1>CMS Web-App</h1>
+        </div>
+    </div>
+    
+    <div id ="wrapper">
+    
+    	<div id ="nav">
+            <h3>Seiteninhalt bearbeiten:</h3>
+        	<ul>
+            	<li><a href='#'>Studiengänge</a></li>
+                <li><a href='#'>Veranstaltungen</a></li>
+                <li><a href='#'>Termine</a></li>
+                <li><a href='#'>Mensa</a></li>
+                <li><a class ="active" href='#'>FAQ</a></li>
+                <li><a href='#'>Kontakt</a></li>
+			</ul>
+        </div>
+        
+        <div id ="content">
+		<h1> FAQ's eingeben </h1>
+		<br />
 		<?php
-		
-		//header einbinden
-		require_once '../../layout/backend/header.php';
 		// Controller einbinden
 		require_once '../../controllers/faqController.php';
 		//Objekt erstellen
@@ -20,7 +50,7 @@
 		<div id="mainContainer">
 			<div id="formular">
 				<div class="formRight">
-				<a href='backend_change_faq.php'>FAQ aendern/loeschen</a>
+				<a href='backend_change_faq.php'>FAQ ändern/löschen</a>
 				<br /><br />
 				<form name="Formular" method="post" action="" accept-charset="utf-8">
 					Einzugebende Fragen &nbsp; <input name="anzahl" type="text" value="<?php echo $anzahl ?>" size="2" maxlength="2" > &nbsp; <input  class="button" type="submit" value="OK">
@@ -165,6 +195,15 @@
 			if(isset($_POST['save'])){
 				$controller->setFaq($_POST);
 			}
-	//footer einbinden
-    require_once '../../layout/backend/footer.php';
-		?>
+			?>
+		</div>
+		        
+		<div class="clear"></div>
+	</div>
+    
+    <div id ="footer">
+</div>
+
+</body>
+
+</html>

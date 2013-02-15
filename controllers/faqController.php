@@ -28,6 +28,19 @@ class FaqController{
     }
 	
 	/**
+     * Ändern von Daten an Model
+     *
+     */
+    public function changeFaq($data){
+       
+         // Objekt erstellen
+		$faqModel = new Faq();
+		// POST übergeben
+		$faqModel->DeleteFaq($data['id']);
+        $faqModel->controllInput($data);
+    }
+	
+	/**
      * Übergibt ID zum löschen an Modell
      *
      */
@@ -47,17 +60,6 @@ class FaqController{
         
 		
 	   // Objekt erstellen
-	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
-        return $faqModel->createReadStatementAllFrontend($dept, $eis);
-    }
-	
-	/**
-	* Führt die Abfragemethode aus, um aus dem gewählten Studiengang den zugehörigen Fachbereich zu erhalten
-	* @return Array
-	*/
-	public function getDepartmentFromCourse($course){
-		// Objekt erstellen
 	   $faqModel = new Faq();
         // Methode ausführen und zurückgeben
         return $faqModel->createReadStatementAllFrontend($dept, $eis);
