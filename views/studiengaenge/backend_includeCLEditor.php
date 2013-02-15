@@ -8,7 +8,7 @@
 <script type="text/javascript" src="../../sources/CLEditor/jquery.cleditor.advancedtable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#description").cleditor({
+		$("#input").cleditor({
 			width:        400, // width not including margins, borders or padding
 			height:       250, // height not including margins, borders or padding
 			controls:     // controls to add to the toolbar
