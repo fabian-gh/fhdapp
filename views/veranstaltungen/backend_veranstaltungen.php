@@ -15,22 +15,29 @@
 	
 	//Conroller einbinden
 	require_once '../../controllers/veranstaltungenController.php';
-	$Controller = new VeranstaltungenController;
+	//Klasse für Formularfelder einbinden
+	require_once 'backend_formular.php';
 	
+	//Controller-Objekt erstellen
+	$Controller = new VeranstaltungenController;
+	//Fachbereiche laden
+	$FACHBEREICHE =  $Controller->getDepartments();
+	//Neues Objekt von Formular erstellen
+	$Formular = new Formular($Controller);
+	
+	//Leeres Formular erstellen
+	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
+	//JQuery für das leere Formular erstellen
+	$JQUERY = $Formular->getJqueryEmptyForm();
+	
+	
+	//Überprüfen ob Fachbereich-GET-Variable gesetzt ist, falls nicht direkt auf Fachbereich 1 setzen
 	if(isset($_GET['FB']))
 		$FB_AKTUELLER = $_GET['FB'];
 	else
 		$FB_AKTUELLER = 1;
 	
-	//Fachbereiche laden
-	$FACHBEREICHE =  $Controller->getDepartments();
-	
-	//Klasse für Formularfelder einbinden
-	require_once 'backend_formular.php';	
-	
-	//Variable für alle JQuery Methoden, wird am Ende des Dokuments ausgegeben
-	$JQUERY = '';
-	$MESSAGE = '';
+	$MESSAGE = 'Keine &Auml;nderungen';
 	
 	//Überprüfung ob Formular abgesendet wurde
 	if(isset($_POST['veranstaltung_speichern']))
@@ -70,79 +77,104 @@
 	else if(isset($_POST['veranstaltung_alt_loeschen']))
 	{
 		if($Controller->deleteOldEvent() == true)
-			$MESSAGE = 'Alte Veranstaltungen wurde gel&ouml;scht.';
+			$MESSAGE = 'Alte Veranstaltungen wurden gel&ouml;scht.';
 		else
-			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltungen wurde nicht gel&ouml;scht.';
+			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltungen wurden nicht gel&ouml;scht.';
 	}
 	
-	//Ausgeben der Meldung
-	echo '
-		<div class="veranstaltung_message" style="border-width:1px; border-style:solid;">
-		'.$MESSAGE.'
-		</div>
-	';
-	
-	echo '<br/><br/><br/><br/>';
-	
-	//Lösch Button für alle alten Veranstaltungen
-	echo '	
-		<a class="button" id="loesch_button_all">Alle vergangenen Veranstaltungen l&ouml;schen</a>
-			<form action="?FB='.$FB_AKTUELLER.'" id="veranstaltungen_loeschen" method="post">
-				<input type="hidden" name="veranstaltung_alt_loeschen" id="loeschen_hidden_all" value="true"/>
-			</form>
-		<br/><br/>	
-		';
-	
-	//Neues Objekt von Formular erstellen
-	$Formular = new Formular($Controller);
-	//Leeres Formular erstellen
-	echo $Formular->getEmptyForm($FB_AKTUELLER);
-	//JQuery für das leere Formular erstellen
-	$JQUERY .= $Formular->getJqueryEmptyForm();
-	
-	echo '<br/><br/><br/><br/>';
-	
-	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
-	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
-	
+		
 	//Fachbereiche durchlaufen und DropDownListe füllen
 	if($FACHBEREICHE != null)
 	{
 		$INPUT_FACHBEREICH = '';
+		$FB_AKTUELLER_NAME = '';
 		//Durch alle Fachbereiche durchlaufen
 		for($i=0; $i<count($FACHBEREICHE); $i++) 
 		{
 			//Überprüfen ob Fachbereiche der ausgewählte ist
 			if($FACHBEREICHE[$i]['id'] == $FB_AKTUELLER)
 			{
-				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" SELECTED> '.$FACHBEREICHE[$i]['name'].' </option>
-				';
+				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" SELECTED> '.$FACHBEREICHE[$i]['name'].' </option>';
 				$FB_AKTUELLER_NAME = $FACHBEREICHE[$i]['name'];
 			}
 			else
-				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" > '.$FACHBEREICHE[$i]['name'].' </option>
-				';
+				$INPUT_FACHBEREICH .= '<option value="'.$FACHBEREICHE[$i]['id'].'" > '.$FACHBEREICHE[$i]['name'].' </option>';
 		}
-		//Komplette DropDownListe ausgeben
-		echo'
-			<div id="div_fachbereich_auswahl">
-				<h3>W&auml;hlen Sie den Fachbereich aus f&uuml;r den Sie die Veranstaltungen bearbeiten m&ouml;chten</h3>
-				<form id="fachbereich_auswahl" action="">
-					<select id="fachbereich_select" name="FB" size="1">
-						'.$INPUT_FACHBEREICH.'
-					</select>
-				</form>
-			</div>
-			<br /><br />
-			<h3>Veranstaltungen vom Fachbereich '.$FB_AKTUELLER_NAME.':</h3>
-			<br /><br />
-		';
 	}
 	else
 	{
 		//Falls keine Fachbereiche in der Datenbank, Fehlermeldung ausgeben
 		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
+	
+	echo'
+	<br/><br/><br/>
+	<table border="0" width="100%">
+		<tr>
+			<td width="50%" style="text-align:left;">
+				<p>Status:</p>
+			</td>
+			<td width="50%" style="text-align:right;">
+				<!-- Ausgeben der Meldung -->
+				<i>'.$MESSAGE.'</i>
+			</td>
+		</tr>
+	
+		<tr>
+			<td colspan="2" width="100%" style="text-align:center;">
+			
+				<!-- Lösch Button für alle alten Veranstaltungen -->
+				<a class="button" id="loesch_button_all">
+					<div>Alle vergangenen Veranstaltungen l&ouml;schen</div>
+				</a>
+				
+				<!-- Form zum Löschen aller alten Veranstaltungen -->
+				<form action="?FB='.$FB_AKTUELLER.'" id="veranstaltungen_loeschen" method="post">
+					<input type="hidden" name="veranstaltung_alt_loeschen" id="loeschen_hidden_all" value="true"/>
+				</form>
+				
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" width="100%" style="text-align:center;">
+				
+				<!-- Leeres Formular ausgeben -->
+				'.$EMPTY_FORMULAR.'
+				
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	
+	<br /><br />
+	
+	<table border="0" width="100%">
+		
+		<tr>
+			<td width="50%" style="text-align:left;">
+				<h3>Fachbereich ausw&auml;hlen</h3>
+			</td>
+			<td width="50%" style="text-align:right;">
+				<!-- Komplette DropDownListe ausgeben -->
+				<form id="fachbereich_auswahl" action="">
+						<select id="fachbereich_select" name="FB" size="1">
+							'.$INPUT_FACHBEREICH.'
+						</select>
+				</form>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" width="100%" style="text-align:center;">
+				<br/>
+				<h3>Fachbereich '.$FB_AKTUELLER_NAME.':</h3>
+			</td>
+		</tr>
+	';
+	
+	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
 	
 	if($ERGEBNIS != null)
 	{
@@ -171,9 +203,16 @@
 			$Formular = new Formular($Controller);
 			//Alle Variablen setzen
 			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
+			
 			//Veranstaltung darstellen mit Bearbeiten-Option
-			echo $Formular->getEventContainer($FB_AKTUELLER);
-			echo '<br/><br/>';
+			echo '
+			<tr>
+				<td colspan="2" width="100%">
+				<br />
+				'.$Formular->getEventContainer($FB_AKTUELLER).'
+				</td>
+			</tr>';
+			
 			//JQuery erstellen
 			$JQUERY .= $Formular->getJquery();
 		}
@@ -182,26 +221,28 @@
 	{
 		echo "Kein Datensatz vorhanden!";
 	}
+	
+	echo '
+		</tbody>
+		</table>
+	';
 
-	echo '<br/><br/><br/><br/>';
 	
 	//JQuery Ausgeben
 	echo '
 		<script type="text/javascript">
-				$(function(){
 				
-				$("#fachbereich_select").change(function(){
-					$("#fachbereich_auswahl").submit();
-				});
-				
-				$("#loesch_button_all").click(function(){
-					MESSAGE = "Achtung!!!\nAlle vergangenen Veranstaltungen werden gelöscht!";
-					if(confirm(MESSAGE))
-						$("#veranstaltungen_loeschen").submit();
-				});
-				
-				'.$JQUERY.'	
+			$("#fachbereich_select").change(function(){
+				$("#fachbereich_auswahl").submit();
 			});
+				
+			$("#loesch_button_all").click(function(){
+				MESSAGE = "Achtung!!!\nAlle vergangenen Veranstaltungen werden gelöscht!";
+				if(confirm(MESSAGE))
+					$("#veranstaltungen_loeschen").submit();
+			});
+				
+			'.$JQUERY.'	
 			
 			function checkFormular(ID){
 				TAG 			= $("#veranstaltung_datum_tag_"+ID).val();
@@ -285,6 +326,7 @@
 				return true;
 			};
 			
+			//Überprüfung ob Zahl zwischen 0 und 23 liegt
 			function checkStunden(Zahl){
 				Zahl = parseInt(Zahl);
 				if (!isNaN(Zahl))
@@ -298,6 +340,7 @@
 				}
 			}
 			
+			//Überprüfung ob Zahl zwischen 0 und 60 liegt
 			function checkMinuten(Zahl){
 				Zahl = parseInt(Zahl);
 				if (!isNaN(Zahl))
@@ -311,7 +354,7 @@
 				}
 			}
 
-			
+			//Überprüfung ob Datum richtig sein kann
 			function checkDatum(TAG,MONAT,JAHR)
 			{
 				MONAT = MONAT - 1;
@@ -325,6 +368,7 @@
 					return false;
 			}
 
+			//Überprüfung ob String Inhalt besitzt
 			function checkText(Text){
 				if (Text == "")
 				{
@@ -335,6 +379,7 @@
 					return true;
 				}
 			}
+			
 			
 			function checkSelected(ID)
 			{

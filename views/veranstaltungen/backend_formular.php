@@ -341,17 +341,21 @@ class Formular{
 			  
 			<tbody>
 				<tr>
-					<td>Name:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Name:
+					</td>
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_form_name" id="div_veranstaltung_form_name_###ID###">
-							<input type="text" class="veranstaltung_name"	name="veranstaltung_name" id="veranstaltung_name_###ID###" value="###NAME###" placeholder="Name" size="50" maxlength="30" />
+							<input type="text" class="veranstaltung_name"	name="veranstaltung_name" id="veranstaltung_name_###ID###" value="###NAME###" placeholder="Name" style="width:100%;" maxlength="30" />
 						</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td>Datum:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Datum:
+					</td>
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_form_datum" id="div_veranstaltung_form_datum_###ID###">
 							<input type="text" class="veranstaltung_datum_tag"		name="veranstaltung_datum_tag" 		id="veranstaltung_datum_tag_###ID###" 		value="###TAG###" 	placeholder="DD" 	size="5" 	maxlength="2" />
 							<input type="text" class="veranstaltung_datum_monat"	name="veranstaltung_datum_monat" 	id="veranstaltung_datum_monat_###ID###" 	value="###MONAT###" placeholder="MM" 	size="5" 	maxlength="2" />
@@ -361,8 +365,10 @@ class Formular{
 				</tr>
 				
 				<tr>
-					<td>Uhrzeit:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Uhrzeit:
+					</td>
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_form_uhrzeit" id="div_veranstaltung_form_uhrzeit_###ID###">
 							<input type="text" class="veranstaltung_uhrzeit_stunden"	name="veranstaltung_uhrzeit_stunden" id="veranstaltung_uhrzeit_stunden_###ID###" value="###STUNDEN###" placeholder="HH" size="5" maxlength="2" />
 							<input type="text" class="veranstaltung_uhrzeit_stunden"	name="veranstaltung_uhrzeit_minuten" id="veranstaltung_uhrzeit_minuten_###ID###" value="###MINUTEN###" placeholder="MM" size="5" maxlength="2" />
@@ -371,10 +377,12 @@ class Formular{
 				</tr>
 				
 				<tr>
-					<td>Beschreibung:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Beschreibung:
+					</td>
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_form_beschreibung" id="div_veranstaltung_form_beschreibung_###ID###">
-							<textarea class="veranstaltung_beschreibung"	name="veranstaltung_beschreibung" id="veranstaltung_beschreibung_###ID###" cols="50" rows="10">###BESCHREIBUNG###</textarea>
+							<textarea class="veranstaltung_beschreibung" name="veranstaltung_beschreibung" id="veranstaltung_beschreibung_###ID###" style="width:100%;">###BESCHREIBUNG###</textarea>
 						</div>
 					</td>
 				</tr>
@@ -422,22 +430,28 @@ class Formular{
 			  
 			 <tbody>				
 				<tr>
-					<td>Datum:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Datum:
+					</td>
+					<td width="50%" style="text-align:right;">
 						<div class="div_veranstaltung_show_datum" id="div_veranstaltung_show_datum_###ID###">###TAG###.###MONAT###.###JAHR###</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td>Uhrzeit:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Uhrzeit:
+					</td>
+					<td width="50%" style="text-align:right;">
 						<div class="div_veranstaltung_show_uhrzeit" id="div_veranstaltung_show_uhrzeit_###ID###">###STUNDEN###:###MINUTEN###</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td>Beschreibung:</td>
-					<td>
+					<td width="50%" style="text-align:left;">
+						Beschreibung:
+					</td>
+					<td width="50%" style="text-align:right;">
 						<div class="div_veranstaltung_show_beschreibung" id="div_veranstaltung_show_beschreibung_###ID###">###BESCHREIBUNG###</div>
 					</td>
 				</tr>
