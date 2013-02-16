@@ -226,7 +226,13 @@
 	}
 	else
 	{
-		echo "Kein Datensatz vorhanden!";
+		echo '
+			<tr>
+				<td colspan="2" width="100%">
+				<br />
+				<i>Kein Datensatz vorhanden!</i>
+				</td>
+			</tr>';
 	}
 	
 	echo '
