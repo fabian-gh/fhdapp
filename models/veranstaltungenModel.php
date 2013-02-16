@@ -214,15 +214,15 @@ class Veranstaltungen{
 	public function getOldEvents()
 	{
 		$STATEMENT = "
-				SELECT EVENTS.id
+				SELECT events.id
 				
-				FROM EVENTS , EVENTS_MM_DEPARTMENTS, DEPARTMENTS, LANGUAGES
+				FROM events , events_mm_departments, departments, languages
 				
-				WHERE EVENTS.id = EVENTS_MM_DEPARTMENTS.event_id 
-				AND EVENTS.language_id = LANGUAGES.id 
-				AND EVENTS_MM_DEPARTMENTS.department_id = DEPARTMENTS.id
-				AND EVENTS.date < NOW()
-				ORDER BY EVENTS.date
+				WHERE events.id = events_mm_departments.event_id 
+				AND events.language_id = languages.id 
+				AND events_mm_departments.department_id = departments.id
+				AND events.date < NOW()
+				ORDER BY events.date
 				";
 				
 		return $this->getInformation($STATEMENT);
@@ -235,17 +235,17 @@ class Veranstaltungen{
 	public function createStatementEventsWithDepartmentsWihoutUsertype($department){
 		$STATEMENT = "
 				SELECT 
-				EVENTS.id,EVENTS.language_id,EVENTS.name,EVENTS.date,EVENTS.description				
+				events.id,events.language_id,events.name,events.date,events.description				
 				
-				FROM EVENTS , EVENTS_MM_DEPARTMENTS, DEPARTMENTS, LANGUAGES
+				FROM events , events_mm_departments, departments, languages
 				
-				WHERE EVENTS.id = EVENTS_MM_DEPARTMENTS.event_id 
-				AND EVENTS.language_id = LANGUAGES.id 
-				AND EVENTS_MM_DEPARTMENTS.department_id = departments.id
-				AND EVENTS_MM_DEPARTMENTS.department_id = ".$department."
-				AND EVENTS.date >= NOW()
+				WHERE events.id = events_mm_departments.event_id 
+				AND events.language_id = languages.id 
+				AND events_mm_departments.department_id = departments.id
+				AND events_mm_departments.department_id = ".$department."
+				AND events.date >= NOW()
 				
-				ORDER BY EVENTS.date
+				ORDER BY events.date
 				";
 
 		return $this->getInformation($STATEMENT);

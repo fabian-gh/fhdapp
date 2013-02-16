@@ -87,7 +87,7 @@ class Login{
      * @param String $username
      */
     public function setUsername($username) {
-        $this->username = mysql_real_escape_string($username);
+        $this->username = ($username);
     }
 
     /**
@@ -95,7 +95,7 @@ class Login{
      * @param String $password
      */
     public function setPassword($password) {
-        $this->password = mysql_real_escape_string($password);
+        $this->password = ($password);
     }
 
     /**
