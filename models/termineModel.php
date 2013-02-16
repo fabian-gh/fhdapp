@@ -20,10 +20,11 @@
 				$result = $this->connection->query("SELECT * FROM semester
 														WHERE department_id = $dept");
 				$resultSet = array();
-				while($row = $result->fetch_assoc())
-				{
-					$resultSet[] = new Semester($row["id"], $row["name"]);
-				}
+				if($result != null)
+					while($row = $result->fetch_assoc())
+					{
+						$resultSet[] = new Semester($row["id"], $row["name"]);
+					}
 				return $resultSet;
 			}
 			catch(Exception $e)
@@ -50,10 +51,11 @@
 														WHERE semester.department_id = $dept && appointments.semester_id = semester.id && $eis
 														GROUP BY semester.id");
 				$resultSet = array();
-				while($row = $result->fetch_assoc())
-				{
-					$resultSet[] = new Semester($row["id"], $row["name"]);
-				}
+				if($result != null)
+					while($row = $result->fetch_assoc())
+					{
+						$resultSet[] = new Semester($row["id"], $row["name"]);
+					}
 				return $resultSet;
 			}
 			catch(Exception $e)
@@ -62,6 +64,7 @@
 			}
 		}
 
+		//semester hinzufügen
 		public function insertSemester($language, $name, $department)
 		{
 			try
@@ -75,6 +78,7 @@
 			}
 		}
 
+		//semester ändern
 		public function updateSemester($id, $language, $name)
 		{
 			try
@@ -114,10 +118,11 @@
 				$result = $this->connection->query("SELECT * FROM appointments
 														WHERE semester_id = $semester_id");
 				$resultSet = array();
-				while($row = $result->fetch_assoc())
-				{
-					$resultSet[] = $row;
-				}
+				if($result != null)
+					while($row = $result->fetch_assoc())
+					{
+						$resultSet[] = $row;
+					}
 				return $resultSet;
 			}
 			catch(Exception $e)
@@ -142,10 +147,11 @@
 				$result = $this->connection->query("SELECT * FROM appointments
 														WHERE semester_id = $semester_id && $eis");
 				$resultSet = array();
-				while($row = $result->fetch_assoc())
-				{
-					$resultSet[] = $row;
-				}
+				if($result != null)
+					while($row = $result->fetch_assoc())
+					{
+						$resultSet[] = $row;
+					}
 				return $resultSet;
 			}
 			catch(Exception $e)
@@ -154,6 +160,7 @@
 			}
 		}
 
+		//termin zu einem semester hinzufügen
 		public function insertAppointment($language, $semester, $name, $date_from, $date_to, $interested, $freshman, $student)
 		{
 			try
@@ -167,6 +174,7 @@
 			}
 		}
 
+		//termin ändern
 		public function updateAppointment($id, $language, $name, $date_from, $date_to, $interested, $freshman, $student)
 		{
 			try
@@ -199,6 +207,27 @@
 
 		//zusatz
 
+		//alle fachbereiche auslesen
+		public function getDepartments()
+		{
+			try
+			{
+				$result = $this->connection->query("SELECT id, name
+														FROM departments");
+				$resultSet = array();
+				if($result != null)
+					while($row = $result->fetch_assoc())
+					{
+						$resultSet[] = $row;
+					}
+				return $resultSet;
+			}
+			catch(Exception $e)
+			{
+				echo $e->getMessage();
+			}
+		}
+
 		//fachbereich eines studienganges herausfinden
 		public function getDepartmentFromStudycourse($name)
 		{
@@ -208,7 +237,10 @@
 														FROM studycourses
 														WHERE name = '$name'
 														LIMIT 1");
-				return $result->fetch_assoc();
+				if($result != null)
+					return $result->fetch_assoc();
+				else
+					return null;
 			}
 			catch(Exception $e)
 			{

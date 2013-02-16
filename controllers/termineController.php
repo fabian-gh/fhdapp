@@ -122,6 +122,12 @@
 			return "$parts[2].$parts[1].$parts[0]";
 		}
 
+		//alle fachbereiche ausgeben
+		public function getDepartments()
+		{
+			return $this->appointmentModel->getDepartments();
+		}
+
 		//fachbereich eines studienganges herausfinden
 		public function getDepartmentFromStudycourse($name)
 		{
@@ -142,6 +148,7 @@
 			$this->name = $name;
 		}
 
+		//termin hinzufügen (der klasse, nicht der datenbank)
 		public function addAppointment($appointment)
 		{
 			$this->appointments[] = $appointment;

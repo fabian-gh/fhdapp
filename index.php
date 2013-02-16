@@ -1,6 +1,6 @@
-<?php session_start();
+<?php session_start();ob_start();
 
-    //falls keine connection vorhanden, also beim ersten start der seite, connection erstellen und gegebenenfalls cookies laden
+    //beim ersten start der seite, connection erstellen und gegebenenfalls cookies laden
     if(!isset($_SESSION['user']))
     {
         require_once 'system/database.php';
@@ -8,27 +8,26 @@
 
         //falls kein deeplink verwendet wird
         if(count($_GET) <= 0)
-            if(isset($_COOKIE['get']))
+            if(isset($_COOKIE['selection']))
             {
-                $link = "index.php?";
-                foreach($_COOKIE['get'] as $key => $value)
-                    $link .= "$key=$value" . "&";//$link .= "{$_GET["$key"]}=$value";
+                $link = "index.php?{$_COOKIE['selection']}";
                 header("Location: $link");
             }
     }
-    //sonst cookies bei jedem seitenaufbau schreiben
-    else 
+    //falls studiengang gewählt, hierarchie und auswahl in cookies speichern
+    if(isset($_GET['eis']) && isset($_GET['selector']) && isset($_GET['course']) && isset($_GET['grade']))
     {
-        //alte cookies löschen
-        if(isset($_COOKIE['get']))
-            foreach($_COOKIE['get'] as $key => $value)
-                setcookie("get[$key]", "", time() - 1);
+        //alten cookie löschen
+        if(isset($_COOKIE['selection']))
+            setcookie("selection", "", time() - 1);
         
-        //neue cookies speichern
-        foreach($_GET as $key => $value)
-            setcookie("get[$key]", $value, 2000000000);
+        //neuen cookie speichern (21 jahre gültig)
+        $selection = "eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}";
+        setcookie("selection", $selection, 2000000000);
     }
 
+    ob_clean();
+    
 ?>
 
 <!DOCTYPE html>
@@ -96,11 +95,11 @@
                                     switch($_GET['page'])
                                     {
                                         case 'Termine': require_once 'views/termine/termine.php'; break;
-        								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
-        								case 'FAQ': require_once 'views/faq/faq.php'; break;
-        								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
-        								case 'Info': require_once 'views/studiengaenge/info.php'; break;
-        								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+                                        case 'Mensa': require_once 'views/mensa/mensa.php'; break;
+                                        case 'FAQ': require_once 'views/faq/faq.php'; break;
+                                        case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
+                                        case 'Info': require_once 'views/studiengaenge/info.php'; break;
+                                        case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
                                     }
                                 }
                                 else //ebene4: "startseite", auswahl der unterkategorie
@@ -117,7 +116,7 @@
                         {
                             switch($_GET['selector'])
                             {
-                                case 'Studiengaenge': require_once 'views/navigation/courses.php'; break;
+                                case 'Studiengänge': require_once 'views/navigation/courses.php'; break;
                                 case 'Quiz': require_once 'views/navigation/quiz.php'; break;
                             }
                         }

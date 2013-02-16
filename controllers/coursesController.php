@@ -25,7 +25,7 @@ class controller
         
         $model = new db_connector();
         $arr = array();
-            for($x=0;$x<8;$x++)
+            for($x=0;$x<11;$x++)
             {
                 if(isset($_GET[$x]))
                 {

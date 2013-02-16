@@ -21,7 +21,7 @@
         function course($name,$bmt_icons)
         {
             $str="<li data-icon='false'>
-                <a href='index.php?eis=".$_GET['eis']."&selector=Studiengaenge&course=".$name."' method='get'>
+                <a href='index.php?eis=".$_GET['eis']."&selector=".urlencode($_GET['selector'])."&course=".$name."' method='get'>
                     <h6 style=' font-size: 11pt; margin-top: 8px; margin-left: 10px;'>".$name."</h6>
                     <h6 class='ui-li-aside' style='display: inline; margin-top: 5px;'>".$bmt_icons."</h6>
                 </a>

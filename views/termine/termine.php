@@ -1,5 +1,7 @@
 <?php
-
+	
+	echo "<h1>Termine</h1>";
+	
 	require_once 'controllers/termineController.php';
     $appointmentController = new AppointmentController();
     $dept = $appointmentController->getDepartmentFromStudycourse($_GET['course']);
@@ -22,9 +24,9 @@
 				//termine in block einfügen
 				$temp = $semestersWithAppointments[$i]->appointments;
 				if($temp != null)
-					for($i = 0; $i < count($temp); $i++)
+					for($j = 0; $j < count($temp); $j++)
 					{
-						$appointment = $temp[$i];
+						$appointment = $temp[$j];
 						echo "<tr><td align='left'>{$appointment['name']}</td><td align='right' valign='top'>{$appointmentController->sqlToDate($appointment['date_from'])}<br>{$appointmentController->sqlToDate($appointment['date_to'])}</td></tr>";
 					}
 				echo "</table></div>";

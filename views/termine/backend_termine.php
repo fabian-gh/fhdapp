@@ -41,17 +41,14 @@
 
 <h2>Termine</h2>
 
-<select id="dropdownDepartment" onchange="window.location = '../../views/termine/backend_termine.php?dept=' + this.value;">
-    <option value="1">Architektur</option>
-    <option value="2">Design</option>
-    <option value="3">Elektrotechnik</option>
-    <option value="4">Maschinenbau</option>
-    <option value="5">Medien</option>
-    <option value="6">Sozial- und Kulturwissenschaften</option>
-    <option value="7">Wirtschaft</option>
-</select>
-
 <?php
+
+    $departments = $appointmentController->getDepartments();
+    echo "<select id='dropdownDepartment' onchange=\"window.location = '../../views/termine/backend_termine.php?dept=' + this.value;\">";
+        if($departments != null)
+            foreach($departments as $dept)
+                echo "<option value=\"{$dept['id']}\">{$dept['name']}</option>";
+    echo "</select>";
 
     //falls department gesetzt, in dropdown auswählen
     if(isset($_GET['dept']))

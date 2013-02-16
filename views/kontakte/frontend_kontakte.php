@@ -9,7 +9,7 @@
 				// Check if cat is set and is in proper range (1 to 4)
 				if (isset($_GET['cat']) && $_GET['cat'] > 0 && $_GET['cat'] < 6)
 					echo $_GET['cat'];
-				else echo "1";
+				else echo "2";
 			?>
 			);		
 	}
@@ -34,61 +34,72 @@
 	
 	.hidden { 
 		visibility : hidden;
-		height: 0px;
 	}		
 </style>
 
 <!-- Code representing the content of the page -->
-<div >
-	<!-- Categories -->
-	<div id="categories" style="margin: auto;">
-		<table style="margin: auto;">
-			<tr>
-				<?php
-					// Decide role of student or interested person
-					if (isset($_GET['eis'])) {
-						// Student
-						if ($_GET['eis'] == 'i')
-							echo '<td><input id="categtory_0" type="button" value="Bewerbung" onClick="showCategory(0);" style="background-color: white;"/></td>';
-						else 
-							echo '<td><input id="categtory_1" type="button" value="Studiengang" onClick="showCategory(1);" style="background-color: white;"/></td>';
-					}
+<h1>Kontakte</h1>
+<!-- Categories -->
+<div id="categories" style="margin: auto;">
+	<table style="margin: auto;">
+		<tr>
+			<?php
+				// Decide role of student or interested person
+				if (isset($_GET['eis'])) {
+					// Student
+					if ($_GET['eis'] == 'i')
+						echo '<td><input id="categtory_0" type="button" value="Bewerbung" onClick="showCategory(1);" style="background-color: white;"/></td>';
 					else 
-						echo '<td><input id="categtory_0" type="button" value="Bewerbung" onClick="showCategory(0);" style="background-color: white;"/></td>';
-				?>
-				<td><input id="categtory_2" type="button" value="Leben" onClick="showCategory(2)"/></td>
-			</tr>
-			<tr>
-				<td><input id="categtory_3" type="button" value="Ausland" onClick="showCategory(3)"/></td>
-				<td><input id="categtory_4" type="button" value="Allgemein" onClick="showCategory(4)"/></td>
-			</tr>
-		</table>
-	</div>
+						echo '<td><input id="categtory_1" type="button" value="Studiengang" onClick="showCategory(2);" style="background-color: white;"/></td>';
+				}
+				else 
+					echo '<td><input id="categtory_0" type="button" value="Bewerbung" onClick="showCategory(1);" style="background-color: white;"/></td>';
+			?>
+			<td><input id="categtory_2" type="button" value="Leben" onClick="showCategory(3)"/></td>
+		</tr>
+		<tr>
+			<td><input id="categtory_3" type="button" value="Ausland" onClick="showCategory(4)"/></td>
+			<td><input id="categtory_4" type="button" value="Allgemein" onClick="showCategory(5)"/></td>
+		</tr>
+	</table>
+</div>
+
+<!-- Accordion -->
+<div data-role="collapsible-set">
+
+	<!-- load data from database -->
+	<?php
 	
-	<!-- Accordion -->
-	<div data-role="collapsible-set">
-	
-		<!-- load data from database -->
-		<?php
+		// Create controller object to access data
+		require_once 'controllers/kontakteController.php';
+		$Contacts = new kontakteController();
 		
-			// Create controller object to access data
-			require_once 'controllers/kontakteController.php';
-			$Contacts = new kontakteController();
-			
-			// Get contacts from database
-			$contacts = $Contacts->c_getContacts();	
+		// Get contacts from database
+		$contacts = $Contacts->c_getContacts();	
+		
+		//Check if there is data available
+		if ($contacts != null) {
+		
+			 // Get current department id to filter contacts by current department
+			 if (isset($_GET['course']))
+				$deptID = $Contacts->c_getDeptByCourse($_GET['course']);
+			 else $deptID = null;
+
 
 			// Print data on website
-			if($contacts != null)
-				foreach ($contacts as $contact) {
+			foreach ($contacts as $contact) { 
+
+
+				// Filter data by department
+				if ($contact['deptID'] == $deptID) {
 					// Create collapsable
 					echo "<div class='hidden category_" . $contact['category_id'] . "' data-role='collapsible' data-theme='a' data-collapsed='false'>";							
 					// Header
 					echo "<h3>" . $contact['title'] . "</br>" .
-						$contact['title'] . "</h3>";
+						$contact['description'] . "</h3>";
 					
 					// Content
-					echo "<p>Raum " . $contact['room'] . " (" . $contact['campus'] . ")</br>";
+					echo "<p>Raum " . $contact['room'] . "</br>";
 						
 					if(strlen($contact['office_hours']) > 0) 
 						echo $contact['office_hours'] . "</br>";
@@ -110,6 +121,7 @@
 					// End of collapsable
 					echo "</p></div>";
 				}
-		?>          
-	</div>
+			}
+		}
+	?>          
 </div>
