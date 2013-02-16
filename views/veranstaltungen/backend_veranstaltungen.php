@@ -112,11 +112,15 @@
 	<table border="0" width="100%">
 		<tr>
 			<td width="50%" style="text-align:left;">
+			
 				<p>Status:</p>
+				
 			</td>
 			<td width="50%" style="text-align:right;">
+			
 				<!-- Ausgeben der Meldung -->
 				<i>'.$MESSAGE.'</i>
+				
 			</td>
 		</tr>
 	
@@ -155,13 +159,16 @@
 			<td width="50%" style="text-align:left;">
 				<h3>Fachbereich ausw&auml;hlen</h3>
 			</td>
+			
 			<td width="50%" style="text-align:right;">
+				
 				<!-- Komplette DropDownListe ausgeben -->
 				<form id="fachbereich_auswahl" action="">
 						<select id="fachbereich_select" name="FB" size="1">
 							'.$INPUT_FACHBEREICH.'
 						</select>
 				</form>
+				
 			</td>
 		</tr>
 		
