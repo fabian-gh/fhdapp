@@ -8,10 +8,10 @@
  * @author Jan Brinkmann>
  */
 	ob_start();
-
+	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
-
+	
 	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
 	//Alternative
@@ -20,9 +20,9 @@
 		<h1>Veranstaltungen</h1></div>
 		<div data-role="content">
 		<div data-role="collapsible-set">';*/
-
+		
 		echo "<div data-role='collapsible-set' data-iconpos='right' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-theme='a'> <h1>Veranstaltungen</h1>" ;
-				//Falls keine Datens√§tze vorhanden sind
+				//Falls keine Datens‰tze vorhanden sind
 				if( $ergebnis != null )
 				{	//array durchlaufen und informationen ausgeben
 					for($i=0; $i<count($ergebnis); $i++) 
@@ -47,7 +47,7 @@
 				}
 				else
 					echo '<div data-role="header"> &ensp; Es sind keine Veranstaltungen vorhanden</div>';
-
+			
 			/*foreach($ergebnis as $temp)
 			{
 			$details = $temp
@@ -55,7 +55,7 @@
 				<p>'.$details[1]['date'].'</p>
 				<p>'.$details[2]['description'].'</p>
 				</div>';*/
-
+	
 			echo '	</div><!-- /collapsible set -->
 				</div><!-- /content -->'
 		;
