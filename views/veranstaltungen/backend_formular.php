@@ -117,6 +117,8 @@ class Formular{
 		}
 	}
 	
+	//Methode die ein leeres Formular erstellt
+	//Formaler-Parameter: FB_GET -> Aktuelleer Fachbereich, wird dafür benötigt um Links mit Get-Parameter zu bestücken
 	public function getEmptyForm($FB_GET)
 	{
 		//Alle Variablen auf null setzen bis auf die ID
@@ -136,6 +138,8 @@ class Formular{
 		return $RESULT;
 	}
 	
+	//Methode um ein Event-Feld zu erstellen, beinhaltet ein Formular und eine Ansicht der Veranstaltung
+	//Formaler-Parameter: FB_GET -> Aktuelleer Fachbereich, wird dafür benötigt um Links mit Get-Parameter zu bestücken
 	public function getEventContainer($FB_GET)
 	{
 		$this->EVENTFORM 	=  str_replace ('###FB_GET###'			,$FB_GET			,$this->EVENTFORM );
@@ -160,16 +164,19 @@ class Formular{
 		return $RESULT;
 	}
 	
+	//Methode die ein Formular mit komplettem HTML-Code zurückgibt
 	private function getEventForm()
 	{
 		return $this->EVENTFORM;	
 	}
 	
+	//Methode die ein Ergebnis-Ansicht mit komplettem HTML-Code zurückgibt
 	private function getEventResult()
 	{
 		return $this->EVENTRESULT;
 	}
 	
+	//Methode die den kompletten Jquery für ein Formular erstellt
 	public function getJquery()
 	{
 		$JQUERY = 
@@ -196,6 +203,7 @@ class Formular{
 		return $JQUERY;
 	}
 	
+	//Methode die den kompletten Jquery für ein leeres Formular erstellt
 	public function getJqueryEmptyForm()
 	{
 		$JQUERY = 
@@ -208,6 +216,7 @@ class Formular{
 		return $JQUERY;
 	}
 	
+	//Methode die JQuery erstellt für alle Objekte Ergebnis-Ansicht oder Formular-Ansicht
 	private function getJqueryforAll()
 	{	
 	
@@ -243,6 +252,7 @@ class Formular{
 		return $JQUERY;
 	}
 	
+	//Methode um alle Felder eines Formulars zu setzen
 	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB, $USER)
 	{
 		$this->NAME			= $NAME;
@@ -259,6 +269,7 @@ class Formular{
 		$this->replaceALL();
 	}	
 
+	//Methode um alles im HTML-Code gegen die richtigen Daten zu ersetzen
 	private function replaceALL()
 	{	
 		$this->EVENTFORM =  str_replace ('###NAME###'				,$this->NAME  			,$this->EVENTFORM );
