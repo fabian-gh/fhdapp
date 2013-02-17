@@ -8,10 +8,9 @@
 	
 	//Auflistung der FAQs mit einem Collasible Set
 	echo "<div data-role='collapsible-set'>";								
-	
-	//Falls kein Fachbereich gesetzt ist, soll "Allgemein" gesetzt werden, sonst aus dem Studiengang den Fachbereich bestimmen
-	(!isset($_GET['dept']))? $dept = 0 : $dept = $controller->getDepartmentFromCourse($_GET['course']) ;
-	//Entsprechende FAQs auslesen	
+	//Bestimmung des Fachbereichs aus dem gewählten Studiengang
+	$dept = $controller->getDepartmentFromCourse($_GET['course']) ;
+	//Entsprechende FAQs auslesen
 	$resultSet = $controller->getFAQsFrontend($dept, $_GET['eis']);				
 	//FAQs auflisten					
 	for($i=0; $i<count($resultSet); $i++) {

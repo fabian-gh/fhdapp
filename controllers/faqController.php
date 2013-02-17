@@ -122,7 +122,7 @@ class FaqController{
 	// Objekt erstellen
 	$faqModel = new Faq();
 	// Methode ausführen und zurückgeben
-	return $faqModel->createReadStatementAllFrontend($dept, $eis);
+	return $faqModel->DepartmentFromCourse($course)[0]['department_id'];
 	}
 
 

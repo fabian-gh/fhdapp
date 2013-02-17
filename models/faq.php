@@ -336,20 +336,22 @@ class Faq {
 					case 's': $eis = 3; break;
 		}
 		
-		if($dept != 0 || $eis != 1)
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id 
 					  FROM faq, faq_mm_usertype, faq_mm_departments 
 					  WHERE faq.id = faq_mm_usertype.faq_id AND faq_mm_usertype.usertype_id =".$eis." 
 					  AND faq.id = faq_mm_departments.faq_id AND faq_mm_departments.department_id =".$dept."";
+		/*
 		else
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id 
 					 FROM faq, faq_mm_usertype 
 					 WHERE faq.id = faq_mm_usertype.faq_id 
 					 AND faq_mm_usertype.usertype_id=".$eis."";
+		**/
 		
 		// An Methode
 		return $this->getData($read);
 	}
+	
 	public function createReadStatementBackend($department){
 		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur fUer Fachbereich)
 		if($department == 0){
@@ -453,8 +455,21 @@ class Faq {
 		// Abfrage an Datenbank
 		return $this->getData($read);
 	}
-
 	
+	/**
+	* SQL-Statment zum Auslesen des Fachbereichs anhand des Studiengangs
+	* @return Array mit Datenbankwerten
+	*/
+	public function DepartmentFromCourse($course){
+		//Select Statement erstellen
+		$read = "SELECT department_id
+				 FROM studycourses
+				 WHERE name = '$course'
+				 LIMIT 1";
+		
+		//Abfrage an Datenbank
+		return $this->getData($read);
+	}
 	
 	//DATENBANK verbindung und READ ausfUehrung
 	
