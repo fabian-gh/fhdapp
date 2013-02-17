@@ -13,10 +13,11 @@ ob_start();
 
 // include layout
 require_once '../../layout/backend/header.php';
-
+// include controller
 require_once '../../controllers/mensaController.php';
 $MensaController = new MensaController();
 
+// wenn Plan editieren gewählt wurde dann Plan der entsprechenden Woche laden
 if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 	if(isset($_GET['mode']) && $_GET['mode'] == 'edit'){
 		$post = $MensaController->callEditPlan($_GET['cw']);
@@ -26,15 +27,19 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 }
 
 ?>
+<!-- Mensa-CSS einbinden -->
 <link href="../../sources/css/mensa.css" rel="stylesheet" type="text/css" media="screen" />
-
+<!-- Javascript für Mensa einbinden -->
 <script type="text/javascript" src="../../sources/customjs/mensa.js"></script>
 
+<!-- Mensa-Formular einbinden -->
 <form name="mensa" id="mensaform" method="post" action="">
 	<table>
+		<!-- Startdatumsfeld -->
 		<tr><td>Startdatum:</td><td><input type="textfield" id="start_date" name="start_date" value="<?php echo (!empty($post['start_date'])) ? date("d.m.Y", strtotime($post['start_date'])) : ""; ?>" /><span id="date_error"></span></td></tr>
 	</table>
 	<table>
+		<!-- Überschirften -->
 		<tr>
 			<th>&nbsp;</th>
 			<th class="weekday">Montag</th>
@@ -44,6 +49,7 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 			<th class="weekday">Freitag</th>
 		</tr>
 		<tr>
+			<!-- Feiertage -->
 			<td>&nbsp;</td>
 			<td><input type="checkbox" id="mon_hol" name="mon_hol" <?php echo (isset($post['mon_holiday']) && $post['mon_holiday'] != null) ? "checked='checked'" : ""; ?> />&nbsp;Feiertag<br />
 				<span class="hol_text mon_hol_text"><br />Bezeichnung:<br /></span><input type="textfield" class="hol_text mon_hol_text" id="mon_hol_name" name="mon_hol_name" value="<?php echo (isset($post['mon_holiday']) && $post['mon_holiday'] != null) ? $post['mon_holiday'] : ""; ?>" /></td>
@@ -57,6 +63,7 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 				<span class="hol_text fri_hol_text"><br />Bezeichnung:<br /></span><input type="textfield" class="hol_text fri_hol_text" id="fri_hol_name" name="fri_hol_name" value="<?php echo (isset($post['fri_holiday']) && $post['fri_holiday'] != null) ? $post['fri_holiday'] : ""; ?>" /></td>
 
 		</tr>
+		<!-- Mahlzeiten -->
 		<tr id="meal_one">
 			<td class="mealdescription">Essen 1</td>
 			<td><textarea rows="3" cols="20" class="mealinput mon_col" name="mon_meal_one" tabindex="1"><?php echo (!empty($post['mon_meal_one'])) ? $post['mon_meal_one'] : ""; ?></textarea></td>

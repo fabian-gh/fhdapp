@@ -139,7 +139,7 @@ class Mensa{
 
 
 	/**
-	 * Zusatzstoffe werden abgefragt
+	 * Zusatzstoffe abfragen
 	 * @return Array $additives
 	 */
 	public function getAdditives(){
@@ -164,7 +164,7 @@ class Mensa{
 
 
 	/**
-	 * Öffnungszeiten werden abgefragt
+	 * Öffnungszeiten abfragen
 	 * @return Array $openHour
 	 */
 	public function getOpeningHours(){
@@ -313,7 +313,7 @@ class Mensa{
 			}
 		}
 
-		// Daten der übrigen tage berechnen
+		// Daten der übrigen Tage berechnen
 		$start = strtotime($this->start);
 		for($i = 0; $i<=4; $i++){
 			$this->mealdate[$i] = date("Y-m-d", $start+($i*86400));
@@ -325,6 +325,7 @@ class Mensa{
 	/**
 	 * Preise auf Komma oder Punkt checken
 	 * @param float $price
+	 * @return String $price
 	 */
 	public function checkComma($price){
 		if(strstr($price, ',')){
