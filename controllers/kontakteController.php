@@ -4,7 +4,11 @@ class kontakteController {
 
 	public function __construct(){
 		//create new contact Model
+<<<<<<< HEAD
+		require_once '../../models/kontakteModel.php';
+=======
 		require_once __DIR__ . '../../models/kontakteModel.php';
+>>>>>>> origin/daniel16.02
 		$this->contactsModel = new kontakteModel();
 	}
 
@@ -40,6 +44,19 @@ class kontakteController {
 	public function c_getContacts(){
 		return $this->contactsModel->m_getContacts();
 	}
+<<<<<<< HEAD
+
+	public function c_deleteContact($id){
+		$this->contactsModel->m_deleteContact($id);
+	}
+
+	public function c_getContact($id){
+		return $this->contactsModel->m_getContact($id);
+	}
+
+	public function c_alterContact($id){
+		$this->contactsModel->m_alterContact($id);
+=======
 	
 	/**
 	*	Calls the model and returns all the departmentID of a specific course name
@@ -94,5 +111,6 @@ class kontakteController {
 		$deptID = $id['deptID'];
 
 		$this->contactsModel->m_alterOneContact($contactID, $deptID);
+>>>>>>> origin/daniel16.02
 	}
 }

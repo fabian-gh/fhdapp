@@ -11,6 +11,13 @@
  
  class VeranstaltungenController{
     /**
+<<<<<<< HEAD
+     * Benutzername
+     * @var String 
+     */
+    private $Model;
+	
+=======
      * Model
      */
     private $Model;
@@ -18,6 +25,7 @@
 	private $DEPARTMENTS;
 	private $USERTYPES;
 	
+>>>>>>> origin/daniel16.02
 	
     /**
      * Konstruktor des VeranstaltungsController
@@ -25,6 +33,27 @@
      */
     public function __construct(){
         // Veranstaltung-Modell einbinden
+<<<<<<< HEAD
+        require_once 'models/veranstaltungen.php';
+        // und Objekt erstellen
+        $Model = new Veranstaltungen();
+    }
+	
+	public function addDatensatz()
+	{		
+		$Model = new Veranstaltungen();
+		$Model->addDatensatz();
+	}
+	
+	public function getInformation($usertype, $fachbereich)
+	{		
+		$Model = new Veranstaltungen();
+		return $Model->getInformation($usertype, $fachbereich);
+	}
+}
+
+ 
+=======
         
 		if (!@include ('models/veranstaltungenModel.php'))
 			include ('../../models/veranstaltungenModel.php');
@@ -131,6 +160,7 @@
 		return $this->USERTYPES;
 	}
 }
+>>>>>>> origin/daniel16.02
  
 /* End of file veranstaltungenController.php */
 /* Location: ./controllers/veranstaltungenController.php */

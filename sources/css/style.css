@@ -3,15 +3,23 @@
 	padding: 0;	
 }
 
+<<<<<<< HEAD
+body {
+=======
 body.ui-overlay-c {
+>>>>>>> origin/daniel16.02
 	background: #ff0000 url(../img/bg-body.png) no-repeat;
 	background-size: 100%;
 	font-family: Verdana, Geneva, sans-serif;
 	color: #5a2323;
+<<<<<<< HEAD
+	font-size: 25px;
+=======
 }
 
 div.ui-body-c {
 	background: none;
+>>>>>>> origin/daniel16.02
 }
 
 #logo {
@@ -27,11 +35,21 @@ div.ui-body-c {
 }
 
 #breadcrumb {
+<<<<<<< HEAD
+	height: 40px;
+	background: #a50707;
+	color: #ececec;
+	text-transform: uppercase;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 12px 20px 0 20px;
+=======
 	background: #a50707;
 	color: #ececec;
 	text-transform: uppercase;
 	font-weight: bold;
 	padding: 10px 20px 10px 20px;
+>>>>>>> origin/daniel16.02
 	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -40,6 +58,14 @@ div.ui-body-c {
 	text-decoration: none;
 }
 
+<<<<<<< HEAD
+#breadcrumb a.nav-icon {
+	background: url(../img/nav-icon-i.png) no-repeat;
+	display: inline-block;
+	text-indent: -9999em;
+	width: 26px;
+	height: 32px;
+=======
 #breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s {
 	padding-top: 2px;
 	display: inline-block;
@@ -58,17 +84,29 @@ div.ui-body-c {
 
 #breadcrumb a.nav-icon-s {
 	background: url(../img/nav-icon-s.png) no-repeat;
+>>>>>>> origin/daniel16.02
 }
 
 #content {
 	background: rgba(255, 255, 255, 0.8);
+<<<<<<< HEAD
+	margin: 20px;
+	text-shadow: 1px 1px 0px #ffffff;
+	padding: 20px;
+=======
 	margin: 5px;
 	text-shadow: 1px 1px 0px #ffffff;
 	padding: 5px;
+>>>>>>> origin/daniel16.02
 }
 
 #content h1 {
 	font-weight: normal;
+<<<<<<< HEAD
+	font-size: 40px;
+	margin-bottom: 10px;
+
+=======
 	margin-bottom: 10px;
 }
 
@@ -120,4 +158,5 @@ data-expanded-icon="arrow-d" data-theme="a">
 
 .ui-li-aside { 
 	width: auto;
+>>>>>>> origin/daniel16.02
 }

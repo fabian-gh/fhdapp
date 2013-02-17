@@ -8,10 +8,46 @@
  * @author Jan Brinkmann>
  */
 	ob_start();
+<<<<<<< HEAD
+	require_once 'layout/frontend/header.php';
+=======
+>>>>>>> origin/daniel16.02
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
 	
+<<<<<<< HEAD
+	$ergebnis =  $Controller->getInformation(1,1);
+	
+	
+	
+	//echo $details;
+	
+	
+	echo'
+		<div data-role="header">
+			<h1>Veranstaltungen</h1>
+		</div>
+		<div data-role="content">
+		<!-- akkordionmenü -->
+		<div data-role="collapsible-set">
+		';
+
+	foreach($ergebnis as $details)
+	{
+		$zeile = explode(';',$details);
+		echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$zeile[0].'</h3>
+				<p>'.$zeile[2].'</p>
+				<p>'.$zeile[1].'</p>
+				</div>';
+	}
+	
+	echo '	</div><!-- /collapsible set -->
+			</div><!-- /content -->
+		';
+
+	require_once 'layout/frontend/footer.php';
+=======
 	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
 	//Alternative
@@ -60,6 +96,7 @@
 				</div><!-- /content -->'
 		;
 
+>>>>>>> origin/daniel16.02
 	ob_end_flush();
 	/* End of file veranstaltungen.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen.php */

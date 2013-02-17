@@ -22,7 +22,7 @@
             setcookie("selection", "", time() - 1);
         
         //neuen cookie speichern (21 jahre gültig)
-        $selection = "eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}";
+        $selection = "eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}";
         setcookie("selection", $selection, 2000000000);
     }
 
@@ -62,16 +62,16 @@
                         echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
 
                     if(isset($_GET['selector']))
-                        echo "» <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}'>{$_GET['selector']}</a>";
+                        echo "» <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."'>{$_GET['selector']}</a>";
 
                     if(isset($_GET['course']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}'>{$_GET['course']}</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}'>{$_GET['course']}</a>";
 
                     if(isset($_GET['grade']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
 
                     if(isset($_GET['page']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
 
                 ?>
 

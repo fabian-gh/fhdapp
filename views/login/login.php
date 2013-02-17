@@ -25,6 +25,12 @@
 
 require_once '../../system/database.php';
 new Database();
+<<<<<<< HEAD
+
+// include layout
+//require_once '../../layout/backend/header.php';
+=======
+>>>>>>> origin/daniel16.02
 
 if(isset($_SESSION['loginfailure'])){
     echo '<div id="failure">'.$_SESSION['loginfailure'].'</div>';
@@ -32,6 +38,23 @@ if(isset($_SESSION['loginfailure'])){
 }
 
 ?>
+<<<<<<< HEAD
+    <body>
+        
+        <form name="loginform" method="post" action="">
+            <table>
+                <tr><td>Benutzername:</td><td><input type="text" name="username" /></td></tr>
+                <tr><td>Passwort:</td><td><input type="password" name="password"/></td></tr>
+                <tr><td><input type="submit" name="login" value="Login"/></td></tr
+            </table>
+        </form>
+
+<?php
+
+//require_once '../../layout/backend/footer.php';
+
+
+=======
     <form name="loginform" method="post" action="">
         <table>
             <tr><td>Benutzername:</td><td><input type="text" name="username" /></td></tr>
@@ -48,6 +71,7 @@ if(isset($_SESSION['loginfailure'])){
 
 <?php
 
+>>>>>>> origin/daniel16.02
 if(isset($_POST['login'])){
     require_once '../../controllers/loginController.php';
     new LoginController($_POST);
