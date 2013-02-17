@@ -3,7 +3,7 @@
 	require_once 'controllers/faqController.php';
 	//Objekt erstellen
 	$controller = new FaqController();
-
+	echo "<h1>FAQ</h1>";
 
 	echo "<div data-role='collapsible-set'>";								
 
@@ -22,3 +22,4 @@
 	}
 	echo "</div>";
 ?>
+
