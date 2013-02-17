@@ -4,15 +4,22 @@
  *
  * @version 0.0.1
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @copyright Fachhochschule Duesseldorf, 2012
 =======
  * @copyright Fachhochschule Duesseldorf, 2012/2013
 >>>>>>> origin/daniel16.02
+=======
+ * @copyright Fachhochschule Duesseldorf, 2012
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 // include layout
 require_once '../../layout/backend/header.php';
 
@@ -35,6 +42,7 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 		</tr>
 	</table>
 	<table>
+<<<<<<< HEAD
 =======
 // activate output Buffer, needed for header-redirection 
 ob_start();
@@ -68,6 +76,8 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 >>>>>>> origin/daniel16.02
 =======
 >>>>>>> parent of 2f031bb... Mensakommentare angepasst + Erklärungen
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		<tr>
 			<th>&nbsp;</th>
 			<th class="weekday">Montag</th>
@@ -77,6 +87,9 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 			<th class="weekday">Freitag</th>
 		</tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		<tr id="meal_one" class="both_campus">
 			<td class="mealdescription">Essen 1</td>
 			<td><input type="textarea" class="mealinput" name="mon_meal_one" value=""<?php isset($_POST['mon_meal_one']) ? $_POST['mon_meal_one'] : ""; ?>"" /></td>
@@ -331,6 +344,7 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 				<table>
 					<tr><td>Stud.: </td><td><input type="textfield" class="price" size="5" name="price_stud_fri_green_corner"/> €</td></tr>
 					<tr><td>Bed.: </td><td><input type="textfield" class="price" size="5" name="price_att_fri_green_corner"/> €</td></tr>
+<<<<<<< HEAD
 =======
 		<tr>
 			<td>&nbsp;</td>
@@ -538,6 +552,8 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 				<table>
 					<tr><td>Preis: </td><td><input type="textfield" class="price fri_col" size="5" tabindex="90" maxlength="5" name="price_fri_green_corner" value="<?php echo (empty($post['price_fri_green_corner']) || $post['price_fri_green_corner'] == '0.00') ? "" : $post['price_fri_green_corner']; ?>" /> €</td></tr>
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				</table></td>
 		</tr>
 		<tr><td><input type="submit" id="mensasubmit" name="speichern" value="Speichern"/></td></tr>
@@ -545,9 +561,13 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 </form>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> origin/daniel16.02
+=======
+
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 <?php
 	require_once '../../layout/backend/footer.php';
 
@@ -555,12 +575,16 @@ if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
 // Überprüfung ob Formular abgeschickt
 if(isset($_POST['speichern'])){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	$MensaController->callProceedPost($_POST);
 	$MensaController->callInsertPlan();
 }
 
 
 /* End of file backend_mensa.php */
+<<<<<<< HEAD
 /* Location: ./views/mensa/backend_mensa.php */
 =======
 	unset($post);
@@ -578,3 +602,6 @@ if(isset($_POST['speichern'])){
 /* End of file edit.php */
 /* Location: ./views/mensa/edit.php */
 >>>>>>> origin/daniel16.02
+=======
+/* Location: ./views/mensa/backend_mensa.php */
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7

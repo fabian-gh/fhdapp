@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 <?php session_start(); 
 ?>
 <!DOCTYPE html>
@@ -202,6 +205,7 @@
 	<!-- End of wrapper -->
 	<div id="footer"></div>
 </body>
+<<<<<<< HEAD
 </html>
 =======
 <?php
@@ -394,3 +398,6 @@
 	require_once '../../layout/backend/footer.php';
 ?>
 >>>>>>> origin/daniel16.02
+=======
+</html>
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7

@@ -9,6 +9,8 @@
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
- 
-/* End of file portale_edit.php */
-/* Location: ./views/portale/portale_edit.php */
+// include layout
+require_once '../../layout/backend/header.php';
+// include layout
+require_once '../../layout/backend/footer.php';
+?>

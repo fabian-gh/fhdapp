@@ -12,6 +12,7 @@
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		//Funktion um Werte in die Relation 'studycourses' einzufügen. 
 		public function insertStudycourse($post){
 			try{
@@ -39,6 +40,11 @@
 			try{
 				$post["description"] = mysql_real_escape_string($post["description"]);	//Injections ausschließen durch escape von Zeichen
 >>>>>>> origin/daniel16.02
+=======
+		//Funktion um Werte in die Relation 'studycourses' einzufügen. 
+		public function insertStudycourse($post){
+			try{
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				//Einfügen der Werte in die "studicourses" Tabelle. Das Attribut 'id' ist AUTO_INCREMENT
 				$this->connection->query("INSERT INTO studycourses(language_id, name, description, department_id, semestercount, graduate_id, link) VALUES(".$post["language_id"].", '".$post["name"]."', '".$post["description"]."', ".$post["department_id"].", ".$post["semestercount"].", ".$post["graduate_id"].", '".$post["link"]."')");
 			}
@@ -48,9 +54,12 @@
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		//Funktion um Werte in die Relation 'studycourses_mm_categories' einzufügen. 
 		//Dabei muss die ID von der Categorie (id_cat) übergeben werden und die ID vom Studiengang($studID)
 		public function insertStudCat($studID, $id_cat){
@@ -70,10 +79,14 @@
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		
 		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
 		public function selectData($type){
+<<<<<<< HEAD
 =======
 		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
 		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung und ob es Teil-oder Vollzeit ist
@@ -117,6 +130,8 @@
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
 		public function selectDropDownData($type){
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			try{
 				switch($type){
 					case "graduates":	//Liefert Fachbereiche zurück (departments)
@@ -147,16 +162,21 @@
 			try{		
 				//Selectieren des Wertes und einspeichern in $retVal
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$retVal = $this->connection->query("SELECT abbreviation FROM graduates WHERE id=".$id." ORDER BY 'id' ASC;");
 =======
 				$retVal = $this->connection->query("SELECT abbreviation FROM graduates WHERE id=".$id.";");
 >>>>>>> origin/daniel16.02
+=======
+				$retVal = $this->connection->query("SELECT abbreviation FROM graduates WHERE id=".$id." ORDER BY 'id' ASC;");
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				return $retVal->fetch_assoc();
 			}
 			catch(Exception $e){
 				echo $e->getMessage();
 			}
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 		
 	}
@@ -224,4 +244,9 @@
 	}
 	
 >>>>>>> origin/daniel16.02
+=======
+		
+	}
+
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 ?>

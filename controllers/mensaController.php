@@ -18,6 +18,9 @@ class MensaController{
 	private $MensaModel;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 
 
 	/**
@@ -82,6 +85,7 @@ class MensaController{
 	 * Call the proceedPost()-Method
 	 * @param Array $post
 	 */
+<<<<<<< HEAD
 =======
 
 
@@ -151,6 +155,8 @@ class MensaController{
 	 * @param Array $post
 	 */
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	public function callProceedPost($post){
 		$this->MensaModel->proceedPost($post);
 	}
@@ -158,6 +164,7 @@ class MensaController{
 
 	/**
 	 * Insert the canteen plan into the database
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	 */
@@ -171,6 +178,11 @@ class MensaController{
 	public function callInsertPlan($get){
 		$this->MensaModel->insertPlan($get);
 >>>>>>> origin/daniel16.02
+=======
+	 */
+	public function callInsertPlan(){
+		$this->MensaModel->insertPlan();
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	}
 }
 

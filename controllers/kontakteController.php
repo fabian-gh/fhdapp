@@ -5,10 +5,14 @@ class kontakteController {
 	public function __construct(){
 		//create new contact Model
 <<<<<<< HEAD
+<<<<<<< HEAD
 		require_once '../../models/kontakteModel.php';
 =======
 		require_once __DIR__ . '../../models/kontakteModel.php';
 >>>>>>> origin/daniel16.02
+=======
+		require_once '../../models/kontakteModel.php';
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		$this->contactsModel = new kontakteModel();
 	}
 
@@ -45,6 +49,9 @@ class kontakteController {
 		return $this->contactsModel->m_getContacts();
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 
 	public function c_deleteContact($id){
 		$this->contactsModel->m_deleteContact($id);
@@ -56,6 +63,7 @@ class kontakteController {
 
 	public function c_alterContact($id){
 		$this->contactsModel->m_alterContact($id);
+<<<<<<< HEAD
 =======
 	
 	/**
@@ -112,5 +120,7 @@ class kontakteController {
 
 		$this->contactsModel->m_alterOneContact($contactID, $deptID);
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	}
 }

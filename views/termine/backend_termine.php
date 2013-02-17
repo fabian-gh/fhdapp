@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?php session_start();
 =======
 <?php ob_start();
 >>>>>>> origin/daniel16.02
+=======
+<?php session_start();
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 
     //header einbinden
     require_once '../../layout/backend/header.php';
@@ -46,6 +50,9 @@
 <h2>Termine</h2>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 <select id="dropdownDepartment" onchange="window.location = '../../views/termine/backend_termine.php?dept=' + this.value;">
     <option value="1">Architektur</option>
     <option value="2">Design</option>
@@ -58,6 +65,7 @@
 
 <?php
 
+<<<<<<< HEAD
 =======
 <?php
 
@@ -69,6 +77,8 @@
     echo "</select>";
 
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
     //falls department gesetzt, in dropdown auswählen
     if(isset($_GET['dept']))
     {
@@ -89,9 +99,13 @@
     for($i = 0; $i < count($semestersWithAppointments); $i++)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         //name + tabellenkopf
 =======
 >>>>>>> origin/daniel16.02
+=======
+        //name + tabellenkopf
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
         $id = $semestersWithAppointments[$i]->id;
         $name = $semestersWithAppointments[$i]->name;
         $from = substr($name, 2, 4);
@@ -99,6 +113,9 @@
         $winter = (substr($name, 0, 1) == 'W') ? "checked='checked'" : "";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
         echo "<form action='' method='post'>
             <input type='hidden' name='id' value='$id'/>
             <table width='100%' border='0' cellpadding='0' cellspacing='0'>
@@ -146,6 +163,7 @@
 
 ?>
 
+<<<<<<< HEAD
         
 =======
         echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'>
@@ -199,3 +217,6 @@
 
 ?>
 >>>>>>> origin/daniel16.02
+=======
+        
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7

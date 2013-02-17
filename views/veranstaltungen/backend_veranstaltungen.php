@@ -10,6 +10,9 @@
  */
 	ob_start();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	require_once 'layout/frontend/header.php';
 	
 	if(isset($_POST['veranstaltung_speichern']))
@@ -107,6 +110,7 @@
 	
 	
 	require_once 'layout/frontend/footer.php';
+<<<<<<< HEAD
 =======
 	
 	//Header einbinden
@@ -518,6 +522,8 @@
 	
 	require_once '../../layout/backend/footer.php';
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen_edit.php */

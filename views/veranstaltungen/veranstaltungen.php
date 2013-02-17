@@ -9,14 +9,21 @@
  */
 	ob_start();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	require_once 'layout/frontend/header.php';
 =======
 >>>>>>> origin/daniel16.02
+=======
+	require_once 'layout/frontend/header.php';
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	$ergebnis =  $Controller->getInformation(1,1);
 	
 	
@@ -47,6 +54,7 @@
 		';
 
 	require_once 'layout/frontend/footer.php';
+<<<<<<< HEAD
 =======
 	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
@@ -97,6 +105,8 @@
 		;
 
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	ob_end_flush();
 	/* End of file veranstaltungen.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen.php */

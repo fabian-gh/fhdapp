@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
 	margin: 0;
 	padding: 0;	
@@ -159,4 +160,67 @@ data-expanded-icon="arrow-d" data-theme="a">
 .ui-li-aside { 
 	width: auto;
 >>>>>>> origin/daniel16.02
+=======
+* {
+	margin: 0;
+	padding: 0;	
+}
+
+body {
+	background: #ff0000 url(../img/bg-body.png) no-repeat;
+	background-size: 100%;
+	font-family: Verdana, Geneva, sans-serif;
+	color: #5a2323;
+	font-size: 25px;
+}
+
+#logo {
+	height: 100px;
+}
+
+#logo a {
+	height: 100px;
+	width: 220px;
+	background: url(../img/logo.png) no-repeat 20px 20px;
+	display: block;
+	text-indent: -9999em;
+}
+
+#breadcrumb {
+	height: 40px;
+	background: #a50707;
+	color: #ececec;
+	text-transform: uppercase;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 12px 20px 0 20px;
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+#breadcrumb a {
+	color: #ececec;
+	text-decoration: none;
+}
+
+#breadcrumb a.nav-icon {
+	background: url(../img/nav-icon-i.png) no-repeat;
+	display: inline-block;
+	text-indent: -9999em;
+	width: 26px;
+	height: 32px;
+}
+
+#content {
+	background: rgba(255, 255, 255, 0.8);
+	margin: 20px;
+	text-shadow: 1px 1px 0px #ffffff;
+	padding: 20px;
+}
+
+#content h1 {
+	font-weight: normal;
+	font-size: 40px;
+	margin-bottom: 10px;
+
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 }

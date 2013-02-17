@@ -21,27 +21,39 @@ class Mensa{
 
 	/**
 <<<<<<< HEAD
+<<<<<<< HEAD
 	 * Calenderweek
 	 * @var int Calenderweek
 =======
 	 * Kalenderwoche
 	 * @var int calenderweek
 >>>>>>> origin/daniel16.02
+=======
+	 * Calenderweek
+	 * @var int Calenderweek
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	 */
 	private $calenderweek;
 
 	/**
 <<<<<<< HEAD
+<<<<<<< HEAD
 	 * Date of the day where the monday_meals is served
 =======
 	 * Datum des Tages an dem das Montagsessen serviert wird
 >>>>>>> origin/daniel16.02
+=======
+	 * Date of the day where the monday_meals is served
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	 * @var Date
 	 */
 	private $mealdate;
 
 	/**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	 * Arrays with monday_mealss for each day
 	 * @var Array
 	 */
@@ -50,6 +62,7 @@ class Mensa{
 	private $wednesday_meals;
 	private $thursday_meals;
 	private $friday_meals;
+<<<<<<< HEAD
 
 	/**
 	 * Arrays with studendprices for each day
@@ -65,11 +78,29 @@ class Mensa{
 	 * Arrays with attendentprices for each day
 	 * @var Array
 	 */
+=======
+
+	/**
+	 * Arrays with studendprices for each day
+	 * @var Array
+	 */
+	private $monday_stud_prices;
+	private $tuesday_stud_prices;
+	private $wednesday_stud_prices;
+	private $thursday_stud_prices;
+	private $friday_stud_prices;
+
+	/**
+	 * Arrays with attendentprices for each day
+	 * @var Array
+	 */
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	private $monday_att_prices;
 	private $tuesday_att_prices;
 	private $wednesday_att_prices;
 	private $thursday_att_prices;
 	private $friday_att_prices;
+<<<<<<< HEAD
 =======
 	 * Startdatum aus dem Formular
 	 * @var String Date
@@ -107,6 +138,8 @@ class Mensa{
 	private $thursday_prices;
 	private $friday_prices;
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 
 
 
@@ -179,6 +212,7 @@ class Mensa{
 
 
 	/**
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	 * Queries all plans for the choosing-site
@@ -300,6 +334,43 @@ class Mensa{
 	 * Query all existing canteens
 	 */
 	/*public function getCanteens(){
+=======
+	 * Queries all plans for the choosing-site
+	 */
+	public function getAllPlans(){
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
+		try{
+
+			$query = $this->DbCon->query("SELECT id, calenderweek FROM meals");
+			while($row = $query->fetch_assoc()){
+
+                $plans[] = array(
+                	'id'			=> $row['id'],
+                	'calenderweek' 	=> $row['calenderweek'],
+                	'start_date'	=> '24.12.2012',
+                	'end_date'		=> '28.12.2012'
+            	);
+             }
+
+             return $plans;
+
+		} catch (Exception $e){
+			echo $e->getMessage();
+		}
+	}*/
+
+
+<<<<<<< HEAD
+=======
+	 * Verarbeitung der POST-Daten
+	 * @param Array $_POST
+	 */
+>>>>>>> origin/daniel16.02
+=======
+	/**
+	 * Query all existing canteens
+	 */
+	/*public function getCanteens(){
 		try{
 			$query = $this->DbCon->query("SELECT id, name FROM canteens");
 
@@ -313,11 +384,7 @@ class Mensa{
 	}*/
 
 
-=======
-	 * Verarbeitung der POST-Daten
-	 * @param Array $_POST
-	 */
->>>>>>> origin/daniel16.02
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	public function proceedPost($post){
 
 		foreach($post as $key => $value){
@@ -325,6 +392,9 @@ class Mensa{
 			switch($key){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				case strstr($key, 'calenderweek');
 					$this->calenderweek = $value;
 				break;
@@ -383,6 +453,7 @@ class Mensa{
 
 				case strstr($key, 'price_att_thu_'):
 					$this->thursday_att_prices[] = $value;
+<<<<<<< HEAD
 =======
 				case strstr($key, 'start_date'):
 					$this->calculateCalenderweek($value);
@@ -445,18 +516,26 @@ class Mensa{
 				case strstr($key, 'price_thu_'):
 					$this->thursday_prices[] = mysql_real_escape_string($this->checkComma($value));
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				break;
 
 				// Friday
 				case strstr($key, 'fri_'):
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 					$this->friday_meals[] = $value;
 				break;
 
 				case strstr($key, 'price_stud_fri_'):
 					$this->friday_stud_prices[] = $value;
+<<<<<<< HEAD
 =======
 					empty($value) ? $this->friday_meals[] = null : $this->friday_meals[] = nl2br($value);
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				break;
 
 				case strstr($key, 'price_fri_'):$this->friday_prices[] = mysql_real_escape_string($this->checkComma($value));
@@ -574,10 +653,16 @@ class Mensa{
 		}
 	}
 
+<<<<<<< HEAD
 
 
 	/**
 <<<<<<< HEAD
+=======
+
+
+	/**
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	 * Insert the Plan into the database
 	 *
 	 * @param Array $post Post-Data
@@ -694,6 +779,7 @@ class Mensa{
 					'".$this->friday_meals[10]."', '".$this->friday_stud_prices[6]."', '".$this->friday_att_prices[6]."',
 					'".$this->friday_meals[11]."', '".$this->friday_stud_prices[7]."', '".$this->friday_att_prices[7]."')");
 
+<<<<<<< HEAD
 =======
 	 * Einen Plan löschen
 	 * @param int $calenderweek
@@ -703,6 +789,8 @@ class Mensa{
 			$cw = $_GET['cw'];
 			$this->DbCon->query("DELETE FROM meals WHERE calenderweek = ".$calenderweek);
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
@@ -712,6 +800,9 @@ class Mensa{
 
 	/**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	 * Delete a plan
 	 * @param int $calenderweek
 	 */
@@ -722,6 +813,7 @@ class Mensa{
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}
+<<<<<<< HEAD
 =======
 	 * br-Tags durch Leerzeichen ersetzen
 	 * @param String $text
@@ -730,11 +822,14 @@ class Mensa{
 	public function replaceBR($text){
 		return str_replace("<br />", "", $text);
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	}
 
 
 
 	/**
+<<<<<<< HEAD
 <<<<<<< HEAD
 	 * Edit a plan
 	 * @param int $calenderweek
@@ -743,11 +838,18 @@ class Mensa{
 	 * @param int $calenderweek
 	 * @return Array Data
 >>>>>>> origin/daniel16.02
+=======
+	 * Edit a plan
+	 * @param int $calenderweek
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	 */
 	public function editPlan($calenderweek){
 		try{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			// Monday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 1");
 			while($row = $query->fetch_assoc()){
@@ -779,6 +881,7 @@ class Mensa{
 				$_POST['mon_green_corner'] = $row['green_corner'];
 				$_POST['price_stud_mon_green_corner'] = $row['price_stud_green_corner'];
 				$_POST['price_att_mon_green_corner'] = $row['price_att_green_corner'];
+<<<<<<< HEAD
 =======
 			// Kalenderwoche herausfinden anhand des Montags der Woche
 			$query = $this->DbCon->query("SELECT mealdate FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 1");
@@ -809,12 +912,17 @@ class Mensa{
 				$post['mon_green_corner'] = $this->replaceBR($row['green_corner']);
 				$post['price_mon_green_corner'] = $row['price_green_corner'];
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			}
 
 			// Tuesday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 2");
 			while($row = $query->fetch_assoc()){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				$_POST['tue_meal_one'] = $row['meal_one'];
 				$_POST['tue_meal_two'] = $row['meal_two'];
 				$_POST['tue_side'] = $row['side'];
@@ -843,6 +951,7 @@ class Mensa{
 				$_POST['tue_green_corner'] = $row['green_corner'];
 				$_POST['price_stud_tue_green_corner'] = $row['price_stud_green_corner'];
 				$_POST['price_att_tue_green_corner'] = $row['price_att_green_corner'];
+<<<<<<< HEAD
 =======
 				$post['tue_holiday'] = $row['holiday'];
 				$post['tue_meal_one'] = $this->replaceBR($row['meal_one']);
@@ -864,12 +973,17 @@ class Mensa{
 				$post['tue_green_corner'] = $this->replaceBR($row['green_corner']);
 				$post['price_tue_green_corner'] = $row['price_green_corner'];
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			}
 
 			// Wednesday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 3");
 			while($row = $query->fetch_assoc()){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				$_POST['wed_meal_one'] = $row['meal_one'];
 				$_POST['wed_meal_two'] = $row['meal_two'];
 				$_POST['wed_side'] = $row['side'];
@@ -898,6 +1012,7 @@ class Mensa{
 				$_POST['wed_green_corner'] = $row['green_corner'];
 				$_POST['price_stud_wed_green_corner'] = $row['price_stud_green_corner'];
 				$_POST['price_att_wed_green_corner'] = $row['price_att_green_corner'];
+<<<<<<< HEAD
 =======
 				$post['wed_holiday'] = $row['holiday'];
 				$post['wed_meal_one'] = $this->replaceBR($row['meal_one']);
@@ -919,12 +1034,17 @@ class Mensa{
 				$post['wed_green_corner'] = $this->replaceBR($row['green_corner']);
 				$post['price_wed_green_corner'] = $row['price_green_corner'];
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			}
 
 			// Thursday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 4");
 			while($row = $query->fetch_assoc()){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				$_POST['thu_meal_one'] = $row['meal_one'];
 				$_POST['thu_meal_two'] = $row['meal_two'];
 				$_POST['thu_side'] = $row['side'];
@@ -953,6 +1073,7 @@ class Mensa{
 				$_POST['thu_green_corner'] = $row['green_corner'];
 				$_POST['price_stud_thu_green_corner'] = $row['price_stud_green_corner'];
 				$_POST['price_att_thu_green_corner'] = $row['price_att_green_corner'];
+<<<<<<< HEAD
 =======
 				$post['thu_holiday'] = $row['holiday'];
 				$post['thu_meal_one'] = $this->replaceBR($row['meal_one']);
@@ -974,12 +1095,17 @@ class Mensa{
 				$post['thu_green_corner'] = $this->replaceBR($row['green_corner']);
 				$post['price_thu_green_corner'] = $row['price_green_corner'];
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			}
 
 			// Friday
 			$query = $this->DbCon->query("SELECT * FROM meals WHERE calenderweek = ".$calenderweek." AND day_id = 5");
 			while($row = $query->fetch_assoc()){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 				$_POST['fri_meal_one'] = $row['meal_one'];
 				$_POST['fri_meal_two'] = $row['meal_two'];
 				$_POST['fri_side'] = $row['side'];
@@ -1010,6 +1136,7 @@ class Mensa{
 				$_POST['price_att_fri_green_corner'] = $row['price_att_green_corner'];
 			}
 
+<<<<<<< HEAD
 =======
 				$post['fri_holiday'] = $row['holiday'];
 				$post['fri_meal_one'] = $this->replaceBR($row['meal_one']);
@@ -1035,6 +1162,8 @@ class Mensa{
 			return $post;
 
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		} catch (Exception $e){
 			echo $e->getMessage();
 		}

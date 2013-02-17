@@ -5,15 +5,22 @@
  *
  * @version 0.0.1
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @copyright Fachhochschule Duesseldorf, 2012
 =======
  * @copyright Fachhochschule Duesseldorf, 2012/2013
 >>>>>>> origin/daniel16.02
+=======
+ * @copyright Fachhochschule Duesseldorf, 2012
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
  * @link http://www.fh-duesseldorf.de
  * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
  */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 // include layout
 require_once '../../layout/backend/header.php';
 
@@ -55,6 +62,7 @@ $plans = $MensaController->callGetAllPlans();
 
 
 /* End of file backend.php */
+<<<<<<< HEAD
 /* Location: ./views/mensa/backend.php */
 =======
 // activate output Buffer, needed for header-redirection 
@@ -119,3 +127,6 @@ $plans = $MensaController->callGetAllPlans();
 /* End of file choose.php */
 /* Location: ./views/mensa/choose.php */
 >>>>>>> origin/daniel16.02
+=======
+/* Location: ./views/mensa/backend.php */
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7

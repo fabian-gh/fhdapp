@@ -4,10 +4,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<link href="../../sources/css/stylebackend.css" rel="stylesheet" type="text/css" media="screen" />
 =======
 	<link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
 >>>>>>> origin/daniel16.02
+=======
+	<link href="../../sources/css/stylebackend.css" rel="stylesheet" type="text/css" media="screen" />
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	<title>FHD App - CMS</title>
 </head>
 

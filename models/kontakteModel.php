@@ -3,21 +3,28 @@
 class kontakteModel{
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	// TODO: language_id berücksichtigen, auch im Backend
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	public function m_insertContact(){
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			//execute SQL Query to insert the values
 			// *** Foreign Keys
 			$db->query("INSERT INTO contacts (title, category_id, department_id, language_id, description, contact, phone, fax, mail, room, address, office_hours, phone_office_hours) 
 											VALUES ('". $_POST['contactTitle'] ."', "
 														.$_POST['contactCategory'].", "
 														.$_POST['contactDepartment'].", 
+<<<<<<< HEAD
 =======
 
 			//execute SQL Query to insert the values
@@ -25,6 +32,8 @@ class kontakteModel{
 											VALUES ('". $_POST['contactTitle'] ."', "
 														.$_POST['contactCategory'].", 
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 														1, '"
 														.$_POST['contactDescription']. "', '"
 														.$_POST['contactContact']. "', '"
@@ -34,6 +43,7 @@ class kontakteModel{
 														.$_POST['contactRoom'] . "', '"
 														.$_POST['contactAdress'] . "', '"
 														.$_POST['contactOfficehours'] . "', '"
+<<<<<<< HEAD
 <<<<<<< HEAD
 														.$_POST['contactPhoneOfficehours'] . "');");	
 =======
@@ -52,6 +62,9 @@ class kontakteModel{
 			';
 
 >>>>>>> origin/daniel16.02
+=======
+														.$_POST['contactPhoneOfficehours'] . "');");	
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -59,27 +72,37 @@ class kontakteModel{
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public function m_alterContact($id){
 =======
 	// TODO: wenn FB geändert wird: neue werden eingetragen, nicht ausgewählte nicht entfernt
 	public function m_alterAllContacts($contactID){
 
 >>>>>>> origin/daniel16.02
+=======
+	public function m_alterContact($id){
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to get all the Categories that affect contacts
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			$result = $db->query("UPDATE contacts SET
 									title = '" . $_POST['alterContactTitle'] . "',
 									category_id = " . $_POST['alterContactCategory'] . ",
 									department_id =" . $_POST['alterContactDepartment'] . ",
+<<<<<<< HEAD
 =======
 			
 			$result = $db->query("UPDATE contacts SET 
 									title = '" . $_POST['alterContactTitle'] . "',
 									category_id = " . $_POST['alterContactCategory'] . ",
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 									description = '" . $_POST['alterContactDescription'] ."',
 									contact = '" . $_POST['alterContactContact'] ."',
 									phone = '" . $_POST['alterContactPhone'] ."',
@@ -90,12 +113,16 @@ class kontakteModel{
 									office_hours = '" . $_POST['alterContactOfficeHours'] ."',
 									phone_office_hours = '" . $_POST['alterContactPhoneOfficeHours'] ."'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 									");
 										
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
 		}		
+<<<<<<< HEAD
 =======
 									WHERE id = $contactID");
 
@@ -157,6 +184,8 @@ class kontakteModel{
 			echo $e->getMessage();
 		}	
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	}
 
 	public function m_getCategories(){
@@ -167,9 +196,12 @@ class kontakteModel{
 			$result = $db->query("SELECT * FROM contact_categories");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			$resultSet = null;
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			while($row = $result->fetch_assoc()){
 				$resultSet[] = $row;
 			}
@@ -189,9 +221,12 @@ class kontakteModel{
 			$result = $db->query("SELECT * FROM departments");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			$resultSet = null;
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			while($row = $result->fetch_assoc()){
 				$resultSet[] = $row;
 			}
@@ -209,11 +244,15 @@ class kontakteModel{
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to get all the Categories that affect contacts
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			$result = $db->query("SELECT con.id AS contactID, con.title, con.description, con.contact, con.phone, con.fax, con.mail, con.room, con.address, con.office_hours, con.phone_office_hours, dept.name AS deptName, cat.Name AS catName
 									FROM contacts con, contact_categories cat, departments dept
 									WHERE con.category_id = cat.id AND con.department_id = dept.id");
 			$resultSet = null;
 
+<<<<<<< HEAD
 =======
 			$result = $db->query("SELECT con.id AS contactID, con.title, con.description, con.contact, con.phone, con.fax, con.mail, con.room, con.address, con.office_hours, con.phone_office_hours, cat.Name AS catName, con.category_id, dept.name AS deptName, dept.id AS deptID
 									FROM contacts con, contact_categories cat, contacts_mm_departments condept, departments dept
@@ -241,6 +280,8 @@ class kontakteModel{
 			
 			$resultSet = null;
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			while($row = $result->fetch_assoc()){
 				$resultSet[] = $row;
 			}
@@ -253,15 +294,20 @@ class kontakteModel{
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public function m_deleteContact($id){
 =======
 	public function m_deleteContact($contactID, $deptID){
 			
 >>>>>>> origin/daniel16.02
+=======
+	public function m_deleteContact($id){
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to insert the values
+<<<<<<< HEAD
 <<<<<<< HEAD
 			// *** Foreign Keys
 			$db->query("DELETE FROM contacts WHERE id = " . $id);					
@@ -283,6 +329,10 @@ class kontakteModel{
 			</div>
 			';				
 >>>>>>> origin/daniel16.02
+=======
+			// *** Foreign Keys
+			$db->query("DELETE FROM contacts WHERE id = " . $id);					
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -290,16 +340,21 @@ class kontakteModel{
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public function m_getContact($id){
 =======
 	public function m_getContact($contactID, $deptID){
 
 >>>>>>> origin/daniel16.02
+=======
+	public function m_getContact($id){
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		try{
 			//create DB connection
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 			//execute SQL Query to get all the Categories that affect contacts
 			$result = $db->query("SELECT con.id AS contactID, con.title, con.description, con.contact, con.phone, con.fax, con.mail, con.room, con.address, con.office_hours, con.phone_office_hours, dept.name AS deptName, cat.Name AS catName, cat.id AS catID, dept.id AS deptID
+<<<<<<< HEAD
 <<<<<<< HEAD
 									FROM contacts con, contact_categories cat, departments dept
 									WHERE con.id = $id AND con.category_id = cat.id AND con.department_id = dept.id");
@@ -326,19 +381,28 @@ class kontakteModel{
 
 			$resultSet = null;
 >>>>>>> origin/daniel16.02
+=======
+									FROM contacts con, contact_categories cat, departments dept
+									WHERE con.id = $id AND con.category_id = cat.id AND con.department_id = dept.id");
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 			while($row = $result->fetch_assoc()){
 				$resultSet[] = $row;
 			}
 			return $resultSet;
 <<<<<<< HEAD
+<<<<<<< HEAD
 										
 =======
 >>>>>>> origin/daniel16.02
+=======
+										
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
 		}
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -392,4 +456,6 @@ class kontakteModel{
 		}
 	}
 >>>>>>> origin/daniel16.02
+=======
+>>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 }
