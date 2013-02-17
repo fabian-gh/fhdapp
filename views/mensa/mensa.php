@@ -14,16 +14,17 @@
 <script src="sources/customjs/mensa.js" type="text/javascript"></script>
 
 <?php
-
+    // Controller einbinden und erstellen
     require_once 'controllers/mensaController.php';
     $MensaController = new MensaController();
+    // Pläne, Öffnungszeiten und Zusatzstoffe abfragen
     $plans = $MensaController->callGetCanteenPlans();
     $additives = $MensaController->callGetAdditives();
     $openHours = $MensaController->callGetOpeningHours();
 
 ?>
 
-<!-- ToggleSwitch-->
+<!-- Horizontal Radio Button Group -->
 <div data-role="fieldcontain">
     <fieldset data-role="controlgroup" data-type="horizontal">
         <h3>Campus w&auml;hlen:</h3>
@@ -36,6 +37,7 @@
 </div>
 <br />
 
+<!-- Collapsible Öffnungszeiten -->
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
     <div data-role='collapsible' data-collapsed='true'>
         <h3>Öffnungszeiten</h3>
@@ -53,6 +55,7 @@
 
 <?php
 
+// Plan einer Woche
 if(!empty($plans)):
 
 foreach($plans as $plankey => $planvalue):  ?>
@@ -122,6 +125,7 @@ foreach($plans as $plankey => $planvalue):  ?>
 
 <?php endforeach; endif;?>
 
+<!-- Collapsible Zusatzstoffe -->
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-theme="a" >
     <div data-role='collapsible' data-collapsed='true'>
         <h3>Zeichenerklärung</h3>
