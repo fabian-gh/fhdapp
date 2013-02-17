@@ -113,6 +113,18 @@ class FaqController{
         // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementLang();
     }
+	
+	/**
+	* Führt die Abfragemethode aus, um aus dem gewählten Studiengang den zugehörigen Fachbereich zu erhalten
+	* @return Array
+	*/
+	public function getDepartmentFromCourse($course){
+	// Objekt erstellen
+	$faqModel = new Faq();
+	// Methode ausführen und zurückgeben
+	return $faqModel->createReadStatementAllFrontend($dept, $eis);
+	}
+
 
 
 

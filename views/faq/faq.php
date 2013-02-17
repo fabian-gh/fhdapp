@@ -7,7 +7,7 @@
 
 	echo "<div data-role='collapsible-set'>";								
 
-	(!isset($_GET['dept']))? $dept = 0 : $dept = getDepartmentFromCourse($_GET['course']);
+	(isset($_GET['dept']))?  $dept = $controller->getDepartmentFromCourse($_GET['course']) : $dept = 0 ;
 		
 	$resultSet = $controller->getFAQsFrontend($dept, $_GET['eis']);				
 						
