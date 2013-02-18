@@ -55,8 +55,6 @@
 					$retVal["semestercount"] = true;
 				if($post["link"]=="" OR strpbrk($post["link"], '";'))
 					$retVal["link"] = true;
-				if(!isset($post["vollTeil"]))
-					$retVal["vollTeil"] = true;
 				$categories = $this->selectCategories();	//alle kategorien selektieren
 				$retVal["categories"] = true;
 				foreach($categories AS $c){	//für jeden tupel 
@@ -82,8 +80,13 @@
 				
 		//Funktion um Werte in die Relation 'studycourses_mm_categories' einzufügen. 
 		private function insertStudCat($lastStudiID, $post){
-			$this->studycoursesModel->insertStudCat($lastStudiID, $post["vollTeil"]);	//StudiId und vollzeitTeilzeit ID verbinden
-			//StudiId und Master oder Bachelor ID verbinden
+			
+			$this->studycoursesModel->insertStudCat($lastStudiID, 4);	// "4" ist die ID für "Vollzeit" (Siehe Datenbank)
+			
+			if(isset($post["teilzeit"]))
+				$this->studycoursesModel->insertStudCat($lastStudiID, 3);	//StudiId und vollzeitTeilzeit ID verbinden
+			
+			//StudiId mit Master-oder Bachelor-ID verbinden
 			$a = $this->studycoursesModel->selectGradAbb($post["graduate_id"]);	//Selectiert die abbreviation für den bestimmten graduate
 			$a = $a["abbreviation"][0];	//speichert nur den ersten Character in $a
 			switch($a){	
@@ -93,15 +96,15 @@
 				case "M":	//Master
 						$this->studycoursesModel->insertStudCat($lastStudiID, 2);	//value(2) je nach Datenbank
 					break;
-				default:
-					echo "DEFAULT CASE";
-					break;
 			}			
 			unset($a);	//löscht $a
+
 			//StudiId und dualstudiumsID verbinden
 			if(isset($post["dual"])){
-				$this->studycoursesModel->insertStudCat($lastStudiID, $post["dual"]);
+				$this->studycoursesModel->insertStudCat($lastStudiID, 5);
 			}
+
+			//Kategorien verbinden
 			$categories = $this->selectCategories();	//alle kategorien selektieren
 			foreach($categories AS $c){	//für jeden tupel 
 				if(isset($post[$c["name"]]))
@@ -133,10 +136,7 @@
 			foreach($rows as $r){	//"uneffiziente" schleife
 				switch($r["category_id"]){
 					case 3:	//Teilzeit
-						$retVal["vollTeil"] = $r["category_id"];	//Array-feld "vollTeil" erstellen
-						break;
-					case 4:	//Vollzeit
-						$retVal["vollTeil"] = $r["category_id"];	//Array-feld "vollTeil" erstellen
+						$retVal["teilzeit"] = $r["category_id"];	//Array-feld "" erstellen
 						break;
 					case 5:	//Dual
 						$retVal["dual"] = $r["category_id"];	//Array-feld "dual" erstellen

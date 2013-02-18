@@ -61,9 +61,10 @@
 		}
 		
 		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
-		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung und ob es Teil-oder Vollzeit ist
+		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung
 		public function selectStudicourses(){
-			$result = $this->connection->query("SELECT s.id AS id, s.name AS study_name, g.name AS graduate_name, c.category AS category_name, l.name AS language_name
+
+			$result = $this->connection->query("SELECT DISTINCT s.id AS id, s.name AS study_name, g.name AS graduate_name, l.name AS language_name
 												FROM `studycourses` s
 												JOIN `graduates` g 
 												ON s.graduate_id = g.id
@@ -71,10 +72,7 @@
 												ON s.language_id = l.id
 												JOIN `studycourses_mm_categories` sm
 												ON s.id = sm.studycourse_id
-												JOIN `categories` c
-												ON c.id = sm.category_id
-												WHERE c.id = 4 OR c.id = 3
-												ORDER BY s.name ASC, g.name ASC, c.category DESC, l.id ASC;");
+												ORDER BY s.name ASC, g.name ASC, l.id ASC;");
 			$retVal = array();
 			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
 				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen

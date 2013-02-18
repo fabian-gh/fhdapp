@@ -11,7 +11,7 @@
 	$(document).ready(function() {
 		$("#description").cleditor({
 			width:        350, // width not including margins, borders or padding
-			height:       250, // height not including margins, borders or padding
+			height:       180, // height not including margins, borders or padding
 			controls:     // controls to add to the toolbar
 						"undo redo | bold italic",
 			colors:       // colors in the color popup

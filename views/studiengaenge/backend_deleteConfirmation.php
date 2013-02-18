@@ -2,7 +2,7 @@
 
 	<?php 
 		$studycourse = $studycoursesController->selectStudicourse($_POST["id"]);
-		echo "<script type=\"text/javascript\">$('#editDeleteStudycourse').attr('class', 'active');</script>";	//Link rot markieren
+		echo "<script type=\"text/javascript\">$('#liEditDeleteStudycourse').attr('class', 'active');</script>";	//Link rot markieren
 	?>
 
 	<h3>L&ouml;sch Best&auml;tigung</h3>

@@ -3,11 +3,11 @@
 	
 	<?php
 		if(isset($_POST["editStudycourseConfirm_btn"])){	//Wenn ein Studiengang bearbeitet wurde
-			echo "<script type=\"text/javascript\">$('#editDeleteStudycourse').attr('class', 'active');</script>";	//Link markieren
+			echo "<script type=\"text/javascript\">$('#liEditDeleteStudycourse').attr('class', 'active');</script>";	//Link markieren
 			echo "Der Studiengang <i><b>".$studycoursesController->graduateIdToName($_POST["graduate_id"])." ".$_POST["name"]."</i></b> wurde erfolgreich bearbeitet</h3>";
 		}
 		else{	//sonst (Wenn ein neuer Studiengange eingefügt werden soll)
-			echo "<script type=\"text/javascript\">$('#insertUpdateStudycourse').attr('class', 'active');</script>";	//Link markieren
+			echo "<script type=\"text/javascript\">$('#liInsertUpdateStudycourse').attr('class', 'active');</script>";	//Link markieren
 			echo "<h3>Folgender Studiengang wurde eingef&uuml;gt</h3>";	
 		}
 	?>
@@ -60,27 +60,19 @@
 		
 		<div class="clear"></div>
 		
-		<!-- Zeigt ob der Studiengang dual ist oder nicht -->
-		<div class="singleField"><div class="singleFieldDescription">Dualer Studiengang:</div>
+		<!-- Zeigt ob der Studiengang als dualer Studiengang angeboten wird -->
+		<div class="singleField">
+			<div class="singleFieldDescription">Studiengang angeboten als:</div>
 			<?php 
 				if(isset($_POST["dual"]))
-					echo "<div class=\"singleFieldValue\">Dualer Studiengang</div>";
+					echo "<div class=\"singleFieldValue\"> Dualer Studiengang";
 				else
-					echo "<div class=\"singleFieldValue\">Kein dualer Studiengang</div>";
-			?>
-		</div>
-		
-		
-		<div class="clear"></div>
-		
-		
-		<!-- Zeigt ob der Studiengang Teilzeit ist oder Vollzeit -->
-		<div class="singleField"><div class="singleFieldDescription">Teil-oder Vollzeit:</div>
-			<?php
-				if($_POST["vollTeil"]==4) //value je nach Datenbank 4=Vollzeit
-					echo "<div class=\"singleFieldValue\">Vollzeit Studiengang </div>";
+					echo "<div class=\"singleFieldValue\"> nicht dualer Studiengang";
+				echo "<br />";
+				if(isset($_POST["teilzeit"])) //value je nach Datenbank 4=Vollzeit
+					echo " Teilzeit Studiengang <br /> Vollzeit Studiengang </div>";
 				else
-					echo "<div class=\"singleFieldValue\">Teilzeit Studiengang </div>";
+					echo "Vollzeit Studiengang </div>";
 			?>
 		</div>
 		

@@ -6,7 +6,7 @@
 	echo "<script type=\"text/javascript\">$('#liStudyCourses').attr('class', 'active');</script>";	//link aktivieren
 	
 	echo "<h2>Studieng&auml;nge</h2>";	
-	
+
 	if(isset($_POST["insertStudycourse_btn"])){	//Wenn etwas eingefügt werden soll
 		$error = $studycoursesController->checkInsertEditFormular($_POST);	//Das Post-Formular auf eine fehlerhafte Eingabe überprüfen
 		if(!empty($error)){	//Wenn $error nicht leer ist (also eine FEHLERHAFTE EINGABE vorliegt)
@@ -39,8 +39,8 @@
 		$_POST["description"] = $studycourse["description"];
 		$_POST["link"] = $studycourse["link"];
 		$_POST["language_id"] = $studycourse["language_id"];
-		if(isset($studycourse["vollTeil"]))
-			$_POST["vollTeil"] = $studycourse["vollTeil"];
+		if(isset($studycourse["teilzeit"]))
+			$_POST["teilzeit"] = $studycourse["teilzeit"];
 		if(isset($studycourse["dual"]))
 			$_POST["dual"] = $studycourse["dual"];
 		$categories = $studycoursesController->selectCategories();	//alle kategorien selektieren
