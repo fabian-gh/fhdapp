@@ -7,6 +7,7 @@
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
  * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
+ * @author Anh Minh Nguyen (AMN), <anh.nguyen@fh-duesseldorf.de>
  */
 
 class FaqController{
@@ -18,6 +19,7 @@ class FaqController{
     /**
      * uebergibt neue Daten an Model
      *
+	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
     public function setFaq($data){
        
@@ -28,8 +30,9 @@ class FaqController{
     }
 	
 	/**
-     * Aendern von Daten an Model
+     * Übergabe von Daten an Model zum Ändern
      *
+	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
     public function changeFaq($data){
        

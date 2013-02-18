@@ -6,12 +6,13 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
- * @author Fabian Martinovic (FM), <fabian.martinovic@fh-duesseldorf.de>
+ * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
+ * @author Anh Minh Nguyen (AMN), <anh.nguyen@fh-duesseldorf.de>
  */
 
 class Faq {
 	
-	//Globale Variable zur UeberprUefung ob alle SQL Abfragen bgeschickt wurden
+	//Globale Variable zur Ueberpruefung ob alle SQL Abfragen bgeschickt wurden
 	public $checkDBInsert = 0;
 
 	 /**
@@ -491,7 +492,7 @@ class Faq {
 	public function getData($read){
         try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-            $db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
+            $db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
             
             //$db = new mysqli('localhost', 'root', '', 'fhdapp');
 			
