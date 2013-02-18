@@ -5,7 +5,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
- * @author Sascha MÃ¶ller (FM), <sascha.moeller@fh-duesseldorf.de>
+ * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
  
 class Veranstaltungen{
@@ -22,7 +22,7 @@ class Veranstaltungen{
 	public function addEvent($EVENT_ID)
 	{
 		//$lang = $_POST['veranstaltung_language'];
-		$LANG 			= 1; // 1 fÃ¼r Deutsch
+		$LANG 			= 1; // 1 für Deutsch
 		$NAME 			= $_POST['veranstaltung_name'];
 		$DATUM 			= $_POST['veranstaltung_datum_jahr'].'-'.$_POST['veranstaltung_datum_monat'].'-'.$_POST['veranstaltung_datum_tag'];
 		$UHRZEIT 		= $_POST['veranstaltung_uhrzeit_stunden'].'-'.$_POST['veranstaltung_uhrzeit_minuten'];
@@ -73,7 +73,7 @@ class Veranstaltungen{
 	public function addRelationshipEventDepartment($EVENT_ID)
 	{	
 		$DEPARTMENTS = $this->createStatementDepartments();
-		//Fachbereiche bestimmen die zur Veranstaltung gehÃ¶ren
+		//Fachbereiche bestimmen die zur Veranstaltung gehören
 		$VALUES = '';
 		$ERSTER_EINTRAG = true;
 		
@@ -129,7 +129,7 @@ class Veranstaltungen{
 	public function addRelationshipEventUsertype($EVENT_ID)
 	{
 		$USERTYPES = $this->createStatementUsertypes();
-		//Usertypes bestimmen die zur Veranstaltung gehÃ¶ren
+		//Usertypes bestimmen die zur Veranstaltung gehören
 		$VALUES = '';
 		$ERSTER_EINTRAG = true;
 		
@@ -179,24 +179,24 @@ class Veranstaltungen{
 	}
 	
 	//Backend
-	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen lÃ¶scht
+	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
 	public function deleteEvent($event_id)
 	{
 		try
 		{
-			//Beziehungen zwischen Veranstaltung und Benutzer lÃ¶schen
+			//Beziehungen zwischen Veranstaltung und Benutzer löschen
 			$DELETE_STATEMENT = '	DELETE 
 									FROM events_mm_usertypes 
 									WHERE event_id = '.$event_id;
 			$this->connection->query($DELETE_STATEMENT);
 			
-			//Beziehungen zwischen Veranstaltung und Fachbereich lÃ¶schen
+			//Beziehungen zwischen Veranstaltung und Fachbereich löschen
 			$DELETE_STATEMENT = '	DELETE 
 									FROM events_mm_departments 
 									WHERE event_id = '.$event_id;
 			$this->connection->query($DELETE_STATEMENT);
 			
-			//Die Veranstaltung lÃ¶schen
+			//Die Veranstaltung löschen
 			$DELETE_STATEMENT = '	DELETE 
 									FROM events 
 									WHERE id = '.$event_id;
@@ -210,19 +210,19 @@ class Veranstaltungen{
 	}
 	
 	//Backend
-	//Methode die alle Veranstaltungen ausliest, die Ã¤lter vorm heutigen Datum liegen
+	//Methode die alle Veranstaltungen ausliest, die älter vorm heutigen Datum liegen
 	public function getOldEvents()
 	{
 		$STATEMENT = "
-				SELECT EVENTS.id
+				SELECT events.id
 				
-				FROM EVENTS , EVENTS_MM_DEPARTMENTS, DEPARTMENTS, LANGUAGES
+				FROM events , events_mm_departments, departments, languages
 				
-				WHERE EVENTS.id = EVENTS_MM_DEPARTMENTS.event_id 
-				AND EVENTS.language_id = LANGUAGES.id 
-				AND EVENTS_MM_DEPARTMENTS.department_id = DEPARTMENTS.id
-				AND EVENTS.date < NOW()
-				ORDER BY EVENTS.date
+				WHERE events.id = events_mm_departments.event_id 
+				AND events.language_id = languages.id 
+				AND events_mm_departments.department_id = departments.id
+				AND events.date < NOW()
+				ORDER BY events.date
 				";
 				
 		return $this->getInformation($STATEMENT);
@@ -235,17 +235,17 @@ class Veranstaltungen{
 	public function createStatementEventsWithDepartmentsWihoutUsertype($department){
 		$STATEMENT = "
 				SELECT 
-				EVENTS.id,EVENTS.language_id,EVENTS.name,EVENTS.date,EVENTS.description				
+				events.id,events.language_id,events.name,events.date,events.description				
 				
-				FROM EVENTS , EVENTS_MM_DEPARTMENTS, DEPARTMENTS, LANGUAGES
+				FROM events , events_mm_departments, departments, languages
 				
-				WHERE EVENTS.id = EVENTS_MM_DEPARTMENTS.event_id 
-				AND EVENTS.language_id = LANGUAGES.id 
-				AND EVENTS_MM_DEPARTMENTS.department_id = departments.id
-				AND EVENTS_MM_DEPARTMENTS.department_id = ".$department."
-				AND EVENTS.date >= NOW()
+				WHERE events.id = events_mm_departments.event_id 
+				AND events.language_id = languages.id 
+				AND events_mm_departments.department_id = departments.id
+				AND events_mm_departments.department_id = ".$department."
+				AND events.date >= NOW()
 				
-				ORDER BY EVENTS.date
+				ORDER BY events.date
 				";
 
 		return $this->getInformation($STATEMENT);
@@ -296,7 +296,16 @@ class Veranstaltungen{
 						
 		return $this->getInformation($STATEMENT);
 	}
-	
+	//Frontend
+	public function getStudycourseInformation ($course)
+	{
+		$statement = "	SELECT department_id
+						FROM studycourses
+						WHERE name = '$course'
+						LIMIT 1";
+		return $this->getInformation($statement);
+	}
+
 	
 	public function createStatement($usertype,$department){
 	
@@ -321,7 +330,7 @@ class Veranstaltungen{
 	return $this->getInformation($request);
 	}
 
-	//Methode die SQL-Statements ausfÃ¼hrt
+	//Methode die SQL-Statements ausführt
 	public function getInformation($request)
 	{
 		try
