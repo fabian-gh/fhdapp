@@ -296,7 +296,12 @@ class Veranstaltungen{
 						
 		return $this->getInformation($STATEMENT);
 	}
-	//Frontend
+	/**
+	* Frontend
+	* Methode die die passende Fachbereich-ID für den entsprechnenden Studiengang ausliest
+	* @param $course Studiengang aus der Adresszeile
+	* @return Fachbereich ID
+	**/
 	public function getStudycourseInformation ($course)
 	{
 		$statement = "	SELECT department_id
@@ -305,17 +310,34 @@ class Veranstaltungen{
 						LIMIT 1";
 		return $this->getInformation($statement);
 	}
-
-	
+	/**
+	* Frontend
+	* Methode die den Benutzertyp zu einer Zahl wandelt
+	* @param $usertype Benutzertyp aus der Adresszeile
+	* @return Zahl für Benutzertyp
+	**/
+	public function getUsertypeInformation($usertype)
+	{
+	switch($usertype)
+		{
+			case 'i': $usertype = 1; break;
+			case 'e': $usertype = 2; break;
+			case 's': $usertype = 3; break;
+		}
+		
+	return $usertype;
+	}
+	/**
+	* Frontend
+	* Methode die alle Einträge/Informationen aus Veranstaltungen ausliest
+	* @param $usertype Benutzertyp(Interessent,Erstsemester,Student
+	* @param $department Fachbereichs-ID
+	* @return SQL-Ergebnis_Relation
+	**/
 	public function createStatement($usertype,$department){
 	
-	switch($usertype)
-	{
-		case 'i': $usertype = 1; break;
-		case 'e': $usertype = 2; break;
-		case 's': $usertype = 3; break;
-	}
-				
+	$usertype= $this->getUsertypeInformation($usertype);
+	
 	$request = "SELECT events.id,events.language_id,events.name,events.date,events.description
 	
 				FROM events,events_mm_departments,events_mm_usertypes,departments,languages,usertypes
@@ -330,16 +352,22 @@ class Veranstaltungen{
 	return $this->getInformation($request);
 	}
 
-	//Methode die SQL-Statements ausführt
+	/**
+	* Frontend/Backend
+	* Methode die SQL-Statements ausführt
+	* @param $request SQL-Statements
+	* @return SQL-Ergebnis_Relation in ein Array
+	**/
 	public function getInformation($request)
 	{
 		try
 		{
 			$result = $this->connection->query($request);
 			if( $result->num_rows > 0)
-			{
+			{		
 					while($temp = $result->fetch_assoc())
 					{
+						//Ins Array speichern
 						$resultSet[] = $temp;
 					}
 					return $resultSet;
