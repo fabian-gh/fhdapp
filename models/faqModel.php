@@ -12,20 +12,20 @@
 
 class Faq {
 	
-	//Globale Variable zur Ueberpruefung ob alle SQL Abfragen bgeschickt wurden
+	//Globale Variable zur Überpruefung ob alle SQL Abfragen geschickt wurden
 	public $checkDBInsert = 0;
 
 	 /**
-     * Kontrolliert Daten auf vollstaendigkeit und richtige eingabewerte(neueintrag/ändern/löschen)
-     *
+     * Kontrolliert Daten auf Vollständigkeit und richtige Eingabewerte(Neueintrag/ändern/löschen)
+	 *
 	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
     public function controllInput($data){
-		// check ob eingabe und UeberprUefung
+		// Überprüfen ob neue Eingabe einer FAQ und Überpruefung ob alle nötigen Werte vohanden sind
 		if($data['inputArt'] == 1){
 			$checkOverall = true;
 			for ($i = 1; $i <= $data['anzahl']; $i++) {
-				// UeberprUefung ob die Sortierung eine Zahl ist
+				// Ueberpruefung ob die Sortierung eine Zahl ist
 				$checkSort = filter_var($data['sort'.$i], FILTER_VALIDATE_INT);
 				if ($checkSort === false) 
 				{ 
@@ -58,7 +58,7 @@ class Faq {
 			}
 		}
 		
-		// check ob update und UeberprUefung
+		// überprüfen ob update einer FAQ und Ueberpruefung ob alle nötigen Werte vohanden sind
 		if($data['inputArt'] == 2){
 			$checkOverall = true;
 			// UeberprUefung ob die Sortierung eine Zahl ist
@@ -187,8 +187,10 @@ class Faq {
 //DELETE Befehle Erstellen	
 	
 	/**
-     * LOeschen einer FAQ inclusive beziehungen
+     * Loeschen einer FAQ inclusive beziehungen
      *
+	 * @param int $id ID der FAQ die gelöscht werden soll
+	 * @param bool $checkIfChange  Zur steuerung der Ausgabe der Statusmeldung(Bei Faq änderung keine Löschmeldung)
      */
 	public function deleteFAQ($id, $checkIfChange){
 		
@@ -211,8 +213,9 @@ class Faq {
 		
 	}
 	/**
-     * Statement zum lOeschen einer FAQ
-     *
+     * Statement zum loeschen einer FAQ erstellen
+     * 
+	 * @param int &id  ID der FAQ die gelöscht werden soll 
      */
 	public function createDeleteStatementFaq($id){
 		// Abfrage fUer FAQ erstellen
@@ -223,8 +226,9 @@ class Faq {
 	}
 	
 	/**
-     * Statement zum lOeschen einer beziehung zwischen FAQ und Department
+     * Statement zum loeschen einer beziehung zwischen FAQ und Department
      *
+	 * @param int &id  ID der FAQ die gelöscht werden soll 
      */
 	public function createDeleteStatementDepartment($id){
 		// Abfrage fUer FAQ erstellen
@@ -235,8 +239,9 @@ class Faq {
 	}
 	
 	/**
-     * Statement zum lOeschen einer beziehung zwischen FAQ und Usertypes
+     * Statement zum loeschen einer beziehung zwischen FAQ und Usertypes
      *
+	 * @param int &id  ID der FAQ die gelöscht werden soll 
      */
 	public function createDeleteStatementUsertyp($id){
 		// Abfrage fUer FAQ erstellen
@@ -249,8 +254,11 @@ class Faq {
 //UPDATE Befehle Erstellen	
 	
 	/**
-     * Aendern einer FAQ inclusive beziehungen
+     * Aendern einer FAQ inclusive beziehungen. Wegen FAQs für alle Studiengänge werden
+	 * die FAQs vorher gelöscht und anschließend neu erstellt. 
+	 * Hierfür werden hier die Methoden zum neuerstellen von Datenbank einträgen benutzt
      *
+	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
 	public function updateFAQ($data){
 		try{
@@ -292,20 +300,16 @@ class Faq {
 //DATENBANK verbindung und INSERT ausfUehrung
 	
 	/**
-     * Datenbank conection erstellen und SQL Statement ausfUehren
-	 * @param $insert= SQL Befehl der ausgefUehrt werden soll
-	 * @param $bool= true = speichern in DB, false = lOeschen aus DB oder Aendern(kein insert_id mOeglich)
+     * Datenbank conection erstellen und SQL Statement ausfuehren
+	 * 
+	 * @param $insert= SQL Befehl der ausgefuehrt werden soll
+	 * @param $bool= true = speichern in DB, false = loeschen aus DB oder Aendern(kein insert_id moeglich)
      * @return Letzte gespeicherte ID
      */
 	public function intoDB($insert, $bool){
 		 try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
-			
-			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-			
-            //$db = new mysqli('localhost', 'root', '', 'fhdapp');
-            
 			
             // Abfrage ausfUehren
 			$result = $db->query($insert);
@@ -336,7 +340,10 @@ class Faq {
 	
 	/**
      * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
-     * @return Array mit Datenbank werten
+     * 
+	 * @param int $dept Department ID zu dem die FAQs geladen werden
+	 * @param int $eis Aktivierter Usertyp zu dem die FAQs geladen werden
+	 * @return Array mit Datenbank werten
      */
 	public function createReadStatementAllFrontend($dept, $eis){
 		// Select Statement erstellen
@@ -351,20 +358,22 @@ class Faq {
 					  FROM faq, faq_mm_usertype, faq_mm_departments 
 					  WHERE faq.id = faq_mm_usertype.faq_id AND faq_mm_usertype.usertype_id =".$eis." 
 					  AND faq.id = faq_mm_departments.faq_id AND faq_mm_departments.department_id =".$dept."";
-		/*
-		else
-			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id 
-					 FROM faq, faq_mm_usertype 
-					 WHERE faq.id = faq_mm_usertype.faq_id 
-					 AND faq_mm_usertype.usertype_id=".$eis."";
-		**/
 		
 		// An Methode
 		return $this->getData($read);
 	}
 	
+	
+	/**
+     * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Fachbereich aus der Datenbank erstellen
+	 * Für die Ausgabe im Backend
+     * 
+	 * @param int $dept Department ID zu dem die FAQs geladen werden
+	 * @param int $eis Aktivierter Usertyp zu dem die FAQs geladen werden
+	 * @return Array mit Datenbank werten
+     */
 	public function createReadStatementBackend($department){
-		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur fUer Fachbereich)
+		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur fuer Fachbereich)
 		if($department == 0){
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid, departments.id AS deptid
 						  FROM faq, faq_mm_usertype, faq_mm_departments, usertypes, departments 
@@ -409,31 +418,9 @@ class Faq {
 		return $this->getData($read);
 	}
 	
-	public function createStatementAllDepartments()
-	{
-		$temp =
-			'
-			SELECT DISTINCT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid
-			FROM faq, faq_mm_usertype, faq_mm_departments, usertypes
-			WHERE faq.id = faq_mm_usertype.faq_id 
-			AND faq_mm_usertype.usertype_id = usertypes.id
-			AND faq.id = faq_mm_departments.faq_id
-			AND faq.id IN
-			(
-			SELECT faq_id
-			FROM faq_mm_departments
-			group by faq_id
-			HAVING count(faq_id)=7
-			)
-		';
-		$this->getData($temp);
-		
-	}
-		
-	
 	/**
      * SQL-Statement zum auslesen der Fachbereiche aus der Datenbank erstellen
-     * @return Array mit Datenbank werten
+     * @return Array mit allen Fachbereichen aus Datenbank
      */
 	public function createReadStatementDepartments(){
 		// Select Statement erstellen
@@ -445,7 +432,7 @@ class Faq {
 	
 	/**
      * SQL-Statement zum auslesen der Usertypes aus der Datenbank erstellen
-     * @return Array mit Datenbank werten
+     * @return Array mit allen Usergruppen aus Datenbank
      */
 	public function createReadStatementUsertypes(){
 		// Select Statement erstellen
@@ -457,7 +444,7 @@ class Faq {
 	
 	/**
      * SQL-Statement zum auslesen der Sprache aus der Datenbank erstellen
-     * @return Array mit Datenbank werten
+     * @return Array mit allen Sprachen aus Datenbank
      */
 	public function createReadStatementLang(){
 		// Select Statement erstellen
@@ -469,6 +456,8 @@ class Faq {
 	
 	/**
 	* SQL-Statment zum Auslesen des Fachbereichs anhand des Studiengangs
+	*
+	* @param String $course Name des Studienganges 
 	* @return Array mit Datenbankwerten
 	*/
 	public function DepartmentFromCourse($course){
@@ -487,6 +476,8 @@ class Faq {
 	
 	/**
      * Holt Daten aus Datenbank
+	 *
+	 * @param String $read SQL-Statement das ausgeführt werden soll
      * @return Array mit Datenbank werten
      */
 	public function getData($read){
