@@ -16,7 +16,6 @@
 <script src="../../sources/jqueryui/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <title>FHD App - CMS</title>
 </head>
-
 <body>
 
 	<div id ="header">
@@ -30,7 +29,7 @@
             <div id ="nav">
                     <h3>Seiteninhalt bearbeiten:</h3>
                     <ul>
-                        <li><a href="../../views/studiengaenge/backend_studiengaenge.php">Studieng&auml;nge</a></li>
+                        <li><a id="liStudyCourses" href="../../views/studiengaenge/backend_studiengaenge.php?page=Studiengaenge">Studieng&auml;nge</a></li>
 						<?php
 							//Wenn man im Navigationspunkt "Studiengänge" ist
 							if(@$_GET["page"]=="Studiengaenge"){
@@ -39,7 +38,7 @@
 							}
 						?>
                         <li><a href="../../views/veranstaltungen/backend_veranstaltungen.php">Veranstaltungen</a></li>
-                        <li><a href="../../views/termine/backend_termine.php">Termine</a></li>
+                        <li><a href="../../views/termine/backend_termine.php?dept=1">Termine</a></li>
                         <li><a href="../../views/mensa/choose.php">Mensa</a></li>
                         <li><a href="../../views/faq/backend_faq.php">FAQ</a></li>
                         <li><a href="../../views/kontakte/backend_kontakte.php">Kontakt</a></li>
