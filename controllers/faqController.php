@@ -3,7 +3,7 @@
 /**
  * FHD-App
  *
- * @version 0.0.1
+ * @version 0.9
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
  * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
