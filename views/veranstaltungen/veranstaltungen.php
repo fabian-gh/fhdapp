@@ -8,13 +8,13 @@
  * @author Jan Brinkmann>
  */
 	ob_start();
-	
+
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
 	(!isset($_GET['course']))? $dept = 5:$dept = $Controller->getDepartmentFromStudycourse($_GET['course']);
-	    
+
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
-		
+
 		echo "<div data-role='collapsible-set' data-theme='a'> <h1>Veranstaltungen</h1>" ;
 				//Falls keine Datensätze vorhanden sind
 				if( $ergebnis != null )
@@ -32,7 +32,7 @@
 						$Jahr  = 	date_format($Datum, 'Y');			
 						$Stunden = 	date_format($Datum, 'H');
 						$Minuten =	date_format($Datum, 'i');
-						
+
 						//Ausgabe
 						echo "<div data-role='collapsible' data-theme='a'>
 						
@@ -43,7 +43,7 @@
 				}
 				else
 					echo '<div>Es sind keine Veranstaltungen vorhanden</div>';
-	
+
 		;
 
 	ob_end_flush();

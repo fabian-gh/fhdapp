@@ -466,7 +466,7 @@ class Faq {
 	public function getData($read){
         try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-            $db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
+            $db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
             
             //$db = new mysqli('localhost', 'root', '', 'fhdapp');
 			
