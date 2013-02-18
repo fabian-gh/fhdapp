@@ -128,19 +128,19 @@
 	
 	#content .veranstaltung
 	{
-		background-color: #FFC1C1;
+		background-color: #D3D3D3;
 	}
 	-->
 	</style> 
 	<br/><br/><br/>
 	<table border="0" width="100%">
 		<tr>
-			<td width="50%" style="text-align:left;">
+			<td width="50%" style="text-align:left; border-bottom: 1px solid #d1ccc1; border-right: 1px solid #d1ccc1;">
 			
 				<p>Status:</p>
 				
 			</td>
-			<td width="50%" style="text-align:right;">
+			<td width="50%" style="text-align:right; border-bottom: 1px solid #d1ccc1; border-left: 1px solid #d1ccc1;">
 			
 				<!-- Ausgeben der Meldung -->
 				<i>'.$MESSAGE.'</i>
