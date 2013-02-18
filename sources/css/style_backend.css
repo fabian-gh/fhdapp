@@ -3,6 +3,35 @@
 	padding: 0;	
 }
 
+.error{
+	color: red;
+}
+
+.singleFieldDescription{
+	font-weight: bold;
+	min-width: 210px;
+	float: left;
+	margin-right: 10px;
+	text-align: right;
+}
+
+.singleFieldValue{
+	float: left;
+	max-width: 350px;
+}
+
+.singleField {
+	margin-top: 15px;
+	padding: 5px;
+}
+
+.allFields{
+	min-width: 600px;
+	margin: 20px 0px 20px 0px;
+	border: 1px solid black;
+	padding: 0px 20px 20px 20px;
+}
+
 body {
 	background: #f7f5f0;
 	font-family: Verdana, Geneva, sans-serif;

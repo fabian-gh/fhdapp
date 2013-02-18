@@ -1,12 +1,12 @@
+<?php ob_start();
 
-
-<?php
     require_once '../../layout/backend/header.php';	//header einbinden
-	require_once '../../controllers/studiengaengeController2.php';	//Einbinden des Controllers
+	require_once '../../controllers/studiengaengeControllerBackend.php';	//Einbinden des Controllers
 	$studycoursesController = new StudycoursesController();	//neues ControllerObjekt wird erzeugt und in der Variabel gespeichert
 	echo "<script type=\"text/javascript\">$('#liStudyCourses').attr('class', 'active');</script>";	//link aktivieren
 	
 	echo "<h2>Studieng&auml;nge</h2>";	
+	
 	if(isset($_POST["insertStudycourse_btn"])){	//Wenn etwas eingefügt werden soll
 		$error = $studycoursesController->checkInsertEditFormular($_POST);	//Das Post-Formular auf eine fehlerhafte Eingabe überprüfen
 		if(!empty($error)){	//Wenn $error nicht leer ist (also eine FEHLERHAFTE EINGABE vorliegt)
@@ -27,35 +27,53 @@
 			echo "<p>Studiengang gel&ouml;scht</p>";
 			require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und löschen der Studiengänge wieder anzeigen
 		}							
-			
 	}
 	elseif(isset($_POST["editStudycourse_btn"])){	//Wenn etwas bearbeitet werden soll
+		//$_POST ausfüllen, damit daten voreingetragen werden können
+		$studycourse = $studycoursesController->selectStudicourse($_POST["id"]);
+		$_POST["graduate_id"] = $studycourse["graduate_id"];
+		$_POST["graduate_name"] = $studycourse["graduate_name"];
+		$_POST["name"] = $studycourse["name"];
+		$_POST["department_id"] = $studycourse["department_id"];
+		$_POST["semestercount"] = $studycourse["semestercount"];
+		$_POST["description"] = $studycourse["description"];
+		$_POST["link"] = $studycourse["link"];
+		$_POST["language_id"] = $studycourse["language_id"];
+		if(isset($studycourse["vollTeil"]))
+			$_POST["vollTeil"] = $studycourse["vollTeil"];
+		if(isset($studycourse["dual"]))
+			$_POST["dual"] = $studycourse["dual"];
+		$categories = $studycoursesController->selectCategories();	//alle kategorien selektieren
+		foreach($categories AS $c){	//für jeden tupel 
+			if(isset($studycourse[$c["name"]]))
+				$_POST[$c["name"]] = $studycourse[$c["name"]];
+		}
+		require_once 'backend_insertUpdateFormular.php';	//backend_insertUpdateFormular aufrufen. Das backend_insertUpdateFormular wird ausgefüllt sein, da in "showStudycourse.php" hidden fields übergeben werden, und somit das $_POST ausgefüllt ist
+	}
+	elseif(isset($_POST["editStudycourseConfirm_btn"])){	//Wenn Bearbeitung bestätigt wurde
 		$error = $studycoursesController->checkInsertEditFormular($_POST);	//Das Post-Formular auf eine fehlerhafte Eingabe überprüfen
-		if(!isset($_POST["editStudycourseConfirm_btn"]) OR !empty($error))	//Wenn noch keine Werte verändert wurden, sondern nur ein Studiengang zum bearbeiten ausgewählt wurde oder Wenn $error nicht leer ist (also eine FEHLERHAFT EINGABE vorliegt)
+		if(!empty($error))	//Wenn $error nicht leer ist (also eine FEHLERHAFT EINGABE vorliegt)
 			require_once 'backend_insertUpdateFormular.php';	//backend_insertUpdateFormular aufrufen. Das backend_insertUpdateFormular wird ausgefüllt sein, da in "showStudycourse.php" hidden fields übergeben werden, und somit das $_POST ausgefüllt ist
 		else{	//Wenn der Studiengang geupdatet werden soll und keine fehlerhaften eingaben da sind
 			$studycoursesController->updateStudycourse($_POST);	//Updaten "studycourses" Tabelle
-			$studycoursesController->deleteFromStudicourseCategories($_POST["id"]);	//Tupel des Studiengangs aus der Zwischentabelle löschen
-			$studycoursesController->insertStudCat($_POST["id"], $_POST);	//Neue Tupel in die Zwischentabelle einfügen
 			require_once 'backend_insertUpdateConfirmation.php';	//und bestätigung anzeigen
 		}
 	}
-	else{	//Wenn kein Formular abgesendet wurde
-		if(isset($_GET["action"])){	//Wenn eine Action (Einfügen/BearbeitenLöschen) gewählt wurde
-			switch($_GET["action"]){	//switch case für subnav
-				case "einfuegen":	
-					require_once 'backend_insertUpdateFormular.php';	//Formular zum einfügen der Studiengänge
-					break;
-				case "bearbeitenLoeschen":
-					require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und löschen der Studiengänge
-					break;
-			}
-		}
-		else{
-			echo "<a href=\"?page=Studiengaenge&action=einfuegen\"><input type=\"submit\" value=\"Einen neuen Studiengang einf&uuml;gen\"></a>";	//Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen-->
-			echo "<a href=\"?page=Studiengaenge&action=bearbeitenLoeschen\"><input type=\"submit\" value=\"Bereits vorhandene Studieng&auml;nge bearbeiten oder L&ouml;schen\"></a>";	// Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen-->
+	else{	//Wenn nichts gemacht werden soll, also kein Formular abgesendet wurde
+		switch(@$_GET["action"]){	
+			case "einfuegen":	
+				require_once 'backend_insertUpdateFormular.php';	//Formular zum einfügen der Studiengänge
+				break;
+			case "bearbeitenLoeschen":
+				require_once 'backend_showStudycourses.php';	//Formular zum bearbeiten und löschen der Studiengänge
+				break;
+			default:
+				echo "<a href=\"?page=Studiengaenge&action=einfuegen\"><input type=\"submit\" value=\"Einen neuen Studiengang einf&uuml;gen\"></a>";	//Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=einfuegen
+				echo "<a href=\"?page=Studiengaenge&action=bearbeitenLoeschen\"><input type=\"submit\" value=\"Bereits vorhandene Studieng&auml;nge bearbeiten oder L&ouml;schen\"></a>";	// Einfügen von Studiengängen, setzt deeplink auf ?page=Studiengaenge&action=bearbeitenLoeschen
+				break;
 		}
 	}
 	
     require_once '../../layout/backend/footer.php';	//footer einbinden
+	ob_flush();
 ?>		

@@ -74,7 +74,7 @@
 		}
 				
 		//Funktion um Werte in die Relation 'studycourses_mm_categories' einzufügen. 
-		public function insertStudCat($lastStudiID, $post){
+		private function insertStudCat($lastStudiID, $post){
 			$this->studycoursesModel->insertStudCat($lastStudiID, $post["vollTeil"]);	//StudiId und vollzeitTeilzeit ID verbinden
 			//StudiId und Master oder Bachelor ID verbinden
 			$a = $this->studycoursesModel->selectGradAbb($post["graduate_id"]);	//Selectiert die abbreviation für den bestimmten graduate
@@ -91,32 +91,16 @@
 					break;
 			}			
 			unset($a);	//löscht $a
-			
 			//StudiId und dualstudiumsID verbinden
 			if(isset($post["dual"])){
 				$this->studycoursesModel->insertStudCat($lastStudiID, $post["dual"]);
 			}
-			
-			//StudiId und ingenieurwissenschaftlich ID verbinden
-			if(isset($post["ingenieurwissenschaftlich"])){
-				$this->studycoursesModel->insertStudCat($lastStudiID, $post["ingenieurwissenschaftlich"]);
+			$categories = $this->selectCategories();	//alle kategorien selektieren
+			foreach($categories AS $c){	//für jeden tupel 
+				if(isset($post[$c["name"]]))
+					$this->studycoursesModel->insertStudCat($lastStudiID, $post[$c["name"]]);
 			}
-			
-			//StudiId und gestalterisch ID verbinden
-			if(isset($post["gestalterisch"])){
-				$this->studycoursesModel->insertStudCat($lastStudiID, $post["gestalterisch"]);
-			}
-			
-			//StudiId und gesellschaftlich ID verbinden
-			if(isset($post["gesellschaftlich"])){
-				$this->studycoursesModel->insertStudCat($lastStudiID, $post["gesellschaftlich"]);
-			}
-			
-			//StudiId und wirtschaftlich ID verbinden
-			if(isset($post["wirtschaftlich"])){
-				$this->studycoursesModel->insertStudCat($lastStudiID, $post["wirtschaftlich"]);
-			}
-
+			unset($categories);	//löscht $categories
 		}
 		
 		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
@@ -150,35 +134,59 @@
 					case 5:	//Dual
 						$retVal["dual"] = $r["category_id"];	//Array-feld "dual" erstellen
 						break;
-					case 6:	//ingenieurwissenschaftlich
-						$retVal["ingenieurwissenschaftlich"] = $r["category_id"];	//Array-feld "ingenieurwissenschaftlich" erstellen
+					case 6:	//Design
+						$retVal["Design"] = $r["category_id"];	//Array-feld "Design" erstellen
 						break;
-					case 7:	//gestalterisch
-						$retVal["gestalterisch"] = $r["category_id"];	//Array-feld "gestalterisch" erstellen
+					case 7:	//Ingenieur
+						$retVal["Ingenieur"] = $r["category_id"];	//Array-feld "Ingenieur" erstellen
 						break;
-					case 8:	//gesellschaftlich
-						$retVal["gesellschaftlich"] = $r["category_id"];	//Array-feld "gesellschaftlich" erstellen
+					case 8:	//Informatik
+						$retVal["Informatik"] = $r["category_id"];	//Array-feld "Informatik" erstellen
 						break;
-					case 9:	//wirtschaftlich
-						$retVal["wirtschaftlich"] = $r["category_id"];	//Array-feld "wirtschaftlich" erstellen
+					case 9:	//Medien
+						$retVal["Medien"] = $r["category_id"];	//Array-feld "Medien" erstellen
+						break;
+					case 10:	//Sozial
+						$retVal["Sozial"] = $r["category_id"];	//Array-feld "Sozial" erstellen
+						break;
+					case 11:	//Kultur
+						$retVal["Kultur"] = $r["category_id"];	//Array-feld "Kultur" erstellen
+						break;
+					case 12:	//Wirtschaft
+						$retVal["Wirtschaft"] = $r["category_id"];	//Array-feld "Wirtschaft" erstellen
 						break;
 				}
 			}
 			return $retVal;
 		}
 		
-		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
-		//übergabeparameter "$type" muss dabei ein String sein, wobei der String = "department" oder "languages" oder "graduates" sein muss
-		//sonst wird nichts zurückgegeben
+		//Liefert Daten der Tabelle "graduates" zurück
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
-		public function selectDropDownData($type){
-			if($type=="languages" OR $type=="departments" OR $type=="graduates")	//nur wenn übergabeparameter stimmt, dann
-				return $this->studycoursesModel->selectDropDownData($type);
+		public function selectDropDownDataGraduates(){
+			return $this->studycoursesModel->selectDropDownDataGraduates();
+		}
+		
+		//Liefert Daten der Tabelle "languages" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectDropDownDataLanguages(){
+			return $this->studycoursesModel->selectDropDownDataLanguages();
+		}
+		
+		//Liefert Daten der Tabelle "departments" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectDropDownDataDepartments(){
+			return $this->studycoursesModel->selectDropDownDataDepartments();
+		}
+		
+		//Liefert nur die Kategorien aus der Tabelle "categories" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectCategories(){
+			return $this->studycoursesModel->selectCategories();
 		}
 		
 		//Löscht einen Studiengang komplett aus der Datenbank
 		//Übergabeparameter: $id - des zu löschenden Studiengangs "studycourses_mm_categories"
-		public function deleteFromStudicourseCategories($id){
+		private function deleteFromStudicourseCategories($id){
 			$this->studycoursesModel->deleteFromStudicourseCategories($id);	//Löscht aus der Zwischentabelle "studycourses_mm_categories"
 		}
 		
@@ -194,6 +202,8 @@
 		//Übergabeparameter: $post - das $post array muss folgende felder enthalten: "id", "language_id", "name", "description", department_id", "semestercount", "graduate_id", "link"
 		public function updateStudycourse($post){
 			$this->studycoursesModel->updateStudycourse($post);
+			$this->deleteFromStudicourseCategories($post["id"]);	//Tupel des Studiengangs aus der Zwischentabelle löschen
+			$this->insertStudCat($post["id"], $post);	//Neue Tupel in die Zwischentabelle einfügen
 		}
 	
 	}

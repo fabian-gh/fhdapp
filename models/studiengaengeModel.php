@@ -98,22 +98,33 @@
 		}
 		
 
-		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
+		//Liefert Daten der Tabelle "graduates" zurück
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
-		public function selectDropDownData($type){
+		public function selectDropDownDataGraduates(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, CONCAT(abbreviation,' - ',name) AS name FROM graduates ORDER BY 'id' ASC;");
+		}
+		
+		//Liefert Daten der Tabelle "languages" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectDropDownDataLanguages(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, name FROM languages ORDER BY 'id' ASC;");
+		}
+
+		//Liefert Daten der Tabelle "departments" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectDropDownDataDepartments(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, CONCAT(id,' - ',name) AS name FROM departments ORDER BY 'id' ASC;");
+		}
+		
+		//Liefert nur die Kategorien aus der Tabelle "categories" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectCategories(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, category AS name FROM categories WHERE id>5 ORDER BY 'id' ASC;");
+		}
+		
+		//Führt das Query aus und speichert die Zeilen in ein assoziatives Array (Fetch a result row as an associative array)
+		private function executeQueryAndFetchAssoc($query){
 			try{
-				switch($type){
-					case "graduates":	//Liefert Fachbereiche zurück (departments)
-						$query = "SELECT id, CONCAT(abbreviation,' - ',name) AS name FROM graduates ORDER BY 'id' ASC;";
-						break;
-					case "languages":	//Liefert Sprachen zurück (languages)
-						$query = "SELECT id, name FROM languages ORDER BY 'id' ASC;";
-						break;
-					case "departments":	//Liefert Fachbereiche zurück (departments)
-						$query = "SELECT id, CONCAT(id,' - ',name) AS name FROM departments ORDER BY 'id' ASC;";
-						break;	
-				}
-				
 				//Selectieren der Werte und einspeichern in $result
 				$result = $this->connection->query($query);
 				while($row = $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
