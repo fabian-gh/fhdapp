@@ -44,7 +44,7 @@
 	
 	public function getDepartmentFromStudycourse($course)
 	{
-		return $this->Model->getStudycourseInformation($course)[0]['department_id'];
+		return $this->Model->getStudycourseInformation($course[0]['department_id']);
 	}
 	
 	//Backend
