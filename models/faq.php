@@ -289,11 +289,11 @@ class Faq {
 	public function intoDB($insert, $bool){
 		 try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-			//$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
+			$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			
-            $db = new mysqli('localhost', 'root', '', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', '', 'fhdapp');
             
 			
             // Abfrage ausfUehren
@@ -466,9 +466,9 @@ class Faq {
 	public function getData($read){
         try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-            //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
+            $db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
-            $db = new mysqli('localhost', 'root', '', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', '', 'fhdapp');
 			
             // Abfrage ausfUehren
             $result = $db->query($read);
