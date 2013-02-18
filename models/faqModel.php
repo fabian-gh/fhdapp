@@ -15,8 +15,9 @@ class Faq {
 	public $checkDBInsert = 0;
 
 	 /**
-     * Kontrolliert Daten auf vollstAendigkeit und richtige eingabewerte
+     * Kontrolliert Daten auf vollstaendigkeit und richtige eingabewerte(neueintrag/ändern/löschen)
      *
+	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
     public function controllInput($data){
 		// check ob eingabe und UeberprUefung
@@ -95,8 +96,10 @@ class Faq {
 //INSERT Befehle erstellen
 	
 	/**
-     * Statement zum einfUegen einer FAQ in die Datenbank erstellen
+     * Statement zum einfuegen einer FAQ in die Datenbank erstellen
+	 * Echo Ausgabe ob Einträge gespeichert wurden
      *
+	 * @param Array $data  Data Array mit eingegebenen und kontrollierten Werten aus dem Formular
      */
 	public function createInsertStatementFaq($data){
 		 try{
@@ -138,14 +141,19 @@ class Faq {
 	}
 	
 	/**
-     * Statement zum einfUegen einer beziehung zwischen FAQ und Departments in die Datenbank erstellen
+     * Statement zum einfuegen einer beziehung zwischen FAQ und Departments in der Datenbank erstellen
+	 * Unterscheidung durch Fachbereich ID ob die FAQ nur für einen Fachbereich oder für alle Fachbereiche gilt
      *
+	 * @param int $faqID  FAQ Id der zuletzt eingetragenen FAQ um die passenden Beziehungen mit den Fachbereichen herzustellen
+	 * @param int $dept  Id des Fachbereiches oder 100 wenn FAQ für alle Fachbereiche gilt
      */
 	public function createInsertStatementFaq_Dept($faqID, $dept){
 		// Abfrage erstellen
+		// Unterscheidung ob FAQ für alle Fachbereiche gilt
 		if($dept == 100){
 			$resultSetDepartments = $this->createReadStatementDepartments();
 			$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ";
+			//Alle Fachbereiche durchlaufen
 			for($n=0; $n<count($resultSetDepartments); $n++) {
 				$deptId = $resultSetDepartments[$n]['id'];
 				if($n ==0){
@@ -163,8 +171,10 @@ class Faq {
 	}
 	
 	/**
-     * Statement zum einfUegen einer beziehung zwischen FAQ und Usertypes in die Datenbank erstellen
+     * Statement zum einfuegen einer beziehung zwischen FAQ und Usertypes in der Datenbank erstellen
      *
+	 * @param int $faqID  FAQ Id der zuletzt eingetragenen FAQ um die passenden Beziehungen mit dem Usertyp herzustellen
+	 * @param int $user  Id des Usertypes für den die FAQ gilt
      */
 	public function createInsertStatementFaq_User($faqID, $user){
 		// Abfrage erstellen
@@ -289,11 +299,11 @@ class Faq {
 	public function intoDB($insert, $bool){
 		 try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-			//$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
+			$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
 			
 			// Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			
-            $db = new mysqli('localhost', 'root', '', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', '', 'fhdapp');
             
 			
             // Abfrage ausfUehren
@@ -481,9 +491,9 @@ class Faq {
 	public function getData($read){
         try{
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
-            //$db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
+            $db = new mysqli($this->getHostname(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
             
-            $db = new mysqli('localhost', 'root', '', 'fhdapp');
+            //$db = new mysqli('localhost', 'root', '', 'fhdapp');
 			
             // Abfrage ausfUehren
             $result = $db->query($read);
