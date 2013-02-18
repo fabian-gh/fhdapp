@@ -39,8 +39,12 @@
 
 	public function getInformation($usertype,$department)
 	{		
-		$Model = new Veranstaltungen();
-		return $Model->createStatement($usertype,$department);
+		return $this->Model->createStatement($usertype,$department);
+	}
+	
+	public function getDepartmentFromStudycourse($course)
+	{
+		return $this->Model->getStudycourseInformation($course)[0]['department_id'];
 	}
 	
 	//Backend
