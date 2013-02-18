@@ -14,11 +14,11 @@
      * Model
      */
     private $Model;
-	
+
 	private $DEPARTMENTS;
 	private $USERTYPES;
-	
-	
+
+
     /**
      * Konstruktor des VeranstaltungsController
      * @param Object $Data
@@ -31,22 +31,23 @@
         
 		// und Objekt erstellen
         $this->Model = new Veranstaltungen();
-		
+
 		$this->getInformationDepartments();
 		$this->getInformationUsertypes();
     }
-	
+
 
 	public function getInformation($usertype,$department)
 	{		
 		return $this->Model->createStatement($usertype,$department);
 	}
-	
+
 	public function getDepartmentFromStudycourse($course)
 	{
-		return $this->Model->getStudycourseInformation($course)[0]['department_id'];
+		$temp = $this->Model->getStudycourseInformation($course);
+		return $temp[0]['department_id'];
 	}
-	
+
 	//Backend
 	//Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype auszulesen
 	//@param String $department Fachbereichs-ID
@@ -55,7 +56,7 @@
 	{
 		return  $this->Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
 	}
-	
+
 	//Backend
 	//Methode die alle Fachbereiche zu einem Event auszulesen
 	//@param String $event_id Veranstaltungs-ID
@@ -64,7 +65,7 @@
 	{
 		return $this->Model->createStatementDepartmentsFromEvents($event_id);
 	}
-	
+
 	//Backend
 	//Methode die alle Benutzer zu einem Event auszulesen
 	//@param String $event_id Veranstaltungs-ID
@@ -73,7 +74,7 @@
 	{
 		return $this->Model->createStatementUsertypesFromEvents($event_id);
 	}
-	
+
 	//Backend
 	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
 	//@return boolean True hat funktioniert, false hat nicht funktioniert
@@ -81,7 +82,7 @@
 	{
 		return $this->Model->addEvent('');
 	}
-	
+
 	//Backend
 	//Methode die eine neue Veranstaltung mit ID mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
 	//@return boolean True hat funktioniert, false hat nicht funktioniert
@@ -97,14 +98,14 @@
 	{		
 		return $this->Model->deleteEvent($event_id);
 	}
-	
+
 	//Backend
 	//Methode die alle Veranstaltungen löscht, die älter vorm heutigen Datum liegen
 	//@return boolean True hat funktioniert, false hat nicht funktioniert
 	public function deleteOldEvent()
 	{
 		$ERGEBNIS = $this->Model->getOldEvents();
-		
+
 		if($ERGEBNIS != null)
 		{
 			//Veranstaltungen durchlaufen und darstellen
@@ -116,7 +117,7 @@
 		}
 		return true;
 	}
-	
+
 	//Backend
 	//Methode die alle Benutzer ausliest
 	//@return SQL-Ergebnis-Relation
@@ -124,7 +125,7 @@
 	{
 		$this->DEPARTMENTS = $this->Model->createStatementDepartments();	
 	}
-	
+
 	//Backend
 	//Methode die alle Benutzer ausliest
 	//@return SQL-Ergebnis-Relation
@@ -132,7 +133,7 @@
 	{
 		$this->USERTYPES = $this->Model->createStatementUsertypes();
 	}
-	
+
 	//Backend
 	//Methode die alle Fachbereiche
 	//@return Array
@@ -140,7 +141,7 @@
 	{
 		return $this->DEPARTMENTS;	
 	}
-	
+
 	//Backend
 	//Methode die alle Fachbereiche
 	//@return Array
