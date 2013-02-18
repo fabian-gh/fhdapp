@@ -25,18 +25,17 @@
 	//Neues Objekt von Formular erstellen
 	$Formular = new Formular($Controller);
 	
-	//Leeres Formular erstellen
-	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
-	//JQuery für das leere Formular erstellen
-	$JQUERY = $Formular->getJqueryEmptyForm();
-	
-	
 	//Überprüfen ob Fachbereich-GET-Variable gesetzt ist, falls nicht direkt auf Fachbereich 1 setzen
 	if(isset($_GET['FB']))
 		$FB_AKTUELLER = $_GET['FB'];
 	else
 		$FB_AKTUELLER = 1;
 	
+	//Leeres Formular erstellen
+	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
+	//JQuery für das leere Formular erstellen
+	$JQUERY = $Formular->getJqueryEmptyForm();
+
 	$MESSAGE = 'Keine &Auml;nderungen';
 	
 	//Überprüfung ob Formular abgesendet wurde
