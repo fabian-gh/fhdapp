@@ -107,6 +107,31 @@
 	}
 	
 	echo'
+	<style type="text/css">
+	<!-- 
+	#content table {
+		border: 1px solid #d1ccc1;
+		margin-bottom: 20px;
+	}
+
+	#content table tr th,
+	#content table tr td {
+		border-right: 0px solid #d1ccc1;
+		border-bottom: 0px solid #d1ccc1;
+		text-align:left;
+		padding: 2px;
+	}
+
+	#content table tr th {
+		background-color: #e6e2d8;
+	}
+	
+	#content .veranstaltung
+	{
+		background-color: #FFC1C1;
+	}
+	-->
+	</style> 
 	<br/><br/><br/>
 	<table border="0" width="100%">
 		<tr>

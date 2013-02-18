@@ -128,7 +128,7 @@ class Formular{
 		
 		$RESULT =
 		'
-		<div class="veranstaltung_'.$this->ID.'" style="border-width:1px; border-style:solid;">
+		<div class="veranstaltung_'.$this->ID.'" style="border:1px solid #d1ccc1;">
 		
 		<a class="button" id="veranstaltung_anzeigen_'.$this->ID.'">Neuen Eintrag erstellen</a>
 		';
@@ -146,7 +146,7 @@ class Formular{
 		
 		$RESULT =
 		'
-		<div class="veranstaltung_'.$this->ID.'" style="border-width:1px; border-style:solid;">
+		<div class="veranstaltung_'.$this->ID.'" style="border:1px solid #d1ccc1;">
 			<h3>'.$this->NAME.'</h3>
 		
 			<a class="button" id="veranstaltung_anzeigen_'.$this->ID.'"		>Veranstaltung anzeigen	</a>
