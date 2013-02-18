@@ -72,50 +72,62 @@ foreach($plans as $plankey => $planvalue):  ?>
         <?php if($day['holiday'] == null): ?>
 
         <table class="meals" width='100%'>
+            <?php if(!empty($day['meal_one'])): ?>
     		<tr class="both">
     			<td><span class="heading">Essen 1:</span><br /><?php echo $day['meal_one']; ?></td>
     			<td>1,00€</td>
     		</tr>
+            <?php endif; if(!empty($day['meal_two'])): ?>
             <tr class="both">
                 <td><span class="heading">Essen 2:</span><br /><?php echo $day['meal_two']; ?></td>
                 <td>1,00€</td>
             </tr>
+            <?php endif; if(!empty($day['side'])): ?>
             <tr class="both">
                 <td><span class="heading">Beilagen:</span><br /><?php echo $day['side']; ?></td>
                 <td>0,40€ - 0,60€</td>
             </tr>
+            <?php endif; if(!empty($day['hotpot'])): ?>
             <tr class="both">
                 <td><span class="heading">Eintopf:</span><br /><?php echo $day['hotpot']; ?></td>
                 <td>1,10€</td>
             </tr>
+            <?php endif; if(!empty($day['bbq'])): ?>
             <tr class="south">
                 <td><span class="heading">Grill:</span><br /><?php echo $day['bbq']; ?></td>
                 <td><?php echo $day['price_bbq']; ?>€</td>
             </tr>
+            <?php endif; if(!empty($day['pan'])): ?>
             <tr class="south">
                 <td><span class="heading">Pfanne:</span><br /><?php echo $day['pan']; ?></td>
                 <td><?php echo $day['price_pan']; ?>€</td>
             </tr>
+            <?php endif; if(!empty($day['action'])): ?>
             <tr class="south">
                 <td><span class="heading">Aktion:</span><br /><?php echo $day['action']; ?></td>
                 <td><?php echo $day['price_action']; ?>€</td>
             </tr>
+            <?php endif; if(!empty($day['wok'])): ?>
             <tr class="south">
                 <td><span class="heading">Wok:</span><br /><?php echo $day['wok']; ?></td>
                 <td><?php echo $day['price_wok']; ?>€</td>
             </tr>
+            <?php endif; if(!empty($day['gratin'])): ?>
             <tr class="south">
                 <td><span class="heading">Gratin:</span><br /><?php echo $day['gratin']; ?></td>
                 <td><?php echo $day['price_gratin']; ?>€</td>
             </tr>
+            <?php endif; if(!empty($day['mensavital'])): ?>
             <tr class="south">
                 <td><span class="heading">mensavital:</span><br /><?php echo $day['mensavital']; ?></td>
                 <td><?php echo $day['price_mensavital']; ?>€</td>
             </tr>
+            <?php endif; if(!empty($day['green_corner'])): ?>
             <tr class="south">
                 <td><span class="heading">Green Corner:</span><br /><?php echo $day['green_corner']; ?></td>
                 <td><?php echo $day['price_green_corner']; ?>€</td>
             </tr>
+            <?php endif;?>
 		</table>
     <?php  endif; ?>
     </div> <!-- Ende collapsible -->
