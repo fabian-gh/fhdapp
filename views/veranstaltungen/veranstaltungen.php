@@ -11,17 +11,11 @@
 	
 	require_once 'controllers/veranstaltungenController.php';
 	$Controller = new VeranstaltungenController();
-	
-	(!isset($_GET['dept']))? $dept = 5 : $dept = $_GET['dept'];
+	(!isset($_GET['course']))? $dept = 5:$dept = $Controller->getDepartmentFromStudycourse($_GET['course']);
+	    
 	$ergebnis =  $Controller->getInformation($_GET['eis'],$dept);
-	//Alternative
-	/*echo'
-		<div data-role="header">
-		<h1>Veranstaltungen</h1></div>
-		<div data-role="content">
-		<div data-role="collapsible-set">';*/
 		
-		echo "<div data-role='collapsible-set' data-iconpos='right' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-theme='a'> <h1>Veranstaltungen</h1>" ;
+		echo "<div data-role='collapsible-set' data-theme='a'> <h1>Veranstaltungen</h1>" ;
 				//Falls keine Datensätze vorhanden sind
 				if( $ergebnis != null )
 				{	//array durchlaufen und informationen ausgeben
@@ -38,26 +32,18 @@
 						$Jahr  = 	date_format($Datum, 'Y');			
 						$Stunden = 	date_format($Datum, 'H');
 						$Minuten =	date_format($Datum, 'i');
+						
 						//Ausgabe
-						echo "<div style='word-break:break-all;word-wrap:break-word' data-role='collapsible' data-theme='a' >
+						echo "<div data-role='collapsible' data-theme='a'>
+						
 						<h3>$Name</h3>
 						<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten Uhr</h4></p><br>
 						<p>$Beschreibung</p></div>";
 					}
 				}
 				else
-					echo '<div data-role="header"> &ensp; Es sind keine Veranstaltungen vorhanden</div>';
-			
-			/*foreach($ergebnis as $temp)
-			{
-			$details = $temp
-			echo 	'<div data-role="collapsible" data-theme="a"><h3>'.$details[0]{'name'].'</h3>
-				<p>'.$details[1]['date'].'</p>
-				<p>'.$details[2]['description'].'</p>
-				</div>';*/
+					echo '<div>Es sind keine Veranstaltungen vorhanden</div>';
 	
-			echo '	</div><!-- /collapsible set -->
-				</div><!-- /content -->'
 		;
 
 	ob_end_flush();

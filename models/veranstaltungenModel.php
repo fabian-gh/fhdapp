@@ -296,7 +296,16 @@ class Veranstaltungen{
 						
 		return $this->getInformation($STATEMENT);
 	}
-	
+	//Frontend
+	public function getStudycourseInformation ($course)
+	{
+		$statement = "	SELECT department_id
+						FROM studycourses
+						WHERE name = '$course'
+						LIMIT 1";
+		return $this->getInformation($statement);
+	}
+
 	
 	public function createStatement($usertype,$department){
 	
