@@ -13,7 +13,7 @@ class FaqController{
     
 	function __construct() {
 		// Model einbinden
-       require_once __DIR__.'../../models/faq.php';
+       require_once __DIR__.'../../models/faqModel.php';
    }
     /**
      * uebergibt neue Daten an Model
