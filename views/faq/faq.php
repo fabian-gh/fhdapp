@@ -1,7 +1,7 @@
 <?php
 	//Controller einbinden
 	require_once 'controllers/faqController.php';
-	//Objekt erstellen
+	//Controller-Objekt erstellen
 	$controller = new FaqController();
 	//Überschrift
 	echo "<h1>FAQ</h1>";
