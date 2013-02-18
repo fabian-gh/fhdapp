@@ -3,7 +3,7 @@
 /**
  * FHD-App
  *
- * @version 0.0.1
+ * @version 0.9
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
  * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
@@ -16,7 +16,7 @@ class Faq {
 	public $checkDBInsert = 0;
 
 	 /**
-     * Kontrolliert Daten auf Vollständigkeit und richtige Eingabewerte(Neueintrag/ändern/löschen)
+     * Kontrolliert Daten auf Vollständigkeit und richtige Eingabewerte(Neueintrag/ändern/löschen).
 	 *
 	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
@@ -25,7 +25,7 @@ class Faq {
 		if($data['inputArt'] == 1){
 			$checkOverall = true;
 			for ($i = 1; $i <= $data['anzahl']; $i++) {
-				// Ueberpruefung ob die Sortierung eine Zahl ist
+				// Überprüfung ob die Sortierung eine Zahl ist
 				$checkSort = filter_var($data['sort'.$i], FILTER_VALIDATE_INT);
 				if ($checkSort === false) 
 				{ 
@@ -33,7 +33,7 @@ class Faq {
 					echo "Sortierung muss eine Zahl sein<br />"; 
 					$checkOverall = false;
 				} 
-				// UeberprUefung ob die Sprach ID eine Zahl ist
+				// Überprüfung ob die Sprach ID eine Zahl ist
 				$checkLang = filter_var($data['lang'.$i], FILTER_VALIDATE_INT);
 				if ($checkLang === false) 
 				{ 
@@ -41,27 +41,27 @@ class Faq {
 					echo "Sprach ID muss eine Zahl sein<br />"; 
 					$checkOverall = false;
 				} 
-				// UeberprUefung ob Frage eingegeben wurde
+				// Überprüfung ob Frage eingegeben wurde
 				if (empty($data['question'.$i])) {
 					echo 'Es muss eine Frage eingegeben werden<br />';
 					$checkOverall = false;
 				}
-				// UeberprUefung ob Antwort eingegeben wurde
+				// Überprüfung ob Antwort eingegeben wurde
 				if (empty($data['answer'.$i])) {
 					echo 'Es muss eine Antwort eingegeben werden <br />';
 					$checkOverall = false;
 				}
-				//Wenn alles ok dann Insert Statement erstellen
+				//Wenn alles ok, dann Insert Statement erstellen
 				if($checkOverall === true){
 					$this->createInsertStatementFaq($data);
 				}
 			}
 		}
 		
-		// überprüfen ob update einer FAQ und Ueberpruefung ob alle nötigen Werte vohanden sind
+		// Überprüfen ob Update einer FAQ und Überprüfung ob alle nötigen Werte vohanden sind
 		if($data['inputArt'] == 2){
 			$checkOverall = true;
-			// UeberprUefung ob die Sortierung eine Zahl ist
+			// Überprüfung ob die Sortierung eine Zahl ist
 			$checkSort = filter_var($data['sort'], FILTER_VALIDATE_INT);
 			if ($checkSort === false) 
 			{ 
@@ -69,7 +69,7 @@ class Faq {
 				echo "Sortierung muss eine Zahl sein<br />"; 
 				$checkOverall = false;
 			} 
-			// UeberprUefung ob die Sprach ID eine Zahl ist
+			// Überprüfung ob die Sprach-ID eine Zahl ist
 			$checkLang = filter_var($data['lang'], FILTER_VALIDATE_INT);
 			if ($checkLang === false) 
 			{ 
@@ -77,17 +77,17 @@ class Faq {
 				echo "Sprach ID muss eine Zahl sein<br />"; 
 				$checkOverall = false;
 			} 
-			// UeberprUefung ob Frage eingegeben wurde
+			// Überprüfung ob Frage eingegeben wurde
 			if (empty($data['question'])) {
 				echo 'Es muss eine Frage eingegeben werden<br />';
 				$checkOverall = false;
 			}
-			// UeberprUefung ob Antwort eingegeben wurde
+			// Überprüfung ob Antwort eingegeben wurde
 			if (empty($data['answer'])) {
 				echo 'Es muss eine Antwort eingegeben werden <br />';
 				$checkOverall = false;
 			}
-			//Wenn alles ok dann Update Statement erstellen
+			//Wenn alles ok, dann Update Statement erstellen
 			if($checkOverall === true){
 				$this->updateFaq($data);
 			}
@@ -97,8 +97,8 @@ class Faq {
 //INSERT Befehle erstellen
 	
 	/**
-     * Statement zum einfuegen einer FAQ in die Datenbank erstellen
-	 * Echo Ausgabe ob Einträge gespeichert wurden
+     * Statement zum Einfügen einer FAQ in die Datenbank erstellen.
+	 * Echo Ausgabe ob Einträge gespeichert wurden.
      *
 	 * @param Array $data  Data Array mit eingegebenen und kontrollierten Werten aus dem Formular
      */
@@ -118,22 +118,22 @@ class Faq {
 				// Abfrage erstellen
 				$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
 				
-				// Fertige SQL-Abfrage an Methode zum speichern Uebergeben return wert ID des eintrags
+				// Fertige SQL-Abfrage an Methode zum Speichern übergeben, return wert ID des eintrags
 				$faqID = $this->intoDB($insert, true);
 
-				//SQL Abfrage fUer FAQ_mm_Departments erstellen und ausfUehren
+				//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
 				$this->createInsertStatementFaq_Dept($faqID, $dept);
 				
-				//SQL Abfrage fUer FAQ_mm_Usertypes erstellen und ausfUehren
+				//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
 				$this->createInsertStatementFaq_User($faqID, $user);
 				
-				// UeberprUefung ob alles in Datenbank gespeichert wurde
+				// Überprüfung ob alles in Datenbank gespeichert wurde
 				if($this->checkDBInsert == 3){
 					echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
 				}else{
 					echo "<br/> Fehler!!!";
 				}
-				//RUecksetzen der Variable
+				//Rücksetzen der Variable
 				$this->checkDBInsert = 0;
 			}
         } catch(Exception $e){
@@ -142,11 +142,11 @@ class Faq {
 	}
 	
 	/**
-     * Statement zum einfuegen einer beziehung zwischen FAQ und Departments in der Datenbank erstellen
-	 * Unterscheidung durch Fachbereich ID ob die FAQ nur für einen Fachbereich oder für alle Fachbereiche gilt
+     * Statement zum Einfügen einer Beziehung zwischen FAQ und Departments in der Datenbank erstellen.
+	 * Unterscheidung durch Fachbereich ID, ob die FAQ nur für einen Fachbereich oder für alle Fachbereiche gilt.
      *
-	 * @param int $faqID  FAQ Id der zuletzt eingetragenen FAQ um die passenden Beziehungen mit den Fachbereichen herzustellen
-	 * @param int $dept  Id des Fachbereiches oder 100 wenn FAQ für alle Fachbereiche gilt
+	 * @param int $faqID  FAQ-ID der zuletzt eingetragenen FAQ um die passenden Beziehungen mit den Fachbereichen herzustellen
+	 * @param int $dept  ID des Fachbereiches oder 100 wenn FAQ für alle Fachbereiche gilt
      */
 	public function createInsertStatementFaq_Dept($faqID, $dept){
 		// Abfrage erstellen
@@ -167,40 +167,40 @@ class Faq {
 		}else{
 			$insert = "INSERT INTO faq_mm_departments (faq_id, department_id) VALUES ('$faqID', '$dept')";
 		}
-		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
+		// Fertige SQL-Abfrage an Methode zum speichern übergeben
 		$this->intoDB($insert, true);
 	}
 	
 	/**
-     * Statement zum einfuegen einer beziehung zwischen FAQ und Usertypes in der Datenbank erstellen
+     * Statement zum Einfügen einer Beziehung zwischen FAQ und Usertypes in der Datenbank erstellen.
      *
-	 * @param int $faqID  FAQ Id der zuletzt eingetragenen FAQ um die passenden Beziehungen mit dem Usertyp herzustellen
-	 * @param int $user  Id des Usertypes für den die FAQ gilt
+	 * @param int $faqID  FAQ ID der zuletzt eingetragenen FAQ um die passenden Beziehungen mit dem Usertyp herzustellen
+	 * @param int $user  ID des Usertypes für den die FAQ gilt
      */
 	public function createInsertStatementFaq_User($faqID, $user){
 		// Abfrage erstellen
 		$insert = "INSERT INTO faq_mm_usertype (faq_id, usertype_id) VALUES ('$faqID', '$user')";
-		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
+		// Fertige SQL-Abfrage an Methode zum speichern übergeben
 		$this->intoDB($insert, true);
 	}
 	
 //DELETE Befehle Erstellen	
 	
 	/**
-     * Loeschen einer FAQ inclusive beziehungen
+     * Löschen einer FAQ in der Datenbank inklusive Beziehungen
      *
-	 * @param int $id ID der FAQ die gelöscht werden soll
-	 * @param bool $checkIfChange  Zur steuerung der Ausgabe der Statusmeldung(Bei Faq änderung keine Löschmeldung)
+	 * @param int $id ID der FAQ, die gelöscht werden soll
+	 * @param bool $checkIfChange  Zur steuerung der Ausgabe der Statusmeldung(Bei FAQ Änderung: keine Löschmeldung)
      */
 	public function deleteFAQ($id, $checkIfChange){
 		
-		//Beziehung Departments lOeschen
+		//Beziehung Departments löschen
 		$this->createDeleteStatementDepartment($id);
-		//Beziehung Usertyp lOeschen
+		//Beziehung Usertyp löschen
 		$this->createDeleteStatementUsertyp($id);
-		//FAQ lOeschen
+		//FAQ löschen
 		$this->createDeleteStatementFaq($id);
-		// UeberprUefung ob alles in Datenbank gelOescht wurde
+		// Überprüfung ob alles in Datenbank gelöscht wurde
 		if($checkIfChange == false){
 			if($this->checkDBInsert == 3 ){
 				echo "<br/> Die FAQ wurde erfolgreich gelöscht. <br/> <br/>";
@@ -208,45 +208,45 @@ class Faq {
 				echo "<br/> Fehler!!!";
 			}
 		}
-		//RUecksetzen der Variable
+		//Rücksetzen der Variable
 		$this->checkDBInsert = 0;
 		
 	}
 	/**
-     * Statement zum loeschen einer FAQ erstellen
+     * Statement zum Löschen einer FAQ erstellen
      * 
-	 * @param int &id  ID der FAQ die gelöscht werden soll 
+	 * @param int $id  ID der FAQ die gelöscht werden soll 
      */
 	public function createDeleteStatementFaq($id){
-		// Abfrage fUer FAQ erstellen
+		// Abfrage für FAQ erstellen
 		$insert = "DELETE FROM faq WHERE id = ".$id."";
-		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
+		// Fertige SQL-Abfrage an Methode zum Speichern übergeben
 		$this->intoDB($insert, false);
 		
 	}
 	
 	/**
-     * Statement zum loeschen einer beziehung zwischen FAQ und Department
+     * Statement zum Löschen einer Beziehung zwischen FAQ und Department
      *
-	 * @param int &id  ID der FAQ die gelöscht werden soll 
+	 * @param int $id  ID der FAQ, die gelöscht werden soll 
      */
 	public function createDeleteStatementDepartment($id){
-		// Abfrage fUer FAQ erstellen
+		// Abfrage für FAQ erstellen
 		$insert = "DELETE FROM faq_mm_departments WHERE faq_id = ".$id."";
-		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
+		// Fertige SQL-Abfrage an Methode zum Speichern übergeben
 		$this->intoDB($insert, false);
 		
 	}
 	
 	/**
-     * Statement zum loeschen einer beziehung zwischen FAQ und Usertypes
+     * Statement zum Löschen einer Beziehung zwischen FAQ und Usertypes
      *
-	 * @param int &id  ID der FAQ die gelöscht werden soll 
+	 * @param int $id  ID der FAQ, die gelöscht werden soll 
      */
 	public function createDeleteStatementUsertyp($id){
-		// Abfrage fUer FAQ erstellen
+		// Abfrage für FAQ erstellen
 		$insert = "DELETE FROM faq_mm_usertype WHERE faq_id = ".$id."";
-		// Fertige SQL-Abfrage an Methode zum speichern Uebergeben
+		// Fertige SQL-Abfrage an Methode zum Speichern übergeben
 		$this->intoDB($insert, false);
 		
 	}
@@ -254,9 +254,9 @@ class Faq {
 //UPDATE Befehle Erstellen	
 	
 	/**
-     * Aendern einer FAQ inclusive beziehungen. Wegen FAQs für alle Studiengänge werden
+     * Ändern einer FAQ inklusive Beziehungen. Wegen FAQs für alle Studiengänge werden
 	 * die FAQs vorher gelöscht und anschließend neu erstellt. 
-	 * Hierfür werden hier die Methoden zum neuerstellen von Datenbank einträgen benutzt
+	 * Hierfür werden hier die Methoden zum Neuerstellen von Datenbankeinträgen benutzt
      *
 	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
@@ -273,22 +273,22 @@ class Faq {
 			// Abfrage erstellen
 			$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
 			
-			// Fertige SQL-Abfrage an Methode zum speichern Uebergeben return wert ID des eintrags
+			// Fertige SQL-Abfrage an Methode zum Speichern übergeben, return wert ID des Eintrags
 			$faqID = $this->intoDB($insert, true);
 
-			//SQL Abfrage fUer FAQ_mm_Departments erstellen und ausfUehren
+			//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
 			$this->createInsertStatementFaq_Dept($faqID, $dept);
 			
-			//SQL Abfrage fUer FAQ_mm_Usertypes erstellen und ausfUehren
+			//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
 			$this->createInsertStatementFaq_User($faqID, $user);
 			
-			// UeberprUefung ob alles in Datenbank gespeichert wurde
+			// Überprüfung ob alles in Datenbank gespeichert wurde
 			if($this->checkDBInsert == 3){
 				echo "<br /> Ihre Eingaben wurden erfolgreich geändert.";
 			}else{
 				echo "<br/> Fehler!!!";
 			}
-			//RUecksetzen der Variable
+			//Rücksetzen der Variable
 			$this->checkDBInsert = 0;
 			
         } catch(Exception $e){
@@ -300,10 +300,10 @@ class Faq {
 //DATENBANK verbindung und INSERT ausfUehrung
 	
 	/**
-     * Datenbank conection erstellen und SQL Statement ausfuehren
+     * Datenbank Verbindung erstellen und SQL Statement ausführen
 	 * 
-	 * @param $insert= SQL Befehl der ausgefuehrt werden soll
-	 * @param $bool= true = speichern in DB, false = loeschen aus DB oder Aendern(kein insert_id moeglich)
+	 * @param $insert SQL Befehl der ausgeführt werden soll
+	 * @param $bool Entweder speichern in DB oder löschen aus DB oder Ändern(kein insert_id möglich)
      * @return Letzte gespeicherte ID
      */
 	public function intoDB($insert, $bool){
@@ -311,11 +311,11 @@ class Faq {
             // Verbindung aufbauen, Zugangsdaten kommmen aus dem Data-Objekt
 			$db = new mysqli($_SESSION['host'], $_SESSION['user'],$_SESSION['pwd'],$_SESSION['db']);
 			
-            // Abfrage ausfUehren
+            // Abfrage ausführen
 			$result = $db->query($insert);
 			
 			
-			//Abfrage ob eingefUegt wurde um id zu ermitteln
+			//Abfrage ob eingefügt wurde um ID zu ermitteln
 			if($bool){
 				$returnID = $db->insert_id;
 			}else{
@@ -339,10 +339,10 @@ class Faq {
 //READ Befehle Erstellen
 	
 	/**
-     * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
+     * SQL-Statement zum Auslesen der FAQs aus der Datenbank selektiert nach Usertyp und Fachbereich aus der Datenbank erstellen
      * 
-	 * @param int $dept Department ID zu dem die FAQs geladen werden
-	 * @param int $eis Aktivierter Usertyp zu dem die FAQs geladen werden
+	 * @param int $dept Department ID, zu dem die FAQs geladen werden
+	 * @param int $eis Ausgewählter Usertyp, zu dem die FAQs geladen werden
 	 * @return Array mit Datenbank werten
      */
 	public function createReadStatementAllFrontend($dept, $eis){
@@ -365,15 +365,15 @@ class Faq {
 	
 	
 	/**
-     * SQL-Statement zum auslesen der FAQ's aus der Datenbank selektiert nach Fachbereich aus der Datenbank erstellen
+     * SQL-Statement zum Auslesen der FAQs aus der Datenbank selektiert nach Fachbereich aus der Datenbank erstellen
 	 * Für die Ausgabe im Backend
      * 
-	 * @param int $dept Department ID zu dem die FAQs geladen werden
-	 * @param int $eis Aktivierter Usertyp zu dem die FAQs geladen werden
+	 * @param int $dept Department ID, zu dem die FAQs geladen werden
+	 * @param int $eis Ausgewählter Usertyp, zu dem die FAQs geladen werden
 	 * @return Array mit Datenbank werten
      */
 	public function createReadStatementBackend($department){
-		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur fuer Fachbereich)
+		// Select Statement erstellen(bei 0 alle ausgeben, ansonsten nur für Fachbereich)
 		if($department == 0){
 			$read = "SELECT faq.id, faq.question, faq.answer, faq.sorting, faq.language_id, usertypes.id AS userid, departments.id AS deptid
 						  FROM faq, faq_mm_usertype, faq_mm_departments, usertypes, departments 
@@ -419,7 +419,7 @@ class Faq {
 	}
 	
 	/**
-     * SQL-Statement zum auslesen der Fachbereiche aus der Datenbank erstellen
+     * SQL-Statement zum Auslesen der Fachbereiche aus der Datenbank erstellen
      * @return Array mit allen Fachbereichen aus Datenbank
      */
 	public function createReadStatementDepartments(){
@@ -431,7 +431,7 @@ class Faq {
 	}
 	
 	/**
-     * SQL-Statement zum auslesen der Usertypes aus der Datenbank erstellen
+     * SQL-Statement zum Auslesen der Usertypes aus der Datenbank erstellen
      * @return Array mit allen Usergruppen aus Datenbank
      */
 	public function createReadStatementUsertypes(){
@@ -443,7 +443,7 @@ class Faq {
 	}
 	
 	/**
-     * SQL-Statement zum auslesen der Sprache aus der Datenbank erstellen
+     * SQL-Statement zum Auslesen der Sprache aus der Datenbank erstellen
      * @return Array mit allen Sprachen aus Datenbank
      */
 	public function createReadStatementLang(){
@@ -487,7 +487,7 @@ class Faq {
             
             //$db = new mysqli('localhost', 'root', '', 'fhdapp');
 			
-            // Abfrage ausfUehren
+            // Abfrage ausführen
             $result = $db->query($read);
 			
 			//UeberprUefen ob die Abfrage ein Ergebnis hat
