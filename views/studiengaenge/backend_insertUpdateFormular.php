@@ -137,7 +137,7 @@
 		<!-- Checkbox für Kategorien -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<label>Kategorien: </label>
+				<label <?php if(isset($error["categories"])) echo"class=\"error\""; ?>>Kategorien: </label>
 			</div>
 			<div class="singleFieldValue">
 				<?php

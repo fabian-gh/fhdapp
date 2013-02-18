@@ -8,7 +8,7 @@
 		}
 		else{	//sonst (Wenn ein neuer Studiengange eingefügt werden soll)
 			echo "<script type=\"text/javascript\">$('#insertUpdateStudycourse').attr('class', 'active');</script>";	//Link markieren
-			echo "<h3>Folgender Studiengang wurde einf&uuml;gt</h3>";	
+			echo "<h3>Folgender Studiengang wurde eingef&uuml;gt</h3>";	
 		}
 	?>
 	

@@ -57,6 +57,13 @@
 					$retVal["link"] = true;
 				if(!isset($post["vollTeil"]))
 					$retVal["vollTeil"] = true;
+				$categories = $this->selectCategories();	//alle kategorien selektieren
+				$retVal["categories"] = true;
+				foreach($categories AS $c){	//für jeden tupel 
+					if(isset($post[$c["name"]]))
+						unset($retVal["categories"]);
+				}
+				unset($categories);
 				return $retVal;
 		}
 		

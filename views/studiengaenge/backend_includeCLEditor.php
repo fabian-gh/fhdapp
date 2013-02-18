@@ -13,10 +13,7 @@
 			width:        350, // width not including margins, borders or padding
 			height:       250, // height not including margins, borders or padding
 			controls:     // controls to add to the toolbar
-						"undo redo | bold italic underline | bullets numbering | " +
-						"outdent indent | " +
-						"alignleft center alignright justify | " +
-						"source",
+						"undo redo | bold italic",
 			colors:       // colors in the color popup
 						"FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
 						"CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
