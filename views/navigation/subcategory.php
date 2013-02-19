@@ -17,7 +17,7 @@
 
 	else if($_GET['eis'] == 'e')
 	{
-		echo "<h1>{$_GET['course']}</h1>";
+		echo "<h1 align='center'>{$_GET['course']}</h1>";
 		echo $temp ."Info' data-role='button' style='text-align: center;'>Info</a>"
 			.$temp ."FAQ' data-role='button' style='text-align: center;'>FAQ</a>"
 			.$temp ."Kontakte' data-role='button' style='text-align: center;'>Kontakte</a>"
@@ -28,7 +28,7 @@
 
 	else if($_GET['eis'] == 's')
 	{
-		echo "<h1>{$_GET['course']}</h1>";
+		echo "<h1 align='center'>{$_GET['course']}</h1>";
 		echo $temp ."Info' data-role='button' style='text-align: center;'>Info</a>"
 			.$temp ."FAQ' data-role='button' style='text-align: center;'>FAQ</a>"
 			.$temp ."Kontakte' data-role='button' style='text-align: center;'>Kontakte</a>"
