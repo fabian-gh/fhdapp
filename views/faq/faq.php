@@ -18,9 +18,9 @@
 		$antwort = $resultSet[$i]['answer'];
 		
 		if($i == 0)
-			echo "<div data-role='collapsible' data-theme='a' data-collapsed='false'><h1>$frage</h1><tr><td>$antwort</td></tr></div>"; //Erste FAQ aufklappen
+			echo "<div data-role='collapsible' data-iconpos='right' data-theme='a' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-collapsed='false'><h1>$frage</h1><tr><td>$antwort</td></tr></div>"; //Erste FAQ aufklappen
 		else
-			echo "<div data-role='collapsible' data-theme='a'><h1>$frage</h1><tr><td>$antwort</td></tr></div>"; //Rest zugeklappt lassen
+			echo "<div data-role='collapsible' data-iconpos='right' data-theme='a' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d'><h1>$frage</h1><tr><td>$antwort</td></tr></div>";; //Rest zugeklappt lassen
 	}
 	echo "</div>";
 ?>
