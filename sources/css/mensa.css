@@ -17,6 +17,11 @@
 	padding: 3px 10px;
 }
 
+#content span#date_error{
+	font-weight: bold;
+	color: #ff0000;
+}
+
 
 /* Frontend-Styles */
 #content table.meals,
@@ -43,6 +48,14 @@
 	padding: 1% 3%;
 }
 
-#content table.openHours #canteen{
+#content table.openHours{
+	width: 100%;
+}
+
+#content table.openHours .canteen{
 	vertical-align: top;
+}
+
+#content table.meals .heading{
+	font-weight: bold;
 }
