@@ -1,5 +1,8 @@
 <?php
-
+	
+	//unterpunkte abhängig der zielgruppe anzeigen
+	
+	//anfang des links, da immer gleich
 	$temp = "<a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}&page=";
 	
 	if($_GET['eis'] == 'i')

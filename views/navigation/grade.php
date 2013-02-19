@@ -3,11 +3,13 @@
 	require_once 'controllers/abschlussController.php';
 	$gradeController = new GradeController();
 
+	//abschlussarten auslesen
 	$grades = $gradeController->getGrades($_GET['course']);
 
 	$bachelor = false;
 	$master = false;
 
+	//überprüfen, ob bachelor und / oder master vorhanden
 	foreach($grades as $grade)
 	{
 		if(strpos($grade['name'], 'Bachelor') !== false)
