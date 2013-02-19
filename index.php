@@ -118,6 +118,8 @@
                             {
                                 case 'Studiengänge': require_once 'views/navigation/courses.php'; break;
                                 case 'Quiz': require_once 'views/navigation/quiz.php'; break;
+                                //etwas am konzept vorbei..
+                                case 'Webapp': require_once 'views/navigation/webapp.php'; break;
                             }
                         }
                     }
