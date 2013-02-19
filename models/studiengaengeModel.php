@@ -61,9 +61,10 @@
 		}
 		
 		//Liefert alle Studiengänge alphabetisch geordnet nach dem Studiengangsnamen zurück
-		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung und ob es Teil-oder Vollzeit ist
+		//mit den Attributen: StudiengangsId, StudiengangsName, AbschlussartAbkürzung
 		public function selectStudicourses(){
-			$result = $this->connection->query("SELECT s.id AS id, s.name AS study_name, g.name AS graduate_name, c.category AS category_name, l.name AS language_name
+
+			$result = $this->connection->query("SELECT DISTINCT s.id AS id, s.name AS study_name, g.name AS graduate_name, l.name AS language_name
 												FROM `studycourses` s
 												JOIN `graduates` g 
 												ON s.graduate_id = g.id
@@ -71,10 +72,7 @@
 												ON s.language_id = l.id
 												JOIN `studycourses_mm_categories` sm
 												ON s.id = sm.studycourse_id
-												JOIN `categories` c
-												ON c.id = sm.category_id
-												WHERE c.id = 4 OR c.id = 3
-												ORDER BY s.name ASC, g.name ASC, c.category DESC, l.id ASC;");
+												ORDER BY s.name ASC, g.name ASC, l.id ASC;");
 			$retVal = array();
 			while($row= $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind
 				$retVal[] = $row;	//dem array $retVal die Zeile $row hinzufügen
@@ -98,22 +96,33 @@
 		}
 		
 
-		//Liefert Daten der Tabelle "graduates", "languages" oder "departments" zurück
+		//Liefert Daten der Tabelle "graduates" zurück
 		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
-		public function selectDropDownData($type){
+		public function selectDropDownDataGraduates(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, CONCAT(abbreviation,' - ',name) AS name FROM graduates ORDER BY 'id' ASC;");
+		}
+		
+		//Liefert Daten der Tabelle "languages" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectDropDownDataLanguages(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, name FROM languages ORDER BY 'id' ASC;");
+		}
+
+		//Liefert Daten der Tabelle "departments" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectDropDownDataDepartments(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, CONCAT(id,' - ',name) AS name FROM departments ORDER BY 'id' ASC;");
+		}
+		
+		//Liefert nur die Kategorien aus der Tabelle "categories" zurück
+		//Rückgabe ist ein zweidimensionales assoziatoves Array mit [["id"],["name"]]
+		public function selectCategories(){
+			return $this->executeQueryAndFetchAssoc("SELECT id, category AS name FROM categories WHERE id>5 ORDER BY 'id' ASC;");
+		}
+		
+		//Führt das Query aus und speichert die Zeilen in ein assoziatives Array (Fetch a result row as an associative array)
+		private function executeQueryAndFetchAssoc($query){
 			try{
-				switch($type){
-					case "graduates":	//Liefert Fachbereiche zurück (departments)
-						$query = "SELECT id, CONCAT(abbreviation,' - ',name) AS name FROM graduates ORDER BY 'id' ASC;";
-						break;
-					case "languages":	//Liefert Sprachen zurück (languages)
-						$query = "SELECT id, name FROM languages ORDER BY 'id' ASC;";
-						break;
-					case "departments":	//Liefert Fachbereiche zurück (departments)
-						$query = "SELECT id, CONCAT(id,' - ',name) AS name FROM departments ORDER BY 'id' ASC;";
-						break;	
-				}
-				
 				//Selectieren der Werte und einspeichern in $result
 				$result = $this->connection->query($query);
 				while($row = $result->fetch_assoc()){	//eine Zeile in $row speichern und solange $row existiert, das heißt, solange zeilen da sind

@@ -1,7 +1,15 @@
 <?php
 
+	/**
+	 * Logik für Termine
+	**/
 	class AppointmentController
 	{
+		private $appointmentModel;
+
+		/**
+		 * Erstellt den Controller und bindet das Model für Termine ein
+		**/
 		public function __construct()
 		{
 			//appointmentModel instanziieren
@@ -12,14 +20,20 @@
 
 		//semester
 
-		//array aller semester mit ihren terminen eines bestimmten fachbereichs ausgeben
+		/**
+		 * @param int $dept ID des Fachbereichs
+		 *
+		 * @return array Gibt ein Array mit allen Semesterblöcken (Instanzen der Klasse Semester) inklusive ihrer Termine eines bestimmten Fachbereiches zurück.
+		**/
 		public function semestersWithAppointments($dept)
 		{
+			//semesterblöcke aus db laden
 			$allSemesters = $this->appointmentModel->getSemesters($dept);
 
 			//den semesterblöcken jeweils die termine hinzufügen
 			for($i = 0; $i < count($allSemesters); $i++)
 			{
+				//termine des semesters aus db laden
 				$ownAppointments = $this->appointmentModel->getAppointments($allSemesters[$i]->id);
 				for($j = 0; $j < count($ownAppointments); $j++)
 				{
@@ -29,7 +43,13 @@
 			return $allSemesters;
 		}
 
-		//array aller semester mit ihren terminen eines bestimmten fachbereichs und einer bestimmten nutzergruppe ausgeben
+		/**
+		 * @param int $dept ID des Fachbereichs
+		 * @param char $eis Buchstabe der Zielgruppe (i = Interessent, e = Erstsemester, s = Student)
+		 *
+		 * @return array Gibt ein Array mit allen Semesterblöcken inklusive ihrer Termine eines bestimmten Fachbereiches und einer bestimmten Zielgruppe zurück.
+		 * Leere Blöcke, bzw. Blöcke, in denen keine treffenden Termine vorhanden sind, werden nicht zurückgegeben.
+		**/
 		public function semestersWithAppointmentsForUsertype($dept, $eis)
 		{
 			$allSemesters = $this->appointmentModel->getSemestersForUsertype($dept, $eis);
@@ -46,7 +66,11 @@
 			return $allSemesters;
 		}
 
-		//semester abspeichern
+		/**
+		 * Speichert Änderungen eines Semesters oder fügt ein neues Semester ein
+		 *
+		 * @param array $params Array mit den entsprechenden neuen Werten (falls keine ID ($params['id']) vorhanden, dann wird ein neuer Eintrag erstellt)
+		**/
 		public function saveSemester($params)
 		{
 			if($params['type'] == 'summer')
@@ -66,7 +90,11 @@
 			}
 		}
 
-		//semester entfernen
+		/**
+		 * Löscht ein Semester und alle zugehörigen Termine (zu Ändern in der Datenbank))
+		 *
+		 * @param array $params Array mit den Attributen des Semesters (nur die ID wird benötigt, ganzes Array, damit Code einheitlicher)
+		**/
 		public function removeSemester($params)
 		{
 			$this->appointmentModel->removeSemester($params['id']);
@@ -75,7 +103,11 @@
 
 		//termine
 
-		//termin abspeichern
+		/**
+		 * Speichert Änderungen eines Termines oder fügt einen neuen ein
+		 *
+		 * @param array $params Array mit den entsprechenden neuen Werten (falls keine ID ($params['appointment']) vorhanden, dann wird ein neuer Eintrag erstellt)
+		**/
 		public function saveAppointment($params)
 		{
 			$date_from = $this->dateToSql($params['date_from']);
@@ -96,46 +128,89 @@
 			}	
 		}
 
-		//termin entfernen
+		/**
+		 * Löscht einen Termin
+		 *
+		 * @param array $params Array mit den Attributen des Termines (nur die ID wird benötigt, ganzes Array, damit Code einheitlicher)
+		**/
 		public function removeAppointment($params)
 		{
 			$this->appointmentModel->removeAppointment($params['appointment']);
 		}
 
 
-		//zusatz
+		//zusätzliche Funktionen
 
-		//tt.mm.jjjj in jjjj-mm-tt umwandeln
+		/**
+		 * Wandelt Datumsformat um
+		 * @param date $date tt.mm.jjjj
+		 *
+		 * @return date jjjj-mm-tt (Format für MySQL)
+		**/
 		public function dateToSql($date)
 		{
 			$parts = explode('.', $date);
 			return "$parts[2]-$parts[1]-$parts[0]";
 		}
 
-		//jjjj-mm-tt in tt.mm.jjjj umwandeln
+		/**
+		 * Wandelt Datumsformat um
+		 * @param date $date jjjj-mm-tt (Format für MySQL)
+		 *
+		 * @return date tt.mm.jjjj
+		**/
 		public function sqlToDate($date)
 		{
 			$parts = explode('-', $date);
 			return "$parts[2].$parts[1].$parts[0]";
 		}
 
-		//fachbereich eines studienganges herausfinden
+		/**
+		 * @return array Gibt ein Array mit allen Fachbereichen (ID, Name) zurück
+		**/
+		public function getDepartments()
+		{
+			return $this->appointmentModel->getDepartments();
+		}
+
+		/**
+		 * @param string $name Name des Studienganges, wessen Fachbereich bestimmt werden soll
+		 *
+		 * @return array Gibt ID des Fachbereiches des bestimmten Studienganges zurück
+		**/
 		public function getDepartmentFromStudycourse($name)
 		{
-			return $this->appointmentModel->getDepartmentFromStudycourse($name)['department_id'];
+			$temp = $this->appointmentModel->getDepartmentFromStudycourse($name);
+			return $temp['department_id'];
 		}
 	}
 
+	/**
+	 * Datenstruktur für einen Semesterblock
+	**/
 	class Semester
 	{
+		public $id;
+		public $name;
 		public $appointments;
 		
+		/**
+		 * Erstellt ein Objekt der Klasse Semester
+		 *
+		 * @param int $id ID des Semesters
+		 * @param string $name Bezeichnung des Semesters
+		**/
 		public function __construct($id, $name)
 		{
 			$this->id = $id;
 			$this->name = $name;
 		}
 
+		/**
+		 * Fügt der Instanz einen Termin hinzu
+		 *
+		 * @param int $appointment ID des Termins
+		**/
 		public function addAppointment($appointment)
 		{
 			$this->appointments[] = $appointment;

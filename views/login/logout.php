@@ -1,6 +1,4 @@
-<?php
-
-session_start();
+<?php session_start();
 
 unset($_SESSION['user_id']);
 
@@ -10,3 +8,5 @@ header('Location: ../../index.php');
 
 /* End of file login.php */
 /* Location: ./views/login.php */
+
+?>

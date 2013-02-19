@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 
     //header einbinden
     require_once '../../layout/backend/header.php';
@@ -41,17 +41,15 @@
 
 <h2>Termine</h2>
 
-<select id="dropdownDepartment" onchange="window.location = '../../views/termine/backend_termine.php?dept=' + this.value;">
-    <option value="1">Architektur</option>
-    <option value="2">Design</option>
-    <option value="3">Elektrotechnik</option>
-    <option value="4">Maschinenbau</option>
-    <option value="5">Medien</option>
-    <option value="6">Sozial- und Kulturwissenschaften</option>
-    <option value="7">Wirtschaft</option>
-</select>
-
 <?php
+
+    //alle fachbereiche auslesen und in dropdownmenü legen
+    $departments = $appointmentController->getDepartments();
+    echo "<select id='dropdownDepartment' onchange=\"window.location = '../../views/termine/backend_termine.php?dept=' + this.value;\">";
+        if($departments != null)
+            foreach($departments as $dept)
+                echo "<option value=\"{$dept['id']}\">{$dept['name']}</option>";
+    echo "</select>";
 
     //falls department gesetzt, in dropdown auswählen
     if(isset($_GET['dept']))
@@ -60,7 +58,7 @@
         $('#dropdownDepartment').val({$_GET['dept']});
         </script>";
     }
-    //ansonsten weiterleiten
+    //ansonsten zum ersten fachbereich weiterleiten
     else
     {
         header("Location: ../../views/termine/backend_termine.php?dept=1");
@@ -73,11 +71,15 @@
     for($i = 0; $i < count($semestersWithAppointments); $i++)
     {
         $id = $semestersWithAppointments[$i]->id;
+        //bsp. WS2012
         $name = $semestersWithAppointments[$i]->name;
+        //startjahr aus string lesen
         $from = substr($name, 2, 4);
+        //erster buchstabe bestimmt ob winter oder sommersemester
         $summer = (substr($name, 0, 1) == 'S') ? "checked='checked'" : "";
         $winter = (substr($name, 0, 1) == 'W') ? "checked='checked'" : "";
 
+        //tabelle mit semestern ausgeben
         echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'>
             <tr><th>ID</th><th>Startjahr</th><th colspan='5'>Sommer-/Wintersemester</th><th>Optionen</th></tr>
             
@@ -86,7 +88,7 @@
             <tr><td>$id</td><td><input type='text' name='from' value='$from' onclick='this.focus()' onblur=\"checkYear(this);\"/></td><td colspan='5'><input type='radio' name='type' value='summer' $summer/> Sommer <input type='radio' name='type' value='winter' $winter/> Winter</td><td><input name='saveSemester' type='submit' value='Speichern' onclick=\"return confirm('Die Änderungen des Semesters mit der ID $id werden gespeichert.')\" /><input name='removeSemester' type='submit' value='Entfernen' onclick=\"return confirm('Das Semester mit der ID $id und alle zugehörigen Termine werden entfernt.')\"/></td></tr>
             </form>";
         
-            //termine in block einfügen
+            //termine ausgeben
             echo "<tr><th>ID</th><th>Name</th><th>Startdatum</th><th>Enddatum</th><th>I</th><th>E</th><th>S</th><th>Optionen</th></tr>";
             $temp = $semestersWithAppointments[$i]->appointments;
             if($temp != null)
@@ -125,5 +127,6 @@
 
     //footer einbinden
     require_once '../../layout/backend/footer.php';
+    ob_flush();
 
 ?>

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__.'../../models/studiengaenge.php';
-require_once __DIR__.'../../views/navigation/courses.php';
+require_once 'models/studiengaenge.php';
+require_once 'views/navigation/courses.php';
 
 /**
  * FHD-App
@@ -12,7 +12,7 @@ require_once __DIR__.'../../views/navigation/courses.php';
  */
 
 
-class coursesController
+class controller
 {
     function _construct()
     {
@@ -25,7 +25,7 @@ class coursesController
         
         $model = new db_connector();
         $arr = array();
-            for($x=0;$x<8;$x++)
+            for($x=0;$x<11;$x++)
             {
                 if(isset($_GET[$x]))
                 {

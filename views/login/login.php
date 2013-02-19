@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start();ob_start();?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -36,9 +36,15 @@ if(isset($_SESSION['loginfailure'])){
         <table>
             <tr><td>Benutzername:</td><td><input type="text" name="username" /></td></tr>
             <tr><td>Passwort:</td><td><input type="password" name="password"/></td></tr>
-            <tr><td><input type="submit" name="login" value="Login"/></td></tr>
+            <tr><td><input type="submit" name="login" id="login" value="Login"/></td></tr>
         </table>
     </form>
+
+    <style type="text/css">
+        #login{ 
+            padding: 2% 4%; 
+        }
+    </style>
 
 <?php
 
@@ -49,5 +55,10 @@ if(isset($_POST['login'])){
 
 require_once '../../layout/backend/footer.php';
 
+ob_flush();
+
+
 /* End of file login.php */
 /* Location: ./views/login.php */
+
+?>
