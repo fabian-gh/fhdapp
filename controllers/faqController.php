@@ -1,5 +1,4 @@
 ﻿<?php
-
 /**
  * FHD-App
  *
@@ -9,7 +8,6 @@
  * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
  * @author Anh Minh Nguyen (AMN), <anh.nguyen@fh-duesseldorf.de>
  */
-
 class FaqController{
     
 	/**
@@ -149,6 +147,5 @@ class FaqController{
 	return $temp;
 	}
 }
- 
 /* End of file faqController.php */
 /* Location: ./controllers/faqController.php */
