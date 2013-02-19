@@ -85,6 +85,7 @@
 	//Fachbereiche durchlaufen und DropDownListe füllen
 	if($FACHBEREICHE != null)
 	{
+		//Variablen mit leeren Inhalt füllen
 		$INPUT_FACHBEREICH = '';
 		$FB_AKTUELLER_NAME = '';
 		//Durch alle Fachbereiche durchlaufen
@@ -106,6 +107,7 @@
 		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
 	
+	//Eigener CSS-Code
 	echo'
 	<style type="text/css">
 	<!-- 

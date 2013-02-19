@@ -10,8 +10,7 @@
  
 class Formular{
 
-	
-
+	//Variablen
 	private $NAME 			= null;
 	private $ID				= null;
 	private $TAG 			= null;
@@ -32,20 +31,25 @@ class Formular{
 	public function __construct($Controller){
         // Konstruktor
 		$this->Controller = $Controller;
+		//Fachbereiche und Benutzer aus der DB laden
 		$this->FACHBEREICHE = $this->Controller->getDepartments();
 		$this->USERTYPES = $this->Controller->getUsertypes();
 		
+		//Checkboxen für Fachbereiche und Benutzer erstellen, abhängig vom Inhalt in der DB
 		$this->createDepartmentsInput();
 		$this->createUsertypesInput();
     }
 	
-	//Methode die Fachbereiche läd und dazu die INPUTS für die Formulare erstellt
+	/**
+	* Methode die Fachbereiche läd und dazu die INPUTS (Felder) für die Formulare erstellt
+	**/
 	private function createDepartmentsInput()
 	{		
 		if($this->FACHBEREICHE != null)
 		{	
 			$INPUT_FORM = '';
 			$INPUT_RESULT = '';
+			//Durchlaufen aller Fachbereiche
 			for($i=0; $i<count($this->FACHBEREICHE); $i++) 
 			{
 				$INPUT_FORM .=
@@ -63,6 +67,7 @@ class Formular{
 			}
 			
 			//Option für Markieren und Unmarkieren der Fachbereiche hinzufügen (Buttons)
+			//Falls keine Fachbereiche geladen werden konnten, auch keine Buttons anzeigen
 			if($INPUT_FORM != '')
 				$INPUT_FORM .= '<br/><br/>
 								<a class="button" id="select_fachbereich_all_###ID###">Alle markieren</a>
@@ -79,13 +84,16 @@ class Formular{
 		}
 	}
 	
-	//Methode die Usertypes läd und dazu die INPUTS für die Formulare erstellt
+	/**
+	* Methode die Usertypes läd und dazu die INPUTS für die Formulare erstellt
+	**/
 	private function createUsertypesInput()
 	{
 		if($this->USERTYPES != null)
 		{	
 			$INPUT_FORM = '';
 			$INPUT_RESULT = '';
+			//Durchlaufen aller Usertypes (Benutzertypen)
 			for($i=0; $i<count($this->USERTYPES); $i++) 
 			{
 				$INPUT_FORM .=
@@ -102,6 +110,7 @@ class Formular{
 					';
 			}
 			//Option für Markieren und Unmarkieren der Usertypes hinzufügen (Buttons)
+			//Falls keine Benutzer geladen werden konnten, auch keine Buttons anzeigen
 			if($INPUT_FORM != '')
 				$INPUT_FORM .= '<br/><br/>
 								<a class="button" id="select_usertype_all_###ID###">Alle markieren</a>
@@ -117,8 +126,10 @@ class Formular{
 		}
 	}
 	
-	//Methode die ein leeres Formular erstellt
-	//Formaler-Parameter: FB_GET -> Aktuelleer Fachbereich, wird dafür benötigt um Links mit Get-Parameter zu bestücken
+	/**
+	* Methode die ein leeres Formular erstellt
+	* @param FB_GET Aktuelleer Fachbereich, wird dafür benötigt um Links mit Get-Parameter zu bestücken
+	**/
 	public function getEmptyForm($FB_GET)
 	{
 		//Alle Variablen auf null setzen bis auf die ID
@@ -138,8 +149,10 @@ class Formular{
 		return $RESULT;
 	}
 	
-	//Methode um ein Event-Feld zu erstellen, beinhaltet ein Formular und eine Ansicht der Veranstaltung
-	//Formaler-Parameter: FB_GET -> Aktuelleer Fachbereich, wird dafür benötigt um Links mit Get-Parameter zu bestücken
+	/**
+	* Methode um ein Event-Feld zu erstellen, beinhaltet ein Formular und eine Ansicht der Veranstaltung
+	* @param FB_GET Aktuelleer Fachbereich, wird dafür benötigt um Links mit Get-Parameter zu bestücken
+	**/
 	public function getEventContainer($FB_GET)
 	{
 		$this->EVENTFORM 	=  str_replace ('###FB_GET###'			,$FB_GET			,$this->EVENTFORM );
@@ -164,19 +177,25 @@ class Formular{
 		return $RESULT;
 	}
 	
-	//Methode die ein Formular mit komplettem HTML-Code zurückgibt
+	/**
+	* Methode die ein Formular mit komplettem HTML-Code zurückgibt
+	**/
 	private function getEventForm()
 	{
 		return $this->EVENTFORM;	
 	}
 	
-	//Methode die ein Ergebnis-Ansicht mit komplettem HTML-Code zurückgibt
+	/**
+	* Methode die ein Ergebnis-Ansicht mit komplettem HTML-Code zurückgibt
+	**/
 	private function getEventResult()
 	{
 		return $this->EVENTRESULT;
 	}
 	
-	//Methode die den kompletten Jquery für ein Formular erstellt
+	/**
+	* Methode die den kompletten Jquery für ein Formular erstellt
+	**/
 	public function getJquery()
 	{
 		$JQUERY = 
@@ -203,7 +222,9 @@ class Formular{
 		return $JQUERY;
 	}
 	
-	//Methode die den kompletten Jquery für ein leeres Formular erstellt
+	/**
+	* Methode die den kompletten Jquery für ein leeres Formular erstellt
+	**/
 	public function getJqueryEmptyForm()
 	{
 		$JQUERY = 
@@ -216,7 +237,9 @@ class Formular{
 		return $JQUERY;
 	}
 	
-	//Methode die JQuery erstellt für alle Objekte Ergebnis-Ansicht oder Formular-Ansicht
+	/** 
+	* Methode die JQuery erstellt für alle Objekte Ergebnis-Ansicht oder Formular-Ansicht
+	**/
 	private function getJqueryforAll()
 	{	
 	
@@ -252,7 +275,9 @@ class Formular{
 		return $JQUERY;
 	}
 	
-	//Methode um alle Felder eines Formulars zu setzen
+	/** 
+	* Methode um alle Felder eines Formulars zu setzen
+	**/
 	public function setALL($NAME, $ID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $FB, $USER)
 	{
 		$this->NAME			= $NAME;
@@ -269,7 +294,9 @@ class Formular{
 		$this->replaceALL();
 	}	
 
-	//Methode um alles im HTML-Code gegen die richtigen Daten zu ersetzen
+	/**
+	* Methode um alles im HTML-Code gegen die richtigen Daten zu ersetzen
+	**/
 	private function replaceALL()
 	{	
 		$this->EVENTFORM =  str_replace ('###NAME###'				,$this->NAME  			,$this->EVENTFORM );
@@ -294,6 +321,7 @@ class Formular{
 		for($i=0; $i<count($this->FACHBEREICHE); $i++)
 		{
 			$checked = false;
+			//Schleife um alle Fachbereiche zu durchlaufen und zu überprüfen ob Fachbereiche selektiert ist
 			for($k=0; $k<count($this->FB); $k++)
 			{
 				if($this->FACHBEREICHE[$i]['id'] == $this->FB[$k]['department_id'])
@@ -303,6 +331,7 @@ class Formular{
 					$this->EVENTFORM =  	str_replace ('###FB'.$this->FACHBEREICHE[$i]['id'].'###'				,'checked'			,$this->EVENTFORM );
 				}
 			}
+			//Falls Fachbereiche nciht selektiert, dann Checkbox unchecked ausgeben
 			if($checked == false)
 			{
 				$this->EVENTRESULT =  	str_replace ('###FB'.$this->FACHBEREICHE[$i]['id'].'###'				,''  		,$this->EVENTRESULT );
@@ -315,6 +344,7 @@ class Formular{
 		for($i=0; $i<count($this->USERTYPES); $i++)
 		{
 			$checked = false;
+			//Schleife um alle Benutzer zu durchlaufen und zu überprüfen ob Benutzer selektiert ist
 			for($k=0; $k<count($this->USER); $k++)
 			{
 				if($this->USERTYPES[$i]['id'] == $this->USER[$k]['usertype_id'])
@@ -324,6 +354,7 @@ class Formular{
 					$this->EVENTFORM =  	str_replace ('###USER'.$this->USERTYPES[$i]['id'].'###'				,'checked'			,$this->EVENTFORM );
 				}
 			}
+			//Falls Benuzter nciht selektiert, dann Checkbox unchecked ausgeben
 			if($checked == false)
 			{
 				$this->EVENTRESULT =  	str_replace ('###USER'.$this->USERTYPES[$i]['id'].'###'				,''  		,$this->EVENTRESULT );
@@ -333,6 +364,9 @@ class Formular{
 		}
 	}
 	
+	/**
+	* $EVENTFORM Variable mit kompletten HTML-Inhalt um eine Veranstaltung in einem Formular darzustellen
+	**/
 	private $EVENTFORM =
 	'<div class="veranstaltung" id="form_veranstaltung_###ID###" style="display:none;">
 		<form action="?FB=###FB_GET###"	class="veranstaltung_form" id="veranstaltung_form_###ID###" method="post">
@@ -430,6 +464,9 @@ class Formular{
 	</div>
 	';
 	
+	/**
+	* $EVENTRESULT Variable mit kompletten HTML-Inhalt um eine Veranstaltung darzustellen
+	**/
 	private $EVENTRESULT =
 	'<div class="veranstaltung" id="show_veranstaltung_###ID###" style="display:none;">
 		<table class="table_veranstaltung_backend" id="table_veranstaltung_show_###ID###" border="0" width="100%">
