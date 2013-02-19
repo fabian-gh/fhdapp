@@ -5,7 +5,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2013
  * @link http://www.fh-duesseldorf.de
- * @author Sascha Möller, Jan Brinkmann ,<sascha.moeller@fh-duesseldorf.de> <jan.brinkmann@fh-duesseldorf.de>
+ * @author Jan Brinkmann & Sascha Möller>
  */
 
  
@@ -22,7 +22,7 @@
     /**
      * Konstruktor des VeranstaltungsController
      * @param Object $Data
-     */
+     **/
     public function __construct(){
         // Veranstaltung-Modell einbinden
         
@@ -61,60 +61,76 @@
 		return $temp[0]['department_id'];
 	}
 
-	//Backend
-	//Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype auszulesen
-	//@param String $department Fachbereichs-ID
-	//@return SQL-Ergebnis-Relation
+	/**
+	* Backend
+	* Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype auszulesen
+	* @param String $department Fachbereichs-ID
+	* @return SQL-Ergebnis-Relation
+	**/
 	public function getInformationEventsWithDepartmentsWihoutUsertype($department)
 	{
 		return  $this->Model->createStatementEventsWithDepartmentsWihoutUsertype($department);
 	}
 
-	//Backend
-	//Methode die alle Fachbereiche zu einem Event auszulesen
-	//@param String $event_id Veranstaltungs-ID
-	//@return SQL-Ergebnis-Relation
+	/**
+	* Backend
+	* Methode die alle Fachbereiche zu einem Event auszuließt
+	* @param String $event_id Veranstaltungs-ID
+	* @return SQL-Ergebnis-Relation
+	**/
 	public function getInformationDepartmentsFromEvents($event_id)
 	{
 		return $this->Model->createStatementDepartmentsFromEvents($event_id);
 	}
 
-	//Backend
-	//Methode die alle Benutzer zu einem Event auszulesen
-	//@param String $event_id Veranstaltungs-ID
-	//@return SQL-Ergebnis-Relation
+	/**
+	* Backend
+	* Methode die alle Benutzer zu einem Event auszuließt
+	* @param String $event_id Veranstaltungs-ID
+	* @return SQL-Ergebnis-Relation
+	**/
 	public function getInformationUsertypesFromEvents($event_id)
 	{
 		return $this->Model->createStatementUsertypesFromEvents($event_id);
 	}
 
-	//Backend
-	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
-	//@return boolean True hat funktioniert, false hat nicht funktioniert
+	/**
+	* Backend
+	* Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
+	* @return boolean True hat funktioniert, false hat nicht funktioniert
+	**/
 	public function addEvent()
 	{
 		return $this->Model->addEvent('');
 	}
 
-	//Backend
-	//Methode die eine neue Veranstaltung mit ID mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
-	//@return boolean True hat funktioniert, false hat nicht funktioniert
+	/**
+	* Backend
+	* Methode die eine neue Veranstaltung mit ID mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
+	* @param $event_id Veranstaltungs-ID
+	* @return boolean True hat funktioniert, false hat nicht funktioniert
+	**/
 	public function addEventID($event_id)
 	{
 		return $this->Model->addEvent($event_id);
 	}
 
-	//Backend
-	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
-	//@return boolean True hat funktioniert, false hat nicht funktioniert
+	/**
+	* Backend
+	* Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
+	* @param $event_id Veranstaltungs-ID
+	* @return boolean True hat funktioniert, false hat nicht funktioniert
+	**/
 	public function deleteEvent($event_id)
 	{		
 		return $this->Model->deleteEvent($event_id);
 	}
 
-	//Backend
-	//Methode die alle Veranstaltungen löscht, die älter vorm heutigen Datum liegen
-	//@return boolean True hat funktioniert, false hat nicht funktioniert
+	/**
+	* Backend
+	* Methode die alle Veranstaltungen löscht, die älter vorm heutigen Datum liegen
+	* @return boolean True hat funktioniert, false hat nicht funktioniert
+	**/
 	public function deleteOldEvent()
 	{
 		$ERGEBNIS = $this->Model->getOldEvents();
@@ -131,33 +147,41 @@
 		return true;
 	}
 
-	//Backend
-	//Methode die alle Benutzer ausliest
-	//@return SQL-Ergebnis-Relation
+	/**
+	* Backend
+	* Methode die alle Fachbereiche ausliest
+	* @return SQL-Ergebnis-Relation
+	**/
 	private function getInformationDepartments()
 	{
 		$this->DEPARTMENTS = $this->Model->createStatementDepartments();	
 	}
 
-	//Backend
-	//Methode die alle Benutzer ausliest
-	//@return SQL-Ergebnis-Relation
+	/**
+	* Backend
+	* Methode die alle Benutzer ausliest
+	* @return SQL-Ergebnis-Relation
+	**/
 	private function getInformationUsertypes()
 	{
 		$this->USERTYPES = $this->Model->createStatementUsertypes();
 	}
 
-	//Backend
-	//Methode die alle Fachbereiche
-	//@return Array
+	/**
+	* Backend
+	* Methode die alle Fachbereiche zurückgibt
+	* @return Array
+	**/
 	public function getDepartments()
 	{
 		return $this->DEPARTMENTS;	
 	}
 
-	//Backend
-	//Methode die alle Fachbereiche
-	//@return Array
+	/**
+	* Backend
+	* Methode die alle Fachbereiche zurückgibt
+	* @return Array
+	**/
 	public function getUsertypes()
 	{
 		return $this->USERTYPES;
