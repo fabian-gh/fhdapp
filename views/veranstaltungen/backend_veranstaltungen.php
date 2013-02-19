@@ -107,6 +107,62 @@
 		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
 	
+	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
+	$VERANSTALTUNGEN = '';
+	
+	if($ERGEBNIS != null)
+	{
+		//Veranstaltungen durchlaufen und darstellen
+		for($i=0; $i<count($ERGEBNIS); $i++) 
+		{
+			$NAME				= $ERGEBNIS[$i]['name'];
+			$EVENTID			= $ERGEBNIS[$i]['id'];
+			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
+			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
+			
+			//DATUM SPLITTEN
+			$TAG		= date_format($DATUM, 'd');
+			$MONAT		= date_format($DATUM, 'm');
+			$JAHR		= date_format($DATUM, 'Y');
+			$STUNDEN	= date_format($DATUM, 'H');
+			$MINUTEN	= date_format($DATUM, 'i');
+			
+						
+			//Alle Fachbereiche laden, die zur Veranstaltung gehören
+			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
+			//Alle Usertypes laden, die zur Veranstaltung gehören
+			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
+
+			//Neues Objekt von Formular erstellen
+			$Formular = new Formular($Controller);
+			//Alle Variablen setzen
+			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
+			
+			//Veranstaltung darstellen mit Bearbeiten-Option
+			$VERANSTALTUNGEN .= '
+			<tr>
+				<td colspan="2" width="100%">
+				<br />
+				'.$Formular->getEventContainer($FB_AKTUELLER).'
+				</td>
+			</tr>';
+			
+			//JQuery erstellen
+			$JQUERY .= $Formular->getJquery();
+		}
+	}
+	else
+	{
+		$VERANSTALTUNGEN = '
+			<tr>
+				<td colspan="2" width="100%">
+				<br />
+				<i>Kein Datensatz vorhanden!</i>
+				</td>
+			</tr>';
+	}
+		
 	//Eigener CSS-Code
 	echo'
 	<style type="text/css">
@@ -205,69 +261,11 @@
 				<h3>Fachbereich '.$FB_AKTUELLER_NAME.':</h3>
 			</td>
 		</tr>
-	';
-	
-	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
-	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
-	
-	if($ERGEBNIS != null)
-	{
-		//Veranstaltungen durchlaufen und darstellen
-		for($i=0; $i<count($ERGEBNIS); $i++) 
-		{
-			$NAME				= $ERGEBNIS[$i]['name'];
-			$EVENTID			= $ERGEBNIS[$i]['id'];
-			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
-			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
-			
-			//DATUM SPLITTEN
-			$TAG		= date_format($DATUM, 'd');
-			$MONAT		= date_format($DATUM, 'm');
-			$JAHR		= date_format($DATUM, 'Y');
-			$STUNDEN	= date_format($DATUM, 'H');
-			$MINUTEN	= date_format($DATUM, 'i');
-			
-						
-			//Alle Fachbereiche laden, die zur Veranstaltung gehören
-			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
-			//Alle Usertypes laden, die zur Veranstaltung gehören
-			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
-
-			//Neues Objekt von Formular erstellen
-			$Formular = new Formular($Controller);
-			//Alle Variablen setzen
-			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
-			
-			//Veranstaltung darstellen mit Bearbeiten-Option
-			echo '
-			<tr>
-				<td colspan="2" width="100%">
-				<br />
-				'.$Formular->getEventContainer($FB_AKTUELLER).'
-				</td>
-			</tr>';
-			
-			//JQuery erstellen
-			$JQUERY .= $Formular->getJquery();
-		}
-	}
-	else
-	{
-		echo '
-			<tr>
-				<td colspan="2" width="100%">
-				<br />
-				<i>Kein Datensatz vorhanden!</i>
-				</td>
-			</tr>';
-	}
-	
-	echo '
+		'.$VERANSTALTUNGEN.'
 		</tbody>
 		</table>
 	';
 
-	
 	//JQuery Ausgeben
 	echo '
 		<script type="text/javascript">
