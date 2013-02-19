@@ -3,7 +3,7 @@
 /**
  * FHD-App
  * @version 0.0.1
- * @copyright Fachhochschule Duesseldorf, 2012
+ * @copyright Fachhochschule Duesseldorf, 2013
  * @link http://www.fh-duesseldorf.de
  * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
