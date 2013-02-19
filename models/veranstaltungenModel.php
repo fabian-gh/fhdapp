@@ -5,7 +5,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
- * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
+ * @author Sascha Möller, Jan Brinkmann ,<sascha.moeller@fh-duesseldorf.de> <jan.brinkmann@fh-duesseldorf.de>
  */
  
 class Veranstaltungen{
