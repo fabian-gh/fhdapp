@@ -36,12 +36,25 @@
 		$this->getInformationUsertypes();
     }
 
-
+	/**
+	* Frontend
+	* Methode die alle Einträge/Informationen aus Veranstaltungen ausliest
+	* @param $usertype Benutzertyp
+	* @param $department Fachbereichs-ID
+	* @return SQL-Ergebnis-Relation
+	* 
+	**/
 	public function getInformation($usertype,$department)
 	{		
 		return $this->Model->createStatement($usertype,$department);
 	}
-
+	
+	/**
+	* Frontend
+	* Methode die die passende Fachbereich-ID für den entsprechnenden Studiengang ausliest
+	* @param $course Stuediengang in der Adresszeile
+	* @return SQL-Ergebnis-Relation
+	**/
 	public function getDepartmentFromStudycourse($course)
 	{
 		$temp = $this->Model->getStudycourseInformation($course);
