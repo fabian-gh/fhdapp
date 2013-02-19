@@ -40,7 +40,7 @@ div.ui-body-c {
 	text-decoration: none;
 }
 
-#breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s {
+#breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s, a.nav-icon-w{
 	padding-top: 2px;
 	display: inline-block;
 	text-indent: -9999em;
@@ -49,6 +49,10 @@ div.ui-body-c {
 }
 
 #breadcrumb a.nav-icon-i {
+	background: url(../img/nav-icon-i.png) no-repeat;
+}
+
+#breadcrumb a.nav-icon-w {
 	background: url(../img/nav-icon-i.png) no-repeat;
 }
 

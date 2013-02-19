@@ -59,7 +59,7 @@
                 <?php
 
                     if(isset($_GET['eis']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Zielgruppe</a>";
 
                     if(isset($_GET['selector']))
                         echo "» <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."'>{$_GET['selector']}</a>";
@@ -118,8 +118,6 @@
                             {
                                 case 'Studiengänge': require_once 'views/navigation/courses.php'; break;
                                 case 'Quiz': require_once 'views/navigation/quiz.php'; break;
-                                //etwas am konzept vorbei..
-                                case 'Webapp': require_once 'views/navigation/webapp.php'; break;
                             }
                         }
                     }
