@@ -132,6 +132,7 @@
 	}
 	-->
 	</style> 
+	<h1>Veranstaltungen</h1>
 	<br/><br/><br/>
 	<table border="0" width="100%">
 		<tr>
