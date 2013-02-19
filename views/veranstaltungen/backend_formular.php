@@ -388,7 +388,7 @@ class Formular{
 				</tr>
 				
 				<tr>
-					<td width="50%" style="text-align:left;">
+					<td width="50%" style="text-align:left;vertical-align: text-top;">
 						Beschreibung:
 					</td>
 					<td width="50%" style="text-align:left;">
@@ -444,7 +444,7 @@ class Formular{
 					<td width="50%" style="text-align:left;">
 						Datum:
 					</td>
-					<td width="50%" style="text-align:right;">
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_show_datum" id="div_veranstaltung_show_datum_###ID###">###TAG###.###MONAT###.###JAHR###</div>
 					</td>
 				</tr>
@@ -453,16 +453,16 @@ class Formular{
 					<td width="50%" style="text-align:left;">
 						Uhrzeit:
 					</td>
-					<td width="50%" style="text-align:right;">
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_show_uhrzeit" id="div_veranstaltung_show_uhrzeit_###ID###">###STUNDEN###:###MINUTEN###</div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td width="50%" style="text-align:left;">
+					<td width="50%" style="text-align:left;vertical-align: text-top;">
 						Beschreibung:
 					</td>
-					<td width="50%" style="text-align:right;">
+					<td width="50%" style="text-align:left;">
 						<div class="div_veranstaltung_show_beschreibung" id="div_veranstaltung_show_beschreibung_###ID###">###BESCHREIBUNG###</div>
 					</td>
 				</tr>
