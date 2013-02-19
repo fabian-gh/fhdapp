@@ -141,7 +141,7 @@
             // build a page
             $html="<div id='filter_options' data-role='collapsible-set' data-theme='a' data-collapsed-icon='gear' data-expanded-icon='gear' data-iconpos='right'>
             <div data-role='collapsible' data-collapsed='false'>
-            <h3>Studiengänge filtern</h3>".$this->filter()."</div></div>
+            <h3>Studiengänge filtern<div class='subtitle'>Durch die Filter kannst du bestimmte Studiengänge anzeigen oder verbergen.</div></h3>".$this->filter()."</div></div>
             <ul data-role='listview' data-inset='true'>".$cl."</ul>            
             <script src='views/studiengaenge/data/scripts/checkboxes_control.js'></script>
             <script>filter($j_arr)</script>

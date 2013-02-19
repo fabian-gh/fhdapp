@@ -85,6 +85,10 @@ table.appointment td {
 	border-bottom: 2px solid lightgray;
 }
 
+.subtitle {
+	font-weight: normal;
+}
+
 /* CSS JQuery mobile */
 
 /*
@@ -93,6 +97,15 @@ Attribute in HTML vergeben:
 <div data-role='collapsible-set' data-iconpos="right" data-collapsed-icon="arrow-r" 
 data-expanded-icon="arrow-d" data-theme="a"> 
 */
+
+.ui-btn {
+	text-align: left;
+}
+
+.ui-btn-inner {
+	white-space: normal;
+	word-wrap: normal;
+}
 
 .ui-btn-up-a,
 .ui-btn-hover-a {
@@ -124,4 +137,12 @@ data-expanded-icon="arrow-d" data-theme="a">
 
 .ui-li-aside { 
 	width: auto;
+}
+
+.ui-li-divider {
+	background-image: -moz-linear-gradient(top, #d54343, #a60909); 
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#d54343),color-stop(1,#a60909));
+	background-image: -ms-linear-gradient(top, #d54343, #a60909);
+	background-image: -o-linear-gradient(top, #d54343, #a60909);
+	background-image: linear-gradient(top, #d54343, #a60909);
 }

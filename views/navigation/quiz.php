@@ -1,5 +1,5 @@
 <?php
 
-	echo "ich werde ein quiz!!";
+	echo "Ich werde ein Quiz!!";
 
 ?>

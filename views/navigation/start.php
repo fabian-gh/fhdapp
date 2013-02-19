@@ -1,3 +1,3 @@
-<a href='index.php?eis=i' data-role='button'>Interessent</a>
-<a href='index.php?eis=e&selector=Studieng%C3%A4nge' data-role='button'>Erstsemester</a>
-<a href='index.php?eis=s&selector=Studieng%C3%A4nge' data-role='button'>Student</a>
+<a href='index.php?eis=i' data-role='button'>Interessent<div class="subtitle">Du interessierst dich für einen bestimmten Studiengang der FHD?</div></a>
+<a href='index.php?eis=e&selector=Studieng%C3%A4nge' data-role='button'>Erstsemester<div class="subtitle">Du hast dich erst kürzlich eingeschrieben?</div></a>
+<a href='index.php?eis=s&selector=Studieng%C3%A4nge' data-role='button'>Student<div class="subtitle">Du studierst schon länger an FHD?</div></a>
