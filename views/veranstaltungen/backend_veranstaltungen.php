@@ -132,8 +132,8 @@
 	}
 	-->
 	</style> 
-	<h1>Veranstaltungen</h1>
-	<br/><br/><br/>
+	<h2>Veranstaltungen</h2>
+
 	<table border="0" width="100%">
 		<tr>
 			<td width="50%" style="text-align:left; border-bottom: 1px solid #d1ccc1; border-right: 1px solid #d1ccc1;">
