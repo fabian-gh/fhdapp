@@ -12,7 +12,7 @@ require_once '../../layout/backend/header.php';
 	  }
 	// -->
 	</script>
-		<h1> FAQ Update/Delete </h1>
+		<h2> FAQ Ändern/Löschen </h2>
 		<br />
 		<?php
 		//Controller einbinden

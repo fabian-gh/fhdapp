@@ -2,7 +2,7 @@
 //header einbinden
 require_once '../../layout/backend/header.php';
 ?>
-		<h1> FAQ's eingeben </h1>
+		<h2> FAQ Eingabe </h2>
 		<br />
 		<?php
 		// Controller einbinden
