@@ -5,7 +5,7 @@
  * @version 0.0.1
  * @copyright Fachhochschule Duesseldorf, 2013
  * @link http://www.fh-duesseldorf.de
- * @author Jan Brinkmann & Sascha Möller>
+ * @author Sascha Möller, Jan Brinkmann ,<sascha.moeller@fh-duesseldorf.de> <jan.brinkmann@fh-duesseldorf.de>
  */
 
  
