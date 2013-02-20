@@ -11,12 +11,12 @@
 class Veranstaltungen{
 
 	private $connection;
-	
+
 	public function __construct(){
 		//Konstruktor
 		$this->connection = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd'], $_SESSION['db']);
 	}
-		
+
 	//Backend
 	//Methode die eine neue Veranstaltung mit allen Beziehungen zu Fachbereichen und Benutzern erstellt
 	public function addEvent($EVENT_ID)
@@ -27,7 +27,7 @@ class Veranstaltungen{
 		$DATUM 			= $_POST['veranstaltung_datum_jahr'].'-'.$_POST['veranstaltung_datum_monat'].'-'.$_POST['veranstaltung_datum_tag'];
 		$UHRZEIT 		= $_POST['veranstaltung_uhrzeit_stunden'].'-'.$_POST['veranstaltung_uhrzeit_minuten'];
 		$BESCHREIBUNG 	= $_POST['veranstaltung_beschreibung'];
-	
+
 		//Die Veranstaltung wird erstellt
 		try
 		{
@@ -47,17 +47,17 @@ class Veranstaltungen{
 		{
 			return false;
 		}
-				
+
 		//Automatisch zugewissene ID von der eingetragnen Veranstaltung zwischenspeichern
 		$EVENT_ID = $this->connection->insert_id;
-		
+
 		//Verbindung zwischen Fachbereich und Veranstaltung erstellen
 		if($this->addRelationshipEventDepartment($EVENT_ID) == false)
 		{
 			$this->deleteEvent($EVENT_ID);
 			return false;
 		}
-		
+
 		//Verbindung zwischen Fachbereich und Usertype erstellen
 		if($this->addRelationshipEventUsertype($EVENT_ID) == false)
 		{
@@ -66,7 +66,7 @@ class Veranstaltungen{
 		}
 		return true;
 	}
-	
+
 	//Backend
 	//Methode die die Beziehungen zwischen Fachbereichen und Veranstaltungen 
 	//in die Datenbank eintraegt
@@ -76,7 +76,7 @@ class Veranstaltungen{
 		//Fachbereiche bestimmen die zur Veranstaltung gehören
 		$VALUES = '';
 		$ERSTER_EINTRAG = true;
-		
+
 		//So oft durchlaufen wie es Fachbereiche gibt
 		for($i=0; $i < count($DEPARTMENTS);$i++)
 		{
@@ -101,7 +101,7 @@ class Veranstaltungen{
 				}
 			}
 		}
-		
+
 		//Beziehung zu Fachbereichen in die Datenbank eintragen
 		if($ERSTER_EINTRAG != true)
 		{
@@ -122,7 +122,7 @@ class Veranstaltungen{
 		}
 		return false;
 	}
-	
+
 	//Backend
 	//Methode die die Beziehungen zwischen UserTypes und Veranstaltungen 
 	//in die Datenbank eintraegt
@@ -132,7 +132,7 @@ class Veranstaltungen{
 		//Usertypes bestimmen die zur Veranstaltung gehören
 		$VALUES = '';
 		$ERSTER_EINTRAG = true;
-		
+
 		for($i=0; $i < count($USERTYPES);$i++)
 		{
 			if(isset($_POST['veranstaltungen_usertypes_'.$USERTYPES[$i]['id']]))
@@ -156,7 +156,7 @@ class Veranstaltungen{
 				}
 			}
 		}
-		
+
 		//Beziehung zu Usertypes in die Datenbank eintragen
 		if($ERSTER_EINTRAG != true)
 		{
@@ -177,7 +177,7 @@ class Veranstaltungen{
 		}
 		return false;
 	}
-	
+
 	//Backend
 	//Methode die eine Veranstaltung komplett aus der Datenbank mit allen Beziehungen löscht
 	public function deleteEvent($event_id)
@@ -189,13 +189,13 @@ class Veranstaltungen{
 									FROM events_mm_usertypes 
 									WHERE event_id = '.$event_id;
 			$this->connection->query($DELETE_STATEMENT);
-			
+
 			//Beziehungen zwischen Veranstaltung und Fachbereich löschen
 			$DELETE_STATEMENT = '	DELETE 
 									FROM events_mm_departments 
 									WHERE event_id = '.$event_id;
 			$this->connection->query($DELETE_STATEMENT);
-			
+
 			//Die Veranstaltung löschen
 			$DELETE_STATEMENT = '	DELETE 
 									FROM events 
@@ -208,7 +208,7 @@ class Veranstaltungen{
 		}
 		return true;
 	}
-	
+
 	//Backend
 	//Methode die alle Veranstaltungen ausliest, die älter vorm heutigen Datum liegen
 	public function getOldEvents()
@@ -224,10 +224,10 @@ class Veranstaltungen{
 				AND events.date < NOW()
 				ORDER BY events.date
 				";
-				
+
 		return $this->getInformation($STATEMENT);
 	}
-	
+
 	//Backend
 	//Methode die Veranstaltung aus der Datenbank laed,
 	//Unter Auswahl des Fachbereiches
@@ -250,7 +250,7 @@ class Veranstaltungen{
 
 		return $this->getInformation($STATEMENT);
 	}
-	
+
 	//Backend
 	//Methode die alle Fachbereiche zu einem Event auszulesen
 	public function createStatementDepartmentsFromEvents($event_id)
@@ -261,7 +261,7 @@ class Veranstaltungen{
 						ORDER BY department_id';
 		return $this->getInformation($STATEMENT); 
 	}
-	
+
 	//Backend
 	//Methode die alle Benutzer zu einem Event auszulesen
 	public function createStatementUsertypesFromEvents($event_id)
@@ -272,7 +272,7 @@ class Veranstaltungen{
 						ORDER BY usertype_id';
 		return $this->getInformation($STATEMENT);
 	}
-	
+
 	//Backend
 	//Methode die alle Fachbereiche auszuliest
 	public function createStatementDepartments()
@@ -281,10 +281,10 @@ class Veranstaltungen{
 						FROM departments
 						ORDER BY id;
 					';
-						
+
 		return $this->getInformation($STATEMENT);
 	}
-	
+
 	//Backend
 	//Methode die alle Benutzer auszuliest
 	public function createStatementUsertypes()
@@ -293,20 +293,29 @@ class Veranstaltungen{
 						FROM usertypes
 						ORDER BY id;
 					';
-						
+
 		return $this->getInformation($STATEMENT);
 	}
-	
-	
+	//Frontend
+	public function getStudycourseInformation ($course)
+	{
+		$statement = "	SELECT department_id
+						FROM studycourses
+						WHERE name = '$course'
+						LIMIT 1";
+		return $this->getInformation($statement);
+	}
+
+
 	public function createStatement($usertype,$department){
-	
+
 	switch($usertype)
 	{
 		case 'i': $usertype = 1; break;
 		case 'e': $usertype = 2; break;
 		case 's': $usertype = 3; break;
 	}
-				
+
 	$request = "SELECT events.id,events.language_id,events.name,events.date,events.description
 	
 				FROM events,events_mm_departments,events_mm_usertypes,departments,languages,usertypes

@@ -3,6 +3,114 @@
 	padding: 0;	
 }
 
+.singleFieldDescription{
+	font-weight: bold;
+	min-width: 209px;
+	min-height: 20px;
+	float: left;
+	margin-right: 10px;
+	padding-top: 2px;
+	text-align: right;
+}
+
+.singleFieldValue{
+	float: left;
+	max-width: 350px;
+}
+
+.singleField {
+	margin-top:15px;
+}
+
+.allFields{
+	min-width: 578px;
+	margin: 10px 0px 15px 0px;
+	border: 1px solid #505050;
+	padding: 10px 20px 20px 20px;
+}
+.allFields .button{
+	min-width: 578px;
+	max-height: 48px;
+	margin: 30px 0px 0px 0px;
+	border: 2px solid #505050;
+	padding: 14px 10px 15px 10px;
+	background: #f7f5f0;
+}
+.allFields .button:hover{
+	background: #ffffff;
+}
+
+.studycourseButtons{
+	border: 1px solid #505050;
+	padding: 5px 15px 5px 15px;
+	background: #f7f5f0;
+	text-align: center;
+
+}
+
+.studycourseButtons:hover{
+	background: #ffffff;
+}
+
+.studycourseDeleteButtons:hover{
+	background: red;
+	color: white;
+}
+
+.studycourseDeleteButtons{
+	border: 1px solid #505050;
+	padding: 5px 15px 5px 15px;
+	background: #f7f5f0;
+	text-align: center;
+
+}
+
+.studycourseTable{
+	margin: 20px 0px 20px 0px;
+	border-collapse: collapse;
+	border: 1px solid #505050;
+}
+
+.studycourseTable tr:hover{
+	background: #ffffff;
+}
+.studycourseTable td{
+	padding: 3px 4px 3px 5px !important;
+}
+
+.error{
+	color: red;
+}
+
+.errorBox{
+	border: 2px solid red;
+	color: red;
+	font-weight: bold;
+	margin-top: 10px;
+	padding: 10px 15px 15px 25px;
+}
+
+.errorBox span{
+	font-weight: normal;
+}
+
+.errorBox p{
+	color: red;
+	font-weight: bold;
+	margin: 5px 0px 5px 0px;
+}
+
+.errorBox ul li{
+	margin: 0px 0px 8px 45px;
+}
+
+.errorBox ul{
+	color: red;
+	font-weight: bold;
+	margin-top: 15px;
+}
+
+
 body {
 	background: #f7f5f0;
 	font-family: Verdana, Geneva, sans-serif;

@@ -72,6 +72,10 @@ div.ui-body-c {
 	margin-bottom: 10px;
 }
 
+#content h1.ui-collapsible-heading {
+	margin-bottom: 0px;
+}
+
 table.appointment{
 	width: 100%;
 	border-collapse: collapse;

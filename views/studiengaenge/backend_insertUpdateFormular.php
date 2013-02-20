@@ -1,237 +1,241 @@
-<!-- backend_insertUpdateFormular.php zum einfügen und bearbeiten eines Studiengangs mit Fehlerbehandlung -->
+<!-- backend_insertUpdateFormular.php zum einfÃ¼gen und bearbeiten eines Studiengangs mit Fehlerbehandlung -->
 
+	
+<?php 
 
-	<script src="../../sources/customjs/studiengaenge.js" type="text/javascript"></script>	<!-- studiengange.js einbinden -->
-	<?php require_once '../../views/studiengaenge/backend_includeCLEditor.php'; //Includet die für den CLEditor notwendigen Sachen ?>	
+	require_once '../../views/studiengaenge/backend_CLEditor.php'; //Bindet die fÃ¼r den CLEditor notwendigen Sachen ein (siehe "backend_CLEditor.php") 
 
-	<?php	
-		//Ausgabe der Überschrift
-		if(isset($_POST["editStudycourse_btn"]) OR isset($_POST["editStudycourseConfirm_btn"])){	//Wenn ein Studiengang bearbeitet werden soll
-			echo "<script type=\"text/javascript\">$('#editDeleteStudycourse').attr('class', 'active');</script>";	//Link "Bearbeiten/Löschen" markieren
-			echo "<h3>Studiengang bearbeiten</h3>";	//Überschrift augeben
-		}
-		else{
-			echo "<script type=\"text/javascript\">$('#insertUpdateStudycourse').attr('class', 'active');</script>";	//Link "einfügen" markieren
-			echo "<h3>Neuen Studiengang einf&uuml;gen</h3>";		//Überschrift ausgeben
-		}
-		
-		if(!empty($error))
-			echo "Bitte Fehler Korrigieren";
-		
-		$tabindex = 1;
-	?>
+	
+	//---- Ausgabe der Ãœberschrift ----//
+	if(isset($_POST["editStudycourse_btn"]) OR isset($_POST["editStudycourseConfirm_btn"])){	//Wenn ein Studiengang bearbeitet werden soll
+		echo "<script type=\"text/javascript\">$('#liEditDeleteStudycourse').attr('class', 'active');</script>";	//Link "Bearbeiten/LÃ¶schen"(in der Navigation) aktivieren (rot markieren)
+		echo "<h3>Studiengang bearbeiten</h3>";	//Ãœberschrift augeben
+	}
+	else{	//Wenn ein Studiengang eingefÃ¼gt werden soll
+		echo "<script type=\"text/javascript\">$('#liInsertUpdateStudycourse').attr('class', 'active');</script>";	//Link "EinfÃ¼gen"(in der Navigation) aktivieren (rot markieren)
+		echo "<h3>Studiengang einf&uuml;gen</h3>";		//Ãœberschrift ausgeben
+	}
 	
 	
-<form id="insertUpdateStudycourse" method="post">	
+	//---- Ausgabe der Fehlerbenachrichtigung, falls eine fehlerhafte Eingabe vorliegt ----//
+	if(!empty($error)){	//Wenn es eine fehlerhafte Eingabe gibt, als wenn die Variable "$error" nicht leer ist, sondern ein Assoziatives-Array mit den Namen der fehlerhaften Formular-Felder als Index ist
+		?>
+		<!-- Ausgabe des/der Fehler-Formualrs/Box -->
+		<div class="errorBox">
+			<p>Fehlerhafte Eingabe an der Stelle:</p>
+			<ul>
+				<?php
+				if(isset($error["name"])) echo "<li> &quot;Name&quot; - <span>Es muss ein Name f&uuml;r den Studiengang angegeben sein</span></li>";	//Name fehlerhaft
+				if(isset($error["semestercount"])) echo "<li> &quot;Semesteranzahl&quot; - <span>Die Semesteranzahl muss angegeben und eine Zahl sein</span></li>";	//Semesteranzahl fehlerhaft
+				if(isset($error["angebotenAls"])) echo "<li> &quot;Wird angeboten als&quot; - <span>Es muss mindestens eine Auswahl getroffen sein</span></li>";	//mind. 1 Checkbox nicht angewÃ¤hlt
+				if(isset($error["categories"])) echo "<li> &quot;Kategorien&quot; - <span>Es muss mindestens eine Kategorie ausgewÃ¤hlt sein</span></li>";	//mind. 1 Checkbox nicht angewÃ¤hlt
+				if(isset($error["description"])) echo "<li> &quot;Studiengangsbeschreibung&quot; - <span>Studiengangsbeschreibung muss angegeben sein</span></li>";	//Beschreibung fehlerhaft
+				if(isset($error["link"])) echo "<li> &quot;Link f&uuml;r weitere Informationen&quot; - <span>Link muss angeben sein</span></li>";	//link fehlerhaft
+				?>
+			</ul>
+		</div>
+		<?php
+	}		
 	
+	$tabindex = 0;	//Dia Variable "$tabindex" ist fÃ¼r den tabindex der Formular-Felder, weil die Checkboxen fÃ¼r die Kategorien dynamisch geladen werden und somit der tabindex auch variabel sein muss
+?>
+	
+	
+<!---- Ausgabe des Formulars ---->
+<form method="post">	
 	<div class="allFields">
-		<!-- Dropdownmenü um die Abschlussbeschreibung anzuzeigen -->
+	
+	
+		<!--- Abschlussbeschreibung --- 
+		Beschreibung "Abschlussbeschreibung: " und das DropdownmenÃ¼ um die Abschlussbeschreibung anzuzeigen. Werte werden dynamisch aus der Datenbank geladen -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
 				<label for="graduate_id">Abschlussbeschreibung: </label>
 			</div>
 			<div class="singleFieldValue">
-				<select name="graduate_id" id="graduate_id" tabindex=<?php echo $tabindex; ?>> 
+				<select name="graduate_id" id="graduate_id" tabindex=<?php echo 1+$tabindex; ?>> 
 				<?php
 					$graduates = $studycoursesController->selectDropDownDataGraduates();	//alle graduates selektieren
-					foreach($graduates AS $g){	//für jeden tupel 
-						echo "<option ";	//eine option einfügen - anfang
-						if($g["id"] == @$_POST["graduate_id"]){	//Für eine Vorauswahl
+					foreach($graduates AS $g){	//fÃ¼r jeden abschlussbeschreibung 
+						echo "<option ";	//eine Option in das Dropdown-MenÃ¼ einfÃ¼gen - START
+						if($g["id"] == @$_POST["graduate_id"]){	//Vorauswahl
 							echo "selected=\"selected\" ";
 						}
-						echo "value=".$g["id"].">".$g["name"]."</option>";	//eine option einfügen - ende
+						echo "value=".$g["id"].">".$g["name"]."</option>";	//eine option einfÃ¼gen - END
 					}
-					unset($graduates);	//löscht $graduates
+					unset($graduates);	//LÃ¶scht die Variable
 				?>
 				</select>
 			</div>
-		</div>		
+		</div><div class="clear"></div>
 		
 		
-		<div class="clear"></div>
 		
 		
-		<!-- Namen des Studiengangs Bei Fehlerhafter Eingabe class="error" setzen-->
+		<!--- Namen ---
+		Beschreibung "Name: " und das Eingabefeld um den Namen es Studiengangs eingeben zu kÃ¶nne, bzw anzuzeigen -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<label for="name" <?php if(isset($error["name"])) echo"class=\"error\""; ?>>Name des Studiengangs: </label>
+				<label for="name" <?php /*Fehlerbehandlung*/if(isset($error["name"])) echo"class=\"error\""; ?>>Name des Studiengangs: </label> 
 			</div>
 			<div class="singleFieldValue">
-				<input name="name" id="name" type="text" size="40" maxlength="100" tabindex=<?php echo $tabindex+1; ?> value="<?php echo htmlspecialchars (@$_POST["name"]); ?>">
+				<input name="name" id="name" type="text" size="36" maxlength="100" tabindex=<?php echo 2+$tabindex; ?> value="<?php /*Vorauswahl*/echo htmlspecialchars (@$_POST["name"]); ?>">
 			</div>
-		</div>
-		
-		
-		<div class="clear"></div>
+		</div><div class="clear"></div>
 				
 		
-		<!-- Dropdownmenü um den Fachbereich auszuwählen -->
+		
+		
+		<!--- Fachbereich --- 
+		Beschreibung "Fachbereich: " und das DropdownmenÃ¼ um die Fachbereiche anzuzeigen. Werte werden dynamisch aus der Datenbank geladen -->
 		<div class="singleField">
 			<div class="singleFieldDescription"><label for="department_id">Fachbereich: </label></div>
 			<div class="singleFieldValue">
-				<select name="department_id" id="department_id" tabindex=<?php echo $tabindex+2; ?>> 
+				<select name="department_id" id="department_id" tabindex=<?php echo 3+$tabindex; ?>> 
 				<?php
 					$departments = $studycoursesController->selectDropDownDataDepartments();	//alle departments selektieren
-					foreach($departments AS $d){	//für jeden tupel 
-						echo "<option ";	//eine option einfügen - anfang
-						if($d["id"] == @$_POST["department_id"]){	//Für eine Vorauswahl
+					foreach($departments AS $d){	//fÃ¼r jeden Fachbereich 
+						echo "<option ";	//eine Option in das Dropdown-MenÃ¼ einfÃ¼gen - START
+						if($d["id"] == @$_POST["department_id"]){	//FÃ¼r die Vorauswahl
 							echo "selected=\"selected\" ";
 						}
-						echo "value=".$d["id"].">".$d["name"]."</option>";	//eine option einfügen - ende
+						echo "value=".$d["id"].">".$d["name"]."</option>";	//eine option einfÃ¼gen - END
 					}
-					unset($departments);	//löscht $departments
+					unset($departments);	//LÃ¶scht die Variable
 				?>
 				</select>
 			</div>
-		</div>
+		</div><div class="clear"></div>
 		
 		
-		<div class="clear"></div>
 		
 		
-		<!-- Eingabe Semesteranzahl  Bei Fehlerhafter Eingabe class="error" setzen-->
+		<!--- Semesteranzahl ---
+		Beschreibung "Semesteranzahl: " und das Eingabefeld um die Semesteranzahl des Studiengangs eingeben zu kÃ¶nnen, bzw anzuzeigen -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<label for="semestercount" <?php if(isset($error["semestercount"])) echo"class=\"error\""; ?>>Semesteranzahl: </label>
+				<label for="semestercount" <?php /*Fehlerbehandlung*/if(isset($error["semestercount"])) echo"class=\"error\""; ?>>Semesteranzahl: </label>
 			</div>
 			<div class="singleFieldValue">
-				<input type="text" name="semestercount" id="semestercount" size="1" maxlength="2" value="<?php echo @$_POST["semestercount"]; ?>" tabindex=<?php echo $tabindex+3; ?>>
+				<input type="text" name="semestercount" id="semestercount" size="1" maxlength="2" value="<?php /*Vorauswahl*/echo @$_POST["semestercount"]; ?>" tabindex=<?php echo 4+$tabindex; ?>>
 			</div>
-		</div>
+		</div><div class="clear"></div>
 		
 		
-		<div class="clear"></div>
 		
 		
-		<!-- Checkbox für Dualer Studiengang -->
+		<!--- Wird angeboten als --- 
+		Beschreibung "Wird angeboten als: " und die dazugehÃ¶roigen Checkboxen "Vollzeit Studiengang", "Teilzeit Studiengang" und "Dualer Studiengang" ausgeben -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<label for="dual">Dualer Studiengang </label>
+				<label <?php /*Fehlerbehandlung*/if(isset($error["angebotenAls"])) echo"class=\"error\""; ?>>Wird angeboten als: </label>
 			</div>
 			<div class="singleFieldValue">
-				<input type="checkbox" <?php if(isset($_POST["dual"])) echo "checked=\"checked\""; ?> name="dual" id="dual" value=5 tabindex=<?php echo $tabindex+4; ?>>	<!-- value je nach Datenbank -->
+				<input type="checkbox" name="vollzeit" id="vollzeit" <?php /*Vorauswahl*/if(isset($_POST["vollzeit"])) echo "checked=\"checked\""; ?> style="margin: 3px 0px 2px 0px;" tabindex=<?php echo 6+$tabindex; ?>>
+				<label for="vollzeit"> Vollzeit Studiengang</label>
+				<br />
+				<input type="checkbox" name="teilzeit" id="teilzeit" <?php /*Vorauswahl*/if(isset($_POST["teilzeit"])) echo "checked=\"checked\""; ?> style="margin: 7px 0px 2px 0px;" tabindex=<?php echo 6+$tabindex; ?>>
+				<label for="teilzeit"> Teilzeit Studiengang</label>
+				<br />
+				<input type="checkbox" name="dual" id="dual" <?php /*Vorauswahl*/if(isset($_POST["dual"])) echo "checked=\"checked\""; ?> style="margin: 7px 0px 2px 0px;" tabindex=<?php echo 5+$tabindex; ?>>
+				<label for="dual"> Dualer Studiengang</label>
+				
 			</div>
-		</div>
+		</div><div class="clear"></div>
 		
 		
-		<div class="clear"></div>
 		
 		
-		<!-- Ausgabe der Radiobuttons "Vollzeit" und "Teilzeit" Bei Fehlerhafter Eingabe class="error" setzen -->
-		<div class="singleField">		
-			<div class="singleFieldDescription">
-				<label <?php if(isset($error["vollTeil"])) echo"class=\"error\""; ?>>Vollzeit / Teilzeit: </label>
-			</div>
-			<div class="singleFieldValue">
-				<input type="radio" name="vollTeil" id="vollzeit" <?php if(@$_POST["vollTeil"]==4) echo "checked=\"checked\""; ?> value=4 tabindex=<?php echo $tabindex+5; ?>>
-				<label for="vollzeit">Vollzeit </label><br />
-				<input type="radio" name="vollTeil" id="teilzeit" <?php if(@$_POST["vollTeil"]==3) echo "checked=\"checked\""; ?> value=3 tabindex=<?php echo $tabindex+6; ?>>
-				<label for="teilzeit">Teilzeit </label>
-			</div>
-		</div>
-		
-		
-		<div class="clear"></div>
-		
-		
-		<!-- Checkbox für Kategorien -->
+		<!--- Kategorien --- 
+		Beschreibung "Kategorien: " und die dazugehÃ¶roigen Checkboxen, die dynmaisch aus der Datenbank geladen werden, ausgeben -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<label>Kategorien: </label>
+				<label <?php /*Fehlerbehandlung*/if(isset($error["categories"])) echo"class=\"error\""; ?>>Kategorien: </label>
 			</div>
 			<div class="singleFieldValue">
 				<?php
-					$categories = $studycoursesController->selectCategories();	//alle kategorien selektieren
-					foreach($categories AS $c){	//für jeden tupel 
-						echo "<input type=\"checkbox\" id=\"".$c["name"]."\" name=\"".$c["name"]."\" value=".$c["id"]." tabindex=".($tabindex+7)." style=\"margin: 2px 0px 2px 0px;\"";
-						$tabindex += 1;
+					$categories = $studycoursesController->selectCategories();	//alle Kategorien selektieren
+					foreach($categories AS $c){	//fÃ¼r jede Kategorie
+						echo "<input type=\"checkbox\" id=\"".$c["name"]."\" name=\"".$c["name"]."\" value=".$c["id"]." tabindex=".(7+$tabindex)." style=\"margin: 4px 0px 2px 0px;\"";	//eine Checkbox ausgeben - START
+						$tabindex += 1;	//"$tabindex" inkrementieren
 						if(isset($_POST[$c["name"]])) 
-							echo " checked=\"checked\"";
-						echo ">";
-						echo "<label for=\"".$c["name"]."\"> ".$c["name"]."</label>";
+							echo " checked=\"checked\"";	//FÃ¼r die Vorauswahl
+						echo ">";	//eine Checkbox ausgeben - ENDE
+						echo "<label for=\"".$c["name"]."\"> ".$c["name"]."</label>";	//Label(mit Beschreibung) fÃ¼r die Checkbox ausgeben
 						echo "<br />";
 					}
-					unset($categories);	//löscht $categories
+					unset($categories);	//LÃ¶scht die Variable
 				?>
 			</div>
-		</div>
-		
-		
-		<div class="clear"></div>
+		</div><div class="clear"></div>
+			
+			
 			
 		
-		<!-- Textarea CLEditor - Eingabe Studiengangbeshreibung Bei Fehlerhafter Eingabe class="error" setzen -->
+		<!--- Studiengangsbeschreibung --- 
+		Beschreibung "Studiengangsbeschreibung: " und die dazugehÃ¶roige (modifizierte (durch den CLEditor)) Textarea ausgeben um eine Studiengangsbeschreibung einzugeben bzw. die Studiengangsbeschreibung anzuzeigen -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<span <?php if(isset($error["description"])) echo"class=\"error\""; ?>>Studiengangbeschreibung: </span>
+				<span <?php /*Fehlerbehandlung*/if(isset($error["description"])) echo"class=\"error\""; ?>>Studiengangsbeschreibung: </span>
 			</div>
 			<div class="singleFieldValue">
-				<textarea name="description" id="description" tabindex=<?php echo $tabindex+8; ?>><?php echo @$_POST["description"]; ?></textarea>
+				<textarea name="description" id="description" tabindex=<?php echo 8+$tabindex; ?>><?php /*Vorauswahl*/echo @$_POST["description"]; ?></textarea>
 			</div>
-		</div>
+		</div><div class="clear"></div>
 		
 		
-		<div class="clear"></div>
 		
 		
-		<!-- Sprachauswahl -->
+		<!--- Sprachauswahl --- 
+		Beschreibung "Geschrieben in: " und das DropdownmenÃ¼ um die Sprachen anzuzeigen. Werte werden dynamisch aus der Datenbank geladen -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
 				<label for="language_id">Geschrieben in: </label>
 			</div>
 			<div class="singleFieldValue">
-				<select name="language_id" id="language_id" tabindex=<?php echo $tabindex+9; ?> > 
+				<select name="language_id" id="language_id" tabindex=<?php echo 9+$tabindex; ?> > 
 				<?php
 					$languages = $studycoursesController->selectDropDownDataLanguages();	//alle languages selektieren
-					foreach($languages AS $l){	//für jeden tupel 
-						echo "<option ";	//eine option einfügen - anfang
-						if($l["id"] == @$_POST["language_id"]){	//Für eine Vorauswahl
+					foreach($languages AS $l){	//fÃ¼r jeden tupel 
+						echo "<option ";	//eine option einfÃ¼gen - anfang
+						if($l["id"] == @$_POST["language_id"]){	//FÃ¼r eine Vorauswahl
 							echo "selected=\"selected\" ";
 						}
-						echo "value=".$l["id"].">".$l["name"]."</option>";	//eine option einfügen - ende
+						echo "value=".$l["id"].">".$l["name"]."</option>";	//eine option einfÃ¼gen - ende
 					}
-					unset($languages);	//löscht $languages
+					unset($languages);	//lÃ¶scht $languages
 				?>
 				</select>
 			</div>
-		</div>
+		</div><div class="clear"></div>
 		
 		
-		<div class="clear"></div>
 		
-		
-		<!-- Eingabefeld Link für weitere Informationen Bei Fehlerhafter Eingabe class="error" setzen -->
+		<!--- Link ---
+		Beschreibung "Link fÃ¼r weitere Informationen: " und das Eingabefeld um den Link fÃ¼r weitere Informationen Ã¼ber den Studiengangs eingeben zu kÃ¶nnen, bzw anzuzeigen -->
 		<div class="singleField">
 			<div class="singleFieldDescription">
-				<label for="link" <?php if(isset($error["link"])) echo"class=\"error\""; ?>>Link f&uuml;r weitere Informationen: </label>
+				<label for="link" <?php /*Fehlerbehandlung*/if(isset($error["link"])) echo"class=\"error\""; ?>>Link f&uuml;r weitere Informationen: </label>
 			</div>
 			<div class="singleFieldValue">
-				<input name="link" id="link" type="text" size="40" value="<?php echo @$_POST["link"]; ?>" tabindex=<?php echo $tabindex+10;?>>		
+				<input name="link" id="link" type="text" size="54" value="<?php echo /*Vorauswahl*/@$_POST["link"]; ?>" tabindex=<?php echo 10+$tabindex;?>>		
 			</div>
-		</div>
-		
-		
-		<div class="clear"></div>
-		
-		
-	</div>	<!-- allFields -->
+		</div><div class="clear"></div>
 		
 		
 		
-		
-		
+			
+	<!---- Ausgabe der Buttons ---->	
 	<?php
 		if(isset($_POST["editStudycourse_btn"]) OR isset($_POST["editStudycourseConfirm_btn"])){	//Wenn ein Studiengang bearbeitet werden soll
-			//Bearbeiten-Button
-			echo "<input name=\"editStudycourseConfirm_btn\" type=\"submit\" value=\"&Auml;nderung best&auml;tigen\" class=\"button\" tabindex=".($tabindex+11).">";
-			//hidden fields
-			echo "<input type=\"hidden\" name=\"id\" value=".$_POST["id"].">";
-			//echo "<input type=\"hidden\" name=\"editStudycourse_btn\">";
+			echo "<input class=\"button\" name=\"editStudycourseConfirm_btn\" type=\"submit\" value=\"&Auml;nderung best&auml;tigen\"tabindex=".(11+$tabindex).">"; //"Ã„nderung BestÃ¤tigen"-Button ausgeben
+			echo "<input type=\"hidden\" name=\"id\" value=".$_POST["id"].">";	//hidden-Field um die ID mit zu Ã¼bergeben, damit die Information(welcher Studiengang bearbeitet werden soll) nicht verloren geht
 		}
-		else	//sonst (Wenn ein neuer Studiengange eingefügt werden soll)
-			//Einfüge-Button
-			echo "<input name=\"insertStudycourse_btn\" type=\"submit\" value=\"Studiengang einf&uuml;gen\" class=\"button\" tabindex=".(tabindex+11).">";	
+		else	//Wenn ein neuer Studiengange eingefÃ¼gt werden soll
+			echo "<input class=\"button\" style=\"\" name=\"insertStudycourse_btn\" type=\"submit\" value=\"Studiengang einf&uuml;gen\" tabindex=".(11+$tabindex).">";	//"Studiengang einfÃ¼gen"-Button ausgeben
+		unset($tabindex);	//Variable lÃ¶schen
 	?>
-
-</form>
+	
+	</div>	<!-- div mit class="allFields" schlieÃŸen -->
+</form>	<!-- formular schlieÃŸen -->
 

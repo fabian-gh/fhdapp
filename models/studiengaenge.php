@@ -77,7 +77,7 @@ $query = "SELECT e1.name,e2.name as
 e1.description,e1.link FROM studycourses e1 join graduates e2 on e1. 
 graduate_id=e2.id join departments e3 on e1.department_id = e3.id 
 WHERE e1.id = (SELECT id FROM studycourses_view WHERE name='".$name."' and 
-graduate='".$graduate."' and language= ".$this->language." GROUP BY id);";
+graduate='".$graduate."' and language= ".$this->language." GROUP BY id LIMIT 1);";
 $rs = mysql_query($query,$this->connect()); 
 return $row = mysql_fetch_array($rs);
 }

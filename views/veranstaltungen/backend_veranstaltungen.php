@@ -9,36 +9,35 @@
  * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
  */
 	ob_start();
-	
+
 	//Header einbinden
 	require_once '../../layout/backend/header.php';
-	
+
 	//Conroller einbinden
 	require_once '../../controllers/veranstaltungenController.php';
 	//Klasse für Formularfelder einbinden
 	require_once 'backend_formular.php';
-	
+
 	//Controller-Objekt erstellen
 	$Controller = new VeranstaltungenController;
 	//Fachbereiche laden
 	$FACHBEREICHE =  $Controller->getDepartments();
 	//Neues Objekt von Formular erstellen
 	$Formular = new Formular($Controller);
-	
-	//Leeres Formular erstellen
-	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
-	//JQuery für das leere Formular erstellen
-	$JQUERY = $Formular->getJqueryEmptyForm();
-	
-	
+
 	//Überprüfen ob Fachbereich-GET-Variable gesetzt ist, falls nicht direkt auf Fachbereich 1 setzen
 	if(isset($_GET['FB']))
 		$FB_AKTUELLER = $_GET['FB'];
 	else
 		$FB_AKTUELLER = 1;
-	
+
+	//Leeres Formular erstellen
+	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
+	//JQuery für das leere Formular erstellen
+	$JQUERY = $Formular->getJqueryEmptyForm();
+
 	$MESSAGE = 'Keine &Auml;nderungen';
-	
+
 	//Überprüfung ob Formular abgesendet wurde
 	if(isset($_POST['veranstaltung_speichern']))
 	{
@@ -81,8 +80,8 @@
 		else
 			$MESSAGE = 'Es ist ein Fehler aufgetreten.<br/>Alte Veranstaltungen wurden nicht gel&ouml;scht.';
 	}
-	
-		
+
+
 	//Fachbereiche durchlaufen und DropDownListe füllen
 	if($FACHBEREICHE != null)
 	{
@@ -106,7 +105,7 @@
 		//Falls keine Fachbereiche in der Datenbank, Fehlermeldung ausgeben
 		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
-	
+
 	echo'
 	<br/><br/><br/>
 	<table border="0" width="100%">
@@ -179,10 +178,10 @@
 			</td>
 		</tr>
 	';
-	
+
 	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
 	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
-	
+
 	if($ERGEBNIS != null)
 	{
 		//Veranstaltungen durchlaufen und darstellen
@@ -192,15 +191,15 @@
 			$EVENTID			= $ERGEBNIS[$i]['id'];
 			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
 			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
-			
+
 			//DATUM SPLITTEN
 			$TAG		= date_format($DATUM, 'd');
 			$MONAT		= date_format($DATUM, 'm');
 			$JAHR		= date_format($DATUM, 'Y');
 			$STUNDEN	= date_format($DATUM, 'H');
 			$MINUTEN	= date_format($DATUM, 'i');
-			
-						
+
+
 			//Alle Fachbereiche laden, die zur Veranstaltung gehören
 			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
 			//Alle Usertypes laden, die zur Veranstaltung gehören
@@ -210,7 +209,7 @@
 			$Formular = new Formular($Controller);
 			//Alle Variablen setzen
 			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
-			
+
 			//Veranstaltung darstellen mit Bearbeiten-Option
 			echo '
 			<tr>
@@ -219,7 +218,7 @@
 				'.$Formular->getEventContainer($FB_AKTUELLER).'
 				</td>
 			</tr>';
-			
+
 			//JQuery erstellen
 			$JQUERY .= $Formular->getJquery();
 		}
@@ -234,13 +233,13 @@
 				</td>
 			</tr>';
 	}
-	
+
 	echo '
 		</tbody>
 		</table>
 	';
 
-	
+
 	//JQuery Ausgeben
 	echo '
 		<script type="text/javascript">
@@ -415,8 +414,8 @@
 				$("."+INPUTCLASS).removeAttr("checked");
 			}
 		</script>';
-	
-	
+
+
 	require_once '../../layout/backend/footer.php';
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
