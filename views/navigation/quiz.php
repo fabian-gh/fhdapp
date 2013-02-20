@@ -27,7 +27,7 @@
 			$courses = $quizController->getList($_POST['params']);
 			if(count($courses) > 0)
 			foreach($courses as $course)
-				echo "<li data-icon='false'><a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."' data-role='button'><h6>{$course['name']}</h6></a></li>";
+				echo "<li data-icon='false'><a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$course['name']}' data-role='button'><h6>{$course['name']}</h6></a></li>";
 		}
 	
 	echo "</ul>";
