@@ -37,7 +37,8 @@
 					$Minuten =	date_format($Datum, 'i');
 					
 					//Ausgabe
-					echo "<div data-role='collapsible' data-theme='a'>
+				
+					echo "<div data-role='collapsible' data-iconpos='right' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-theme='a'>
 					
 					<h3>$Name</h3>
 					<p><h4>$Tag.$Monat.$Jahr &ensp; &ensp;$Stunden:$Minuten Uhr</h4></p><br>
