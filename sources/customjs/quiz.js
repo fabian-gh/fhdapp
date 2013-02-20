@@ -22,7 +22,10 @@ function checkBoxChecked()
 		showList(retVal);
 	}
 	else
-		showList("");
+	{
+		$('#list').empty();
+		$("#list").listview('refresh');
+	}
 }
 
 
