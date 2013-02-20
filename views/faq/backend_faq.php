@@ -3,7 +3,6 @@
 require_once '../../layout/backend/header.php';
 ?>
 		<h2> FAQ Eingabe </h2>
-		<br />
 		<?php
 		// Controller einbinden
 		require_once '../../controllers/faqController.php';
@@ -49,7 +48,7 @@ require_once '../../layout/backend/header.php';
 						</tr>
 						<tr>
 							<td>
-								<textarea name="question<?php echo $i ?>" cols="70" rows="2"></textarea>
+								<textarea name="question<?php echo $i ?>" cols="70" rows="2"><?php if(isset($_POST['question'.$i])){echo $_POST['question'.$i];}else{echo '';}?></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -60,7 +59,7 @@ require_once '../../layout/backend/header.php';
 						</tr>
 						<tr>
 							<td>
-								<textarea name="answer<?php echo $i ?>" cols="70" rows="2"></textarea>
+								<textarea name="answer<?php echo $i ?>" cols="70" rows="2"><?php if(isset($_POST['answer'.$i])){echo $_POST['answer'.$i];}else{echo '';}?></textarea>
 								
 							</td>
 						</tr>
@@ -93,15 +92,20 @@ require_once '../../layout/backend/header.php';
 											for($n=0; $n<count($resultSetLang); $n++) {
 												$id = $resultSetLang[$n]['id'];
 												$name = $resultSetLang[$n]['name'];
+												if($id == $_POST['lang'.$i]){
+													echo "<option value=\"$id\" selected>$name</option>";
+												}else{
+													echo "<option value=\"$id\">$name</option>";
+												}
 												
-												echo "<option value=\"$id\">$name</option>";
 											}
 											?>
 											</select>
 											
 										</td>
 										<td >
-											&nbsp; <input name="sort<?php echo $i ?>" type="text" value="" size="7" maxlength="5" >
+											&nbsp; <input name="sort<?php echo $i ?>" type="text" value="<?php if(isset($_POST['sort'.$i])){echo $_POST['sort'.$i];}else{echo '';}?>" size="7" maxlength="5" >
+											
 											
 										</td>
 									
@@ -113,7 +117,12 @@ require_once '../../layout/backend/header.php';
 												$id = $resultSetDepartments[$n]['id'];
 												$name = $resultSetDepartments[$n]['name'];
 												
-												echo "<option value=\"$id\">$name</option>";
+												if($id == $_POST['departmentID'.$i]){
+													echo "<option value=\"$id\" selected>$name</option>";
+												}else{
+													echo "<option value=\"$id\">$name</option>";
+												}
+												
 											}
 											?>
 											<option value="100">Allgemein</option>";
@@ -129,7 +138,12 @@ require_once '../../layout/backend/header.php';
 												$id = $resultSetUsertypes[$m]['id'];
 												$name = $resultSetUsertypes[$m]['name'];
 												
-												echo "<option value=\"$id\">$name</option>";
+												if($id == $_POST['usertypeID'.$i]){
+													echo "<option value=\"$id\" selected>$name</option>";
+												}else{
+													echo "<option value=\"$id\">$name</option>";
+												}
+												
 											}
 											?>
 											</select>

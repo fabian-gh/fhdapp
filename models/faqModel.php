@@ -53,7 +53,14 @@ class Faq {
 				}
 				//Wenn alles ok, dann Insert Statement erstellen
 				if($checkOverall === true){
-					$this->createInsertStatementFaq($data);
+					$datapart = array(	'question' => $data['question'.$i],
+										'answer' => $data['answer'.$i],
+										'lang' => $data['lang'.$i],
+										'departmentID' => $data['departmentID'.$i],
+										'sort' => $data['sort'.$i],
+										'usertypeID' => $data['usertypeID'.$i]);
+										
+					$this->createInsertStatementFaq($datapart);
 				}
 			}
 		}
@@ -89,7 +96,7 @@ class Faq {
 			}
 			//Wenn alles ok, dann Update Statement erstellen
 			if($checkOverall === true){
-				$this->updateFaq($data);
+				$this->createInsertStatementFaq($data);
 			}
 		}
     }
@@ -105,37 +112,35 @@ class Faq {
 	public function createInsertStatementFaq($data){
 		 try{
 			// Werte aneinanderreihen 
-			$values = '';
-			for ($i = 1; $i <= $data['anzahl']; $i++) {
 			
-				$lang = $data['lang'.$i];
-				$question = $data['question'.$i];
-				$answer = $data['answer'.$i];
-				$sort = $data['sort'.$i];
-				$dept = $data['departmentID'.$i];
-				$user = $data['usertypeID'.$i];
-				
-				// Abfrage erstellen
-				$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
-				
-				// Fertige SQL-Abfrage an Methode zum Speichern übergeben, return wert ID des eintrags
-				$faqID = $this->intoDB($insert, true);
+			$lang = $data['lang'];
+			$question = $data['question'];
+			$answer = $data['answer'];
+			$sort = $data['sort'];
+			$dept = $data['departmentID'];
+			$user = $data['usertypeID'];
+			
+			// Abfrage erstellen
+			$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
+			
+			// Fertige SQL-Abfrage an Methode zum Speichern übergeben, return wert ID des eintrags
+			$faqID = $this->intoDB($insert, true);
 
-				//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
-				$this->createInsertStatementFaq_Dept($faqID, $dept);
-				
-				//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
-				$this->createInsertStatementFaq_User($faqID, $user);
-				
-				// Überprüfung ob alles in Datenbank gespeichert wurde
-				if($this->checkDBInsert == 3){
-					echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
-				}else{
-					echo "<br/> Fehler!!!";
-				}
-				//Rücksetzen der Variable
-				$this->checkDBInsert = 0;
+			//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
+			$this->createInsertStatementFaq_Dept($faqID, $dept);
+			
+			//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
+			$this->createInsertStatementFaq_User($faqID, $user);
+			
+			// Überprüfung ob alles in Datenbank gespeichert wurde
+			if($this->checkDBInsert == 3){
+				echo "<br /> Ihre Eingaben wurden erfolgreich gespeichert.";
+			}else{
+				echo "<br/> Fehler!!!";
 			}
+			//Rücksetzen der Variable
+			$this->checkDBInsert = 0;
+			
         } catch(Exception $e){
             echo $e->getMessage();
         }
@@ -248,52 +253,6 @@ class Faq {
 		$insert = "DELETE FROM faq_mm_usertype WHERE faq_id = ".$id."";
 		// Fertige SQL-Abfrage an Methode zum Speichern übergeben
 		$this->intoDB($insert, false);
-		
-	}
-	
-//UPDATE Befehle Erstellen	
-	
-	/**
-     * Ändern einer FAQ inklusive Beziehungen. Wegen FAQs für alle Studiengänge werden
-	 * die FAQs vorher gelöscht und anschließend neu erstellt. 
-	 * Hierfür werden hier die Methoden zum Neuerstellen von Datenbankeinträgen benutzt
-     *
-	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
-     */
-	public function updateFAQ($data){
-		try{
-			// Werte aneinanderreihen 
-			$lang = $data['lang'];
-			$question = $data['question'];
-			$answer = $data['answer'];
-			$sort = $data['sort'];
-			$dept = $data['departmentID'];
-			$user = $data['usertypeID'];
-			
-			// Abfrage erstellen
-			$insert = "INSERT INTO faq (language_id, question, answer, sorting) VALUES ('$lang', '$question', '$answer', '$sort')";
-			
-			// Fertige SQL-Abfrage an Methode zum Speichern übergeben, return wert ID des Eintrags
-			$faqID = $this->intoDB($insert, true);
-
-			//SQL Abfrage für FAQ_mm_Departments erstellen und ausführen
-			$this->createInsertStatementFaq_Dept($faqID, $dept);
-			
-			//SQL Abfrage für FAQ_mm_Usertypes erstellen und ausführen
-			$this->createInsertStatementFaq_User($faqID, $user);
-			
-			// Überprüfung ob alles in Datenbank gespeichert wurde
-			if($this->checkDBInsert == 3){
-				echo "<br /> Ihre Eingaben wurden erfolgreich geändert.";
-			}else{
-				echo "<br/> Fehler!!!";
-			}
-			//Rücksetzen der Variable
-			$this->checkDBInsert = 0;
-			
-        } catch(Exception $e){
-            echo $e->getMessage();
-		}
 		
 	}
 	
