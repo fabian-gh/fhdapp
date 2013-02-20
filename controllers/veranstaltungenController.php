@@ -64,7 +64,7 @@
 	/**
 	* Backend
 	* Methode um Veranstaltungen nur nach Fachbereichen ohne Rücksicht auf Usertype auszulesen
-	* @param String $department Fachbereichs-ID
+	* @param $department Fachbereichs-ID
 	* @return SQL-Ergebnis-Relation
 	**/
 	public function getInformationEventsWithDepartmentsWihoutUsertype($department)
@@ -75,7 +75,7 @@
 	/**
 	* Backend
 	* Methode die alle Fachbereiche zu einem Event auszuließt
-	* @param String $event_id Veranstaltungs-ID
+	* @param $event_id Veranstaltungs-ID
 	* @return SQL-Ergebnis-Relation
 	**/
 	public function getInformationDepartmentsFromEvents($event_id)
@@ -86,7 +86,7 @@
 	/**
 	* Backend
 	* Methode die alle Benutzer zu einem Event auszuließt
-	* @param String $event_id Veranstaltungs-ID
+	* @param $event_id Veranstaltungs-ID
 	* @return SQL-Ergebnis-Relation
 	**/
 	public function getInformationUsertypesFromEvents($event_id)
@@ -137,7 +137,7 @@
 
 		if($ERGEBNIS != null)
 		{
-			//Veranstaltungen durchlaufen und darstellen
+			//Veranstaltungen durchlaufen und löschen
 			for($i=0; $i<count($ERGEBNIS); $i++) 
 			{
 				if($this->deleteEvent($ERGEBNIS[$i]['id']) == false)
