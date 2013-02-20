@@ -143,9 +143,10 @@ class FaqController{
 	// Objekt erstellen
 	$faqModel = new Faq();
 	// Methode ausführen und zurückgeben
-	$temp = $faqModel->DepartmentFromCourse($course)[0]['department_id'];
-	return $temp;
+	$temp = $faqModel->DepartmentFromCourse($course);
+	return $temp[0]['department_id'];
 	}
 }
 /* End of file faqController.php */
 /* Location: ./controllers/faqController.php */
+?>

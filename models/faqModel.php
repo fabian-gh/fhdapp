@@ -512,3 +512,4 @@ class Faq {
 
 /* End of file faq.php */
 /* Location: ./models/faq.php */
+?>
