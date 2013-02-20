@@ -510,6 +510,6 @@ class Faq {
     }
 }
 
-/* End of file faq.php */
-/* Location: ./models/faq.php */
+/* End of file faqModel.php */
+/* Location: ./models/faqModel.php */
 ?>
