@@ -147,8 +147,9 @@ class FaqController{
 	// Methode ausführen und zurückgeben
 	//$temp = $faqModel->DepartmentFromCourse($course)[0]['department_id'];
 	//return $temp;
-	
-	return $faqModel->DepartmentFromCourse($course);
+
+	$temp = $faqModel->departmentFromCourse($course);
+	return $temp[0]['department_id'];
 	}
 }
  
