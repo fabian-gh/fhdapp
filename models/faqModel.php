@@ -460,7 +460,7 @@ class Faq {
 	* @param String $course Name des Studienganges 
 	* @return Array mit Datenbankwerten
 	*/
-	public function DepartmentFromCourse($course){
+	public function departmentFromCourse($course){
 		//Select Statement erstellen
 		$read = "SELECT department_id
 				 FROM studycourses
