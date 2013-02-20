@@ -22,7 +22,7 @@
 		{
 			try
 			{
-				$result = $this->connection->query("SELECT * FROM tags");
+				$result = $this->connection->query("SELECT * FROM quiztags");
 				$resultSet = array();
 				if($result != null)
 					while($row = $result->fetch_assoc())
@@ -51,7 +51,7 @@
 				//damit ein studiengang, der mehrmals in der db vorliegt (da bachelor und master), nicht doppelt bewertet wird, muss vorausgesetzt werden,
 				//dass nur eines der tupel in der studycourses_mm_tags referenziert wird
 				$result = $this->connection->query("SELECT a.name , SUM(b.rating) rating
-													FROM studycourses a, studycourses_mm_tags b
+													FROM studycourses a, studycourses_mm_quiztags b
 													WHERE a.id = b.studycourse_id $params
 													GROUP BY (a.id)
 													ORDER BY rating DESC");

@@ -21,8 +21,8 @@
 	//falls es bachelor und master gibt
 	if($bachelor && $master)
 	{
-		echo "<a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade=Bachelor' data-role='button'>Bachelor<div class='subtitle'>Hier stehen Informationen zum Bachelor-Studiengang.</div></a>
-		<a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade=Master' data-role='button'>Master<div class='subtitle'>Hier stehen Informationen zum Master-Studiengang.</div></a>";
+		echo "<a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade=Bachelor' data-role='button' style='text-align: center;'>Bachelor</a>
+		<a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade=Master' data-role='button' style='text-align: center;'>Master</a>";
 	}
 	//sonst direkt zum entsprechenden weiterleiten
 	else if($bachelor)
