@@ -457,10 +457,10 @@ class Faq {
 				}
 				return $resultSet;
 			}else{
-				echo "Keine FAQ zu ihrer Auswahl vorhanden. <br/> <br />";
+				echo "Keine FAQ zu Ihrer Auswahl vorhanden. <br/> <br />";
 			}
 			
-			//RUeckgabe
+			//Rückgabe
             
             
         } catch(Exception $e){
@@ -469,5 +469,5 @@ class Faq {
     }
 }
 
-/* End of file faq.php */
-/* Location: ./models/faq.php */
+/* End of file faqModel.php */
+/* Location: ./models/faqModel.php */
