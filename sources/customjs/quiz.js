@@ -23,6 +23,7 @@ function checkBoxChecked()
 	}
 	else
 	{
+		$('#listwrapper').html("<br/>Bitte wähle deine Interessen aus.");
 		$('#list').empty();
 		$("#list").listview('refresh');
 	}
@@ -33,8 +34,10 @@ function showList(str)
 {
 	var posting = $.post('index.php?eis=i&selector=Quiz', {action:"showList", params:str});
 	posting.done(function( data ) {   
-        var content = $(data).find('#list').html();
-        $('#list').empty().append(content);
-        $("#list").listview('refresh');
+        var content = $(data).find('#listwrapper').html();
+        $('#listwrapper').empty().append(content);
+        var content2 = $(data).find("#list").html();
+        $('#list').empty().append(content2);
+        $('#list').listview('refresh');
     });
 }

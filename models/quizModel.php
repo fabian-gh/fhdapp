@@ -38,6 +38,29 @@
 		}
 
 		/**
+		 * @return int Gibt die Anzahl der vorhandenen Studiengängen zurück (unabhängig des Abschlusses).
+		**/
+		public function countStudycourses()
+		{
+			try
+			{
+				$result = $this->connection->query("SELECT DISTINCT count(name) count FROM studycourses");
+				$resultSet = array();
+				if($result != null)
+				{
+					$row = $result->fetch_assoc();
+					return $row['count'];
+				}
+				else
+					return 0;
+			}
+			catch(Exception $e)
+			{
+				echo $e->getMessage();
+			}
+		}
+
+		/**
 		 * @param string $params String zusammengesetzt aus den Tags, welche angewählt sind (Bsp.: AND (b.tag_id = 7 OR b.tag_id = 1 OR b.tag_id = 2))
 		 *
 		 * @return array Gibt ein Array mit den Studiengängen, die zu den Tags passen, zurück. Sortiert nach der Relevanz.
