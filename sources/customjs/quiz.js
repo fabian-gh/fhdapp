@@ -31,8 +31,8 @@ function checkBoxChecked()
 
 function showList(str)
 {
-	var posting = $.post("", {action:"showList", params:str});
-	posting.done(function( data ) {        
+	var posting = $.post('index.php?eis=i&selector=Quiz', {action:"showList", params:str});
+	posting.done(function( data ) {   
         var content = $(data).find('#list').html();
         $('#list').empty().append(content);
         $("#list").listview('refresh');
