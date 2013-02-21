@@ -267,7 +267,6 @@ class Veranstaltungen{
 				AND events.language_id = languages.id 
 				AND events_mm_departments.department_id = departments.id
 				AND events_mm_departments.department_id = ".$department."
-				AND events.date >= NOW()
 				
 				ORDER BY events.date
 				";
