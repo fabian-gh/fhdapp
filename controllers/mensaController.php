@@ -17,77 +17,6 @@ class MensaController{
 	 */
 	private $MensaModel;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
-
-
-	/**
-	 * Constructor
-	 */
-	public function __construct(){
-		require_once '../../models/mensa.php';
-		$this->MensaModel = new Mensa();
-			
-		/*if(isset($_GET['category']) && $_GET['category'] == 'canteen'){
-
-			if(isset($_GET['mode'])){
-
-				switch($_GET['mode']){
-					case 'add':
-						require_once 'edit.php';
-					break;
-
-					case 'edit':
-						$this->callEditPlan($_GET['cw']);
-						require_once 'edit.php';
-					break;
-
-					case 'delete':
-						$this->callDeletePlan($_GET['cw']);
-					break;
-				}
-			}
-		}*/
-	}
-
-
-
-	/**
-	 * Call the getAllPlans()-Method
-	 * @param Array $post
-	 */
-	public function callGetAllPlans(){
-		return $this->MensaModel->getAllPlans();
-	}
-
-
-	/**
-	 * Call the editPlan()-Method
-	 * @param Array $post
-	 */
-	public function callEditPlan($calenderweek){
-		$this->MensaModel->editPlan($calenderweek);
-	}
-
-
-	/**
-	 * Call the deletePlan()-Method
-	 * @param Array $post
-	 */
-	public function callDeletePlan($calenderweek){
-		$this->MensaModel->deletePlan($calenderweek);
-	}
-
-
-	/**
-	 * Call the proceedPost()-Method
-	 * @param Array $post
-	 */
-<<<<<<< HEAD
-=======
-
 
 	/**
 	 * Constructor
@@ -98,9 +27,9 @@ class MensaController{
 	}
 
 
-
 	/**
 	 * Call the getCanteenPlans()-Method
+	 * @return Array $canteenPlans
 	 */
 	public function callGetCanteenPlans(){
 		return $this->MensaModel->getCanteenPlans();
@@ -109,6 +38,7 @@ class MensaController{
 
 	/**
 	 * Call the getAdditives()-Method
+	 * @return Array $additives
 	 */
 	public function callGetAdditives(){
 		return $this->MensaModel->getAdditives();
@@ -116,7 +46,8 @@ class MensaController{
 
 
 	/**
-	 * Call the getAdditives()-Method
+	 * Call the getOpeningHours()-Method
+	 * @return Array $openingHours
 	 */
 	public function callGetOpeningHours(){
 		return $this->MensaModel->getOpeningHours();
@@ -125,7 +56,7 @@ class MensaController{
 
 	/**
 	 * Call the getAllPlans()-Method
-	 * @param Array $post
+	 * @return Array $canteenPlans
 	 */
 	public function callGetAllPlans(){
 		return $this->MensaModel->getAllPlans();
@@ -134,7 +65,8 @@ class MensaController{
 
 	/**
 	 * Call the editPlan()-Method
-	 * @param Array $post
+	 * @param Array $calenderweek
+	 * @return Array $plan
 	 */
 	public function callEditPlan($calenderweek){
 		return $this->MensaModel->editPlan($calenderweek);
@@ -143,7 +75,7 @@ class MensaController{
 
 	/**
 	 * Call the deletePlan()-Method
-	 * @param Array $post
+	 * @param Array $calenderweek
 	 */
 	public function callDeletePlan($calenderweek){
 		$this->MensaModel->deletePlan($calenderweek);
@@ -154,9 +86,6 @@ class MensaController{
 	 * Call the proceedPost()-Method
 	 * @param Array $post
 	 */
->>>>>>> origin/daniel16.02
-=======
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	public function callProceedPost($post){
 		$this->MensaModel->proceedPost($post);
 	}
@@ -164,25 +93,10 @@ class MensaController{
 
 	/**
 	 * Insert the canteen plan into the database
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	 */
-	public function callInsertPlan(){
-		$this->MensaModel->insertPlan();
-=======
 	 * @param Array $get
-=======
->>>>>>> parent of 2f031bb... Mensakommentare angepasst + Erklärungen
 	 */
 	public function callInsertPlan($get){
 		$this->MensaModel->insertPlan($get);
->>>>>>> origin/daniel16.02
-=======
-	 */
-	public function callInsertPlan(){
-		$this->MensaModel->insertPlan();
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	}
 }
 

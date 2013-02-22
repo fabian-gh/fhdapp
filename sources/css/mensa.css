@@ -37,6 +37,10 @@
 	border: 1px solid #cccccc;
 }
 
+#content table#abb{
+	width: 100%;
+}
+
 #content table.meals th,
 #content table.meals td,
 #content table.abbreviations th,

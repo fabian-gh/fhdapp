@@ -1,62 +1,35 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<link href="../../sources/css/stylebackend.css" rel="stylesheet" type="text/css" media="screen" />
-=======
-	<link href="../../sources/css/style_backend.css" rel="stylesheet" type="text/css" media="screen" />
->>>>>>> origin/daniel16.02
-=======
-	<link href="../../sources/css/stylebackend.css" rel="stylesheet" type="text/css" media="screen" />
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
-	<title>FHD App - CMS</title>
-</head>
-
-<body>
-
-	<div id ="header">
-    	<div id ="headline">
-        	<h1>CMS Web-App</h1>
-        </div>
-    </div>
-    
-    <div id ="wrapper">
-    
-    	<div id ="nav">
-            <h3>Seiteninhalt bearbeiten:</h3>
-        	<ul>
-            	<li><a href='#'>Studiengänge</a></li>
-                <li><a href='#'>Veranstaltungen</a></li>
-                <li><a href='#'>Termine</a></li>
-                <li><a href='#'>Mensa</a></li>
-                <li><a class ="active" href='#'>FAQ</a></li>
-                <li><a href='#'>Kontakt</a></li>
-			</ul>
-        </div>
-        
-        <div id ="content">
-		<h1> FAQ Update/Delete </h1>
-		<br />
+ï»¿<?php
+//header einbinden
+require_once '../../layout/backend/header.php';
+?>	
+	<script type="text/javascript">
+	<!--
+	  function conf(){
+		check = window.confirm("Dieser Eintrag wird jetzt entfernt.");
+	 
+		return check;
+		
+	  }
+	// -->
+	</script>
+		<h2> FAQ Ã„ndern/LÃ¶schen </h2>
 		<?php
 		//Controller einbinden
 		require_once '../../controllers/faqController.php';
 		//Objekt erstellen
 		$controller = new FaqController();
 		
-		//Überprüfung ob ändern geklickt(Button wird automagically erkannt) und auführen der änderung
+		//ÃœberprÃ¼fung ob Ã„ndern geklickt(Button wird automagically erkannt) und aufÃ¼hren der Ã„nderung
 		if(isset($_POST['change'])){
-			$controller->setFaq($_POST);
+			$controller->changeFaq($_POST);
 		}
 		
-		//Überprüfung ob löschen geklickt(Button wird automagically erkannt) und löschen	
+		//ÃœberprÃ¼fung ob lÃ¶schen geklickt(Button wird automagically erkannt) und lÃ¶schen	
 		if(isset($_POST['delete'])){
 			$controller->deleteFaq($_POST['id']);
 		}
 		
-		//Überprüfung ob Selektiert werden soll	
+		//ÃœberprÃ¼fung ob Selektiert werden soll	
 		if(isset($_POST['select'])){
 			$resultSet = $controller->getFAQsBackend($_POST['departmentSelectID']);
 			$selected = $_POST['departmentSelectID'];
@@ -67,6 +40,7 @@
 		
 		$resultSetDepartments = $controller->getDepartments();
 		$resultSetUsertypes = $controller->getUsertypes();
+		$resultSetLang = $controller->getLang();
 		
 		?>
 		<div id="mainContainer">
@@ -88,9 +62,9 @@
 							}
 						}
 						if($selected == 0){
-							echo "<option value=\"0\" selected>Alle</option>";
+							echo "<option value=\"0\" selected>Allgemein</option>";
 						}else{
-							echo "<option value=\"0\">Alle</option>";
+							echo "<option value=\"0\">Allgemein</option>";
 						}
 						
 						?>
@@ -107,7 +81,10 @@
 						$antwort = $resultSet[$i]['answer'];
 						$sort = $resultSet[$i]['sorting'];
 						$lang = $resultSet[$i]['language_id'];
-						$dept = $resultSet[$i]['deptid'];
+						if(isset($resultSet[$i]['deptid']))
+							$dept = $resultSet[$i]['deptid'];
+						else
+							$dept = 100;
 						$user = $resultSet[$i]['userid'];
 						
 						echo "
@@ -129,6 +106,7 @@
 							<td>
 								<input type=\"hidden\" name=\"id\" value=\"$id\">
 								<input type=\"hidden\" name=\"inputArt\" value=\"2\">
+								<input type=\"hidden\" name=\"anzahl\" value=\"1\">
 							
 								<textarea name=\"question\" cols=\"70\" rows=\"2\">$frage</textarea>
 							</td>
@@ -169,7 +147,25 @@
 									<tr>
 									
 										<td >
-											<input name=\"lang\" type=\"text\" value=\"$lang\" size=\"7\" maxlength=\"5\" >
+											 <select name=\"lang\" size=\"1\">";
+											 
+											//Schleife die alle Usertypes als <option> ausgibt.
+											//der passende Usertype wird dabei vorausgewÃ¤hlt
+											 for($n=0; $n<count($resultSetLang); $n++) {
+												$id = $resultSetLang[$n]['id'];
+												$name = $resultSetLang[$n]['name'];
+												
+												//Vorauswahl des Usertypes aus Datenbank
+												if($id == $lang){
+													echo "<option value=\"$id\" selected>$name</option>";
+												}else{
+													echo "<option value=\"$id\">$name</option>";
+												}
+												
+											}
+											
+											
+											echo "</select>
 											
 										</td>
 										<td >
@@ -182,7 +178,7 @@
 											 <select name=\"departmentID\" size=\"1\">";
 											 
 											//Schleife die alle Usertypes als <option> ausgibt.
-											//der passende Usertype wird dabei vorausgewählt
+											//der passende Usertype wird dabei vorausgewÃ¤hlt
 											 for($n=0; $n<count($resultSetDepartments); $n++) {
 												$id = $resultSetDepartments[$n]['id'];
 												$name = $resultSetDepartments[$n]['name'];
@@ -194,6 +190,10 @@
 													echo "<option value=\"$id\">$name</option>";
 												}
 											}
+											if($dept == 100)
+												echo "<option value=\"100\" selected>Allgemein</option>";
+											else
+												echo "<option value=\"100\">Allgemein</option>";
 											
 											
 											echo "</select>
@@ -204,7 +204,7 @@
 											 &nbsp;  
 											<select name=\"usertypeID\" size=\"1\">";
 											//Schleife die alle Usertypes als <option> ausgibt.
-											//der passende Usertype wird dabei vorausgewählt
+											//der passende Usertype wird dabei vorausgewÃ¤hlt
 											  for($m=0; $m<count($resultSetUsertypes); $m++) {
 												$id = $resultSetUsertypes[$m]['id'];
 												$name = $resultSetUsertypes[$m]['name'];
@@ -223,8 +223,8 @@
 									</tr>
 								</table>
 								<div class=\"formRight\">
-									<input  class=\"button\" name=\"change\" type=\"submit\" value=\"Ändern\"> &nbsp &nbsp &nbsp
-									<input  class=\"button\" name=\"delete\" type=\"submit\" value=\"Löschen\">
+									<input  class=\"button\" name=\"change\" type=\"submit\" value=\"Ã¤ndern\"> &nbsp &nbsp &nbsp
+									<input  class=\"button\" name=\"delete\" type=\"submit\" onclick=\"return conf()\" value=\"LÃ¶schen\">
 									
 								</div>
 							</td>
@@ -238,15 +238,6 @@
 				
 			</div>
 		</div>
-		
-		</div>
-		        
-		<div class="clear"></div>
-	</div>
-    
-    <div id ="footer">
-</div>
-
-</body>
-
-</html>
+		<?php
+		require_once '../../layout/backend/footer.php';
+		?>

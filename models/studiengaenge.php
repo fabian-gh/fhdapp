@@ -34,6 +34,12 @@ function connect()
 }
 
 // main list of  courses
+
+ /**
+ * Aufgabenspezifische ResultSet mit benötigten Studiengängen + Informationen über akadem. Grad und Zeiten(Teilzeit/Dual)
+ * @param Filteroptionen als String (SQL-Teilabfrage)
+ * @return ResultSet
+ */
 function all_courses($filter)
 {
 
@@ -51,6 +57,11 @@ return $rs = mysql_query($query,$this->connect());
 }
 
 //check amount of graduates of selected course
+ /**
+ * Liefert Anzahl von akadem. Grade eines Studienganges bzw. einer Gruppe von Studiengängen mit gleicher Bezeichnung
+ * @param Studiengangsname/Bezeichnung (String)
+ * @return Anzahl (int)
+ */
 function get_graduate_amount($name)
 {
 $query = "SELECT count(*) as 'amount' 
@@ -61,6 +72,11 @@ return $row['amount'];
 }
 
 //check the graduate of selected course
+ /**
+ * Liefert Information über dem akadem. Grad eines bestimmten Studienganges
+ * @param Studiengangsname/Bezeichnung (String)
+ * @return akadem. Grad (String)
+ */
 function get_graduate_info($name)
 {
 $query = "SELECT graduate FROM studycourses_view WHERE name = '".$name."' GROUP BY graduate;";  
@@ -70,6 +86,11 @@ return $row['graduate'];
 }
 
 // get a tupel with a course information for the info-page
+ /**
+ * Liefert einen Tupel mit Informationen / Daten über einen bestimmten Studiengang für die Info-Seite
+ * @param Studiengangsname/Bezeichnung (String), akadem. Grad (String)
+ * @return Tupel mit Informationen (row)
+ */
 function get_course_information($name,$graduate)
 {
 $query = "SELECT e1.name,e2.name as 

@@ -1,131 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
-<?php
-	session_start();
-?>	
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="../../sources/css/style.css" media="screen" />
-		<link rel="stylesheet" href="../../sources/css/jquery.mobile-1.2.0.css"/>
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-        <title>Kontakte</title>
-    </head>
-	<script type="text/javascript">	
-	
-		function showCategory(id) {	
-			// Hide current
-			$('.visible').addClass("hidden");
-			$('.visible').removeClass("visible");
-			
-			// Show new selected
-			$('.category_' + id).addClass("visible");
-			$('.category_' + id).removeClass("hidden");
-		}
-	
-	</script>
-	<style type="text/css">
-		.visible { 
-			visibility : visible;
-		}
-		
-		.hidden { 
-			visibility : hidden;
-			height: 0px;
-		}
-		
-		.button  {
-			background-color:white !important;
-			border: 2px solid red !important;
-			border-radius: 0px !important;
-		}
-	</style>
-	<body onLoad="showCategory(0)">
-
-		<div id ="header">
-			<div id ="logo">
-				<a href="#">FHD</a>
-			</div>
-			<div id ="breadcrumb">
-				<a href="#">Start</a> »  
-				<a href="#" class="nav-icon">Interessent</a> »  
-				<a href="#">Studgang »</a>
-				<a href="#">BMI »</a>
-				<a href="#">Kontakte</a>
-			</div>
-		</div>
-		
-		<div id ="content" data-role="content">
-			<div >
-				<!-- Categories -->
-				<div id="categories" style="margin: auto;">
-					<table style="margin: auto;">
-						<tr>
-							<td><input class="button" type="button" value="Bewerbung" onClick="showCategory(0)" style="background-color: white;"/></td>
-							<td><input type="button" value="Leben" onClick="showCategory(1)"/></td>
-						</tr>
-						<tr>
-							<td><input type="button" value="Ausland" onClick="showCategory(2)"/></td>
-							<td><input type="button" value="Allgemein" onClick="showCategory(3)"/></td>
-						</tr>
-					</table>
-				</div>
-				
-				<!-- akkordionmenü -->
-				<div data-role="collapsible-set">
-				
-					<!-- load data from database -->
-					<?php
-						require_once '../../controllers/kontakteController.php';
-						$Contacts = new kontakteController();
-						// Get data
-						$contacts = $Contacts->c_getContacts();	
-
-						// Print data on website
-						foreach ($contacts as $contact) {
-							// Create collapsable
-							echo "<div class='category_" . $contact['category_id'] . "' data-role='collapsible' data-theme='a' data-collapsed='false'>";							
-							// Header
-							echo "<h3>" . $contact['title'] . "</br>" .
-								$contact['description'] . "</h3>";
-							
-							// Content
-							echo "<p>Raum " . $contact['room'] . " (Campus Nord/Sued)</br>";
-								
-							if(strlen($contact['office_hours']) > 0) 
-								echo $contact['office_hours'] . "</br>";
-								
-							if(strlen($contact['phone_office_hours']) > 0)
-								echo $contact['phone_office_hours'];	
-								
-							echo $contact['contact'] . "</br>" .
-								 $contact['phone'] . "</br>";
-								 
-							if(strlen($contact['fax']) > 0)
-								echo $contact['fax'] . "</br>";
-								
-							echo "<a href=''>" . $contact['mail'] . "</a>";
-								
-							if(strlen($contact['address']) > 0) 
-								echo $contact['address'];								
-							
-							// End of collapsable
-							echo "</p></div>";
-						}
-					?>          
-				</div>
-				
-			</div>
-		</div>
-	</body>
-<<<<<<< HEAD
-</html>
-=======
 <!-- JavaScript necessary for loading page contents -->
 <script type="text/javascript">	
 
@@ -187,7 +59,6 @@
 					echo '<td><input id="categtory_2" type="button" value="Studiengang" onClick="showCategory(2);" style="background-color: white;"/></td>';
 					$_GET['cat'] = isset($_GET['cat']) ? $_GET['cat'] : '2';
 				}
-				
 			?>
 			<td><input id="categtory_4" type="button" value="Leben" onClick="showCategory(4)"/></td>
 		</tr>
@@ -203,14 +74,12 @@
 
 	<!-- load data from database -->
 	<?php
-	
 		// Create controller object to access data
 		require_once 'controllers/kontakteController.php';
 		$Contacts = new kontakteController();
 		
 		// Get contacts from database
-		$contacts = $Contacts->c_getContacts();	
-		
+		$contacts = $Contacts->c_getContacts();
 		//Check if there is data available
 		if ($contacts != null) {
 		
@@ -219,7 +88,7 @@
 
 			// Print data on website
 			foreach ($contacts as $contact) { 
-
+			
 				// Filter data by department
 				if ($contact['deptID'] == $deptID) {
 					// Create collapsable
@@ -232,17 +101,17 @@
 
 					echo "category_" . $contact['category_id'] . "' data-role='collapsible' data-theme='a' data-collapsed='true'>";							
 					// Header
-					echo "<h3>" . $contact['title'] . "</br>" .
-						$contact['description'] . "</h3>";
+					echo "<h3>" . utf8_encode($contact['title']) . "</br>" .
+						utf8_encode($contact['description']) . "</h3>";
 					
 					// Hours container
 					echo '<div style="margin-bottom:8px">';
 
 					if(strlen($contact['office_hours']) > 0) 
-						echo $contact['office_hours'] . "</br>";
+						echo utf8_encode($contact['office_hours']) . "</br>";
 						
 					if(strlen($contact['phone_office_hours']) > 0)
-						echo $contact['phone_office_hours'] . "</br></br>";
+						echo utf8_encode($contact['phone_office_hours']) . "</br></br>";
 
 					echo '</div>';
 					
@@ -265,7 +134,7 @@
 					echo "<p>Raum " . $contact['room'] . "</br>";
 
 					if(strlen($contact['address']) > 0) 
-						echo $contact['address'];								
+						echo utf8_encode($contact['address']);								
 					echo '</div>';
 
 					// End of collapsable
@@ -278,7 +147,3 @@
 		}
 	?>      
 </div>
->>>>>>> origin/daniel16.02
-=======
-</html>
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7

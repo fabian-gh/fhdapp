@@ -4,114 +4,11 @@
  * FHD-App
  *
  * @version 0.0.1
- * @copyright Fachhochschule Duesseldorf, 2012
+ * @copyright Fachhochschule Duesseldorf, 2013
  * @link http://www.fh-duesseldorf.de
- * @author Sascha Möller (FM), <sascha.moeller@fh-duesseldorf.de>
+ * @author Sascha Möller, <sascha.moeller@fh-duesseldorf.de>
  */
 	ob_start();
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
-	require_once 'layout/frontend/header.php';
-	
-	if(isset($_POST['veranstaltung_speichern']))
-	{
-		echo 'Vielen Dank';
-		require_once 'controllers/veranstaltungenController.php';
-        // Controller-Instanz erstellen und das Data-Objekt übergeben
-        $Controller = new VeranstaltungenController();
-		$Controller->addDatensatz();
-	}
-	else
-	{
-		echo'  
-		<form action="?id=backend_veranstaltungen" method="post">
-		
-		<table id="table_veranstaltung_backend" border="1">
-			<thead>
-			<tr>
-			  <th colspan="2">Veranstaltung</th>
-			</tr>
-		   </thead>
-			<tfoot>
-			<tr>
-			  <td colspan="2">
-				<input type="submit" name="veranstaltung_speichern" id="veranstaltung_speichern" value="Speichern">
-			  </td>
-			</tr>
-		  </tfoot>
-		  
-		  <tbody>
-		  
-			<tr>
-			  <td>Name:</td>
-			  <td>
-				<div data-role="fieldcontain" class="ui-hide-label">
-					<input type="text" name="veranstaltung_name" id="veranstaltung_name" value="" placeholder="Name" size="50" maxlength="30" />
-				</div>
-			  </td>
-			</tr>
-			
-			<tr>
-			 <td>Datum:</td>
-			  <td>
-			  <div data-role="fieldcontain" class="ui-hide-label">
-					<input type="text" name="veranstaltung_datum_tag" id="veranstaltung_datum_tag" value="" placeholder="DD" size="5" maxlength="2" />
-					<input type="text" name="veranstaltung_datum_monat" id="veranstaltung_datum_monat" value="" placeholder="MM" size="5" maxlength="2" />
-					<input type="text" name="veranstaltung_datum_jahr" id="veranstaltung_datum_jahr" value="" placeholder="YYYY" size="10" maxlength="4" />
-			  </div>
-			  </td>
-			</tr>
-			
-			<tr>
-			  <td>Beschreibung:</td>
-			  <td>
-				<div data-role="fieldcontain" class="ui-hide-label">
-				<textarea name="veranstaltung_beschreibung" id="veranstaltung_beschreibung" cols="50" rows="10"></textarea>
-				</div>
-			  </td>
-			</tr>
-			
-			<tr>
-			  <td>Fachbereich:</td>
-			  <td>				
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_1" /> Fachbereich 1 - Architektur  </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_2" /> Fachbereich 2 - Design </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_3" /> Fachbereich 3 - Elektrotechnik </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_4" /> Fachbereich 4 - Maschinenbau und Verfahrenstechnik </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_5" /> Fachbereich 5 - Medien </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_6" /> Fachbereich 6 - Sozial- und Kulturwissenschaften </label>
-					<label><input type="checkbox" name="veranstaltungen_fachbereich_7" /> Fachbereich 7 - Wirtschaft </label>
-			  </td>
-			</tr>
-			
-			<tr>
-			  <td>Modus:</td>
-			  <td>
-				<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup">
-					
-					<label><input type="checkbox" name="veranstaltungen_usertypes_1" /> Interessent </label>
-					<label><input type="checkbox" name="veranstaltungen_usertypes_2" /> Ersti </label>
-					<label><input type="checkbox" name="veranstaltungen_usertypes_3" /> Student </label>
-
-				</fieldset>
-				</div>
-			  </td>
-			</tr>
-			
-		  </tbody>
-		</table>
-		
-		</form>
-		';
-	}
-	
-	
-	require_once 'layout/frontend/footer.php';
-<<<<<<< HEAD
-=======
 	
 	//Header einbinden
 	require_once '../../layout/backend/header.php';
@@ -128,18 +25,17 @@
 	//Neues Objekt von Formular erstellen
 	$Formular = new Formular($Controller);
 	
-	//Leeres Formular erstellen
-	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
-	//JQuery für das leere Formular erstellen
-	$JQUERY = $Formular->getJqueryEmptyForm();
-	
-	
 	//Überprüfen ob Fachbereich-GET-Variable gesetzt ist, falls nicht direkt auf Fachbereich 1 setzen
 	if(isset($_GET['FB']))
 		$FB_AKTUELLER = $_GET['FB'];
 	else
 		$FB_AKTUELLER = 1;
 	
+	//Leeres Formular erstellen
+	$EMPTY_FORMULAR = $Formular->getEmptyForm($FB_AKTUELLER);	
+	//JQuery für das leere Formular erstellen
+	$JQUERY = $Formular->getJqueryEmptyForm();
+
 	$MESSAGE = 'Keine &Auml;nderungen';
 	
 	//Überprüfung ob Formular abgesendet wurde
@@ -189,6 +85,7 @@
 	//Fachbereiche durchlaufen und DropDownListe füllen
 	if($FACHBEREICHE != null)
 	{
+		//Variablen mit leeren Inhalt füllen
 		$INPUT_FACHBEREICH = '';
 		$FB_AKTUELLER_NAME = '';
 		//Durch alle Fachbereiche durchlaufen
@@ -210,16 +107,99 @@
 		echo 'Fehler mit der Datenbank. Fachbereiche konnten nicht geladen werden';
 	}
 	
+	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
+	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
+	$VERANSTALTUNGEN = '';
+	
+	if($ERGEBNIS != null)
+	{
+		//Veranstaltungen durchlaufen und darstellen
+		for($i=0; $i<count($ERGEBNIS); $i++) 
+		{
+			$NAME				= $ERGEBNIS[$i]['name'];
+			$EVENTID			= $ERGEBNIS[$i]['id'];
+			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
+			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
+			
+			//DATUM SPLITTEN
+			$TAG		= date_format($DATUM, 'd');
+			$MONAT		= date_format($DATUM, 'm');
+			$JAHR		= date_format($DATUM, 'Y');
+			$STUNDEN	= date_format($DATUM, 'H');
+			$MINUTEN	= date_format($DATUM, 'i');
+			
+						
+			//Alle Fachbereiche laden, die zur Veranstaltung gehören
+			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
+			//Alle Usertypes laden, die zur Veranstaltung gehören
+			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
+
+			//Neues Objekt von Formular erstellen
+			$Formular = new Formular($Controller);
+			//Alle Variablen setzen
+			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
+			
+			//Veranstaltung darstellen mit Bearbeiten-Option
+			$VERANSTALTUNGEN .= '
+			<tr>
+				<td colspan="2" width="100%">
+				<br />
+				'.$Formular->getEventContainer($FB_AKTUELLER).'
+				</td>
+			</tr>';
+			
+			//JQuery erstellen
+			$JQUERY .= $Formular->getJquery();
+		}
+	}
+	else
+	{
+		$VERANSTALTUNGEN = '
+			<tr>
+				<td colspan="2" width="100%">
+				<br />
+				<i>Kein Datensatz vorhanden!</i>
+				</td>
+			</tr>';
+	}
+		
+	//Eigener CSS-Code
 	echo'
-	<br/><br/><br/>
+	<style type="text/css">
+	<!-- 
+	#content table {
+		border: 1px solid #d1ccc1;
+		margin-bottom: 20px;
+	}
+
+	#content table tr th,
+	#content table tr td {
+		border-right: 0px solid #d1ccc1;
+		border-bottom: 0px solid #d1ccc1;
+		text-align:left;
+		padding: 2px;
+	}
+
+	#content table tr th {
+		background-color: #e6e2d8;
+	}
+	
+	#content .veranstaltung
+	{
+		background-color: #D3D3D3;
+	}
+	-->
+	</style> 
+	<h2>Veranstaltungen</h2>
+
 	<table border="0" width="100%">
 		<tr>
-			<td width="50%" style="text-align:left;">
+			<td width="50%" style="text-align:left; border-bottom: 1px solid #d1ccc1; border-right: 1px solid #d1ccc1;">
 			
 				<p>Status:</p>
 				
 			</td>
-			<td width="50%" style="text-align:right;">
+			<td width="50%" style="text-align:right; border-bottom: 1px solid #d1ccc1; border-left: 1px solid #d1ccc1;">
 			
 				<!-- Ausgeben der Meldung -->
 				<i>'.$MESSAGE.'</i>
@@ -281,69 +261,11 @@
 				<h3>Fachbereich '.$FB_AKTUELLER_NAME.':</h3>
 			</td>
 		</tr>
-	';
-	
-	//Datenbank-Abfrage alle Veranstaltungen für aktuellen Fachbereich laden
-	$ERGEBNIS =  $Controller->getInformationEventsWithDepartmentsWihoutUsertype($FB_AKTUELLER);
-	
-	if($ERGEBNIS != null)
-	{
-		//Veranstaltungen durchlaufen und darstellen
-		for($i=0; $i<count($ERGEBNIS); $i++) 
-		{
-			$NAME				= $ERGEBNIS[$i]['name'];
-			$EVENTID			= $ERGEBNIS[$i]['id'];
-			$BESCHREIBUNG		= $ERGEBNIS[$i]['description'];	
-			$DATUM				= new DateTime($ERGEBNIS[$i]['date']);		
-			
-			//DATUM SPLITTEN
-			$TAG		= date_format($DATUM, 'd');
-			$MONAT		= date_format($DATUM, 'm');
-			$JAHR		= date_format($DATUM, 'Y');
-			$STUNDEN	= date_format($DATUM, 'H');
-			$MINUTEN	= date_format($DATUM, 'i');
-			
-						
-			//Alle Fachbereiche laden, die zur Veranstaltung gehören
-			$ERGEBNIS_FB = $Controller->getInformationDepartmentsFromEvents($EVENTID);
-			//Alle Usertypes laden, die zur Veranstaltung gehören
-			$ERGEBNIS_USER = $Controller->getInformationUsertypesFromEvents($EVENTID);
-
-			//Neues Objekt von Formular erstellen
-			$Formular = new Formular($Controller);
-			//Alle Variablen setzen
-			$Formular->setALL($NAME, $EVENTID, $TAG, $MONAT, $JAHR, $STUNDEN, $MINUTEN, $BESCHREIBUNG, $ERGEBNIS_FB, $ERGEBNIS_USER);
-			
-			//Veranstaltung darstellen mit Bearbeiten-Option
-			echo '
-			<tr>
-				<td colspan="2" width="100%">
-				<br />
-				'.$Formular->getEventContainer($FB_AKTUELLER).'
-				</td>
-			</tr>';
-			
-			//JQuery erstellen
-			$JQUERY .= $Formular->getJquery();
-		}
-	}
-	else
-	{
-		echo '
-			<tr>
-				<td colspan="2" width="100%">
-				<br />
-				<i>Kein Datensatz vorhanden!</i>
-				</td>
-			</tr>';
-	}
-	
-	echo '
+		'.$VERANSTALTUNGEN.'
 		</tbody>
 		</table>
 	';
 
-	
 	//JQuery Ausgeben
 	echo '
 		<script type="text/javascript">
@@ -521,9 +443,6 @@
 	
 	
 	require_once '../../layout/backend/footer.php';
->>>>>>> origin/daniel16.02
-=======
->>>>>>> f9553293b59511910e04ea3b3db00b1d87a108c7
 	ob_end_flush();
 	/* End of file veranstaltungen_edit.php */
 	/* Location: ./views/veranstaltungen/veranstaltungen_edit.php */

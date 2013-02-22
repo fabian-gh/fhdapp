@@ -2,6 +2,10 @@
 
     echo showpage();
 
+ /**
+ * Eine Seite wird gebildet und zurückgegeben
+ * @return eine entsprechende Seite als String (generierter html code)
+ */
     function showpage()
     {
         require_once 'models/studiengaenge.php';
@@ -10,14 +14,22 @@
         return $controller->load_view();  
     }
 
-    // View of the first page where all studycourses are shown
+     // View of the first page where all studycourses are shown
     // + filter functions
+    /**
+    * Seitenklasse für die Stg.-Seite mit Liste von Studiengängen und Filteroptionen (checkboxes)
+    */
     class courses_list_page
     {
         function _construct()
-        {
-        }
+        {}
         
+        /**
+ * Anzeige eines Studienganges in der Liste.
+ * @param Name/Bezeichnung des Studiengangs
+ * @param entsprechnde Icons als String (html code)
+ * @return ein Studiegang als String (html code)
+ */
         function course($name,$bmt_icons)
         {
             $str="<li data-icon='false'>
@@ -29,14 +41,20 @@
             return $str;
         }
       
-
         // calculate a filter and return as string
+        /**
+        * Berechnung bzw. Zusammenstellung der Filter-Abfrage für SQL-Datenbank
+        * @return SQL - (teil-)Abfrage als String
+        */
         function calculate_filter_options()
         {
             // list of orientations
             $orientation_arr= array('design','ingenieur','informatik','medien','sozial','kultur','wirtschaft');
             $filter="";
+            $time_checked_flag=false;
             $orientation_checked_flag=false;
+            $graduate_filter="";
+            $time_filter="";
             $orientation_filter="";
             
             // calculate filter request
@@ -49,23 +67,26 @@
                     if(isset($_GET[1]) && $_GET[1]=='master')
                     {}
                     else
-                    $filter=$filter."and e1.graduate='bachelor'";
+                    $graduate_filter=$graduate_filter."and e1.graduate='bachelor'";
                 }
                 else if($_GET[0]=='master')
-                $filter=$filter."and e1.graduate='master'";
+                $graduate_filter=$graduate_filter."and e1.graduate='master'";
                 
-                    if($_GET[$x]=='teilzeit')
-                    $filter=$filter."and e1.time='teilzeit'";
+                    if($_GET[$x]=='teilzeit'){
+                    $time_filter=$time_filter."e1.time='teilzeit'";
+                    $time_checked_flag=true;}
                 
                 if($_GET[$x]=='dual')
                 {
                     if(isset($_GET[$x-1]))
                         if ($_GET[$x-1]=='teilzeit')
-                        $filter=$filter."or e1.time='dual'";  
-                        else
-                        $filter=$filter."and e1.time='dual'";   
-                    else
-                    $filter=$filter."and e1.time='dual'";
+                        $time_filter=$time_filter."or e1.time='dual'";
+                        else{
+                        $time_filter=$time_filter."e1.time='dual'";  
+                        $time_checked_flag=true;}
+                    else{
+                    $time_filter=$time_filter."e1.time='dual'";
+                    $time_checked_flag=true;}
                 }
                 
                     // if one of the orientations is selected
@@ -82,13 +103,23 @@
                 }
             }
             
+            if($time_checked_flag)
+            $filter = $graduate_filter."and (".$time_filter.")";
+            else
+            $filter = $graduate_filter;
+      
             if($orientation_checked_flag)
             $filter = $filter." and (".$orientation_filter.")";
             
             return $filter;
         }
 
-        //build a studycourses_list with needed icons and names
+        
+   //build a studycourses_list with needed icons and names
+  /**
+ * Zusammenstellung der gesamten Liste als 1 Element
+ * @return Liste von Studiengängen als String (html code)
+ */
         function courses_list()
         {
             $b="<img style='margin-left:3px; margin-top: 5px;' src='views/studiengaenge/data/images/b.png'>";
@@ -132,6 +163,11 @@
             return $li;
         }
 
+  /**
+ * Seite mit allen Elementen wird gebildet
+ * @param Liste (Array) von Filteroptionen (checkboxes)
+ * @return gesamte Seite als String (html code)
+ */
         function content($arr)
         {
             $j_arr = json_encode($arr);
@@ -141,7 +177,7 @@
             // build a page
             $html="<div id='filter_options' data-role='collapsible-set' data-theme='a' data-collapsed-icon='gear' data-expanded-icon='gear' data-iconpos='right'>
             <div data-role='collapsible' data-collapsed='false'>
-            <h3>Studiengänge filtern</h3>".$this->filter()."</div></div>
+            <h3>Studiengänge filtern<div class='subtitle'>Durch die Filter kannst du bestimmte Studiengänge anzeigen oder verbergen.</div></h3>".$this->filter()."</div></div>
             <ul data-role='listview' data-inset='true'>".$cl."</ul>            
             <script src='views/studiengaenge/data/scripts/checkboxes_control.js'></script>
             <script>filter($j_arr)</script>
@@ -151,6 +187,10 @@
             return $html;
         }
 
+  /**
+ * Filteroptionen (checkboxes) mit Bezeichnung und Icons
+ * @return Filteroptionen als String (html code)
+ */
         function filter()
         {
             return "<div data-role='controlgroup' data-mini='true'> 
