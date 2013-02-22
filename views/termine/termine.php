@@ -11,10 +11,11 @@
     if(count($semestersWithAppointments) == 0)
     	echo 'Es sind keine Termine vorhanden.';
     else
+    	//collapsibleset erstellen
 		echo "<div data-role='collapsible-set' data-iconpos='right' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-theme='a'>";
 			for($i = 0; $i < count($semestersWithAppointments); $i++)
 			{
-				//header mit namen erstellen, ersten ausklappen
+				//collapsible(semester) mit namen erstellen, erstes ausklappen
 				$name = $semestersWithAppointments[$i]->name;
 				if($i == 0)
 					echo "<div data-role='collapsible' data-collapsed='false'><h3>$name</h3><table class='appointment'>";

@@ -1,22 +1,23 @@
-<!-- 
-	Diese Dateil (backend_CLEditor.php) muss in der "backend_insertUpdateFormular.php" eingebunden 
-	werden, damit der open source wysiwyg html editor CLEditor verwendet werden kann
- -->
+<?php
+/**
+*	Dateiname: "backend_CLEditor.php"
+*	Zweck:	Diese Datei bindet alle Ressource ein, um den open-source-wysiwyg-html-editor(CLEditor) verwendet zu können.
+*	Benutzt von: "backend_insertUpdateFormular.php"
+*	Autor Name: Okan Köse
+*	Autor E-Mail: okan.koese@gmx.de	
+**/
+?>
 
 <link rel="stylesheet" type="text/css" href="../../sources/CLEditor/jquery.cleditor.css" />
 <script type="text/javascript" src="../../sources/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../../sources/CLEditor/jquery.cleditor.min.js"></script>
-<script type="text/javascript" src="../../sources/CLEditor/jquery.cleditor.advancedtable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#description").cleditor({
-			width:        350, // width not including margins, borders or padding
-			height:       250, // height not including margins, borders or padding
+			width:        353, // width not including margins, borders or padding
+			height:       180, // height not including margins, borders or padding
 			controls:     // controls to add to the toolbar
-						"undo redo | bold italic underline | bullets numbering | " +
-						"outdent indent | " +
-						"alignleft center alignright justify | " +
-						"source",
+						"undo redo | bold italic",
 			colors:       // colors in the color popup
 						"FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
 						"CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
