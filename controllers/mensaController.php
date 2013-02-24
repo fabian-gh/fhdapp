@@ -12,14 +12,14 @@
 class MensaController{
 
 	/**
-	 * Contains a Mensa object
+	 * Beinhaltet ein Mensaobjekt
 	 * @var Object
 	 */
 	private $MensaModel;
 
 
 	/**
-	 * Constructor
+	 * Konstruktor
 	 */
 	public function __construct(){
 		require_once __DIR__.'../../models/mensa.php';
@@ -28,7 +28,7 @@ class MensaController{
 
 
 	/**
-	 * Call the getCanteenPlans()-Method
+	 * Ruft die getCanteenPlans()-Methode auf, um einen Plan zu erfragen
 	 * @return Array $canteenPlans
 	 */
 	public function callGetCanteenPlans(){
@@ -37,7 +37,7 @@ class MensaController{
 
 
 	/**
-	 * Call the getAdditives()-Method
+	 * Ruft die getAdditives()-Methode auf, um die Zusatzstoffe abzufragen
 	 * @return Array $additives
 	 */
 	public function callGetAdditives(){
@@ -46,7 +46,7 @@ class MensaController{
 
 
 	/**
-	 * Call the getOpeningHours()-Method
+	 * Ruft die getOpeningHours()-Methode auf, um die Ã–ffnungszeiten abzufragen
 	 * @return Array $openingHours
 	 */
 	public function callGetOpeningHours(){
@@ -55,7 +55,7 @@ class MensaController{
 
 
 	/**
-	 * Call the getAllPlans()-Method
+	 * Ruft die getAllPlans()-Methode auf, um alle PlÃ¤ne zu erfragen
 	 * @return Array $canteenPlans
 	 */
 	public function callGetAllPlans(){
@@ -64,7 +64,7 @@ class MensaController{
 
 
 	/**
-	 * Call the editPlan()-Method
+	 * Ruft die editPlan()-Methode auf, um einen plan zu bearbeiten
 	 * @param Array $calenderweek
 	 * @return Array $plan
 	 */
@@ -74,7 +74,7 @@ class MensaController{
 
 
 	/**
-	 * Call the deletePlan()-Method
+	 * Ruft die deletePlan()-Methode auf, um einen Plan zu lÃ¶schen
 	 * @param Array $calenderweek
 	 */
 	public function callDeletePlan($calenderweek){
@@ -83,7 +83,7 @@ class MensaController{
 
 
 	/**
-	 * Call the proceedPost()-Method
+	 * Ruft die proceedPost()-Methode auf, um die POST-Daten zu verarbeiten
 	 * @param Array $post
 	 */
 	public function callProceedPost($post){
@@ -92,7 +92,7 @@ class MensaController{
 
 
 	/**
-	 * Insert the canteen plan into the database
+	 * Ruft die insertPlan()-Methode auf, um einen Plan in die Datenbank einzufÃ¼gen
 	 * @param Array $get
 	 */
 	public function callInsertPlan($get){
