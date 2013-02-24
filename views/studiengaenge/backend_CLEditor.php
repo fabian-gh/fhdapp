@@ -9,7 +9,7 @@
 ?>
 
 <link rel="stylesheet" type="text/css" href="../../sources/CLEditor/jquery.cleditor.css" />
-<script type="text/javascript" src="../../sources/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="../../sources/CLEditor/jquery.cleditor.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
