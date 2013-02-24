@@ -10,6 +10,11 @@
 		// Show new selected
 		$('.category_' + id).addClass("visible");
 		$('.category_' + id).removeClass("hidden");
+
+		// Set selected button CSS
+		$("input").parent().removeClass("ui-btn-active");
+		$("#category_" + id).parent().addClass("ui-btn-active");
+
 	}
 
 	/* Category IDs
@@ -38,13 +43,23 @@
 	.ui-content {
 		overflow: hidden;
 	}	
+
+	#categories {
+		text-align: center;
+	}
+
+	.ui-btn {
+		text-align: center;
+		margin: 0.2em;
+	}
+
 </style>
 
 <!-- Code representing the content of the page -->
 <h1><?php echo $_GET['page']; ?></h1>
 <!-- Categories -->
 <div id="categories">
-	<table style="margin: auto;">
+	<table style="margin: auto; width:100%;">
 		<tr>
 			<?php
 				// Get role or set default
@@ -52,25 +67,26 @@
 
 				// Decide labeling, event handler and category refering to role
 				if ($_GET['eis'] == 'i') {
-					echo '<td><input id="categtory_1" type="button" value="Bewerbung" onClick="showCategory(1);" style="background-color: white;"/></td>';
+					echo '<td><input id="category_1" type="button" value="Bewerbung" onClick="showCategory(1);" data-corners="false"/></td>';
 					$_GET['cat'] = isset($_GET['cat']) ? $_GET['cat'] : '1';
 				}
 				else {
-					echo '<td><input id="categtory_2" type="button" value="Studiengang" onClick="showCategory(2);" style="background-color: white;"/></td>';
+					echo '<td><input id="category_2" type="button" value="Studiengang" onClick="showCategory(2);" data-corners="false"/></td>';
 					$_GET['cat'] = isset($_GET['cat']) ? $_GET['cat'] : '2';
 				}
 			?>
-			<td><input id="categtory_4" type="button" value="Leben" onClick="showCategory(4)"/></td>
+			<td><input id="category_4" type="button" value="Leben" onClick="showCategory(4)" data-corners="false"/></td>
 		</tr>
 		<tr>
-			<td><input id="categtory_5" type="button" value="Ausland" onClick="showCategory(5)"/></td>
-			<td><input id="categtory_3" type="button" value="Allgemein" onClick="showCategory(3)"/></td>
+			<td><input id="category_5" type="button" value="Ausland" onClick="showCategory(5)" data-corners="false"/></td>
+			<td><input id="category_3" type="button" value="Allgemein" onClick="showCategory(3)" data-corners="false"/></td>
 		</tr>
 	</table>
 </div>
 
 <!-- Accordion -->
-<div data-role="collapsible-set">
+<div data-role="collapsible-set" data-iconpos="right" data-collapsed-icon="arrow-r" 
+data-expanded-icon="arrow-d" data-theme="a">
 
 	<!-- load data from database -->
 	<?php
@@ -95,14 +111,14 @@
 					echo "<div class='";
 
 					// Decide if should be visible or hidden
-					if ($contact['category_id'] == $_GET['cat'])
+					if ($contact['category_id'] == $_GET['cat'] )
 						echo 'visible ';
 					else echo 'hidden ';
 
 					echo "category_" . $contact['category_id'] . "' data-role='collapsible' data-theme='a' data-collapsed='true'>";							
 					// Header
-					echo "<h3>" . utf8_encode($contact['title']) . "</br>" .
-						utf8_encode($contact['description']) . "</h3>";
+					echo "<h3>" . utf8_encode($contact['title']) . "</br><i>" .
+						utf8_encode($contact['description']) . "</i></h3>";
 					
 					// Hours container
 					echo '<div style="margin-bottom:8px">';
@@ -131,7 +147,8 @@
 					// Hours container
 					echo '<div style="margin-bottom:8px">';
 
-					echo "<p>Raum " . $contact['room'] . "</br>";
+					if(strlen($contact['room']) > 0)
+						echo "<p>Raum " . $contact['room'] . "</br>";
 
 					if(strlen($contact['address']) > 0) 
 						echo utf8_encode($contact['address']);								
@@ -145,5 +162,14 @@
 		else {
 			echo '<p>Es wurden keine Kontakte gefunden. Bitte überprüfen Sie die Datenbankeinstellungen.</p>';
 		}
-	?>      
+	?>     
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		// Initially mark active
+		$("#category_1").parent().addClass("ui-btn-active");
+	 	$("#category_2").parent().addClass("ui-btn-active");
+	});
+	
+</script>
