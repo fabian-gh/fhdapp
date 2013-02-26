@@ -1,6 +1,6 @@
 <?php session_start();ob_start();
 
-    //falls keine connection vorhanden, also beim ersten start der seite, connection erstellen und gegebenenfalls cookies laden
+    //beim ersten start der seite, connection erstellen und gegebenenfalls cookies laden
     if(!isset($_SESSION['user']))
     {
         require_once 'system/database.php';
@@ -22,7 +22,7 @@
             setcookie("selection", "", time() - 1);
         
         //neuen cookie speichern (21 jahre gültig)
-        $selection = "eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}";
+        $selection = "eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}";
         setcookie("selection", $selection, 2000000000);
     }
 
@@ -59,19 +59,19 @@
                 <?php
 
                     if(isset($_GET['eis']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Interessent</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}' class='nav-icon-{$_GET['eis']}'>Zielgruppe</a>";
 
                     if(isset($_GET['selector']))
-                        echo "» <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}'>{$_GET['selector']}</a>";
+                        echo "» <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."'>{$_GET['selector']}</a>";
 
                     if(isset($_GET['course']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}'>{$_GET['course']}</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}'>{$_GET['course']}</a>";
 
                     if(isset($_GET['grade']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}'>{$_GET['grade']}</a>";
 
                     if(isset($_GET['page']))
-                        echo " » <a href='index.php?eis={$_GET['eis']}&selector={$_GET['selector']}&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
+                        echo " » <a href='index.php?eis={$_GET['eis']}&selector=".urlencode($_GET['selector'])."&course={$_GET['course']}&grade={$_GET['grade']}&page={$_GET['page']}'>{$_GET['page']}</a>";
 
                 ?>
 
@@ -95,11 +95,11 @@
                                     switch($_GET['page'])
                                     {
                                         case 'Termine': require_once 'views/termine/termine.php'; break;
-        								case 'Mensa': require_once 'views/mensa/mensa.php'; break;
-        								case 'FAQ': require_once 'views/faq/faq.php'; break;
-        								case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
-        								case 'Info': require_once 'views/studiengaenge/info.php'; break;
-        								case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
+                                        case 'Mensa': require_once 'views/mensa/mensa.php'; break;
+                                        case 'FAQ': require_once 'views/faq/faq.php'; break;
+                                        case 'Kontakte': require_once 'views/kontakte/frontend_kontakte.php'; break;
+                                        case 'Info': require_once 'views/studiengaenge/info.php'; break;
+                                        case 'Veranstaltungen': require_once 'views/veranstaltungen/veranstaltungen.php'; break;
                                     }
                                 }
                                 else //ebene4: "startseite", auswahl der unterkategorie
@@ -116,7 +116,7 @@
                         {
                             switch($_GET['selector'])
                             {
-                                case 'Studiengaenge': require_once 'views/navigation/courses.php'; break;
+                                case 'Studiengänge': require_once 'views/navigation/courses.php'; break;
                                 case 'Quiz': require_once 'views/navigation/quiz.php'; break;
                             }
                         }

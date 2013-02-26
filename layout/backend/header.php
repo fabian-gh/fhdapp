@@ -30,20 +30,21 @@
             <div id ="nav">
                     <h3>Seiteninhalt bearbeiten:</h3>
                     <ul>
-                        <li><a href="../../views/studiengaenge/backend_studiengaenge.php">Studieng&auml;nge</a></li>
-						<?php
-							//Wenn man im Navigationspunkt "Studiengänge" ist
-							if(@$_GET["page"]=="Studiengaenge"){
-								//Dann 2 Unterpunkte ausgeben, einmal "Einfügen" und einmal "Bearbeiten/Löschen"
-								echo "<ul><li><a id='insertUpdateStudycourse' href=\"?page=Studiengaenge&action=einfuegen\">Einf&uuml;gen</a></li><li><a id='editDeleteStudycourse' href=\"?page=Studiengaenge&action=bearbeitenLoeschen\">Bearbeiten/L&ouml;schen</a></li></ul>";
-							}
-						?>
-                        <li><a href="../../views/veranstaltungen/backend_veranstaltungen.php">Veranstaltungen</a></li>
-                        <li><a href="../../views/termine/backend_termine.php?dept=1">Termine</a></li>
-                        <li><a href="../../views/mensa/choose.php">Mensa</a></li>
-                        <li><a href="../../views/faq/backend_faq.php">FAQ</a></li>
-                        <li><a href="../../views/kontakte/backend_kontakte.php">Kontakt</a></li>
-                        <li><a href="../login/logout.php">Logout</a></li>
+                        <li><a id="liStudyCourses" href="../../views/studiengaenge/backend_studiengaenge.php?page=Studiengaenge">Studieng&auml;nge</a></li>
+                        <?php
+                            //Wenn man im Navigationspunkt "Studiengänge" ist
+                            if(@$_GET["page"]=="Studiengaenge"){
+                                //Dann 2 Unterpunkte ausgeben, einmal "Einfügen" und einmal "Bearbeiten/Löschen"
+                                echo "<ul><li><a id='liInsertUpdateStudycourse' href=\"?page=Studiengaenge&action=einfuegen\">Einf&uuml;gen</a></li>
+                                <li><a id='liEditDeleteStudycourse' href=\"?page=Studiengaenge&action=bearbeitenLoeschen\">Bearbeiten/L&ouml;schen</a></li></ul>";
+                            }
+                        ?>
+                        <li><a id="liEvents" href="../../views/veranstaltungen/backend_veranstaltungen.php">Veranstaltungen</a></li>
+                        <li><a id="liAppointments" href="../../views/termine/backend_termine.php">Termine</a></li>
+                        <li><a id="liMensa" href="../../views/mensa/choose.php">Mensa</a></li>
+                        <li><a id="liFaq" href="../../views/faq/backend_faq.php">FAQ</a></li>
+                        <li><a id="liContacts" href="../../views/kontakte/backend_kontakte.php">Kontakt</a></li>
+                        <li><a id="liLogout" href="../login/logout.php">Logout</a></li>
                     </ul>
                 </div>
         

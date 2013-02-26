@@ -29,6 +29,6 @@ var and_='';
 if (filter!=''){
 and_='&';}
 var loc=filter;
-window.location.href = 'index.php?eis='+param+'&selector=Studiengaenge'+and_+loc;
+window.location.href = 'index.php?eis='+param+'&selector=Studieng%C3%A4nge'+and_+loc;
 });
 }

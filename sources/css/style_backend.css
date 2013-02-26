@@ -3,15 +3,36 @@
 	padding: 0;	
 }
 
-.error{
-	color: red;
+.allFields{
+	min-width: 578px;
+	margin: 10px 0px 15px 0px;
+	border: 1px solid #505050;
+	padding: 10px 20px 20px 20px;
 }
+
+.allFields .button{
+	min-width: 578px;
+	max-height: 48px;
+	margin: 30px 0px 0px 0px;
+	border: 2px solid #505050;
+	padding: 14px 10px 15px 10px;
+	background: #f7f5f0;
+}
+
+.allFields .button:hover{
+	cursor: pointer; 
+	background: #ffffff;
+}
+
+.singleField { margin-top:15px; }
 
 .singleFieldDescription{
 	font-weight: bold;
-	min-width: 210px;
+	min-width: 209px;
+	min-height: 20px;
 	float: left;
 	margin-right: 10px;
+	padding-top: 2px;
 	text-align: right;
 }
 
@@ -20,17 +41,72 @@
 	max-width: 350px;
 }
 
-.singleField {
-	margin-top: 15px;
-	padding: 5px;
+.singleFieldValue select{ cursor: pointer; }
+
+.singleFieldValue label{ cursor: pointer; }
+
+.studycourseButtons{
+	border: 1px solid #505050;
+	padding: 5px 15px 5px 15px;
+	background: #f7f5f0;
+	text-align: center;
 }
 
-.allFields{
-	min-width: 600px;
-	margin: 20px 0px 20px 0px;
-	border: 1px solid black;
-	padding: 0px 20px 20px 20px;
+.studycourseButtons:hover{
+	cursor: pointer; 
+	background: #ffffff;
 }
+
+.studycourseDeleteButtons{
+	border: 1px solid #505050;
+	padding: 5px 15px 5px 15px;
+	background: #f7f5f0;
+	text-align: center;
+}
+
+.studycourseDeleteButtons:hover{
+	cursor: pointer; 
+	background: red;
+	color: white;
+}
+
+.studycourseTable{
+	margin: 20px 0px 20px 0px;
+	border-collapse: collapse;
+	border: 1px solid #505050;
+}
+
+.studycourseTable td{ padding: 3px 4px 3px 5px !important; }
+
+.studycourseTable tr:nth-child(even){ background: #e8e8e8; }
+
+.studycourseTable tr:hover{ background: #ffffff; }
+
+.error{ color: red; }
+
+.errorBox{
+	border: 2px solid red;
+	color: red;
+	font-weight: bold;
+	margin-top: 10px;
+	padding: 10px 15px 15px 25px;
+}
+
+.errorBox span{ font-weight: normal; }
+
+.errorBox p{
+	color: red;
+	font-weight: bold;
+	margin: 5px 0px 5px 0px;
+}
+
+.errorBox ul{
+	color: red;
+	font-weight: bold;
+	margin-top: 15px;
+}
+
+.errorBox ul li{ margin: 0px 0px 8px 45px; }
 
 body {
 	background: #f7f5f0;

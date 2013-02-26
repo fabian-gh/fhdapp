@@ -2,6 +2,7 @@
 require_once 'models/studiengaenge.php';
 require_once 'views/navigation/courses.php';
 
+
 /**
  * FHD-App
  *
@@ -15,10 +16,13 @@ require_once 'views/navigation/courses.php';
 class controller
 {
     function _construct()
-    {
-    }
+    {}
     
     // load a needed view
+  /**
+ * Anhand von Werten in Adresszeile wird entsprechende View bzw. Seite geladen:
+ * es wird ein Objekt der Seitenklasse erstellt und Instanzmethode 'content' aufgerufen.
+ */
     function load_view()
     {
         $page = new courses_list_page();
@@ -43,7 +47,7 @@ class controller
         else
         {
         $arr = array();
-            for($x=0;$x<8;$x++)
+            for($x=0;$x<11;$x++)
             {
                 if(isset($_GET[$x]))
                 {

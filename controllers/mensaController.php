@@ -12,15 +12,14 @@
 class MensaController{
 
 	/**
-	 * Contains a Mensa object
+	 * Beinhaltet ein Mensaobjekt
 	 * @var Object
 	 */
 	private $MensaModel;
 
 
-
 	/**
-	 * Constructor
+	 * Konstruktor
 	 */
 	public function __construct(){
 		require_once __DIR__.'../../models/mensa.php';
@@ -28,9 +27,9 @@ class MensaController{
 	}
 
 
-
 	/**
-	 * Call the getCanteenPlans()-Method
+	 * Ruft die getCanteenPlans()-Methode auf, um einen Plan zu erfragen
+	 * @return Array $canteenPlans
 	 */
 	public function callGetCanteenPlans(){
 		return $this->MensaModel->getCanteenPlans();
@@ -38,7 +37,8 @@ class MensaController{
 
 
 	/**
-	 * Call the getAdditives()-Method
+	 * Ruft die getAdditives()-Methode auf, um die Zusatzstoffe abzufragen
+	 * @return Array $additives
 	 */
 	public function callGetAdditives(){
 		return $this->MensaModel->getAdditives();
@@ -46,7 +46,8 @@ class MensaController{
 
 
 	/**
-	 * Call the getAdditives()-Method
+	 * Ruft die getOpeningHours()-Methode auf, um die Öffnungszeiten abzufragen
+	 * @return Array $openingHours
 	 */
 	public function callGetOpeningHours(){
 		return $this->MensaModel->getOpeningHours();
@@ -54,8 +55,8 @@ class MensaController{
 
 
 	/**
-	 * Call the getAllPlans()-Method
-	 * @param Array $post
+	 * Ruft die getAllPlans()-Methode auf, um alle Pläne zu erfragen
+	 * @return Array $canteenPlans
 	 */
 	public function callGetAllPlans(){
 		return $this->MensaModel->getAllPlans();
@@ -63,8 +64,9 @@ class MensaController{
 
 
 	/**
-	 * Call the editPlan()-Method
-	 * @param Array $post
+	 * Ruft die editPlan()-Methode auf, um einen plan zu bearbeiten
+	 * @param Array $calenderweek
+	 * @return Array $plan
 	 */
 	public function callEditPlan($calenderweek){
 		return $this->MensaModel->editPlan($calenderweek);
@@ -72,8 +74,8 @@ class MensaController{
 
 
 	/**
-	 * Call the deletePlan()-Method
-	 * @param Array $post
+	 * Ruft die deletePlan()-Methode auf, um einen Plan zu löschen
+	 * @param Array $calenderweek
 	 */
 	public function callDeletePlan($calenderweek){
 		$this->MensaModel->deletePlan($calenderweek);
@@ -81,7 +83,7 @@ class MensaController{
 
 
 	/**
-	 * Call the proceedPost()-Method
+	 * Ruft die proceedPost()-Methode auf, um die POST-Daten zu verarbeiten
 	 * @param Array $post
 	 */
 	public function callProceedPost($post){
@@ -90,7 +92,8 @@ class MensaController{
 
 
 	/**
-	 * Insert the canteen plan into the database
+	 * Ruft die insertPlan()-Methode auf, um einen Plan in die Datenbank einzufügen
+	 * @param Array $get
 	 */
 	public function callInsertPlan($get){
 		$this->MensaModel->insertPlan($get);

@@ -1,106 +1,156 @@
-<?php
+ï»¿<?php
 
 /**
  * FHD-App
  *
- * @version 0.0.1
+ * @version 0.9
  * @copyright Fachhochschule Duesseldorf, 2012
  * @link http://www.fh-duesseldorf.de
- * @author Marc Flören (MF), <marc.floeren@fh-duesseldorf.de>
+ * @author Marc Floeren (MF), <marc.floeren@fh-duesseldorf.de>
+ * @author Anh Minh Nguyen (AMN), <anh.nguyen@fh-duesseldorf.de>
  */
 
 class FaqController{
     
+	/**
+	* FAQ Controller Constructor.
+	* Bindet das Model ein.
+	*/
 	function __construct() {
 		// Model einbinden
-       require_once __DIR__.'../../models/faq.php';
+       require_once __DIR__.'../../models/faqModel.php';
    }
+   
     /**
-     * Übergibt neue Daten an Model
+     * Ãœbergibt neue Daten an das Model.
      *
+	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
      */
     public function setFaq($data){
        
          // Objekt erstellen
 	   $faqModel = new Faq();
-		// POST übergeben
+		// POST uebergeben
         $faqModel->controllInput($data);
     }
 	
 	/**
-     * Übergibt ID zum löschen an Modell
-     *
+     * Ãœbergabe von Daten an das Model zum Ã„ndern.
+     * Die zu Ã¤ndernde FAQ wird erst gelÃ¶scht, danach die geÃ¤nderte FAQ neu eingefÃ¼gt.
+	 * Aufruf und Ãœbergabe der Parameter an die Methoden im Model.
+	 * @param Array $data  Data Array mit eingegebenen Werten aus dem Formular
+     */
+    public function changeFaq($data){
+       
+         // Objekt erstellen
+		$faqModel = new Faq();
+		// POST uebergeben
+		$faqModel->DeleteFaq($data['id'],true);
+        $faqModel->controllInput($data);
+    }
+	
+	/**
+     * Ãœbergibt ID der zu lÃ¶schenden FAQ.
+	 * Aufruf und Ãœbergabe der Parameter an die Methoden im Model.
+     * @param int $id ID derjenigen FAQ, die gelÃ¶scht werden soll
      */
 	 public function deleteFaq($id){
        
          // Objekt erstellen
 	   $faqModel = new Faq();
-		// POST übergeben
-        $faqModel->DeleteFaq($id);
+		// POST uebergeben
+        $faqModel->DeleteFaq($id,false);
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Faqs zu erhalten
-     * @return Array
+     * FÃ¼hrt die Abfragemethode aus um nach Fachbereich und Usertype die FAQs zu selektieren.
+	 * FÃ¼r die Darstellung im Frontend.
+	 * Aufruf und Ãœbergabe der Parameter an die Methoden im Model.
+	 * @param int $dept Fachbereich
+	 * @param int $eis Usertype
+     * @return Array mit den DatensÃ¤tzen der FAQs
      */
     public function getFAQsFrontend($dept, $eis){
-        
-		
+	
 	   // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfÃ¼hren und zurÃ¼ckgeben
         return $faqModel->createReadStatementAllFrontend($dept, $eis);
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Faqs zu erhalten
-     * @return Array
+     * FÃ¼hrt die Abfragemethode aus um alle FAQs nach Fachbereich zu selektieren.
+	 * FÃ¼r die Darstellung im Backend.
+	 * Aufruf und Ãœbergabe der Parameter an die Methoden im Model.
+	 *
+     * @return Array mit den DatensÃ¤tzen der FAQs
      */
-    public function getFAQsBackend($department){
-        
+    public function getFAQsBackend($department){     
 		
 	   // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfÃ¼hren und zurÃ¼ckgeben
         return $faqModel->createReadStatementBackend($department);
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Fachbereiche zu erhalten
-     * @return Array
+     * FÃ¼hrt die Abfragemethode aus um alle Fachbereiche zu erhalten.
+	 * Aufruf der Methoden im Model.
+	 *
+     * @return Array mit den Fachbereichen
      */
     public function getDepartments(){
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementDepartments();
     }
 	
 	/**
-     * Führt die Abfragemethode aus um alle Usergruppen zu erhalten
-     * @return Array
+     * Fuehrt die Abfragemethode aus um alle Usergruppen zu erhalten.
+	 * Aufruf der Methoden im Model.
+     * @return Array mit den Usertypes
      */
     public function getUsertypes(){
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode ausführen und zurückgeben
+        // Methode ausfuehren und zurueckgeben
         return $faqModel->createReadStatementUsertypes();
     }
-
-
-
-//TEST METHODEN
-
-	public function getTestData($test){
+	
+	/**
+     * FÃ¼hrt die Abfragemethode aus um alle Sprach-IDs zu erhalten.
+	 * Aufruf der Methoden im Model.
+     * @return Array mit den Sprach-IDs
+     */
+    public function getLang(){
         
 		 // Objekt erstellen
 	   $faqModel = new Faq();
-        // Methode die getestet werden soll ausführen und zurückgeben
-        return $faqModel->createReadStatementFaqID($test);
+        // Methode ausfuehren und zurueckgeben
+        return $faqModel->createReadStatementLang();
     }
 	
+	/**
+	* FÃ¼hrt die Abfragemethode aus, um aus dem gewÃ¤hlten Studiengang den zugehÃ¶rigen Fachbereich zu erhalten
+	* Aufruf und Ãœbergabe der Parameter an die Methoden im Model.
+	*
+	* @param $course Studiengang, zu dem der Fachbereich gesucht werden soll
+	* @return Array mit den Fachbereich-IDs
+	*/
+	public function getDepartmentFromCourse($course){
+	
+	// Objekt erstellen
+	$faqModel = new Faq();
+	// Methode ausfÃ¼hren und zurÃ¼ckgeben
+	//$temp = $faqModel->DepartmentFromCourse($course)[0]['department_id'];
+	//return $temp;
+
+	$temp = $faqModel->departmentFromCourse($course);
+	return $temp[0]['department_id'];
+	}
 }
  
 /* End of file faqController.php */

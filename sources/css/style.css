@@ -40,7 +40,7 @@ div.ui-body-c {
 	text-decoration: none;
 }
 
-#breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s {
+#breadcrumb a.nav-icon-i, a.nav-icon-e, a.nav-icon-s, a.nav-icon-w{
 	padding-top: 2px;
 	display: inline-block;
 	text-indent: -9999em;
@@ -49,6 +49,10 @@ div.ui-body-c {
 }
 
 #breadcrumb a.nav-icon-i {
+	background: url(../img/nav-icon-i.png) no-repeat;
+}
+
+#breadcrumb a.nav-icon-w {
 	background: url(../img/nav-icon-i.png) no-repeat;
 }
 
@@ -145,4 +149,16 @@ data-expanded-icon="arrow-d" data-theme="a">
 	background-image: -ms-linear-gradient(top, #d54343, #a60909);
 	background-image: -o-linear-gradient(top, #d54343, #a60909);
 	background-image: linear-gradient(top, #d54343, #a60909);
+}
+
+.ui-btn-active {
+	background: -moz-linear-gradient(#fa4545, #cd3939) repeat scroll 0 0 #cd3939;
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fa4545),color-stop(1,#cd3939)) repeat scroll 0 0 #cd3939;
+	background: -ms-linear-gradient(#fa4545, #cd3939) repeat scroll 0 0 #cd3939;
+	background: -o-linear-gradient(#fa4545, #cd3939) repeat scroll 0 0 #cd3939;
+	background: linear-gradient(#fa4545, #cd3939) repeat scroll 0 0 #cd3939;
+}
+
+.ui-checkbox-on .ui-icon, .ui-radio-on .ui-icon {
+    background-color: #cd3939;
 }
