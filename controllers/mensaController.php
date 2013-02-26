@@ -46,7 +46,7 @@ class MensaController{
 
 
 	/**
-	 * Ruft die getOpeningHours()-Methode auf, um die Ã–ffnungszeiten abzufragen
+	 * Ruft die getOpeningHours()-Methode auf, um die Öffnungszeiten abzufragen
 	 * @return Array $openingHours
 	 */
 	public function callGetOpeningHours(){
@@ -55,7 +55,7 @@ class MensaController{
 
 
 	/**
-	 * Ruft die getAllPlans()-Methode auf, um alle PlÃ¤ne zu erfragen
+	 * Ruft die getAllPlans()-Methode auf, um alle Pläne zu erfragen
 	 * @return Array $canteenPlans
 	 */
 	public function callGetAllPlans(){
@@ -74,7 +74,7 @@ class MensaController{
 
 
 	/**
-	 * Ruft die deletePlan()-Methode auf, um einen Plan zu lÃ¶schen
+	 * Ruft die deletePlan()-Methode auf, um einen Plan zu löschen
 	 * @param Array $calenderweek
 	 */
 	public function callDeletePlan($calenderweek){
@@ -92,7 +92,7 @@ class MensaController{
 
 
 	/**
-	 * Ruft die insertPlan()-Methode auf, um einen Plan in die Datenbank einzufÃ¼gen
+	 * Ruft die insertPlan()-Methode auf, um einen Plan in die Datenbank einzufügen
 	 * @param Array $get
 	 */
 	public function callInsertPlan($get){

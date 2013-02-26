@@ -8,7 +8,9 @@
  * @author Ewest Paul - Kristian
  */
 
-
+ /**
+ * Model
+ */
 class db_connector{
     
 private $language;
@@ -18,6 +20,10 @@ function __construct()
 $this->language='1';
 }
 
+ /**
+ * Aufbau von DB-connection
+ * @return DB-connection
+ */
 function connect()
 {
     $conn = mysql_connect($_SESSION['host'], $_SESSION['user'], $_SESSION['pwd']);
@@ -34,31 +40,22 @@ function connect()
 }
 
 // main list of  courses
-
  /**
- * Aufgabenspezifische ResultSet mit benötigten Studiengängen + Informationen über akadem. Grad und Zeiten(Teilzeit/Dual)
+ * ResultSet mit benÃ¶tigten StudiengÃ¤ngen + Informationen Ã¼ber akadem. Grad und Zeiten(Teilzeit/Dual)
  * @param Filteroptionen als String (SQL-Teilabfrage)
  * @return ResultSet
  */
 function all_courses($filter)
 {
-
-$query = "SELECT distinct e1.name, e1.time as 'time1', e2.time as 'time2' , 
-e1.graduate as 'grad1', e2.graduate as 'grad2' 
-FROM studycourses_view e1 join studycourses_view e2 on e1.name = e2.name 
-and e1.graduate!= e2.graduate and e1.language=".$this->language." ".$filter." GROUP BY e1.name
-UNION 
-SELECT e1.name, e1.time as 'time1', e2.time as 'time2', 
-e1.graduate  as 'grad1', e2.graduate as 'grad2' 
-FROM studycourses_view e1 join studycourses_view e2 on e1.name=e2.name 
-and e1.name not in (SELECT a1.name FROM studycourses_view a1, 
-studycourses_view a2 where a1.name = a2.name and a1.graduate!=a2.graduate) and e1.language=".$this->language." ".$filter." GROUP BY e1.name ORDER BY name";
+$query = "SELECT * FROM `studycourses_view` WHERE language= ".$this->language." ".$filter." ORDER BY name";
 return $rs = mysql_query($query,$this->connect());
 }
 
+
+
 //check amount of graduates of selected course
  /**
- * Liefert Anzahl von akadem. Grade eines Studienganges bzw. einer Gruppe von Studiengängen mit gleicher Bezeichnung
+ * Liefert Anzahl von akadem. Grade eines Studienganges bzw. einer Gruppe von StudiengÃ¤ngen mit gleicher Bezeichnung
  * @param Studiengangsname/Bezeichnung (String)
  * @return Anzahl (int)
  */
@@ -72,8 +69,9 @@ return $row['amount'];
 }
 
 //check the graduate of selected course
+
  /**
- * Liefert Information über dem akadem. Grad eines bestimmten Studienganges
+ * Liefert Information Ã¼ber dem akadem. Grad eines bestimmten Studienganges
  * @param Studiengangsname/Bezeichnung (String)
  * @return akadem. Grad (String)
  */
@@ -87,7 +85,7 @@ return $row['graduate'];
 
 // get a tupel with a course information for the info-page
  /**
- * Liefert einen Tupel mit Informationen / Daten über einen bestimmten Studiengang für die Info-Seite
+ * Liefert einen Tupel mit Informationen / Daten Ã¼ber einen bestimmten Studiengang fÃ¼r die Info-Seite
  * @param Studiengangsname/Bezeichnung (String), akadem. Grad (String)
  * @return Tupel mit Informationen (row)
  */

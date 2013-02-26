@@ -1,7 +1,5 @@
 <?php ob_start();
 
-// TODO: Campus berücksichtigen beim Einfügen / Ändern
-
 
     //header einbinden
     require_once '../../layout/backend/header.php';
@@ -72,6 +70,25 @@
 				.borderfield {
 					padding: 10px;
 				}
+
+				.multipleContacts {
+					border: 1px solid red;
+					border-bottom: none;
+					padding: 10px;
+					background-color: rgb(245, 200, 200);
+				}
+				.multipleForm {
+					border: 1px solid red;
+					border-top: none;
+					padding: 10px;
+					padding-top: 0px;
+					background-color: rgb(245, 200, 200);
+					margin-bottom: 30px;
+				}
+				.multipleContacts span {
+					font-weight: bold;
+					padding-bottom: 10px;
+				}
 			</style>
 			<script>
 				$.fn.scrollTo = function( target, options, callback ){
@@ -115,42 +132,7 @@
 		
 			<h2>Kontakte</h2>
 
-			<button id="addContactButton" onclick="showAddContact()" style="margin-bottom: 20px; margin-top: -5px;" >Neuen Kontakt hinzufügen</button>
-
-
-			<!-- List the existing data in a table and give the possibility to alter or delete it -->
-			<div id="alterContact">
-				<?php 
-				$contacts = $controller->c_getContacts();
-				if($contacts != null){
-					echo	'<table width="100%" border="0" cellpadding="0" cellspacing="0">
-					            <tr>
-					                <th>Kontaktstelle</th>
-					                <th>Kategorie</th>
-					                <th>Fachbereich</th>
-					                <th>Bearbeiten</th>
-					                <th>Löschen</th>
-					            </tr>';
-
-						foreach ($contacts as $value) {
-						echo '<form action="" method="post">';			
-							echo '<tr>
-									<td>' . utf8_encode($value['title']) . '</td>
-									<td>' . $value['catName'] . '</td>
-									<td>' . $value['deptName'] . '</td>
-									<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /> <input type="hidden" name="deptID" value="' . $value['deptID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
-									<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Möchten Sie diesen Kontakt wirklich löschen?")\' /></td>
-								</tr>';
-						echo '</form>';
-						}
-				} else {
-					echo '<p>Es sind noch keine Kontakte in der Datenbank vorhanden.</p>';
-				}
-				?>
-				</table>
-			</div>
-			
-			<?php
+						<?php
 					if(isset($_POST['alterContact'])){
 						$contactDepts = $controller->c_getContactDepts($_POST);
 						//check if the contact exists for one or multiple departments
@@ -160,7 +142,7 @@
 									Der Kontakt ist für mehrere Fachbereiche eingetragen. 
 									Möchten Sie ihn für alle Fachbereiche ändern oder nur den Fachbereich des ausgewählten?</p>';
 							//should the contact be altered for all departments or just a single one? 
-							echo '	<form action="" method="post">
+							echo '	<form action="" method="post" class="multipleForm">
 										<input type="hidden" name="contactID" value=" '. $_POST['contactID'] .' " />
 										<input type="hidden" name="deptID" value=" '.$_POST['deptID'].' " />
 										<input type="submit" style="margin-top: 15px; margin-right: 15px;" name="alterAllContacts" value="Für alle ändern" />
@@ -180,10 +162,11 @@
 									<form name="alterContactForm" action="#" method="post">
 									<fieldset class="borderfield">
 										<legend>Kontakt bearbeiten</legend>
-										<label class="contactLabel" for="alterContactTitle">Kontakstelle</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .utf8_encode($alterContact[0]['title']). '" /><br />
+										<label class="contactLabel" for="alterContactTitle">Kontakstelle *</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .utf8_encode($alterContact[0]['title']). '" /><br />
 										<label class="contactLabel" for="alterContactContact"> Ansprechpartner</label> <input type="text" id="alterContactContact" name="alterContactContact" value="'. utf8_encode($alterContact[0]['contact']).'" /><br />										
 										<label class="contactLabel" for="alterContactDescription"> Beschreibung</label> <textarea id="alterContactDescription" name="alterContactDescription" cols="50" rows="4" placeholder="Eine kurze Beschreibung zum Kontakt (max. 200 Zeichen)">'. $alterContact[0]['description'] .'</textarea>	<br />							
-										<fieldset>';
+										<fieldset>
+										<legend>Kategorie * </legend>';
 							//creating a radiobutton for every category. Value is set to match the ID
 							for ($i = 0; $i < count($categories); $i++) {
 								if($categories[$i]['id'] != $alterContact[0]['catID'])
@@ -192,7 +175,8 @@
 									echo '<input type="radio" name="alterContactCategory" class="radioInput" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" checked="checked" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
 							}
 							echo '		</fieldset>
-										<fieldset>';
+										<fieldset>
+										<legend>Fachbereich *</legend>';
 							for ($i = 0; $i < count($departments); $i++) {
 								if($departments[$i]['id'] != $alterContact[0]['deptID'])
 									echo '<input type="checkbox" name="alterContactDepartment[]" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
@@ -222,7 +206,6 @@
 			?>
 
 			<?php 
-				//TODO: wenn mehrere FB, mehrere Checkboxen markieren
 				if(isset($_POST['alterAllContacts'])){
 							$alterContact = $controller->c_getContact($_POST);
 							//getting the categories from the db
@@ -237,10 +220,11 @@
 									<form name="alterContactForm" action="#" method="post">
 									<fieldset class="borderfield">
 										<legend>Kontakt bearbeiten </legend>
-										<label class="contactLabel" for="alterContactTitle">Kontaktstelle</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .utf8_encode($alterContact[0]['title']). '" /> </br>
+										<label class="contactLabel" for="alterContactTitle">Kontaktstelle *</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .utf8_encode($alterContact[0]['title']). '" /> </br>
 										<label class="contactLabel" for="alterContactContact"> Ansprechpartner</label> <input type="text" id="alterContactContact" name="alterContactContact" value="'. utf8_encode($alterContact[0]['contact']).'" /><br />
 										<label class="contactLabel" for="alterContactDescription"> Beschreibung</label> <textarea id="alterContactDescription" name="alterContactDescription" cols="50" rows="4" placeholder="Eine kurze Beschreibung zum Kontakt (max. 200 Zeichen)">'. utf8_encode($alterContact[0]['description']) .'</textarea>	<br />							
-										<fieldset>';
+										<fieldset>
+										<legend>Kategorie *</legend>';
 							//creating a radiobutton for every category. Value is set to match the ID
 							for ($i = 0; $i < count($categories); $i++) {
 								if($categories[$i]['id'] != $alterContact[0]['catID'])
@@ -249,7 +233,8 @@
 									echo '<input type="radio" name="alterContactCategory" class="radioInput" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" checked="checked" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
 							}
 							echo '		</fieldset>
-										<fieldset>';
+										<fieldset>
+										<legend>Fachbereich *</legend>';
 
 							for ($i = 0; $i < count($departments); $i++) {
 								$check = "";
@@ -274,6 +259,7 @@
 									<label class="contactLabel" for="alterContactPhoneOfficeHours"> Telefonische Sprechzeiten</label> <input type="text" id="alterContactPhoneOfficeHours" name="alterContactPhoneOfficeHours" value="'. utf8_encode($alterContact[0]['phone_office_hours']).'" /><br />
 									<input type="hidden" name="contactID" value="' . $alterContact[0]['contactID'] . ' " />
 									<input type="hidden" name="deptID" value="' . $alterContact[0]['deptID'] . '" />
+									<br /><br /> Mit * gekennzeichnete Felder sind Pflichtangaben
 									<input type="submit" name="alterAllContactsSubmit" value="Daten ändern" id="alterContactBtn" class="submit" />
 									</fieldset>
 							';
@@ -294,10 +280,11 @@
 									<form name="alterContactForm" action="#" method="post">
 										<fieldset class="borderfield">
 										<legend>Kontakt bearbeiten</legend>
-										<label class="contactLabel" for="alterContactTitle">Kontaktstelle</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .utf8_encode($alterContact[0]['title']). '" /> <br />
+										<label class="contactLabel" for="alterContactTitle">Kontaktstelle *</label> <input type="text" id="alterContactTitle" name="alterContactTitle" value="' .utf8_encode($alterContact[0]['title']). '" /> <br />
 										<label class="contactLabel" for="alterContactContact"> Ansprechpartner</label> <input type="text" id="alterContactContact" name="alterContactContact" value="'. utf8_encode($alterContact[0]['contact']).'" /> <br />
 										<label class="contactLabel" for="alterContactDescription"> Beschreibung</label> <textarea id="alterContactDescription" name="alterContactDescription" cols="50" rows="4" placeholder="Eine kurze Beschreibung zum Kontakt (max. 200 Zeichen)">'. utf8_encode($alterContact[0]['description']) .'</textarea> <br />							
-										<fieldset>';
+										<fieldset>
+										<legend>Kategorie *</legend>';
 							//creating a radiobutton for every category. Value is set to match the ID
 							for ($i = 0; $i < count($categories); $i++) {
 								if($categories[$i]['id'] != $alterContact[0]['catID'])
@@ -306,7 +293,8 @@
 									echo '<input type="radio" name="alterContactCategory" class="radioInput" id="'. $categories[$i]['category'] .'" value="' . ($i + 1) . '" checked="checked" /><label class="radio" for="' . $categories[$i]['name'] . '">'.$categories[$i]['name'] . '</label>';
 							}
 							echo '		</fieldset>
-										<fieldset>';
+										<fieldset>
+										<legend>Fachbereich *</legend>';
 							for ($i = 0; $i < count($departments); $i++) {	
 								if($departments[$i]['id'] != substr($_POST['deptID'], 1, 1))
 									echo '<input type="checkbox" name="alterContactDepartment[]" class="radioInput" value="' . ($i + 1) . '" id="' . $departments[$i]['name'] . '" /><label class="radio" for="' . $departments[$i]['name'] . '">'. $departments[$i]['name'] . '</label>';
@@ -326,6 +314,7 @@
 									<label class="contactLabel" for="alterContactPhoneOfficeHours"> Telefonische Sprechzeiten</label> <input type="text" id="alterContactPhoneOfficeHours" name="alterContactPhoneOfficeHours" value="'. utf8_encode($alterContact[0]['phone_office_hours']).'" /><br />
 									<input type="hidden" name="contactID" value="' . $alterContact[0]['contactID'] . ' " />
 									<input type="hidden" name="deptID" value="' . $alterContact[0]['deptID'] . '" />
+									<br /><br /> Mit * gekennzeichnete Felder sind Pflichtangaben
 									<input type="submit" name="alterOneContactSubmit" value="Daten ändern" id="alterContactBtn" class="submit"/>
 									</fieldset>
 							';
@@ -335,6 +324,42 @@
 				}
 			?>
 			<!-- End alter contacts -->
+			<button id="addContactButton" onclick="showAddContact()" style="margin-bottom: 20px; margin-top: -5px;" >Neuen Kontakt hinzufügen</button>
+
+
+			<!-- List the existing data in a table and give the possibility to alter or delete it -->
+			<div id="alterContact">
+				<?php 
+				$contacts = $controller->c_getContacts();
+				if($contacts != null){
+					echo	'<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					            <tr>
+					                <th>Kontaktstelle</th>
+					                <th>Kategorie</th>
+					                <th>Fachbereich</th>
+					                <th>Bearbeiten</th>
+					                <th>Löschen</th>
+					            </tr>';
+
+						foreach ($contacts as $value) {
+						echo '<form action="" method="post">';			
+							echo '<tr>
+									<td>' . utf8_encode($value['title']) . '</td>
+									<td>' . $value['catName'] . '</td>
+									<td>' . $value['deptName'] . '</td>
+									<td> <input type="hidden" name ="contactID" value="' . $value['contactID'] . '" /> <input type="hidden" name="deptID" value="' . $value['deptID'] . '" /><input type="submit" name="alterContact" value="Daten bearbeiten" /> </td>
+									<td> <input type="submit" name="deleteContact" value="Kontakt löschen" onclick=\'return confirm("Dieser Kontakt wird unwiderruflich gelöscht.")\' /></td>
+								</tr>';
+						echo '</form>';
+						}
+				} else {
+					echo '<p>Es sind noch keine Kontakte in der Datenbank vorhanden.</p>';
+				}
+				?>
+				</table>
+			</div>
+			
+
 			<!-- Begin add contact -->
 			<div id="addContact" style="visibility : hidden; height: 0px;">
 				<fieldset class="borderfield">
@@ -391,7 +416,7 @@
 					if(($('#addContact').css('visibility') === "hidden")){
 						$('#addContact').css('visibility', 'visible');
 						$('#addContact').css('height', '100%');
-						$('#addContactButton').html('Neuen Kontakt hinzufügen - verbergen');
+						$('#addContactButton').html('Neuen Kontakt hinzufügen');
 						$('body').scrollTo('#addContact');
 					}
 					// hide it otherwise 

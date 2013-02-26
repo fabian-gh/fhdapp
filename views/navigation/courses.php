@@ -30,7 +30,7 @@
  * @param entsprechnde Icons als String (html code)
  * @return ein Studiegang als String (html code)
  */
-        function course($name,$bmt_icons)
+       private function course($name,$bmt_icons)
         {
             $str="<li data-icon='false'>
                 <a href='index.php?eis=".$_GET['eis']."&selector=".urlencode($_GET['selector'])."&course=".$name."' method='get'>
@@ -46,10 +46,17 @@
         * Berechnung bzw. Zusammenstellung der Filter-Abfrage für SQL-Datenbank
         * @return SQL - (teil-)Abfrage als String
         */
-        function calculate_filter_options()
+      private  function calculate_filter_options()
         {
+         
+           $_SESSION["stc_graduate"] = null;
+           $_SESSION["stc_dual"] = null;
+           $_SESSION["stc_teilzeit"] = null;  
+          
             // list of orientations
             $orientation_arr= array('design','ingenieur','informatik','medien','sozial','kultur','wirtschaft');
+            $arr= array('bachelor','master','teilzeit','dual');
+            
             $filter="";
             $time_checked_flag=false;
             $orientation_checked_flag=false;
@@ -65,38 +72,53 @@
                 if($_GET[0]=='bachelor')
                 {
                     if(isset($_GET[1]) && $_GET[1]=='master')
-                    {}
-                    else
-                    $graduate_filter=$graduate_filter."and e1.graduate='bachelor'";
+                    {
+                    $_SESSION["stc_graduate"]=null;
+                    }
+                    else{
+                    $graduate_filter=$graduate_filter."and graduate='bachelor'";
+                    $_SESSION["stc_graduate"]='bachelor';
+                    }
                 }
-                else if($_GET[0]=='master')
-                $graduate_filter=$graduate_filter."and e1.graduate='master'";
+                else if($_GET[0]=='master'){
+                $graduate_filter=$graduate_filter."and graduate='master'";
+                $_SESSION["stc_graduate"] = 'master';
+                }
                 
                     if($_GET[$x]=='teilzeit'){
-                    $time_filter=$time_filter."e1.time='teilzeit'";
-                    $time_checked_flag=true;}
+                    $time_filter=$time_filter."time ='teilzeit'";
+                    $time_checked_flag=true;
+                    $_SESSION["stc_teilzeit"]='teilzeit';
+                    }
                 
                 if($_GET[$x]=='dual')
                 {
                     if(isset($_GET[$x-1]))
-                        if ($_GET[$x-1]=='teilzeit')
-                        $time_filter=$time_filter."or e1.time='dual'";
+                        if ($_GET[$x-1]=='teilzeit'){
+                        $time_filter=$time_filter."or time ='dual'";
+                        $_SESSION["stc_dual"]='dual';
+                        }
                         else{
-                        $time_filter=$time_filter."e1.time='dual'";  
-                        $time_checked_flag=true;}
+                        $time_filter=$time_filter."time ='dual'";  
+                        $time_checked_flag=true;
+                        $_SESSION["stc_dual"]='dual';
+                        }
+                      
                     else{
-                    $time_filter=$time_filter."e1.time='dual'";
-                    $time_checked_flag=true;}
+                    $time_filter=$time_filter."time ='dual'";
+                    $time_checked_flag=true;
+                    $_SESSION["stc_dual"]='dual';
+                    }
                 }
                 
                     // if one of the orientations is selected
                     if (in_array($_GET[$x],$orientation_arr))
                     {
                         if($orientation_checked_flag)
-                        $orientation_filter=$orientation_filter." or e1.orientation='".$_GET[$x]."'";
+                        $orientation_filter=$orientation_filter." or orientation ='".$_GET[$x]."'";
                         else
                         {
-                        $orientation_filter=$orientation_filter." e1.orientation='".$_GET[$x]."'";
+                        $orientation_filter=$orientation_filter." orientation ='".$_GET[$x]."'";
                         $orientation_checked_flag=true;
                         }
                     }
@@ -107,10 +129,9 @@
             $filter = $graduate_filter."and (".$time_filter.")";
             else
             $filter = $graduate_filter;
-      
             if($orientation_checked_flag)
             $filter = $filter." and (".$orientation_filter.")";
-            
+      
             return $filter;
         }
 
@@ -120,46 +141,65 @@
  * Zusammenstellung der gesamten Liste als 1 Element
  * @return Liste von Studiengängen als String (html code)
  */
-        function courses_list()
+     private   function courses_list()
         {
             $b="<img style='margin-left:3px; margin-top: 5px;' src='views/studiengaenge/data/images/b.png'>";
             $m="<img style='margin-left:3px; margin-top: 5px;' src='views/studiengaenge/data/images/m.png'>";
             $t="<img style='margin-left:3px; margin-top: 5px;' src='views/studiengaenge/data/images/t.png'>";
             $d="<img style='margin-left:3px; margin-top: 5px;' src='views/studiengaenge/data/images/d.png'>";
             $dummy = "<img style='margin-left:3px; margin-top: 5px;' src='views/studiengaenge/data/images/dummy_bmt.png'>"; 
-
-            $bmt_icons="";
-
-            $filter=$this->calculate_filter_options() ;
-            $db = new db_connector;
             
+            $b_icon=$dummy;
+            $m_icon=$dummy;
+            $t_icon=$dummy;
+            $d_icon=$dummy;
+            $bmt_icons="";
+            $li="";
+            
+            $filter=$this->calculate_filter_options() ;
+            $db = new db_connector;            
             $rs = $db->all_courses($filter);
 
             $clist = new courses_list_page();
-            $li="";
+            $list = array();
             if($rs != null)
-                while($row = mysql_fetch_array($rs))
-                {
-                    if($row['grad1']=='Bachelor' || $row['grad2']=='Bachelor' )
-                    $bmt_icons=$bmt_icons.$b;   
-                    else 
-                    $bmt_icons=$bmt_icons.$dummy;
-                        if($row['grad1']=='Master' || $row['grad2']=='Master' )
-                        $bmt_icons=$bmt_icons.$m;
-                        else
-                        $bmt_icons=$bmt_icons.$dummy;    
-                            if($row['time1']=='Teilzeit' || $row['time2']=='Teilzeit')
-                            $bmt_icons=$bmt_icons.$t;
-                            else 
-                            $bmt_icons=$bmt_icons.$dummy;   
-                                if($row['time1']=='Dual' || $row['time2']=='Dual')
-                                $bmt_icons=$bmt_icons.$d;
-                                else 
-                                $bmt_icons=$bmt_icons.$dummy;
-                    
-                $li = $li.$clist->course($row[0],$bmt_icons);
-                $bmt_icons="";
+            while($row = mysql_fetch_array($rs))
+            {
+            array_push($list,$row);
+            }
+                
+            $x=0;
+            while($x < count($list))
+            {
+             
+             if($list[$x]['graduate']=='Bachelor')
+             $b_icon=$b;
+             else
+             $m_icon=$m;
+             if($list[$x]['time']=='Teilzeit')
+             $t_icon=$t;
+             if($list[$x]['time']=='Dual')
+             $d_icon=$d;
+             
+             if(isset($list[$x+1])){
+             if($list[$x]['name']!=$list[$x+1]['name']){
+             $bmt_icons = $b_icon.$m_icon.$t_icon.$d_icon;
+             $li = $li.$clist->course($list[$x]['name'],$bmt_icons);
+             
+            $bmt_icons="";
+            $b_icon=$dummy;
+            $m_icon=$dummy;
+            $t_icon=$dummy;
+            $d_icon=$dummy;
                 }
+             }
+             else
+             {
+             $bmt_icons = $b_icon.$m_icon.$t_icon.$d_icon;
+             $li = $li.$clist->course($list[$x]['name'],$bmt_icons);   
+             }
+            $x++;
+            }
             return $li;
         }
 
@@ -191,7 +231,7 @@
  * Filteroptionen (checkboxes) mit Bezeichnung und Icons
  * @return Filteroptionen als String (html code)
  */
-        function filter()
+        private function filter()
         {
             return "<div data-role='controlgroup' data-mini='true'> 
             <input type='checkbox' name='bachelor' id='bachelor' class='custom'/>

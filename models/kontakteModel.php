@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * FHD-App
+ * @copyright Fachhochschule Duesseldorf, 2013
+ * @link http://www.fh-duesseldorf.de
+ * @author Fabian Schoendorff & Sascha Bardua
+ **/
+
 class kontakteModel{
 	
 
 	/**
-	*	Inserts a new contact. Creates a tuple in "contacts" and as many as needed in "contacts_mm_departments"
+	* 	Fügt einen neuen Kontakt ein. Erzeugt ein Tupel in Kontakte und die dazugehörigen in "contacts_mm_departments"
 	*
 	*/
 	public function m_insertContact(){
@@ -44,9 +51,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Prints out a div which displays the inserted / altered contact and all its data
+	*	Gibt ein div aus, welches die eingefügten bzw. geänderten Datensätze ausgit
 	*
-	*	@param $contactID The ID of the contact which should be displayed
+	*	@param $contactID Die ID des anzuzeigenden Datensatzes
 	*/
 	public function displayChanges($contactID){
 		try{
@@ -136,10 +143,9 @@ class kontakteModel{
 	}
 
 	/**
-	* Alters the data of a contact which is resposible for multiple Departments.
-	* Changes the data for all departments.
+	* Ändert die Daten eines Kontakts, der für mehrere Fachbereiche verantwortlich ist
 	*
-	* @param $contactID The ID of the contact which should be altered
+	* @param $contactID Die ID des zu ändernden Datensatzes
 	*/
 	public function m_alterAllContacts($contactID){
 
@@ -177,10 +183,10 @@ class kontakteModel{
 	}
 
 	/**
-	* Alters the data of a contact which is resposible for only one department.
+	* Ändert die Daten eines Kontakts, der für geanu einen Fachbereich verantwortlich ist
 	*
-	*@param $contactID The ID of the contact which should be altered
-	*@param $deptID The ID of the department the selected contact is connected to
+	*@param $contactID Die ID des zu ändernden Datensatzes
+	*@param $deptID Die ID des Fachbereichs des zu ändernden Datensatzes
 	*/
 	public function m_alterContact($contactID, $deptID){
 		try{
@@ -221,9 +227,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Gets all the categories from contacts_mm_categories
+	*	Liest alle Daten aus contacts_mm_categories und übergibt diese
 	*
-	*	@return $resultSet Contains an array of arrays which contain all the information about every category
+	*	@return $resultSet Array of Array mit allen Informationen über jede Kategorie
 	*/
 	public function m_getCategories(){
 		try{
@@ -245,9 +251,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Gets all the departments from contacts_mm_departments
+	*	Liest alle Daten aus contacts_mm_departments und übergibt diese
 	*
-	*	@return $resultSet Contains an array of arrays which contain all the information about every category
+	*	@return $resultSet Array of Array mit allen Informationen über jeden Fachbereich
 	*/
 	public function m_getDepartments(){
 		try{
@@ -269,9 +275,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Gets all the contacts plus the associated names of the department(s) and category
+	*	Liest alle Kontakte inklusive derer Fachereichsnamen und Kategorie(n) aus und übergitb diese
 	*
-	*	@return $resultSet Contains an array of arrays which contain all the information about every contact
+	*	@return $resultSet Array of Array mit allen Informationen über jeden Kontakt
 	*/
 	public function m_getContacts(){
 		try{
@@ -296,8 +302,8 @@ class kontakteModel{
 	}
 
 	/**
-	*	Gets the departmentID of a specific course name
-	*	@return Returns an multi-dimensional array
+	*	Übergibt den Fachbereich zu einem dazugehörigen Studiengangsnamen
+	*	@return Multi-dimensionales Array genau einer Fachbereichs ID
 	*/
 	public function m_getDeptByCourse($courseName){
 		try{
@@ -320,9 +326,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Deletes a contact from database
-	*	@param $contactID ID of contact to delete
-	*	@param $deptID DepartmentID of contact to delete
+	*	Löscht einen Kontakt aus der Datenbank
+	*	@param $contactID Die ID des zu löschenden Datensatzes
+	*	@param $deptID Die Fachbereichs ID des zu löschenden Kontakts
 	*/
 	public function m_deleteContact($contactID, $deptID){
 			
@@ -353,9 +359,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Gets specific contact
-	*	@param $deptID DepartmentID of contact to get
-	*	@return Returns an multi-dimensional array
+	*	Übergibt einen bestimmten Kontakt
+	*	@param $deptID Die Fachbereichs ID des Kontakts
+	*	@return Multi-dimensionales Array mit Kontaktdaten
 	*/
 	public function m_getContact($contactID, $deptID){
 
@@ -379,9 +385,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	Gets the department(s) for one specific contact 
+	*	Übergibt die Fachbereiche für einen bestimmten Kontakt 
 	*
-	*	@param $contactID the ID of the specific contact
+	*	@param $contactID Die ID des Kontakts
 	*
 	*/
 	public function m_getContactDepts($contactID){
@@ -402,9 +408,9 @@ class kontakteModel{
 	}
 
 	/**
-	*	This function is called when a contact is responsible for multiple departments and the user wants to change the information of the contact for just a single department
+	* 	Diese Funktion wird aufgerufen, wenn ein Kontakt für mehrere Fachbereiche verantwortlich ist, der Benuter aber nur einen Kontakt für einen bestimmten Fachbereich ändern möchte
 	*
-	*	@param $post the complete $_POST object sent via the form
+	*	@param $post Das $_POST Objekt einer Form
 	*
 	*/
 	public function m_alterOneContact($post){

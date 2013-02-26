@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * FHD-App
+ * @copyright Fachhochschule Duesseldorf, 2013
+ * @link http://www.fh-duesseldorf.de
+ * @author Fabian Schoendorff & Sascha Bardua
+ **/
+
 class kontakteController {
 
 	public function __construct(){
@@ -9,7 +16,7 @@ class kontakteController {
 	}
 
 	/**
-	*	Transmitting the data sent by the backend_view to the model
+	*	Übermittelt einen einzufügenden Kontakt an das Model
 	*
 	*/
 	public function c_insertContact(){
@@ -18,7 +25,7 @@ class kontakteController {
 	}
 
 	/**
-	*	Calls the model to return the categories which affect the contacts section (names only)
+	*	Ruft eine Funktion im Model auf um die Kategorien zurückzugeben, die einen Datensatz betreffen
 	*	@return Array of Strings
 	*/
 	public function c_getCategories(){
@@ -26,7 +33,7 @@ class kontakteController {
 	}
 
 	/**
-	*	Calls the model and returns all the departments (names only)
+	*	Ruft eine Funktion im Model auf um die Namen aller Fachbereiche zurückzugeben
 	*	@return Array of Strings
 	*/
 	public function c_getDepartments(){
@@ -34,7 +41,7 @@ class kontakteController {
 	}
 
 	/**
-	*	Calls the model and returns all the contacts with all attributes
+	*	Ruft eine Funktion im Model auf um die Daten aller Kontakte zurückzugeben
 	*	@return Array of Strings 
 	*/
 	public function c_getContacts(){
@@ -42,7 +49,7 @@ class kontakteController {
 	}
 
 	/**
-	*	Calls the model and returns all the departmentID of a specific course name
+	*	Ruft eine Funktion im Model auf um die Fachbereichs ID eines bestimmten Kontakts zurückzugeben
 	*	@return Array of Strings 
 	*/
 	public function c_getDeptByCourse($courseName){
@@ -51,8 +58,8 @@ class kontakteController {
 	}
 
 	/**
-	*	Deletes a contact with specific id
-	*	@param $id ID of contact to delete
+	*	Löscht einen bestimmten Kontakt
+	*	@param $id ID des zu löschenden Kontakts
 	*/	
 	public function c_deleteContact($id){
 
@@ -63,8 +70,8 @@ class kontakteController {
 	}
 
 	/**
-	*	Gets contact with specific id and all its attributes
-	*	@param $id ID of contact to get
+	*	Ruft eine Funktion im Model auf um die Daten eines Kontaktes zurückzugeben
+	*	@param $id ID des Kontakts
 	*	@return Array of String
 	*/
 	public function c_getContact($id){
@@ -76,9 +83,9 @@ class kontakteController {
 	}
 
 	/**
-	*	Gets the department(s) a specific contact is allocated to
+	*   Ruft eine Funktion im Model auf um die Fachbereich eines bestimmten Kontakts zurückzugeben
 	*
-	*	@param $id $_POST object
+	*	@param $id $_POST Objekt
 	*	@return Array of Strings 
 	*/
 	public function c_getContactDepts($id){
@@ -88,8 +95,8 @@ class kontakteController {
 	}
 
 	/**
-	*	Changes departmentID of a contact with specific id
-	*	@param $id ID of contact to change
+	*	Ruft eine Funktion im Model auf um die Fachbereichs ID eines bestimmten Kontakts zu ändern
+	*	@param $id ID des zu ändernden Kontakts
 	*/
 	public function c_alterContact($id){
 		$contactID = $id['contactID'];
@@ -99,9 +106,9 @@ class kontakteController {
 	}
 
 	/**
-	*	Alters a contact associated to multiple departments. alters the contact for all departments.
+	*	Ruft eine Funktion im Model auf um einen Kontakt zu ändern, der zu mehreren Fachbereichen gehört. Ändert den Kontakt für alle Fachbereiche
 	*
-	*	@param $id $_POST object
+	*	@param $id $_POST Objekt
 	*/
 	public function c_alterAllContacts($id){
 
@@ -111,9 +118,10 @@ class kontakteController {
 	}
 
 	/**
-	* Alters a contact associated to multiple departments. Alters the contact for the selected department only.
+	*	Ruft eine Funktion im Model auf um einen Kontakt zu ändern, der zu mehreren Fachbereichen gehört. Ändert den Kontakt für einen Fachbereich
 	*
-	* @param $post $_POST object
+	*
+	* @param $post $_POST Objekt
 	*/
 	public function c_alterOneContact($post){
 

@@ -76,6 +76,10 @@
 				$post["name"] = mysql_real_escape_string($post["name"]);	//Injections ausschlieﬂen durch escape von Zeichen
 				$post["description"] = mysql_real_escape_string($post["description"]);	//Injections ausschlieﬂen durch escape von Zeichen
 				$post["link"] = mysql_real_escape_string($post["link"]);	//Injections ausschlieﬂen durch escape von Zeichen
+				$post["name"] = htmlspecialchars($post["name"]);
+				$post["description"] = strip_tags($post["description"], '<b><i>');	//erlaubt nur die Tags "<b> und <i>
+				$post["description"] = htmlspecialchars($post["description"]);
+				$post["link"] = htmlspecialchars($post["link"]);
 				//Einf¸gen der Werte in die "studicourses" Tabelle. Das Attribut 'id' ist AUTO_INCREMENT
 				$this->connection->query("INSERT INTO studycourses(language_id, name, description, department_id, semestercount, graduate_id, link) VALUES(".$post["language_id"].", '".$post["name"]."', '".$post["description"]."', ".$post["department_id"].", ".$post["semestercount"].", ".$post["graduate_id"].", '".$post["link"]."')");
 			}
@@ -295,6 +299,10 @@
 				$post["name"] = mysql_real_escape_string($post["name"]);	//Injections ausschlieﬂen durch escape von Zeichen
 				$post["description"] = mysql_real_escape_string($post["description"]);	//Injections ausschlieﬂen durch escape von Zeichen
 				$post["link"] = mysql_real_escape_string($post["link"]);	//Injections ausschlieﬂen durch escape von Zeichen
+				$post["name"] = htmlspecialchars($post["name"]);
+				$post["description"] = strip_tags($post["description"], '<b><i>');	//erlaubt nur die Tags "<b> und <i>
+				$post["description"] = htmlspecialchars($post["description"]);
+				$post["link"] = htmlspecialchars($post["link"]);
 				$this->connection->query("UPDATE studycourses
 										SET language_id = ".$post["language_id"].", 
 											name = '".$post["name"]."', 

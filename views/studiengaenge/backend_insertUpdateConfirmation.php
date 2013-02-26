@@ -110,7 +110,7 @@
 		<!-- Beschreibung des Studiengangs -->
 		<div class="singleField">
 			<div class="singleFieldDescription">Studiengangsbeschreibung: </div>
-				<div class="singleFieldValue"><?php echo $_POST["description"]; ?>
+				<div class="singleFieldValue"><?php echo strip_tags($_POST["description"], '<b><i>'); ?>
 			</div>
 		</div><div class="clear"></div>
 		

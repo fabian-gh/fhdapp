@@ -166,10 +166,10 @@ data-expanded-icon="arrow-d" data-theme="a">
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		// Initially mark active
-		$("#category_1").parent().addClass("ui-btn-active");
-	 	$("#category_2").parent().addClass("ui-btn-active");
-	});
+// 	$(document).ready(function() {
+// 		// Initially mark active
+// 		$("#category_1").parent().addClass("ui-btn-active");
+// 	 	$("#category_2").parent().addClass("ui-btn-active");
+// 	});
 	
 </script>

@@ -35,7 +35,8 @@
                             //Wenn man im Navigationspunkt "Studiengänge" ist
                             if(@$_GET["page"]=="Studiengaenge"){
                                 //Dann 2 Unterpunkte ausgeben, einmal "Einfügen" und einmal "Bearbeiten/Löschen"
-                                echo "<ul><li><a id='liInsertUpdateStudycourse' href=\"?page=Studiengaenge&action=einfuegen\">Einf&uuml;gen</a></li><li><a id='liEditDeleteStudycourse' href=\"?page=Studiengaenge&action=bearbeitenLoeschen\">Bearbeiten/L&ouml;schen</a></li></ul>";
+                                echo "<ul><li><a id='liInsertUpdateStudycourse' href=\"?page=Studiengaenge&action=einfuegen\">Einf&uuml;gen</a></li>
+                                <li><a id='liEditDeleteStudycourse' href=\"?page=Studiengaenge&action=bearbeitenLoeschen\">Bearbeiten/L&ouml;schen</a></li></ul>";
                             }
                         ?>
                         <li><a id="liEvents" href="../../views/veranstaltungen/backend_veranstaltungen.php">Veranstaltungen</a></li>

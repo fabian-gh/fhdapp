@@ -78,6 +78,8 @@
 
 .studycourseTable td{ padding: 3px 4px 3px 5px !important; }
 
+.studycourseTable tr:nth-child(even){ background: #e8e8e8; }
+
 .studycourseTable tr:hover{ background: #ffffff; }
 
 .error{ color: red; }
